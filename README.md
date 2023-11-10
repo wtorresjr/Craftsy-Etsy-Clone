@@ -1,1 +1,0 @@
-# Craftsy-Etsy-Clone
