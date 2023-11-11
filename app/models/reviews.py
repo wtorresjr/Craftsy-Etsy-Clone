@@ -12,7 +12,7 @@ class Review(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False, unique=True)
-    review = db.Column(db.String(255), nullable=False)
+    review = db.Column(db.String(255), nullable=True)
     star_rating = db.Column(db.Integer, nullable=False)
     product_id = db.Column(db.Integer, nullable=False)
 
