@@ -5,11 +5,11 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_reviewimages():
     reviewimage_1 = ReviewImage(
-        reivew_id = 1, image_url = "image.jpg")
+        review_id = 1, image_url = "image.jpg")
     reviewimage_2 = ReviewImage(
-        reivew_id = 2, image_url = "image.png")
+        review_id = 2, image_url = "image.png")
     reviewimage_3 = ReviewImage(
-        reivew_id = 3, image_url = "image.jpeg")
+        review_id = 3, image_url = "image.jpeg")
 
     db.session.add(reviewimage_1)
     db.session.add(reviewimage_2)
@@ -25,8 +25,8 @@ def seed_reviewimages():
 # it will reset the primary keys for you as well.
 def undo_reviews():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.reviewimages RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.review_images RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM reviewimages"))
+        db.session.execute(text("DELETE FROM review_images"))
 
     db.session.commit()
