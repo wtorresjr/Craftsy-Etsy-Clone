@@ -15,9 +15,9 @@ def get_product_details(product_id):
     return jsonify(data)
 
 
-@products_routes.route('/new', methods=['POST'])
+@products_routes.route('/', methods=['POST'])
 def create_new_product():
     print('Post route reached <==========================')
     form = CreateProductForm()
 
-    return jsonify(form) 
+    return 1
