@@ -5,11 +5,11 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_products():
     product_1 = Product(name="Coffee Mug", description="Personlizable coffee or tea mug. 16 ounces.",
-                        quantity=50, price=19.99, preview_image_url="https://i.fbcd.co/products/original/38ad33f004a41ea4b6211c21c1eb6658546ab25ab1d0151d418268010c967b41.jpg")
+                        quantity=50, price=19.99, preview_image_url="https://i.fbcd.co/products/original/38ad33f004a41ea4b6211c21c1eb6658546ab25ab1d0151d418268010c967b41.jpg", user_id=1)
     product_2 = Product(name="Coasters", description="Set of 6 silicone coasters. Multicolored.",
-                        quantity=35, price=12.95, preview_image_url="https://images.cults3d.com/ENA_mdelDke_7JFWug25L6g9-cs=/246x246/filters:no_upscale()/https://files.cults3d.com/uploaders/7282067/illustration-file/4e0a12f4-2cf5-4491-a31e-fc2ee8bc3e1c/CITRUS%20COASTERS.jpg")
+                        quantity=35, price=12.95, preview_image_url="https://images.cults3d.com/ENA_mdelDke_7JFWug25L6g9-cs=/246x246/filters:no_upscale()/https://files.cults3d.com/uploaders/7282067/illustration-file/4e0a12f4-2cf5-4491-a31e-fc2ee8bc3e1c/CITRUS%20COASTERS.jpg", user_id=2)
     product_3 = Product(name="Ring Dish", description="Ring and jewlery dish. Measures approximately 4 inches by 6 inches.",
-                        quantity=100, price=28.97, preview_image_url="https://guudguuds.com/wp-content/uploads/2020/12/Heart-Ring-Dish.jpg")
+                        quantity=100, price=28.97, preview_image_url="https://guudguuds.com/wp-content/uploads/2020/12/Heart-Ring-Dish.jpg", user_id=1)
 
     db.session.add(product_1)
     db.session.add(product_2)
@@ -26,7 +26,7 @@ def seed_products():
 def undo_products():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.products RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM products"))
 

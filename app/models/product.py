@@ -14,10 +14,14 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False, default=1)
     price = db.Column(db.Float, nullable=False)
     preview_image_url = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        "users.id", ondelete="CASCADE"))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = db.relationship("User", back_populates="products")
 
     def to_dict(self):
         return {
@@ -26,5 +30,6 @@ class Product(db.Model):
             'description': self.description,
             'quantity': self.quantity,
             'price': self.price,
-            'preview_image_url': self.preview_image_url
+            'preview_image_url': self.preview_image_url,
+            'user_id': self.user_id
         }
