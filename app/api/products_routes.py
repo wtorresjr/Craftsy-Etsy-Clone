@@ -7,6 +7,7 @@ products_routes = Blueprint('products', __name__)
 
 # Get All Products
 
+
 @products_routes.route('/', methods=['GET'])
 def get_all_products():
     data = {"Product": "All products route reached"}
@@ -14,6 +15,7 @@ def get_all_products():
 
 
 # Get Product By Id
+
 
 @products_routes.route('/<int:product_id>',  methods=['GET'])
 def get_product_details(product_id):
@@ -23,10 +25,12 @@ def get_product_details(product_id):
 
 # Delete Product By Id
 
+
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
 def delete_product_by_id(product_id):
     data = {"Product": f"Product {product_id} has been deleted"}
     return jsonify(data)
+
 
 # Product Reviews By Id
 
@@ -35,6 +39,7 @@ def delete_product_by_id(product_id):
 def get_reviews_by_product_id(product_id):
     data = {"Product Review": f"Product reviews for product id: {product_id}"}
     return jsonify(data)
+
 
 # Create New Product
 
@@ -45,4 +50,13 @@ def create_new_product():
     data = request.get_json()
 
     # Returning request body for testing.
+    return jsonify(data)
+
+
+# Create a Product Review by Product Id
+
+# Krystal's route ----
+@products_routes.route('/<int:product_id>/reviews', methods=['POST'])
+def create_product_review(product_id):
+    data = request.get_json()
     return jsonify(data)
