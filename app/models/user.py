@@ -18,8 +18,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     products = db.relationship("Product", back_populates="user")
-    favorite = db.relationship(
-        'Favorite', back_populates='user', cascade='all, delete-orphan')
+    #favorite = db.relationship('Favorite', back_populates='user', cascade='all, delete-orphan')
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
