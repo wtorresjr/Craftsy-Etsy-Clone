@@ -20,6 +20,9 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Favorite relationship
+    favorite = relationship('Favorite', back_populates='user', cascade='all, delete-orphan')
+
     @property
     def password(self):
         return self.hashed_password
