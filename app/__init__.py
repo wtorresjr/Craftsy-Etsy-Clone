@@ -9,6 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.products_routes import products_routes
 from .api.reviews_routes import reviews_routes
+from .api.current_user_routes import current_user_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,6 +29,7 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+app.register_blueprint(current_user_routes, url_prefix='/api/current-user')
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(products_routes, url_prefix='/api/products')

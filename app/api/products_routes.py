@@ -53,10 +53,18 @@ def create_new_product():
     return jsonify(data)
 
 
+# Krystal's routes ----
 # Create a Product Review by Product Id
 
-# Krystal's route ----
 @products_routes.route('/<int:product_id>/reviews', methods=['POST'])
 def create_product_review(product_id):
     data = request.get_json()
+    return jsonify(data)
+
+
+#Get all products created by currrent-user
+
+@products_routes.route('/current-user', methods=['GET'])
+def get_current_user_products():
+    data = {"Products": "All products belonging to current user"}
     return jsonify(data)
