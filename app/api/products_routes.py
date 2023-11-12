@@ -62,9 +62,26 @@ def create_product_review(product_id):
     return jsonify(data)
 
 
-#Get all products created by currrent-user
+# Get all products created by currrent-user
 
 @products_routes.route('/current-user', methods=['GET'])
 def get_current_user_products():
     data = {"Products": "All products belonging to current user"}
+    return jsonify(data)
+
+
+# Krystal's Code....
+# Add a Product Image
+
+@products_routes.route('/<int:product_id>/images', methods=['POST'])
+def add_product_image(product_id):
+    data = request.get_json()
+    return jsonify(data)
+
+# Delete a Product Image
+
+
+@products_routes.route('/<int:product_id>/images/<int:image_id>', methods=['DELETE'])
+def delete_product_image(product_id, image_id):
+    data = {"message": f"Successfully deleted the image #{image_id} belonging to product #{product_id}"}
     return jsonify(data)
