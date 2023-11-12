@@ -40,4 +40,6 @@ def edit_shopping_cart(cart_id, cart_items_id):
     return jsonify(data)
 
 
-#Purchase Items in 
+#Purchase Items in Cart
+
+
