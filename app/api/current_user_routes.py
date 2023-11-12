@@ -38,6 +38,8 @@ def add_to_favorites():
 
 
 # Delete a Favorite
+
+
 @current_user_routes.route('/favorites/<int:favorite_id>', methods=['DELETE'])
 def delete_a_favorite(favorite_id):
     data = {"Message": f"Successfully deleted favorite with an id of {favorite_id}"}

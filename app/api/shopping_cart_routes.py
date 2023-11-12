@@ -40,4 +40,9 @@ def edit_shopping_cart(cart_id, cart_items_id):
     return jsonify(data)
 
 
-#Purchase Items in 
+#Purchase Items in Cart
+
+@shopping_cart_routes.route('/<int:cart_id>', methods=['PUT'])
+def purchase_cart_items(cart_id):
+    data = {"Purchased Items In Cart":cart_id}
+    return jsonify(data)

@@ -53,6 +53,21 @@ def create_new_product():
     return jsonify(data)
 
 
+#Edit a Product by Id
+
+@products_routes.route('/<int:product_id>', methods=['PUT'])
+def edit_product_by_id(product_id):
+    
+    items_edited = request.get_json()
+    
+    data = {
+        "Editing Product Id": product_id,
+        "Fields Edited":items_edited
+    }
+    
+    return jsonify(data)
+
+
 # Krystal's routes ----
 # Create a Product Review by Product Id
 
