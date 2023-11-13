@@ -24,6 +24,7 @@ class Product(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     
+    ## RELATIONSHIPS
     user = db.relationship("User", back_populates="products")
     favorites = db.relationship("Favorite", back_populates="products")
     product_images = db.relationship('ProductImage', back_populates="products")
