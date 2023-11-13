@@ -22,6 +22,7 @@ class Review(db.Model, UserMixin):
 
     products = db.relationship('Product', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
+    review_images = db.relationship('ReviewImage', back_populates='reviews')
 
 
     def to_dict(self):

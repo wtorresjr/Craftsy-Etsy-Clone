@@ -6,4 +6,4 @@ from .favorite import Favorite
 from .cartitems import CartItem
 from .carts import Cart
 from .reviews import Review
-# from .review_images import ReviewImage
+from .review_images import ReviewImage

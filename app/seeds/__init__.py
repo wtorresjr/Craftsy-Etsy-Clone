@@ -6,6 +6,7 @@ from .product_images import seed_product_images, undo_product_images
 from .cartitems import seed_cartitems, undo_cartitems
 from .carts import seed_carts, undo_carts
 from .reviews import seed_reviews, undo_reviews
+from .review_images import seed_reviewimages, undo_reviewimages
 
 from app.models.db import db, environment, SCHEMA
 
@@ -29,6 +30,7 @@ def seed():
         undo_cartitems()
         undo_carts()
         undo_reviews()
+        undo_reviewimages()
     seed_users()
     seed_products()
     seed_favorites()
@@ -36,6 +38,7 @@ def seed():
     seed_cartitems()
     seed_carts()
     seed_reviews()
+    seed_reviewimages()
     # Add other seed functions here
 
 
@@ -49,4 +52,5 @@ def undo():
     undo_cartitems()
     undo_carts()
     undo_reviews()
+    undo_reviewimages()
     # Add other undo functions here
