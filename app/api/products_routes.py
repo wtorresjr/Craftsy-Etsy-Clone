@@ -60,20 +60,14 @@ def create_new_product():
 @products_routes.route('/<int:product_id>', methods=['PUT'])
 @login_required
 def edit_product_by_id(product_id):
-
     product_to_edit = Product.query.get(product_id)
 
     if not product_to_edit:
         return jsonify({"message": "Product not found."}), 404
 
-    try:
-        user = current_user.to_dict()
-    except Exception as e:
-        return jsonify({"message": "Authentication Required"}), 403
-
 # Check if logged in user is allowed to edit this product
 
-    if product_to_edit.user_id == user['id']:
+    if product_to_edit.user_id == current_user.id:
 
         user_changes = request.get_json()
 
