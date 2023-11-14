@@ -11,19 +11,18 @@ class ProductImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image_url = db.Column(db.String(255), nullable=False)
     preview = db.Column(db.Boolean, nullable=False)
-    # product_id = db.Column(db.Integer, db.ForeignKey(
-    #     "products.id", ondelete="CASCADE"))
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # product = db.relationship("Product", back_populates="product_images")
+    products = db.relationship("Product", back_populates="product_images")
 
     def to_dict(self):
         return {
             'id': self.id,
-            # 'product_id': self.product_id,
+            'product_id': self.product_id,
             'image_url': self.image_url,
             'preview': self.preview
         }

@@ -7,9 +7,9 @@ def seed_users():
     demo = User(
         username='Demo', first_name='Demo', last_name='User', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', first_name='Demo', last_name='User', email='marnie@aa.io', password='password')
+        username='marnie', first_name='marnie', last_name='lasty', email='marnie@aa.io', password='password')
     bobbie = User(
-        username='bobbie', first_name='Demo', last_name='User', email='bobbie@aa.io', password='password')
+        username='bobbie', first_name='bobbie', last_name='lasterson', email='bobbie@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
