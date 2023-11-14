@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, db
+from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db
 from app.forms.create_product_form import CreateProductForm
-from flask_login import current_user, login_user, logout_user, login_required, UserMixin
+from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -88,7 +88,6 @@ def edit_product_by_id(product_id):
         return jsonify({"message": "Forbidden"}), 403
 
 
-# Krystal's routes ----
 # Create a Product Review by Product Id
 
 @products_routes.route('/<int:product_id>/reviews', methods=['POST'])
@@ -106,8 +105,9 @@ def create_product_review(product_id):
         product_to_review = (Product.query.options(
             joinedload(Product.reviews)).get(product_id))
 
-        reviews_for_product = [review.to_dict()
-                               for review in product_to_review.reviews]
+        if product_to_review:
+            reviews_for_product = [review.to_dict()
+                                   for review in product_to_review.reviews]
 
     except Exception as e:
         return ({"message": "Product not found"}), 404
@@ -133,6 +133,7 @@ def create_product_review(product_id):
 
     return new_review.to_dict()
 
+
 # Get all products created by current-user
 
 
@@ -152,13 +153,41 @@ def get_current_user_products():
     return jsonify(products_by_user)
 
 
-# Krystal's Code....
 # Add a Product Image
 
+
 @products_routes.route('/<int:product_id>/images', methods=['POST'])
+@login_required
 def add_product_image(product_id):
-    data = request.get_json()
-    return jsonify(data)
+    product_to_add_img = Product.query.get(product_id)
+
+    if not product_to_add_img:
+        return jsonify({"message": "Product not found."})
+
+    if product_to_add_img.user_id == current_user.id:
+        requestData = request.get_json()
+
+# If image being added is preview image check for old preview image to change to false
+        if requestData.get('preview'):
+            imgs_for_product = ProductImage.query.filter_by(
+                product_id=product_id).all()
+            for image in imgs_for_product:
+                if image.preview == True:
+                    image.preview = False
+            db.session.commit()
+
+        new_image = ProductImage(
+            image_url=requestData.get('image_url'),
+            preview=requestData.get('preview'),
+            product_id=product_id
+        )
+
+        db.session.add(new_image)
+        db.session.commit()
+    else:
+        return jsonify({"message": "Forbidden"}), 403
+
+    return new_image.to_dict()
 
 
 # Delete a Product Image
