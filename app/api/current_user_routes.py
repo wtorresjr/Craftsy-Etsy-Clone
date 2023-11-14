@@ -117,6 +117,9 @@ def add_to_favorites():
 @login_required
 def delete_a_favorite(favorite_id):
     current_favorite = Favorite.query.filter_by(id=favorite_id, user_id=current_user.id).first()
+
+    if not current_favorite:
+         return {"message": "No favorite by that id was found."}, 404
     db.session.delete(current_favorite)
     db.session.commit()
 
