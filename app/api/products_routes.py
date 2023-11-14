@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, db
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_user, logout_user, login_required, UserMixin
+from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
 
@@ -61,22 +62,28 @@ def create_new_product():
 def edit_product_by_id(product_id):
 
     product_to_edit = Product.query.get(product_id)
-    
+
     if not product_to_edit:
         return jsonify({"message": "Product not found."}), 404
-    
+
     try:
         user = current_user.to_dict()
     except Exception as e:
         return jsonify({"message": "Authentication Required"}), 403
 
 # Check if logged in user is allowed to edit this product
+
     if product_to_edit.user_id == user['id']:
+
         user_changes = request.get_json()
+
         for [key, item] in user_changes.items():
             setattr(product_to_edit, key, item)
+
         db.session.commit()
+
         return product_to_edit.to_dict()
+
     else:
         return jsonify({"message": "Forbidden"}), 403
 
@@ -85,17 +92,64 @@ def edit_product_by_id(product_id):
 # Create a Product Review by Product Id
 
 @products_routes.route('/<int:product_id>/reviews', methods=['POST'])
+@login_required
 def create_product_review(product_id):
-    data = request.get_json()
-    return jsonify(data)
 
+    try:
+        current_user.id
 
-# Get all products created by currrent-user
+    except Exception as e:
+        return jsonify({"message": "Authentication Required"}), 403
+
+# Check for product...
+    try:
+        product_to_review = (Product.query.options(
+            joinedload(Product.reviews)).get(product_id))
+
+        reviews_for_product = [review.to_dict()
+                               for review in product_to_review.reviews]
+
+    except Exception as e:
+        return ({"message": "Product not found"}), 404
+
+    if product_to_review.user_id == current_user.id:
+        return jsonify({"message": "Forbidden"}), 403
+
+    for review in reviews_for_product:
+        if review["user_id"] == current_user.id:
+            return jsonify({"message": "User already has a review for this product"}), 403
+
+    requestData = request.get_json()
+
+    new_review = Review(
+        user_id=current_user.id,
+        product_id=product_id,
+        review=requestData.get('review'),
+        star_rating=requestData.get('star_rating')
+    )
+
+    db.session.add(new_review)
+    db.session.commit()
+
+    return new_review.to_dict()
+
+# Get all products created by current-user
+
 
 @products_routes.route('/current-user', methods=['GET'])
+@login_required
 def get_current_user_products():
-    data = {"Products": "All products belonging to current user"}
-    return jsonify(data)
+    user = current_user.to_dict()
+    curr_user_id = user['id']
+
+    products_by_user = Product.query.filter_by(user_id=curr_user_id).all()
+
+    if not products_by_user:
+        return jsonify({"message": "You have not created any items."})
+
+    products_by_user = [product.to_dict() for product in products_by_user]
+
+    return jsonify(products_by_user)
 
 
 # Krystal's Code....
@@ -105,6 +159,7 @@ def get_current_user_products():
 def add_product_image(product_id):
     data = request.get_json()
     return jsonify(data)
+
 
 # Delete a Product Image
 
