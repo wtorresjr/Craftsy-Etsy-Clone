@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from flask import Blueprint, jsonify, session, request, url_for, abort
+from app.models import User, db, Product, ProductImage, Review
 from app.forms.create_product_form import CreateProductForm
+from sqlalchemy import func
 
 products_routes = Blueprint('products', __name__)
 
@@ -10,8 +11,26 @@ products_routes = Blueprint('products', __name__)
 
 @products_routes.route('/', methods=['GET'])
 def get_all_products():
-    data = {"Product": "All products route reached"}
-    return jsonify(data)
+    products = Product.query.all()
+    # products_data = [product.to_dict() for product in products]
+    products_with_images = []
+
+    for product in products:
+        product_data = {
+            'id': product.id,
+            'name': product.name,
+            'description': product.description,
+            'price': product.price,
+            'preview_image_url': product.preview_image_url,
+            'user_id': product.user_id,
+            'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product.product_images]
+        }
+        products_with_images.append(product_data)
+
+    return jsonify({
+        "Products": products_with_images,
+
+    })
 
 
 # Get Product By Id
@@ -19,8 +38,32 @@ def get_all_products():
 
 @products_routes.route('/<int:product_id>',  methods=['GET'])
 def get_product_details(product_id):
-    data = {"Product": f"Product details for product id: {product_id}"}
-    return jsonify(data)
+    # product_ids = Product.query.filter(Product.id).all()
+    # print(product_ids)
+    product_info = Product.query.get(product_id)
+    number_of_reviews = len(product_info.reviews)
+    average_rating = db.session.query(func.avg(Review.star_rating)).filter(Review.product_id==product_id).scalar()
+    # print("this is the average ------------------", average_rating)
+
+    if not product_info:
+        return jsonify({"message": f"Product couldn't be found"}), 404
+
+    product_with_additional_info = {
+        'id': product_info.id,
+        'name': product_info.name,
+        'description': product_info.description,
+        'price': product_info.price,
+        'preview_image_url': product_info.preview_image_url,
+        'user_id': product_info.user_id,
+        'num_reviews': number_of_reviews,
+        'avg_star_rating': average_rating,
+        'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product_info.product_images]
+
+    }
+
+
+    return jsonify(product_with_additional_info)
+
 
 
 # Delete Product By Id
@@ -28,8 +71,14 @@ def get_product_details(product_id):
 
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
 def delete_product_by_id(product_id):
-    data = {"Product": f"Product {product_id} has been deleted"}
-    return jsonify(data)
+    product_info = Product.query.get(product_id)
+
+    if not product_info:
+        return jsonify({"message": f"Product couldn't be found"}), 404
+
+    db.session.delete(product_info)
+    db.session.commit()
+    return jsonify({"message": f"Successfully deleted"})
 
 
 # Product Reviews By Id
@@ -57,14 +106,14 @@ def create_new_product():
 
 @products_routes.route('/<int:product_id>', methods=['PUT'])
 def edit_product_by_id(product_id):
-    
+
     items_edited = request.get_json()
-    
+
     data = {
         "Editing Product Id": product_id,
         "Fields Edited":items_edited
     }
-    
+
     return jsonify(data)
 
 
