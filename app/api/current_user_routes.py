@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import (Review, User, db)
+from ..models import User, Review, Favorite, Product, ReviewImage, db
 from flask_login import login_required, current_user, LoginManager
 
 current_user_routes = Blueprint('current-user', __name__)
+
 
 
 # Get Current User Info
@@ -10,12 +11,10 @@ current_user_routes = Blueprint('current-user', __name__)
 @current_user_routes.route('/', methods=['GET'])
 @login_required
 def get_current_user_info():
-    # curr_user_info = User.query.filter_by(email=request.get_json())
-     if current_user.is_authenticated:
-        print(current_user.to_dict())
-        return current_user.to_dict()
-     else:
-         return {'user': 'null'}
+        if current_user:
+             return {"user": current_user.to_dict()}
+        else:
+             return {'user': 'null'}
 
 
 
@@ -24,45 +23,90 @@ def get_current_user_info():
 @current_user_routes.route('/reviews', methods=['GET'])
 @login_required
 def get_current_user_reviews():
-    current_user_id = current_user.id
-
-    current_user_reviews = Review.query.filter_by(user_id=current_user_id).all()
+    current_user_reviews = Review.query.filter_by(user_id=current_user.id).all()
 
     if not current_user_reviews:
-        return jsonify({"message": "You have not created any reviews."
-    })
+        return {'message': 'You have not created any reviews.'}
 
-    reviews_list = [review.to_dict() for review in current_user_reviews]
-    return jsonify(reviews_list)
+    reviews_list = []
+
+    for review in current_user_reviews:
+        review_info = {
+            "id": review.id,
+            "user_id": review.user_id,
+            "product_id": review.product_id,
+            "review": review.review,
+            "star_rating": review.star_rating,
+            "User": {
+                "id": review.user.id,
+                "first_name": review.user.first_name,
+                "last_name": review.user.last_name,
+            },
+            "Product": {
+                "id": review.products.id,
+                "name": review.products.name,
+                "description": review.products.description,
+                "price": review.products.price,
+                "preview_image_url": review.products.preview_image_url,
+                "user_id": review.products.user_id,
+            },
+        }
+        reviews_list.append(review_info)
+
+    return {"Reviews": reviews_list}
 
 
 
-## Krystals Code....
 # View Current User Favorites
-
 
 @current_user_routes.route('/favorites', methods=['GET'])
 @login_required
 def get_curr_user_favorites():
-    data = {"Favorites": "Current user favorites here"}
-    return jsonify(data)
+    current_user_favorites = Favorite.query.filter_by(user_id=current_user.id).all()
+
+    if not current_user_favorites:
+        return {'message': 'You have no saved favorites.'}
+
+    favorites_list = []
+    for favorite in current_user_favorites:
+        about_favorite = {
+            "id": favorite.id,
+            "name": favorite.products.name,
+            "price": favorite.products.price,
+            "quantity": favorite.products.quantity,
+            "preview_image_url": favorite.products.preview_image_url
+        }
+
+        favorites_list.append(about_favorite)
+
+    return {"Favorites": favorites_list}
+
 
 
 #  Add Favorite
-
 
 @current_user_routes.route('/favorites', methods=['POST'])
 @login_required
 def add_to_favorites():
     data = request.get_json()
-    return jsonify(data)
+    find_favorite = Favorite.query.filter_by(product_id=data.get('product_id'), user_id=current_user.id).first()
+    if find_favorite:
+        return jsonify({'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}), 400
+    new_favorite = Favorite(product_id=data.get('product_id'), user_id=current_user.id)
+    db.session.add(new_favorite)
+    db.session.commit()
+
+    return jsonify(new_favorite.to_dict()), 201
+
 
 
 # Delete a Favorite
 
-
 @current_user_routes.route('/favorites/<int:favorite_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(favorite_id):
-    data = {"Message": f"Successfully deleted favorite with an id of {favorite_id}"}
-    return jsonify(data)
+    current_favorite = Favorite.query.filter_by(id=favorite_id, user_id=current_user.id).first()
+    db.session.delete(current_favorite)
+    db.session.commit()
+
+    return jsonify({'message':'Successfully deleted.'})
