@@ -31,6 +31,12 @@ def get_current_user_reviews():
     reviews_list = []
 
     for review in current_user_reviews:
+
+        for image in review.review_images:
+             all_review_images = [
+                  {"id": image.id, "image_url": image.image_url}
+             ]
+
         review_info = {
             "id": review.id,
             "user_id": review.user_id,
@@ -50,6 +56,7 @@ def get_current_user_reviews():
                 "preview_image_url": review.products.preview_image_url,
                 "user_id": review.products.user_id,
             },
+            "Review_Images": all_review_images
         }
         reviews_list.append(review_info)
 
@@ -96,7 +103,7 @@ def add_to_favorites():
     db.session.add(new_favorite)
     db.session.commit()
 
-    return jsonify(new_favorite.to_dict()), 201
+    return new_favorite.to_dict(), 201
 
 
 
@@ -109,4 +116,4 @@ def delete_a_favorite(favorite_id):
     db.session.delete(current_favorite)
     db.session.commit()
 
-    return jsonify({'message':'Successfully deleted.'})
+    return {'message':'Successfully deleted.'}
