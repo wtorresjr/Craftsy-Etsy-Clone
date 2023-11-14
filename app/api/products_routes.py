@@ -186,6 +186,7 @@ def add_product_image(product_id):
 
 
 @products_routes.route('/<int:product_id>/images/<int:image_id>', methods=['DELETE'])
+@login_required
 def delete_product_image(product_id, image_id):
 
     product_to_edit = Product.query.get(product_id)
