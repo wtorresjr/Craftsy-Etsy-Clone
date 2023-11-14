@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, db
 from app.forms.create_product_form import CreateProductForm
+from flask_login import current_user, login_user, logout_user, login_required, UserMixin
 
 products_routes = Blueprint('products', __name__)
 
@@ -53,19 +54,31 @@ def create_new_product():
     return jsonify(data)
 
 
-#Edit a Product by Id
+# Edit a Product by Id
 
 @products_routes.route('/<int:product_id>', methods=['PUT'])
+@login_required
 def edit_product_by_id(product_id):
+
+    product_to_edit = Product.query.get(product_id)
     
-    items_edited = request.get_json()
+    if not product_to_edit:
+        return jsonify({"message": "Product not found."}), 404
     
-    data = {
-        "Editing Product Id": product_id,
-        "Fields Edited":items_edited
-    }
-    
-    return jsonify(data)
+    try:
+        user = current_user.to_dict()
+    except Exception as e:
+        return jsonify({"message": "Authentication Required"}), 403
+
+# Check if logged in user is allowed to edit this product
+    if product_to_edit.user_id == user['id']:
+        user_changes = request.get_json()
+        for [key, item] in user_changes.items():
+            setattr(product_to_edit, key, item)
+        db.session.commit()
+        return product_to_edit.to_dict()
+    else:
+        return jsonify({"message": "Forbidden"}), 403
 
 
 # Krystal's routes ----
