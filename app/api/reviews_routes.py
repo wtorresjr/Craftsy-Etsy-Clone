@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from ..models import Review, db
+from ..models import Review, ReviewImage, db
 
 reviews_routes = Blueprint('reviews', __name__)
 
@@ -25,8 +25,16 @@ def edit_review_by_id(review_id):
 
 @reviews_routes.route('/<int:review_id>', methods=['DELETE'])
 def delete_review_by_id(review_id):
-    data = {"Product Reviews": f"Deleted product review by review id: {review_id}"}
-    return jsonify(data)
+    current_review = Review.query.get(review_id)
+
+    if current_review:
+        ReviewImage.query.filter_by(review_id = review_id).delete()
+
+        db.session.delete(current_review)
+        db.session.commit()
+        return jsonify({"message": "Successfully deleted"})
+    else:
+        return jsonify({"message": "Review couldn't be found"})
 
 
 # Add A Review Image
