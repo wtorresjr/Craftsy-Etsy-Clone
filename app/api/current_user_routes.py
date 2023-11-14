@@ -74,6 +74,10 @@ def get_curr_user_favorites():
     if not current_user_favorites:
         return {'message': 'You have no saved favorites.'}
 
+    for favorite in current_user_favorites:
+        if favorite.products.quantity == 0:
+             return {'message':'Sorry this item is sold out'}
+
     favorites_list = []
     for favorite in current_user_favorites:
         about_favorite = {
