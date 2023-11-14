@@ -12,7 +12,7 @@ reviews_routes = Blueprint('reviews', __name__)
 def edit_review_by_id(review_id):
   current_review = Review.query.get(review_id)
   if not current_review:
-    return jsonify({"message" : "review does not exist"}, 404)
+    return jsonify({"message" : "review does not exist"}), 404
   elif current_user.id == current_review.user_id:
     data = request.get_json()
     current_review.review = data.get('review')
@@ -22,7 +22,7 @@ def edit_review_by_id(review_id):
 
     return current_review.to_dict()
   else:
-    return jsonify({"message":"current user does not own this review"}, 403)
+    return jsonify({"message":"current user does not own this review"}), 403
 
 
 # Delete a Review By Review Id
@@ -34,16 +34,16 @@ def delete_review_by_id(review_id):
   current_review = Review.query.get(review_id)
 
   if not current_review:
-    return jsonify({"message": "Review couldn't be found"}, 404)
+    return jsonify({"message": "Review couldn't be found"}), 404
   elif current_user.id == current_review.user_id:
     ReviewImage.query.filter_by(review_id = review_id).delete()
 
     db.session.delete(current_review)
     db.session.commit()
 
-    return jsonify({"message": "Successfully deleted"}, 200)
+    return jsonify({"message": "Successfully deleted"}), 200
   else:
-    return jsonify({"message": "current user does not own this review"}, 403)
+    return jsonify({"message": "current user does not own this review"}), 403
 
 
 # Add A Review Image
@@ -57,7 +57,7 @@ def add_review_image(review_id):
   current_review = Review.query.get(review_id)
 
   if not current_review:
-     return jsonify({"message": "Review couldn't be found"}, 404)
+     return jsonify({"message": "Review couldn't be found"}), 404
   elif current_user.id == current_review.user_id:
      new_image = ReviewImage(review_id = review_id, image_url = data.get("image_url"))
 
@@ -66,7 +66,7 @@ def add_review_image(review_id):
 
      return new_image.to_dict()
   else:
-    return jsonify({"message": "current user does not own this review"}, 403)
+    return jsonify({"message": "current user does not own this review"}), 403
 
 
 # Delete A Review Image
@@ -78,12 +78,12 @@ def delete_review_image(review_id, image_id):
   current_review = Review.query.get(review_id)
   current_image = ReviewImage.query.get(image_id)
   if not current_review:
-    return jsonify({"message": "Review couldn't be found"}, 404)
+    return jsonify({"message": "Review couldn't be found"}), 404
   elif not current_image:
-    return jsonify({"message": "No review image by that id."}, 404)
+    return jsonify({"message": "No review image by that id."}), 404
   elif current_user.id == current_review.user_id:
     db.session.delete(current_image)
     db.session.commit()
-    return jsonify({"message": "Review image deleted successfully."}, 200)
+    return jsonify({"message": "Review image deleted successfully."}), 200
   else:
-    return jsonify({"message": "current user does not own this review"}, 403)
+    return jsonify({"message": "current user does not own this review"}), 403
