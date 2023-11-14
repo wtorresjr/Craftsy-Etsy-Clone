@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, session, request, url_for, abort
 from app.models import User, db, Product, ProductImage, Review
 from app.forms.create_product_form import CreateProductForm
+from flask_login import current_user
 from sqlalchemy import func
+from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
 
@@ -42,7 +44,8 @@ def get_product_details(product_id):
     # print(product_ids)
     product_info = Product.query.get(product_id)
     number_of_reviews = len(product_info.reviews)
-    average_rating = db.session.query(func.avg(Review.star_rating)).filter(Review.product_id==product_id).scalar()
+    average_rating = db.session.query(func.avg(Review.star_rating)).filter(
+        Review.product_id == product_id).scalar()
     # print("this is the average ------------------", average_rating)
 
     if not product_info:
@@ -61,9 +64,7 @@ def get_product_details(product_id):
 
     }
 
-
     return jsonify(product_with_additional_info)
-
 
 
 # Delete Product By Id
@@ -76,9 +77,12 @@ def delete_product_by_id(product_id):
     if not product_info:
         return jsonify({"message": f"Product couldn't be found"}), 404
 
-    db.session.delete(product_info)
-    db.session.commit()
-    return jsonify({"message": f"Successfully deleted"})
+    if product_info.user_id == current_user.id:
+        db.session.delete(product_info)
+        db.session.commit()
+        return jsonify({"message": f"Successfully deleted"}), 200
+    else:
+        return jsonify({"message": "Forbidden"}), 403
 
 
 # Product Reviews By Id
@@ -86,8 +90,25 @@ def delete_product_by_id(product_id):
 
 @products_routes.route('/<int:product_id>/reviews', methods=['GET'])
 def get_reviews_by_product_id(product_id):
-    data = {"Product Review": f"Product reviews for product id: {product_id}"}
-    return jsonify(data)
+
+    reviews_for_product = (
+        Review.query
+        .filter_by(product_id=product_id)
+        .options(joinedload(Review.user))
+        .all()
+    )
+
+    reviews = []
+    for review in reviews_for_product:
+        review_info = review.to_dict()
+        review_info["User"] = {
+            "id": review.user.id,
+            "firstName": review.user.first_name,
+            "lastName": review.user.last_name
+        }
+        reviews.append(review_info)
+
+    return jsonify({"Reviews": reviews})
 
 
 # Create New Product
@@ -102,7 +123,7 @@ def create_new_product():
     return jsonify(data)
 
 
-#Edit a Product by Id
+# Edit a Product by Id
 
 @products_routes.route('/<int:product_id>', methods=['PUT'])
 def edit_product_by_id(product_id):
@@ -111,7 +132,7 @@ def edit_product_by_id(product_id):
 
     data = {
         "Editing Product Id": product_id,
-        "Fields Edited":items_edited
+        "Fields Edited": items_edited
     }
 
     return jsonify(data)
