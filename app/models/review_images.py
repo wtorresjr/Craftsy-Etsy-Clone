@@ -8,7 +8,7 @@ class ReviewImage(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     review_id = db.Column(db.Integer, db.ForeignKey('reviews.id'), nullable=False)
     image_url = db.Column(db.String, nullable=False)
 
