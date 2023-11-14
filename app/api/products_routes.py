@@ -94,13 +94,7 @@ def edit_product_by_id(product_id):
 @login_required
 def create_product_review(product_id):
 
-    try:
-        current_user.id
-
-    except Exception as e:
-        return jsonify({"message": "Authentication Required"}), 403
-
-# Check for product...
+    # Check for product...
     try:
         product_to_review = (Product.query.options(
             joinedload(Product.reviews)).get(product_id))
@@ -140,10 +134,8 @@ def create_product_review(product_id):
 @products_routes.route('/current-user', methods=['GET'])
 @login_required
 def get_current_user_products():
-    user = current_user.to_dict()
-    curr_user_id = user['id']
 
-    products_by_user = Product.query.filter_by(user_id=curr_user_id).all()
+    products_by_user = Product.query.filter_by(user_id=current_user.id).all()
 
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})
@@ -187,7 +179,7 @@ def add_product_image(product_id):
     else:
         return jsonify({"message": "Forbidden"}), 403
 
-    return new_image.to_dict()
+    return new_image.to_dict(), 201
 
 
 # Delete a Product Image
@@ -195,5 +187,17 @@ def add_product_image(product_id):
 
 @products_routes.route('/<int:product_id>/images/<int:image_id>', methods=['DELETE'])
 def delete_product_image(product_id, image_id):
-    data = {"message": f"Successfully deleted the image #{image_id} belonging to product #{product_id}"}
-    return jsonify(data)
+
+    product_to_edit = Product.query.get(product_id)
+    product_imgs = product_to_edit.product_images
+
+    if product_to_edit.user_id == current_user.id:
+        for image in product_imgs:
+            if image.id == image_id:
+                db.session.delete(image)
+                db.session.commit()
+                return jsonify({"message": "Product image deleted successfully."}), 200
+
+        return ({"message": "No image by that id."}), 404
+    else:
+        return ({"message": "Forbidden"}), 403
