@@ -98,7 +98,7 @@ def add_to_favorites():
     data = request.get_json()
     find_favorite = Favorite.query.filter_by(product_id=data.get('product_id'), user_id=current_user.id).first()
     if find_favorite:
-        return jsonify({'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}), 400
+        return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
     new_favorite = Favorite(product_id=data.get('product_id'), user_id=current_user.id)
     db.session.add(new_favorite)
     db.session.commit()
