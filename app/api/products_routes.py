@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, session, request, url_for, abort
-from app.models import User, db, Product, ProductImage, Review
+from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db, Product, ProductImage, Review
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
 from sqlalchemy import func
+from sqlalchemy.orm import joinedload
+from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -153,47 +155,141 @@ def create_new_product():
 # Edit a Product by Id
 
 @products_routes.route('/<int:product_id>', methods=['PUT'])
+@login_required
 def edit_product_by_id(product_id):
+    product_to_edit = Product.query.get(product_id)
 
-    items_edited = request.get_json()
+    if not product_to_edit:
+        return jsonify({"message": "Product not found."}), 404
 
-    data = {
-        "Editing Product Id": product_id,
-        "Fields Edited": items_edited
-    }
+# Check if logged in user is allowed to edit this product
 
-    return jsonify(data)
+    if product_to_edit.user_id == current_user.id:
+
+        user_changes = request.get_json()
+
+        for [key, item] in user_changes.items():
+            setattr(product_to_edit, key, item)
+
+        db.session.commit()
+
+        return product_to_edit.to_dict()
+
+    else:
+        return jsonify({"message": "Forbidden"}), 403
 
 
-# Krystal's routes ----
 # Create a Product Review by Product Id
 
 @products_routes.route('/<int:product_id>/reviews', methods=['POST'])
+@login_required
 def create_product_review(product_id):
-    data = request.get_json()
-    return jsonify(data)
+
+    # Check for product...
+    try:
+        product_to_review = (Product.query.options(
+            joinedload(Product.reviews)).get(product_id))
+
+        if product_to_review:
+            reviews_for_product = [review.to_dict()
+                                   for review in product_to_review.reviews]
+
+    except Exception as e:
+        return ({"message": "Product not found"}), 404
+
+    if product_to_review.user_id == current_user.id:
+        return jsonify({"message": "Forbidden"}), 403
+
+    for review in reviews_for_product:
+        if review["user_id"] == current_user.id:
+            return jsonify({"message": "User already has a review for this product"}), 403
+
+    requestData = request.get_json()
+
+    new_review = Review(
+        user_id=current_user.id,
+        product_id=product_id,
+        review=requestData.get('review'),
+        star_rating=requestData.get('star_rating')
+    )
+
+    db.session.add(new_review)
+    db.session.commit()
+
+    return new_review.to_dict()
 
 
-# Get all products created by currrent-user
+# Get all products created by current-user
+
 
 @products_routes.route('/current-user', methods=['GET'])
+@login_required
 def get_current_user_products():
-    data = {"Products": "All products belonging to current user"}
-    return jsonify(data)
+
+    products_by_user = Product.query.filter_by(user_id=current_user.id).all()
+
+    if not products_by_user:
+        return jsonify({"message": "You have not created any items."})
+
+    products_by_user = [product.to_dict() for product in products_by_user]
+
+    return jsonify(products_by_user)
 
 
-# Krystal's Code....
 # Add a Product Image
 
+
 @products_routes.route('/<int:product_id>/images', methods=['POST'])
+@login_required
 def add_product_image(product_id):
-    data = request.get_json()
-    return jsonify(data)
+    product_to_add_img = Product.query.get(product_id)
+
+    if not product_to_add_img:
+        return jsonify({"message": "Product not found."})
+
+    if product_to_add_img.user_id == current_user.id:
+        requestData = request.get_json()
+
+# If image being added is preview image check for old preview image to change to false
+        if requestData.get('preview'):
+            imgs_for_product = ProductImage.query.filter_by(
+                product_id=product_id).all()
+            for image in imgs_for_product:
+                if image.preview == True:
+                    image.preview = False
+            db.session.commit()
+
+        new_image = ProductImage(
+            image_url=requestData.get('image_url'),
+            preview=requestData.get('preview'),
+            product_id=product_id
+        )
+
+        db.session.add(new_image)
+        db.session.commit()
+    else:
+        return jsonify({"message": "Forbidden"}), 403
+
+    return new_image.to_dict(), 201
+
 
 # Delete a Product Image
 
 
 @products_routes.route('/<int:product_id>/images/<int:image_id>', methods=['DELETE'])
+@login_required
 def delete_product_image(product_id, image_id):
-    data = {"message": f"Successfully deleted the image #{image_id} belonging to product #{product_id}"}
-    return jsonify(data)
+
+    product_to_edit = Product.query.get(product_id)
+    product_imgs = product_to_edit.product_images
+
+    if product_to_edit.user_id == current_user.id:
+        for image in product_imgs:
+            if image.id == image_id:
+                db.session.delete(image)
+                db.session.commit()
+                return jsonify({"message": "Product image deleted successfully."}), 200
+
+        return ({"message": "No image by that id."}), 404
+    else:
+        return ({"message": "Forbidden"}), 403
