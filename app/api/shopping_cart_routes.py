@@ -40,7 +40,6 @@ def get_shopping_cart(cart_id):
                     "name": product.name,
                     "price": product.price,
                     "quantity": item.quantity,
-                    # "preview_image_url": product.preview_image_url
                     "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview == True]
                 }
                 cart_items_data.append(cart_item_data)
