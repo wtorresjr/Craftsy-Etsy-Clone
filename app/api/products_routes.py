@@ -47,6 +47,10 @@ def get_product_details(product_id):
     average_rating = db.session.query(func.avg(Review.star_rating)).filter(
         Review.product_id == product_id).scalar()
     # print("this is the average ------------------", average_rating)
+    print("------------------------", product_info.user.to_dict())
+    seller = product_info.user.to_dict()
+
+    print("------------------------", seller)
 
     if not product_info:
         return jsonify({"message": f"Product couldn't be found"}), 404
@@ -60,8 +64,8 @@ def get_product_details(product_id):
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
-        'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product_info.product_images]
-
+        'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product_info.product_images],
+        'Seller': {'id': seller['id'], 'first_name': seller['firstName'], 'last_name': seller['lastName'], 'email': seller['email']}
     }
 
     return jsonify(product_with_additional_info)
