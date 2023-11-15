@@ -3,7 +3,6 @@ from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, C
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
 from sqlalchemy import func
-from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
