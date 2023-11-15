@@ -35,20 +35,22 @@ def get_shopping_cart(cart_id):
             product = Product.query.get(item.product_id)
             # Create our response data format
             if product:
-                    cart_item_data = {
-                        "id": item.id,
-                        "name": product.name,
-                        "price": product.price,
-                        "quantity": item.quantity,
-                        "preview_image_url": product.preview_image_url
-                    }
-                    cart_items_data.append(cart_item_data)
+                cart_item_data = {
+                    "id": item.id,
+                    "name": product.name,
+                    "price": product.price,
+                    "quantity": item.quantity,
+                    # "preview_image_url": product.preview_image_url
+                    "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview == True]
+                }
+                cart_items_data.append(cart_item_data)
 
         return jsonify({"Cart": cart_items_data})
     else:
         return jsonify({"Message": "No items in the cart."})
 
 # Add to Shopping Cart for Current User
+
 
 @shopping_cart_routes.route('/<int:cart_id>', methods=['POST'])
 @login_required
@@ -79,14 +81,16 @@ def add_item_to_cart(cart_id):
         return jsonify({"error": "Product not found."}), 404
 
     # Check if the product already exists in the user's cart
-    cart_item = CartItem.query.filter_by(cart_id=cart_id, product_id=product_id).first()
+    cart_item = CartItem.query.filter_by(
+        cart_id=cart_id, product_id=product_id).first()
 
     if cart_item:
         # If the product exists, update the quantity
         cart_item.quantity += quantity
     else:
         # If the product does not exist, create a new cart item
-        cart_item = CartItem(product_id=product_id, cart_id=cart_id, quantity=quantity)
+        cart_item = CartItem(product_id=product_id,
+                             cart_id=cart_id, quantity=quantity)
         db.session.add(cart_item)
 
     # Commit the changes to the database
@@ -124,6 +128,7 @@ def remove_item_from_cart(cart_id, cart_items_id):
 
 # Edit Cart Quantity
 
+
 @shopping_cart_routes.route('/<int:cart_id>/cart_items/<int:cart_items_id>', methods=['PUT'])
 @login_required
 def edit_shopping_cart(cart_id, cart_items_id):
@@ -157,7 +162,8 @@ def edit_shopping_cart(cart_id, cart_items_id):
 
     return jsonify({"message": "Item successfully updated."}), 200
 
-#Purchase Items in Cart
+# Purchase Items in Cart
+
 
 @shopping_cart_routes.route('/<int:cart_id>', methods=['PUT'])
 @login_required
@@ -194,7 +200,8 @@ def purchase_cart_items(cart_id):
             return jsonify({"error": "Invalid item data."}), 400
 
         # Check if the cart item exists
-        cart_item = CartItem.query.filter_by(cart_id=cart_id, product_id=product_id).first()
+        cart_item = CartItem.query.filter_by(
+            cart_id=cart_id, product_id=product_id).first()
         if not cart_item:
             return jsonify({"error": f"Cart item {product_id} not found."}), 404
 
