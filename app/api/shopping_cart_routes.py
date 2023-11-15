@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from ..models.cartitems import CartItem
 from ..models.product import Product
 from ..models.carts import Cart
@@ -11,6 +11,7 @@ shopping_cart_routes = Blueprint('cart', __name__)
 # Get Shopping Cart for Current User
 
 @shopping_cart_routes.route('/<int:cart_id>', methods=['GET'])
+@login_required
 def get_shopping_cart(cart_id):
     # Get user ID
     user_id = int(current_user.get_id())
@@ -50,6 +51,7 @@ def get_shopping_cart(cart_id):
 # Add to Shopping Cart for Current User
 
 @shopping_cart_routes.route('/<int:cart_id>', methods=['POST'])
+@login_required
 def add_item_to_cart(cart_id):
     # Get user ID
     user_id = int(current_user.get_id())
@@ -95,6 +97,7 @@ def add_item_to_cart(cart_id):
 # Delete from cart
 
 @shopping_cart_routes.route('/<int:cart_id>/cart_items/<int:cart_items_id>', methods=['DELETE'])
+@login_required
 def remove_item_from_cart(cart_id, cart_items_id):
     # Get user ID
     user_id = int(current_user.get_id())
@@ -122,6 +125,7 @@ def remove_item_from_cart(cart_id, cart_items_id):
 # Edit Cart Quantity
 
 @shopping_cart_routes.route('/<int:cart_id>/cart_items/<int:cart_items_id>', methods=['PUT'])
+@login_required
 def edit_shopping_cart(cart_id, cart_items_id):
     # Get user ID
     user_id = int(current_user.get_id())
@@ -156,6 +160,7 @@ def edit_shopping_cart(cart_id, cart_items_id):
 #Purchase Items in Cart
 
 @shopping_cart_routes.route('/<int:cart_id>', methods=['PUT'])
+@login_required
 def purchase_cart_items(cart_id):
     # Get user ID
     user_id = int(current_user.get_id())
