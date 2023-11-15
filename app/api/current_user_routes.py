@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from ..models import User, Review, Favorite, Product, ReviewImage, db
 from flask_login import login_required, current_user, LoginManager
 
+
 current_user_routes = Blueprint('current-user', __name__)
 
 
@@ -14,7 +15,7 @@ def get_current_user_info():
         if current_user:
              return {"user": current_user.to_dict()}
         else:
-             return {'user': 'null'}
+            return {'user': 'null'},
 
 
 
@@ -24,6 +25,7 @@ def get_current_user_info():
 @login_required
 def get_current_user_reviews():
     current_user_reviews = Review.query.filter_by(user_id=current_user.id).all()
+
 
     if not current_user_reviews:
         return {'message': 'You have not created any reviews.'}
@@ -113,8 +115,9 @@ def add_to_favorites():
 def delete_a_favorite(favorite_id):
     current_favorite = Favorite.query.filter_by(id=favorite_id, user_id=current_user.id).first()
 
-    if not current_favorite:
-         return {"message": "No favorite by that id was found."}, 404
+    if not current_user.id == current_favorite.user_id:
+        return { "message": "Forbidden"}, 403
+
     db.session.delete(current_favorite)
     db.session.commit()
 
