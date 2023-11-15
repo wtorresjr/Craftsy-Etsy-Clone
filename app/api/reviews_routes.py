@@ -57,14 +57,17 @@ def add_review_image(review_id):
   current_review = Review.query.get(review_id)
 
   if not current_review:
-     return jsonify({"message": "Review couldn't be found"}), 404
+    return jsonify({"message": "Review couldn't be found"}), 404
   elif current_user.id == current_review.user_id:
-     new_image = ReviewImage(review_id = review_id, image_url = data.get("image_url"))
+    validation_check = data.get("image_url")
+    if not (validation_check[-4:] == '.jpg' or validation_check[-4:] == '.png' or validation_check[-5:] == '.jpeg'):
+      return jsonify({"message": "Images must be .jpg, .jpeg, or .png format."}), 400
+    new_image = ReviewImage(review_id = review_id, image_url = data.get("image_url"))
 
-     db.session.add(new_image)
-     db.session.commit()
+    db.session.add(new_image)
+    db.session.commit()
 
-     return new_image.to_dict()
+    return new_image.to_dict()
   else:
     return jsonify({"message": "current user does not own this review"}), 403
 
