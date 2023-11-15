@@ -132,8 +132,18 @@ def create_new_product():
 
     data = request.get_json()
 
+    new_product = Product(
+        name=data.get('name'),
+        description=data.get('description'),
+        price=data.get('price'),
+        user_id=current_user.id
+    )
+
+    db.session.add(new_product)
+    db.session.commit()
+
     # Returning request body for testing.
-    return jsonify(data)
+    return jsonify(new_product.to_dict())
 
 
 # Edit a Product by Id
