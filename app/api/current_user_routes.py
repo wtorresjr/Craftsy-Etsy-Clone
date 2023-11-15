@@ -32,11 +32,6 @@ def get_current_user_reviews():
 
     for review in current_user_reviews:
 
-        for image in review.review_images:
-             all_review_images = [
-                  {"id": image.id, "image_url": image.image_url}
-             ]
-
         review_info = {
             "id": review.id,
             "user_id": review.user_id,
@@ -56,7 +51,7 @@ def get_current_user_reviews():
                 "preview_image_url": review.products.preview_image_url,
                 "user_id": review.products.user_id,
             },
-            "Review_Images": all_review_images
+            "Review_Images": [{'id': image.id, 'image_url': image.image_url} for image in review.review_images]
         }
         reviews_list.append(review_info)
 
@@ -76,7 +71,7 @@ def get_curr_user_favorites():
 
     for favorite in current_user_favorites:
         if favorite.products.quantity == 0:
-             return {'message':'Sorry this item is sold out'}
+             return {'message':'Sorry, this item is sold out'}
 
     favorites_list = []
     for favorite in current_user_favorites:
