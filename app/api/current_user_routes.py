@@ -19,19 +19,17 @@ def get_current_user_info():
 
 
 
-# Get All Current Users Reviews
+# Get All Current User Reviews
 
 @current_user_routes.route('/reviews', methods=['GET'])
 @login_required
 def get_current_user_reviews():
     current_user_reviews = Review.query.filter_by(user_id=current_user.id).all()
 
-
     if not current_user_reviews:
         return {'message': 'You have not created any reviews.'}
 
     reviews_list = []
-
     for review in current_user_reviews:
 
         review_info = {
@@ -50,7 +48,7 @@ def get_current_user_reviews():
                 "name": review.products.name,
                 "description": review.products.description,
                 "price": review.products.price,
-                "preview_image_url": review.products.preview_image_url,
+                "preview_image_url": [product_img.image_url for product_img in review.products.product_images if product_img.preview == True],
                 "user_id": review.products.user_id,
             },
             "Review_Images": [{'id': image.id, 'image_url': image.image_url} for image in review.review_images]
@@ -82,7 +80,7 @@ def get_curr_user_favorites():
             "name": favorite.products.name,
             "price": favorite.products.price,
             "quantity": favorite.products.quantity,
-            "preview_image_url": favorite.products.preview_image_url
+            "preview_image_url": [product_img.image_url for product_img in favorite.products.product_images if product_img.preview == True],
         }
 
         favorites_list.append(about_favorite)
@@ -113,12 +111,15 @@ def add_to_favorites():
 @current_user_routes.route('/favorites/<int:favorite_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(favorite_id):
-    current_favorite = Favorite.query.filter_by(id=favorite_id, user_id=current_user.id).first()
+    current_favorite = Favorite.query.filter_by(id=favorite_id).first()
 
-    if not current_user.id == current_favorite.user_id:
-        return { "message": "Forbidden"}, 403
+    if not current_favorite:
+        return {'message': 'No favorite by that id was found.'}, 404
 
-    db.session.delete(current_favorite)
-    db.session.commit()
+    if current_user.id == current_favorite.user_id:
+        db.session.delete(current_favorite)
+        db.session.commit()
+        return {'message':'Successfully deleted.'}
 
-    return {'message':'Successfully deleted.'}
+    else:
+        return {'message': 'Forbidden'}, 403
