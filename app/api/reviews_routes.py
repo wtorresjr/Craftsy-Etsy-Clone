@@ -15,8 +15,24 @@ def edit_review_by_id(review_id):
     return jsonify({"message" : "review does not exist"}), 404
   elif current_user.id == current_review.user_id:
     data = request.get_json()
-    current_review.review = data.get('review')
-    current_review.star_rating = data.get('stars')
+
+    #validations
+    stars = data.get('stars')
+    updated_review_string = data.get('review')
+    if not (stars == 1 or stars == 2 or stars == 3 or stars == 4 or stars == 5):
+      return jsonify({"message": "Bad Request",
+        "errors": {
+        "star_rating": "Stars must be an integer from 1 to 5"
+        }}), 400
+
+    if updated_review_string == "":
+      return jsonify({"message": "Bad Request",
+        "errors": {
+        "review": "Review text is required"
+        }}), 400
+
+    current_review.review = updated_review_string
+    current_review.star_rating = stars
 
     db.session.commit()
 
