@@ -3,7 +3,6 @@ from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, C
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
 from sqlalchemy import func
-from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -24,7 +23,7 @@ def get_all_products():
             'name': product.name,
             'description': product.description,
             'price': product.price,
-            'preview_image_url': product.preview_image_url,
+            'preview_image_url': [product_img.image_url for product_img in product.product_images if product_img.preview == True],
             'user_id': product.user_id,
             'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product.product_images]
         }
@@ -61,7 +60,7 @@ def get_product_details(product_id):
         'name': product_info.name,
         'description': product_info.description,
         'price': product_info.price,
-        'preview_image_url': product_info.preview_image_url,
+        'preview_image_url': [product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
@@ -141,14 +140,26 @@ def create_new_product():
         name=data.get('name'),
         description=data.get('description'),
         price=data.get('price'),
+        quantity=data.get('quantity'),
         user_id=current_user.id
     )
 
     db.session.add(new_product)
     db.session.commit()
 
-    # Returning request body for testing.
-    return jsonify(new_product.to_dict())
+    newPreviewImage = ProductImage(
+        product_id=new_product.id,
+        image_url=data.get('preview_image_url'),
+        preview=True
+    )
+
+    db.session.add(newPreviewImage)
+    db.session.commit()
+
+    product_with_img = new_product.to_dict()
+    product_with_img["preview_image_url"] = data.get('preview_image_url')
+
+    return jsonify(product_with_img)
 
 
 # Edit a Product by Id
@@ -220,7 +231,6 @@ def create_product_review(product_id):
 
 # Get all products created by current-user
 
-
 @products_routes.route('/current-user', methods=['GET'])
 @login_required
 def get_current_user_products():
@@ -230,9 +240,18 @@ def get_current_user_products():
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})
 
-    products_by_user = [product.to_dict() for product in products_by_user]
+    products_final = []
 
-    return jsonify(products_by_user)
+    for product in products_by_user:
+        product_info = product.to_dict()
+
+        for image in product.product_images:
+            if image.preview == True:
+                product_info['preview_image_url'] = image.image_url
+
+        products_final.append(product_info)
+
+    return jsonify(products_final)
 
 
 # Add a Product Image
