@@ -91,22 +91,30 @@ def delete_product_by_id(product_id):
 @products_routes.route('/<int:product_id>/reviews', methods=['GET'])
 def get_reviews_by_product_id(product_id):
 
-    reviews_for_product = (
-        Review.query
-        .filter_by(product_id=product_id)
-        .options(joinedload(Review.user))
-        .all()
-    )
+    product = Product.query.get(product_id)
 
     reviews = []
-    for review in reviews_for_product:
-        review_info = review.to_dict()
-        review_info["User"] = {
-            "id": review.user.id,
-            "firstName": review.user.first_name,
-            "lastName": review.user.last_name
-        }
-        reviews.append(review_info)
+    for review in product.reviews:
+
+        for review_img in review.review_images:
+            curr_review_imgs = [{
+                "id": review_img.id,
+                "image": review_img.image_url
+            }]
+
+        reviews.append({
+            "id": review.id,
+            "user_id": review.user_id,
+            "product_id": review.product_id,
+            "review": review.review,
+            "star_rating": review.star_rating,
+            "User": {
+                "id": review.user.id,
+                "firstName": review.user.first_name,
+                "lastName": review.user.last_name
+            },
+            "ReviewImages": curr_review_imgs
+        })
 
     return jsonify({"Reviews": reviews})
 
