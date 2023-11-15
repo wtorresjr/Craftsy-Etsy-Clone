@@ -24,7 +24,7 @@ def get_all_products():
             'name': product.name,
             'description': product.description,
             'price': product.price,
-            'preview_image_url': product.preview_image_url,
+            'preview_image_url': [product_img.image_url for product_img in product.product_images if product_img.preview == True],
             'user_id': product.user_id,
             'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product.product_images]
         }
@@ -61,7 +61,7 @@ def get_product_details(product_id):
         'name': product_info.name,
         'description': product_info.description,
         'price': product_info.price,
-        'preview_image_url': product_info.preview_image_url,
+        'preview_image_url': [product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
@@ -220,7 +220,7 @@ def create_product_review(product_id):
 
 # Get all products created by current-user
 
-
+# Update to use product image from product_images table
 @products_routes.route('/current-user', methods=['GET'])
 @login_required
 def get_current_user_products():
@@ -229,6 +229,13 @@ def get_current_user_products():
 
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})
+
+
+    for product in products_by_user:
+        for image in product.product_images:
+            if image.preview == True:
+               setattr( product,"preview_image_url", image.image_url)
+
 
     products_by_user = [product.to_dict() for product in products_by_user]
 
