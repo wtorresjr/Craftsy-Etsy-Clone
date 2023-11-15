@@ -220,7 +220,6 @@ def create_product_review(product_id):
 
 # Get all products created by current-user
 
-# Update to use product image from product_images table
 @products_routes.route('/current-user', methods=['GET'])
 @login_required
 def get_current_user_products():
@@ -230,16 +229,18 @@ def get_current_user_products():
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})
 
+    products_final = []
 
     for product in products_by_user:
+        product_info = product.to_dict()
+
         for image in product.product_images:
             if image.preview == True:
-               setattr( product,"preview_image_url", image.image_url)
+                product_info['preview_image_url'] = image.image_url
 
+        products_final.append(product_info)
 
-    products_by_user = [product.to_dict() for product in products_by_user]
-
-    return jsonify(products_by_user)
+    return jsonify(products_final)
 
 
 # Add a Product Image
