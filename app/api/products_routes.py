@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request, url_for, abort
 from app.models import User, db, Product, ProductImage, Review
 from app.forms.create_product_form import CreateProductForm
-from flask_login import current_user
+from flask_login import current_user, login_required
 from sqlalchemy import func
 from sqlalchemy.orm import joinedload
 
@@ -71,6 +71,7 @@ def get_product_details(product_id):
 
 
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
+@login_required
 def delete_product_by_id(product_id):
     product_info = Product.query.get(product_id)
 
@@ -92,6 +93,9 @@ def delete_product_by_id(product_id):
 def get_reviews_by_product_id(product_id):
 
     product = Product.query.get(product_id)
+
+    if not product:
+        return jsonify({"message": "Product not found."}), 404
 
     reviews = []
     for review in product.reviews:
@@ -116,13 +120,14 @@ def get_reviews_by_product_id(product_id):
             "ReviewImages": curr_review_imgs
         })
 
-    return jsonify({"Reviews": reviews})
+    return jsonify({"Reviews": reviews}), 200
 
 
 # Create New Product
 
 
 @products_routes.route('/', methods=['POST'])
+@login_required
 def create_new_product():
 
     data = request.get_json()
