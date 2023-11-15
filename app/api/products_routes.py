@@ -3,7 +3,6 @@ from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, C
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
 from sqlalchemy import func
-from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -141,14 +140,26 @@ def create_new_product():
         name=data.get('name'),
         description=data.get('description'),
         price=data.get('price'),
+        quantity=data.get('quantity'),
         user_id=current_user.id
     )
 
     db.session.add(new_product)
     db.session.commit()
 
-    # Returning request body for testing.
-    return jsonify(new_product.to_dict())
+    newPreviewImage = ProductImage(
+        product_id=new_product.id,
+        image_url=data.get('preview_image_url'),
+        preview=True
+    )
+
+    db.session.add(newPreviewImage)
+    db.session.commit()
+
+    product_with_img = new_product.to_dict()
+    product_with_img["preview_image_url"] = data.get('preview_image_url')
+
+    return jsonify(product_with_img)
 
 
 # Edit a Product by Id
