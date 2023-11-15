@@ -15,6 +15,12 @@ def seed_product_images():
         product_id=2, image_url="https://files.cults3d.com/uploaders/2141422/illustration-file/fc486606-adeb-4c97-a67e-52a0db92d048/citrus_slice_5.jpg", preview=False)
     product_image_6 = ProductImage(
         product_id=3, image_url="https://141271756.cdn6.editmysite.com/uploads/1/4/1/2/141271756/s688317355234392558_p10_i2_w1460.jpeg", preview=False)
+    product_image_7 = ProductImage(
+        product_id=2, image_url="https://141271756.cdn6.editmysite.com/uploads/1/4/1/2/141271756/s688317355234392558_p10_i2_w1460.jpeg", preview=True)
+    product_image_8 = ProductImage(
+        product_id=1, image_url="https://141271756.cdn6.editmysite.com/uploads/1/4/1/2/141271756/s688317355234392558_p10_i2_w1460.jpeg", preview=True)
+    product_image_9 = ProductImage(
+        product_id=3, image_url="https://141271756.cdn6.editmysite.com/uploads/1/4/1/2/141271756/s688317355234392558_p10_i2_w1460.jpeg", preview=True)
 
     db.session.add(product_image_1)
     db.session.add(product_image_2)
@@ -22,6 +28,9 @@ def seed_product_images():
     db.session.add(product_image_4)
     db.session.add(product_image_5)
     db.session.add(product_image_6)
+    db.session.add(product_image_7)
+    db.session.add(product_image_8)
+    db.session.add(product_image_9)
     db.session.commit()
 
 
