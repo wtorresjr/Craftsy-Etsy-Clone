@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request, url_for, abort
-from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db, Product, ProductImage, Review
+from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
 from sqlalchemy import func
