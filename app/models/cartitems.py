@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
 
+
 class CartItem(db.Model):
     __tablename__ = 'cartitems'
 
@@ -15,18 +16,17 @@ class CartItem(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-
-    ## RELATIONSHIPS
+    # RELATIONSHIPS
     products = db.relationship("Product", back_populates='cartitems')
     carts = db.relationship("Cart", back_populates='cartitems')
 
-
     def to_dict(self):
-      return {
-        'id': self.id,
-        'product_id': self.product_id,
-        'cart_id': self.cart_id,
-        'quantity': self.quantity
-      }
+        return {
+            'id': self.id,
+            'product_id': self.product_id,
+            'cart_id': self.cart_id,
+            'quantity': self.quantity
+        }
