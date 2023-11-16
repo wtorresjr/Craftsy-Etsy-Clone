@@ -7,19 +7,19 @@ class CartItem(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     cart_id = db.Column(db.Integer,db.ForeignKey('carts.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    
+
+
     ## RELATIONSHIPS
     products = db.relationship("Product", back_populates='cartitems')
     carts = db.relationship("Cart", back_populates='cartitems')
-  
+
 
     def to_dict(self):
       return {
