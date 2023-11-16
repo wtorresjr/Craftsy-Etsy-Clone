@@ -15,7 +15,7 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False, default=1)
     price = db.Column(db.Float, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('craftsy_schema.users.id'))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
