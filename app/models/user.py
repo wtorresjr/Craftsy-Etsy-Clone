@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     first_name = db.Column(db.String(15), nullable=False)
     last_name = db.Column(db.String(15), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     favorites = db.relationship("Favorite", back_populates="user")
     carts = db.relationship('Cart', back_populates='user')
     reviews = db.relationship('Review', back_populates='user')
-    
+
     @property
     def password(self):
         return self.hashed_password
