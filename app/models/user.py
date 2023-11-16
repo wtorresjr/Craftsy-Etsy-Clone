@@ -22,11 +22,11 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    products = db.relationship("Product", back_populates="user")
-    favorites = db.relationship("Favorite", back_populates="user")
-    carts = db.relationship('Cart', back_populates='user')
-    reviews = db.relationship('Review', back_populates='user')
-    
+    products = db.relationship("Product", back_populates="users")
+    favorites = db.relationship("Favorite", back_populates="users")
+    carts = db.relationship('Cart', back_populates='users')
+    reviews = db.relationship('Review', back_populates='users')
+
     @property
     def password(self):
         return self.hashed_password
