@@ -8,7 +8,7 @@ class Product(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
@@ -25,7 +25,7 @@ class Product(db.Model):
 
 
     ## RELATIONSHIPS
-    users = db.relationship("User", back_populates="products")
+    user = db.relationship("User", back_populates="products")
     favorites = db.relationship("Favorite", back_populates="products")
     product_images = db.relationship('ProductImage', back_populates="products")
     cartitems = db.relationship('CartItem', back_populates="products")

@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     first_name = db.Column(db.String(15), nullable=False)
     last_name = db.Column(db.String(15), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -22,10 +22,10 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    products = db.relationship("Product", back_populates="users")
-    favorites = db.relationship("Favorite", back_populates="users")
-    carts = db.relationship('Cart', back_populates='users')
-    reviews = db.relationship('Review', back_populates='users')
+    products = db.relationship("Product", back_populates="user")
+    favorites = db.relationship("Favorite", back_populates="user")
+    carts = db.relationship('Cart', back_populates='user')
+    reviews = db.relationship('Review', back_populates='user')
 
     @property
     def password(self):
