@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
+from .user import User
 
 
 class Product(db.Model):
@@ -16,7 +17,7 @@ class Product(db.Model):
     # preview_image_url = db.Column(db.String(255), nullable=False, default="http://")
 
     user_id = db.Column(db.Integer, db.ForeignKey(
-        "users.id"))
+        'users.id'))
 
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
