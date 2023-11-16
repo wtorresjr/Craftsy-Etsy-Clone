@@ -16,7 +16,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     # preview_image_url = db.Column(db.String(255), nullable=False, default="http://")
 
-    user_id = db.Column(db.Integer, db.ForeignKey(db.Column('users.id')))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
