@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
+from .db import add_prefix_for_prod
 
 class Favorite(db.Model):
   __tablename__ = 'favorites'
@@ -12,8 +13,9 @@ class Favorite(db.Model):
   id = db.Column(db.Integer, autoincrement=True, primary_key = True)
 
   product_id = db.Column(
-      db.Integer, db.ForeignKey('craftsy_schema.products.id'))
-  user_id = db.Column(db.Integer, db.ForeignKey('craftsy_schema.users.id'))
+      db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')))
+  user_id = db.Column(db.Integer, db.ForeignKey(
+      add_prefix_for_prod('users.id')))
 
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

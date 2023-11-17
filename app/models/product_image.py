@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
-
+from .db import add_prefix_for_prod
 
 class ProductImage(db.Model):
     __tablename__ = "product_images"
@@ -12,7 +12,7 @@ class ProductImage(db.Model):
     image_url = db.Column(db.String(255), nullable=False)
     preview = db.Column(db.Boolean, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(
-        "craftsy_schema.products.id"))
+        add_prefix_for_prod('products.id')))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(

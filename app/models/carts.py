@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from flask_login import UserMixin
 from datetime import datetime
+from .db import add_prefix_for_prod
 
 
 class Cart(db.Model, UserMixin):
@@ -11,7 +12,7 @@ class Cart(db.Model, UserMixin):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'craftsy_schema.users.id'), nullable=False)
+        add_prefix_for_prod('users.id')), nullable=False)
     transaction_complete = db.Column(db.Boolean, nullable=False)
 
 
