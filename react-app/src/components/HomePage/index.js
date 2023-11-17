@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProducts } from "../../store/products";
+// import { NavLink } from 'react-router-dom';
+import { getAllProducts } from "../../store/products";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -10,6 +12,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getUserProducts);
+    dispatch(getAllProducts);
   });
 
   return (
