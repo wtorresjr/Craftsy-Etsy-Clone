@@ -14,23 +14,19 @@ class Product(db.Model):
     description = db.Column(db.String(255), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
     price = db.Column(db.Float, nullable=False)
-    # preview_image_url = db.Column(db.String(255), nullable=False, default="http://")
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
+    user_id = db.Column(db.Integer, db.ForeignKey('craftsy_schema.users.id'))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-
-    ## RELATIONSHIPS
+    # RELATIONSHIPS
     user = db.relationship("User", back_populates="products")
     favorites = db.relationship("Favorite", back_populates="products")
     product_images = db.relationship('ProductImage', back_populates="products")
     cartitems = db.relationship('CartItem', back_populates="products")
     reviews = db.relationship('Review', back_populates='products')
-
 
     def to_dict(self):
         return {
@@ -39,6 +35,5 @@ class Product(db.Model):
             'description': self.description,
             'quantity': self.quantity,
             'price': self.price,
-            # 'preview_image_url': self.preview_image_url,
             'user_id': self.user_id
         }

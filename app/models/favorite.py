@@ -11,9 +11,9 @@ class Favorite(db.Model):
 
   id = db.Column(db.Integer, autoincrement=True, primary_key = True)
 
-
-  product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+  product_id = db.Column(
+      db.Integer, db.ForeignKey('craftsy_schema.products.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('craftsy_schema.users.id'))
 
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

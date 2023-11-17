@@ -21,11 +21,11 @@ def get_shopping_cart(cart_id):
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
     if not cart:
-        return jsonify({"error": "Cart not found."}), 404
+        return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
     if cart_id != user_id:
-        return jsonify({"Message": "Forbidden."}), 403
+        return jsonify({"message": "Forbidden."}), 403
 
     # Proceed with going through the list of items found in cart
     if cart_items:
@@ -64,20 +64,20 @@ def add_item_to_cart(cart_id):
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
     if not cart:
-        return jsonify({"error": "Cart not found."}), 404
+        return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
     if cart_id != user_id:
-        return jsonify({"Message": "Forbidden."}), 403
+        return jsonify({"message": "Forbidden."}), 403
 
    # Validate required fields
     if not (product_id and quantity):
-        return jsonify({"error": "Missing required fields."}), 400
+        return jsonify({"message": "Missing required fields."}), 400
 
     # Search for product & validate it's existence
     product = Product.query.get(product_id)
     if not product:
-        return jsonify({"error": "Product not found."}), 404
+        return jsonify({"message": "Product not found."}), 404
 
     # Check if the product already exists in the user's cart
     cart_item = CartItem.query.filter_by(
@@ -108,11 +108,11 @@ def remove_item_from_cart(cart_id, cart_items_id):
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
     if not cart:
-        return jsonify({"error": "Cart not found."}), 404
+        return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
     if cart_id != user_id:
-        return jsonify({"Message": "Forbidden."}), 403
+        return jsonify({"message": "Forbidden."}), 403
 
     # Check if the cart item exists
     cart_item = CartItem.query.get(cart_items_id)
@@ -140,11 +140,11 @@ def edit_shopping_cart(cart_id, cart_items_id):
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
     if not cart:
-        return jsonify({"error": "Cart not found."}), 404
+        return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
     if cart_id != user_id:
-        return jsonify({"Message": "Forbidden."}), 403
+        return jsonify({"message": "Forbidden."}), 403
 
     # Check if the cart item exists
     cart_item = CartItem.query.get(cart_items_id)
@@ -153,7 +153,7 @@ def edit_shopping_cart(cart_id, cart_items_id):
 
     # Validate the quantity field
     if new_quantity is None or not isinstance(new_quantity, int) or new_quantity <= 0:
-        return jsonify({"error": "Invalid quantity value."}), 400
+        return jsonify({"message": "Invalid quantity value."}), 400
 
     # Update the quantity of the cart item
     cart_item.quantity = new_quantity
@@ -176,15 +176,15 @@ def purchase_cart_items(cart_id):
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
     if not cart:
-        return jsonify({"error": "Cart not found."}), 404
+        return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
     if cart_id != user_id:
-        return jsonify({"Message": "Forbidden."}), 403
+        return jsonify({"message": "Forbidden."}), 403
 
     # Validate user response data
     if not cart_data or not isinstance(cart_data, list):
-        return jsonify({"error": "Invalid request body."}), 400
+        return jsonify({"message": "Invalid request body."}), 400
 
     # List to store the IDs of purchased items for deletion
     purchased_item_ids = []
@@ -196,13 +196,13 @@ def purchase_cart_items(cart_id):
 
         # Validate the fields
         if not (product_id and isinstance(product_id, int)):
-            return jsonify({"error": "Invalid item data."}), 400
+            return jsonify({"message": "Invalid item data."}), 400
 
         # Check if the cart item exists
         cart_item = CartItem.query.filter_by(
             cart_id=cart_id, product_id=product_id).first()
         if not cart_item:
-            return jsonify({"error": f"Cart item {product_id} not found."}), 404
+            return jsonify({"message": f"Cart item {product_id} not found."}), 404
 
         # Add the cart item ID to the list for deletion if purchased is true
         if purchased:
