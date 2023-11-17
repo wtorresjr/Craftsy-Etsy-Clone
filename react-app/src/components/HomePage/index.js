@@ -9,15 +9,17 @@ const HomePage = () => {
   const userCreatedProducts = useSelector(
     (state) => state?.products?.userCreatedProducts
   );
+  const sessionUser = useSelector((state) => state?.session?.user);
 
   useEffect(() => {
-    dispatch(getUserProducts);
-    dispatch(getAllProducts);
-  });
+    dispatch(getUserProducts());
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   return (
     <>
       <h1>Home Page (Products page)</h1>
+      {/* {sessionUser?.email} */}
     </>
   );
 };
