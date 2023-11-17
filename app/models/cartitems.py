@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
+from .db import add_prefix_for_prod
 
 
 class CartItem(db.Model):
@@ -10,9 +11,9 @@ class CartItem(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey(
-        'craftsy_schema.products.id'), nullable=False)
+        add_prefix_for_prod('products.id')), nullable=False)
     cart_id = db.Column(db.Integer, db.ForeignKey(
-        'craftsy_schema.carts.id'), nullable=False)
+        add_prefix_for_prod('carts.id')), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
