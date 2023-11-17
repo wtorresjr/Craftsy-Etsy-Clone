@@ -1,6 +1,6 @@
-const VIEW = "session/VIEW_FAVORITE";
-const ADD = "session/ADD_FAVORITE";
-const REMOVE = "session/REMOVE_FAVORITE";
+const VIEW = "favorites/VIEW_FAVORITE";
+const ADD = "favorites/ADD_FAVORITE";
+const REMOVE = "favorites/REMOVE_FAVORITE";
 
 
 //Actions:
@@ -37,7 +37,7 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
             throw new Error(`There was an error in loading your favorites list: ${response.status}`)
         }
         const favorites = await response.json();
-        dispatch(viewFavorites(favorites));
+        await dispatch(viewFavorites(favorites));
         return response;
     }
     catch(error) {
