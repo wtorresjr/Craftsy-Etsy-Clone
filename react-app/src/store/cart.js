@@ -20,8 +20,8 @@ const deleteCartItem = (item) => ({
 const initialState = {}
 
 
-export const getCart = (cartId) => async (dispatch) => {
-    const response = await fetch(`/api/cart/${+cartId}`);
+export const getCart = () => async (dispatch) => {
+    const response = await fetch(`/api/cart`);
 
     if (response.ok) {
         const cartItems = await response.json();

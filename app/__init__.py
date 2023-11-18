@@ -35,7 +35,7 @@ def unauthenicated():
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
-app.register_blueprint(shopping_cart_routes, url_prefix='/api/cart/')
+app.register_blueprint(shopping_cart_routes, url_prefix='/api/cart')
 app.register_blueprint(current_user_routes, url_prefix='/api/current-user/')
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
