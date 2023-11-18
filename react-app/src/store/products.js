@@ -1,6 +1,8 @@
-const GET_ALL_PRODUCTS = "products/GET_PRODUCTS";
+const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS";
 // const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 // const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
+const CREATE_PRODUCT = "products/CREATE_PRODUCT"
+const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS"
 
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
@@ -33,6 +35,16 @@ const addProductImage = (productImage) => {
 //   payload: productId,
 // };
 // };
+
+const addProduct = (productData) => ({
+  type: CREATE_PRODUCT,
+  productData
+})
+
+const allProductReviews = (reviews) => ({
+  type: GET_PRODUCT_REVIEWS,
+  reviews
+})
 
 const getProductsByUser = (userProducts) => {
   return {
@@ -84,7 +96,23 @@ export const getAllProducts = () => async (dispatch) => {
 
 //Get Product Reviews By Product ID
 
+
 //Create A New Product
+export const addNewProduct = (productData) => async (dispatch) => {
+  const response = await fetch('/api/products', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(productData)
+  })
+
+  if (response.ok) {
+    const newProduct = await response.json()
+    dispatch(addProduct(newProduct))
+    return newProduct
+  }
+}
 
 //Edit a Product
 
@@ -107,7 +135,16 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
   }
 };
 
-//Create a Product Review By Product ID
+//Get Product Reviews By Product ID
+export const getAllProductReviews = (productId) => async (dispatch) => {
+  const response = await fetch(`/api/products/${productId}/reviews`)
+
+  if (response.ok) {
+    const reviews = await response.json()
+    dispatch(allProductReviews(reviews))
+    return reviews
+  }
+}
 
 //Get All Products Created By Current User
 
@@ -186,6 +223,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         userCreated: [...state.userCreated, ...newProducts],
       };
+    case CREATE_PRODUCT:
+      return { ...state, [action.productData.id]: action.productData }
+    case GET_PRODUCT_REVIEWS:
+      let productReviewState = {}
+      action.reviews.forEach(review => productReviewState[review.id] = review)
+      return productReviewState
     default:
       return state;
   }
