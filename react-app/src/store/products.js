@@ -200,41 +200,66 @@ export const addNewProductImage =
 //Delete A Product Image
 
 const initialState = {
-  // products:{}
-  allProducts: {},
+  allProducts: [],
   newImageAdded: [],
   productEdit: {},
-  userCreated: [],
+  allUserCreated: [],
   removedProduct: [],
 };
 
 export default function reducer(state = initialState, action) {
+  let newState = {};
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return { ...state, ...state.allProducts, ...action.payload };
+      if (action.payload.Products) {
+        const productsById = {};
+        action.payload.Products.forEach((productFound) => {
+          productsById[productFound.id] = productFound;
+        });
+        newState = {
+          allProducts: action.payload.Products,
+          allProductsById: productsById,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
+
     case ADD_PRODUCT_IMAGE:
-      return {
-        ...state,
-        newImageAdded: [...state.newImageAdded, action.payload],
-      };
+      if (action.payload.New_Image_Added) {
+        newState = {
+          newImageAdded: action.payload.New_Image_Added,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
+
     case EDIT_PRODUCT:
       return { ...state, ...state.productEdit, ...action.payload };
     case GET_PRODUCTS_BY_USER:
-      return {
-        ...state,
-        userCreated: [state.userCreated, ...action.payload],
-      };
+      if (action.payload.User_Products) {
+        const userProductsById = {};
+        action.payload.User_Products.forEach((userProduct) => {
+          userProductsById[userProduct.id] = userProduct;
+        });
+        newState = {
+          allUserCreated: action.payload.User_Products,
+          userCreatedById: userProductsById,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
     case CREATE_PRODUCT:
       return { ...state, [action.productData.id]: action.productData };
     case REMOVE_PRODUCT:
-      // let newState = { ...state };
-      // delete newState[action.payload];
-      // return newState;
       return {
-        ...state,
-        removedProduct: [...state.removedProduct, action.payload],
+        removedProduct: [state.removedProduct, action.payload],
       };
-    // return state;
     default:
       return state;
   }
