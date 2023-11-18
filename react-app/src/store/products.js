@@ -43,7 +43,7 @@ const getProductsByUser = (userProducts) => {
 // Get all Products
 export const getAllProducts = () => async (dispatch) => {
   try {
-    const response = await fetch("/api/products", {
+    const response = await fetch("/api/products/", {
       method: "GET",
     });
     if (response.ok) {

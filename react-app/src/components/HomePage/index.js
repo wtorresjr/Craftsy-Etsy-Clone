@@ -6,10 +6,9 @@ import { getAllProducts } from "../../store/products";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const userCreatedProducts = useSelector(
-    (state) => state?.products?.userCreatedProducts
-  );
-  const sessionUser = useSelector((state) => state?.session?.user);
+  // const userCreatedProducts = useSelector(
+  //   (state) => state?.products?.userCreatedProducts
+  // );
 
   useEffect(() => {
     dispatch(getUserProducts());
