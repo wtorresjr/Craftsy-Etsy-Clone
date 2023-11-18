@@ -201,17 +201,32 @@ export const addNewProductImage =
 
 const initialState = {
   // products:{}
-  allProducts: {},
+  allProducts: [],
   newImageAdded: [],
   productEdit: {},
-  userCreated: [],
+  // userCreated: [],
   removedProduct: [],
 };
 
 export default function reducer(state = initialState, action) {
+  let newState = {};
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return { ...state, ...state.allProducts, ...action.payload };
+      if (action.payload.allFoundProducts) {
+        const productsById = {};
+        action.payload.allFoundProducts.forEach((productFound) => {
+          productsById[productFound.id] = productFound;
+        });
+        newState = {
+          allProducts: action.payload.allFoundProducts,
+          productsById,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
+
     case ADD_PRODUCT_IMAGE:
       return {
         ...state,
@@ -220,21 +235,25 @@ export default function reducer(state = initialState, action) {
     case EDIT_PRODUCT:
       return { ...state, ...state.productEdit, ...action.payload };
     case GET_PRODUCTS_BY_USER:
-      return {
-        ...state,
-        userCreated: [state.userCreated, ...action.payload],
-      };
+      if (action.payload.userProducts) {
+        const userProductsById = {};
+        action.payload.userProducts.forEach((userProduct) => {
+          userProductsById[userProduct.id] = userProduct;
+        });
+        newState = {
+          userCreated: action.payload.userProducts,
+          userProductsById,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
     case CREATE_PRODUCT:
       return { ...state, [action.productData.id]: action.productData };
     case REMOVE_PRODUCT:
-      // let newState = { ...state };
-      // delete newState[action.payload];
-      // return newState;
-      return {
-        ...state,
-        removedProduct: [...state.removedProduct, action.payload],
-      };
-    // return state;
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }

@@ -14,9 +14,9 @@ const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
   const userCreatedProducts = useSelector(
-    (state) => state?.products?.userCreated
+    (state) => state?.products?.Products?.userCreated
   );
-  const allProducts = useSelector((state) => state?.products?.Products);
+  const allProducts = useSelector((state) => state?.products.Products);
 
   const addNewImage = () => {
     console.log("New Image Button Clicked");
@@ -55,7 +55,7 @@ const HomePage = () => {
   };
 
   const handleDeleteProduct = () => {
-    dispatch(deleteProduct(11));
+    dispatch(deleteProduct(3));
     setRefresh((prev) => !prev);
   };
   useEffect(() => {
@@ -70,20 +70,20 @@ const HomePage = () => {
       <button onClick={editProduct}>Edit A Product</button>
       <button onClick={handleCreateProduct}>Create A New Product</button>
       <button onClick={handleDeleteProduct}>Delete A Product</button>
-
+{/* 
       {userCreatedProducts && userCreatedProducts.length > 0 ? (
         userCreatedProducts.map((product, index) => (
           <div key={index}>
-            <p>{product.id}</p>
-            <p>{product.name}</p>
-            <p>{product.description}</p>
+            <p>{product?.id}</p>
+            <p>{product?.name}</p>
+            <p>{product?.description}</p>
           </div>
         ))
       ) : (
         <p>No Products Loaded</p>
-      )}
+      )} */}
 
-      {/* {allProducts && allProducts.length > 0 ? (
+      {allProducts && allProducts.length > 0 ? (
         allProducts.map((product, index) => (
           <div key={index}>
             <p>ID{product.id}</p>
@@ -93,7 +93,7 @@ const HomePage = () => {
         ))
       ) : (
         <p>No Products Loaded</p>
-      )} */}
+      )}
     </>
   );
 };
