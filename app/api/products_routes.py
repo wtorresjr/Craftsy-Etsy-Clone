@@ -250,7 +250,7 @@ def get_current_user_products():
 
         products_final.append(product_info)
 
-    return jsonify(products_final)
+    return jsonify({"User_Products": products_final})
 
 
 # Add a Product Image

@@ -204,7 +204,7 @@ const initialState = {
   allProducts: [],
   newImageAdded: [],
   productEdit: {},
-  // userCreated: [],
+  allUserCreated: [],
   removedProduct: [],
 };
 
@@ -212,14 +212,14 @@ export default function reducer(state = initialState, action) {
   let newState = {};
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      if (action.payload.allFoundProducts) {
+      if (action.payload.Products) {
         const productsById = {};
-        action.payload.allFoundProducts.forEach((productFound) => {
+        action.payload.Products.forEach((productFound) => {
           productsById[productFound.id] = productFound;
         });
         newState = {
-          allProducts: action.payload.allFoundProducts,
-          productsById,
+          allProducts: action.payload.Products,
+          allProductsById: productsById,
         };
         return newState;
       } else {
@@ -235,14 +235,14 @@ export default function reducer(state = initialState, action) {
     case EDIT_PRODUCT:
       return { ...state, ...state.productEdit, ...action.payload };
     case GET_PRODUCTS_BY_USER:
-      if (action.payload.userProducts) {
+      if (action.payload.User_Products) {
         const userProductsById = {};
-        action.payload.userProducts.forEach((userProduct) => {
+        action.payload.User_Products.forEach((userProduct) => {
           userProductsById[userProduct.id] = userProduct;
         });
         newState = {
-          userCreated: action.payload.userProducts,
-          userProductsById,
+          allUserCreated: action.payload.User_Products,
+          userCreatedById: userProductsById,
         };
         return newState;
       } else {
@@ -252,8 +252,9 @@ export default function reducer(state = initialState, action) {
     case CREATE_PRODUCT:
       return { ...state, [action.productData.id]: action.productData };
     case REMOVE_PRODUCT:
-      delete newState[action.payload];
-      return newState;
+      return {
+        removedProduct: [state.removedProduct, action.payload],
+      };
     default:
       return state;
   }
