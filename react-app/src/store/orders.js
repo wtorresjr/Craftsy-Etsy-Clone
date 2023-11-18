@@ -7,7 +7,7 @@ const loadOrders = (orders) => ({
 });
 
 
-const initialState = {}
+const initialState = {allOrders: [], byId: {}};
 
 
 export const getOrders = () => async (dispatch) => {
@@ -15,19 +15,7 @@ export const getOrders = () => async (dispatch) => {
         const response = await fetch(`/api/cart/orders`);
         if (response.ok) {
             const cartItems = await response.json();
-            const ordersObject = cartItems.Orders.reduce((acc, order) => {
-                // Transform each order.items array into an object with a specific key
-                const itemsObject = order.items.reduce((itemsAcc, item) => {
-                    itemsAcc[item.id] = item;
-                    return itemsAcc;
-                }, {});
-
-                // Assign the items object to the order using the cart_id as the key
-                acc[order.cart_id] = { ...order, items: itemsObject };
-
-                return acc;
-            }, {});
-            dispatch(loadOrders(ordersObject));
+            dispatch(loadOrders(cartItems));
 
             return cartItems;
         }
@@ -42,9 +30,21 @@ const orderReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ORDERS:
             if (action.payload.Orders) {
-                action.payload.orders.map((order) => {
-                    newState[order.cart_id] = order
+                const byId = {}
+                action.payload.Orders.forEach((order) => {
+
+                    const itemsObject = order.items.reduce((acc, item) => {
+                        acc[item.id] = item;
+                        return acc;
+                    }, {});
+
+                    byId[order.cart_id] = { ...order, items: itemsObject };
                 })
+
+                newState = {
+                    allOrders: action.payload.Orders,
+                    byId: byId
+                };
                 return newState;
             }
             else {
