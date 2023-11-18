@@ -200,7 +200,6 @@ export const addNewProductImage =
 //Delete A Product Image
 
 const initialState = {
-  // products:{}
   allProducts: [],
   newImageAdded: [],
   productEdit: {},
@@ -228,10 +227,16 @@ export default function reducer(state = initialState, action) {
       }
 
     case ADD_PRODUCT_IMAGE:
-      return {
-        ...state,
-        newImageAdded: [...state.newImageAdded, action.payload],
-      };
+      if (action.payload.New_Image_Added) {
+        newState = {
+          newImageAdded: action.payload.New_Image_Added,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
+
     case EDIT_PRODUCT:
       return { ...state, ...state.productEdit, ...action.payload };
     case GET_PRODUCTS_BY_USER:

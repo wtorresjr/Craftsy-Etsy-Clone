@@ -73,15 +73,12 @@ def get_product_details(product_id):
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_product_by_id(product_id):
-    print('Made it to delete product route <-----------------------')
     product_info = Product.query.get(product_id)
 
-    print(product_info, '<---------------Product Info')
     if not product_info:
         return jsonify({"message": f"Product couldn't be found"}), 404
 
     if product_info.user_id == current_user.id:
-        print('reached delete condition userid match <------------------------------')
         db.session.delete(product_info)
         db.session.commit()
         return jsonify({"message": f"Successfully deleted"}), 200
@@ -284,10 +281,12 @@ def add_product_image(product_id):
 
         db.session.add(new_image)
         db.session.commit()
+
+        image_added = new_image.to_dict()
     else:
         return jsonify({"message": "Forbidden"}), 403
 
-    return new_image.to_dict(), 201
+    return jsonify({"New_Image_Added": image_added}), 201
 
 
 # Delete a Product Image
