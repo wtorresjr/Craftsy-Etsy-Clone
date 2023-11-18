@@ -18,7 +18,7 @@ def get_shopping_cart():
     # Retrieve items in cart by url id
 
     # Search for cart & validate it's existence
-    cart = Cart.query.filter_by(user_id=user_id).first()
+    cart = Cart.query.filter_by(user_id=user_id, transaction_complete=False).first();
     if not cart:
         return jsonify({"message": "Cart not found."}), 404
 
@@ -27,6 +27,7 @@ def get_shopping_cart():
         return jsonify({"message": "Forbidden."}), 403
 
     cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
+
     # Proceed with going through the list of items found in cart
     if cart_items:
         cart_items_data = []
@@ -42,11 +43,59 @@ def get_shopping_cart():
                     "quantity": item.quantity,
                     "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview == True]
                 }
+
                 cart_items_data.append(cart_item_data)
 
         return jsonify({"Cart": cart_items_data})
     else:
         return jsonify({"Message": "No items in the cart."})
+
+
+@shopping_cart_routes.route('/orders', methods=['GET'])
+@login_required
+def get_orders():
+    # Get user ID
+    user_id = int(current_user.get_id())
+
+    # Search for orders & validate their existence
+    orders = Cart.query.filter_by(user_id=user_id, transaction_complete=True).all()
+    if not orders:
+        return jsonify({"message": "No previous orders."}), 404
+
+    # Authorization validation
+    for order in orders:
+        if order.user_id != user_id:
+            return jsonify({"message": "Forbidden."}), 403
+
+    orders_data = []
+
+    # Iterate through each order
+    for order in orders:
+        cart_items = CartItem.query.filter_by(cart_id=order.id).all()
+
+        cart_items_data = []
+        # Proceed with going through the list of items found in the order
+        for item in cart_items:
+            product = Product.query.get(item.product_id)
+            # Create our response data format
+            if product:
+                cart_item_data = {
+                    "id": item.id,
+                    "name": product.name,
+                    "price": product.price,
+                    "quantity": item.quantity,
+                    "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview == True]
+                }
+
+                cart_items_data.append(cart_item_data)
+
+        orders_data.append({
+            "cart_id": order.id,
+            "items": cart_items_data
+        })
+
+    return jsonify({"Orders": orders_data})
+
 
 # Add to Shopping Cart for Current User
 
