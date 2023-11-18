@@ -1,19 +1,18 @@
 from app.models import db, CartItem, environment, SCHEMA
 from sqlalchemy.sql import text
+from .seed_files.cartitems_seed_data import cart_items_data
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_cartitems():
-    cartitem_1 = CartItem(
-        product_id = 1, cart_id = 1, quantity = 1)
-    cartitem_2 = CartItem(
-        product_id = 1, cart_id = 2, quantity = 1)
-    cartitem_3 = CartItem(
-        product_id = 2, cart_id = 1, quantity = 1)
-
-    db.session.add(cartitem_1)
-    db.session.add(cartitem_2)
-    db.session.add(cartitem_3)
+    for cart_item in cart_items_data:
+        seed_cart_item = CartItem(
+            product_id=cart_item['product_id'],
+            cart_id=cart_item['cart_id'],
+            quantity=cart_item['quantity']
+        )
+        db.session.add(seed_cart_item)
+        
     db.session.commit()
 
 

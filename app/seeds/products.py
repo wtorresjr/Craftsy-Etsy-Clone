@@ -1,19 +1,20 @@
 from app.models import db, Product, environment, SCHEMA
 from sqlalchemy.sql import text
-
+from .seed_files.products_seed_data import products_data
 
 # Adds a demo user, you can add other users here if you want
 def seed_products():
-    product_1 = Product(name="Coffee Mug", description="Personlizable coffee or tea mug. 16 ounces.",
-                        quantity=50, price=19.99, user_id=1)
-    product_2 = Product(name="Coasters", description="Set of 6 silicone coasters. Multicolored.",
-                        quantity=35, price=12.95, user_id=2)
-    product_3 = Product(name="Ring Dish", description="Ring and jewlery dish. Measures approximately 4 inches by 6 inches.",
-                        quantity=100, price=28.97, user_id=1)
 
-    db.session.add(product_1)
-    db.session.add(product_2)
-    db.session.add(product_3)
+    for product in products_data:
+        seed_product = Product(
+            name=product['name'],
+            description=product['description'],
+            quantity=product['quantity'],
+            price=product['price'],
+            user_id=product['user_id'],
+        )
+        db.session.add(seed_product)
+        
     db.session.commit()
 
 

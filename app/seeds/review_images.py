@@ -1,19 +1,19 @@
 from app.models import db, ReviewImage, environment, SCHEMA
 from sqlalchemy.sql import text
+import random
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_reviewimages():
-    reviewimage_1 = ReviewImage(
-        review_id = 1, image_url = "image.jpg")
-    reviewimage_2 = ReviewImage(
-        review_id = 2, image_url = "image.png")
-    reviewimage_3 = ReviewImage(
-        review_id = 3, image_url = "image.jpeg")
 
-    db.session.add(reviewimage_1)
-    db.session.add(reviewimage_2)
-    db.session.add(reviewimage_3)
+    for review_id in range(1, 117):
+        for _ in range(random.randint(1,3)):
+            new_review_image = f"https://example.com/image/review-image{random.randint(1, 100)}.jpg"
+            new_review_image = ReviewImage(
+                review_id=review_id,
+                image_url=new_review_image,
+            )
+            db.session.add(new_review_image)
     db.session.commit()
 
 
