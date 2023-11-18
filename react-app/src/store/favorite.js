@@ -101,7 +101,7 @@ export default function reducer(state = initialState, action) {
                   byId[favorite.id] = favorite
                 });
                 newState = {
-                    allFavorites: action.payload.Favorites.map((favorite) => favorite.id),
+                    allFavorites: action.payload.Favorites,
                     byId: byId
                 };
                 return newState;
@@ -111,7 +111,6 @@ export default function reducer(state = initialState, action) {
                 return newState;
             }
         case ADD:
-            // newState = {...state, [action.payload.id]: action.payload}
             newState = {
                 allFavorites: [...state.allFavorites, action.payload.id],
                 byId: {...state.byId, [action.payload.id]: action.payload},
