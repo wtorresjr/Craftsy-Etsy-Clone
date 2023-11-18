@@ -12,6 +12,7 @@ const initialState = {}
 
 export const getOrders = () => async (dispatch) => {
     try {
+        const response = await fetch(`/api/cart/orders`);
         if (response.ok) {
             const cartItems = await response.json();
             const ordersObject = cartItems.Orders.reduce((acc, order) => {
@@ -34,7 +35,6 @@ export const getOrders = () => async (dispatch) => {
         let errors = res.json();
         return errors;
     }
-    const response = await fetch(`/api/cart/orders`);
 }
 
 const orderReducer = (state = initialState, action) => {
