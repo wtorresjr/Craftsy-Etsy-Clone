@@ -18,7 +18,8 @@ class ReviewImage(db.Model):
     updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    reviews = db.relationship('Review', back_populates='review_images')
+    reviews = db.relationship(
+        'Review', back_populates='review_images')
 
     def to_dict(self):
         return {

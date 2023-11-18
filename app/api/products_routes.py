@@ -40,8 +40,6 @@ def get_all_products():
 
 @products_routes.route('/<int:product_id>',  methods=['GET'])
 def get_product_details(product_id):
-    # product_ids = Product.query.filter(Product.id).all()
-    # print(product_ids)
     product_info = Product.query.get(product_id)
 
     if not product_info:
@@ -50,19 +48,15 @@ def get_product_details(product_id):
     number_of_reviews = len(product_info.reviews)
     average_rating = db.session.query(func.avg(Review.star_rating)).filter(
         Review.product_id == product_id).scalar()
-    # print("this is the average ------------------", average_rating)
-    # print("------------------------", product_info.user.to_dict())
     seller = product_info.user.to_dict()
-
-    # print("------------------------", seller)
-
 
     product_with_additional_info = {
         'id': product_info.id,
         'name': product_info.name,
         'description': product_info.description,
         'price': product_info.price,
-        'preview_image_url': [product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
+        'preview_image_url': [
+            product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
@@ -79,12 +73,15 @@ def get_product_details(product_id):
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_product_by_id(product_id):
+    print('Made it to delete product route <-----------------------')
     product_info = Product.query.get(product_id)
 
+    print(product_info, '<---------------Product Info')
     if not product_info:
         return jsonify({"message": f"Product couldn't be found"}), 404
 
     if product_info.user_id == current_user.id:
+        print('reached delete condition userid match <------------------------------')
         db.session.delete(product_info)
         db.session.commit()
         return jsonify({"message": f"Successfully deleted"}), 200
