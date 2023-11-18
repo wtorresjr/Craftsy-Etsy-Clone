@@ -4,49 +4,49 @@ const GET_ALL_PRODUCTS = "products/GET_PRODUCTS";
 
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
-// const EDIT_PRODUCT = "products/EDIT_PRODUCT";
+const EDIT_PRODUCT = "products/EDIT_PRODUCT";
 
 const loadProducts = (allFoundProducts) => {
   return {
     type: GET_ALL_PRODUCTS,
-    allFoundProducts,
+    payload: allFoundProducts,
   };
 };
 
 const addProductImage = (productImage) => {
   return {
     type: ADD_PRODUCT_IMAGE,
-    productImage,
+    payload: productImage,
   };
 };
 
 // const productDetails = (product) => {
 //   return {
 //     type: GET_PRODUCT_DETAILS,
-//     product,
+//     payload: product,
 //   };
 // };
 
 // const removeProduct = (productId) => {
 // return {
 //   type: REMOVE_PRODUCT,
-//   productId,
+//   payload: productId,
 // };
 // };
 
 const getProductsByUser = (userProducts) => {
   return {
     type: GET_PRODUCTS_BY_USER,
-    userProducts,
+    payload: userProducts,
   };
 };
 
-// const editProduct = (editedProduct) => {
-//   return {
-//     type: EDIT_PRODUCT,
-//     editedProduct,
-//   };
-// };
+const editProduct = (editedProduct) => {
+  return {
+    type: EDIT_PRODUCT,
+    payload: editedProduct,
+  };
+};
 
 // Get all Products
 export const getAllProducts = () => async (dispatch) => {
@@ -88,30 +88,24 @@ export const getAllProducts = () => async (dispatch) => {
 
 //Edit a Product
 
-// export const editAproduct =
-//   (product_id, name, description, price, preview_image_url) =>
-//   async (dispatch) => {
-//     try {
-//       const response = await fetch(`/api/products/${product_id}`, {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           name,
-//           description,
-//           price,
-//           preview_image_url,
-//         }),
-//       });
-
-//       const edited = await response.json();
-//       dispatch(editProduct(edited));
-//       return edited;
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
+export const editAproduct = (product_id, editData) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${product_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editData),
+    });
+    if (response.ok) {
+      const edited = await response.json();
+      dispatch(editProduct(edited));
+      return edited;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 //Create a Product Review By Product ID
 
@@ -155,24 +149,43 @@ export const addNewProductImage =
 //Delete A Product Image
 
 const initialState = {
-  productEdited: null,
-  userCreatedProducts: null,
-  //   allProducts: null,
+  allProducts: [],
+  newImageAdded: [],
+  productEdit: [],
+  userCreated: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return { ...state, ...action.allFoundProducts };
+      if (
+        !state.allProducts.some((product) => product.id === action.payload.id)
+      ) {
+        return {
+          ...state,
+          allProducts: [...state.allProducts, action.payload],
+        };
+      }
+      return state;
     case ADD_PRODUCT_IMAGE:
-      return { ...state, newImageAdded: action.productImage };
+      return {
+        ...state,
+        newImageAdded: [...state.newImageAdded, action.payload],
+      };
     // case GET_PRODUCT_DETAILS:
     //   const singleProductState = action.product;
     //   return singleProductState;
-    // case EDIT_PRODUCT:
-    //   return { ...state, productEdited: [...action.editedProduct] };
+    case EDIT_PRODUCT:
+      return { ...state, productEdit: [...state.productEdit, action.payload] };
     case GET_PRODUCTS_BY_USER:
-      return { ...state, userCreatedProducts: [...action.userProducts] };
+      const newProducts = action.payload.filter(
+        (newProduct) =>
+          !state.userCreated.some((product) => product.id === newProduct.id)
+      );
+      return {
+        ...state,
+        userCreated: [...state.userCreated, ...newProducts],
+      };
     default:
       return state;
   }
