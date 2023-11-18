@@ -1,8 +1,8 @@
 const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS";
 // const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 // const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
-const CREATE_PRODUCT = "products/CREATE_PRODUCT"
-const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS"
+const CREATE_PRODUCT = "products/CREATE_PRODUCT";
+const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS";
 
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
@@ -38,13 +38,13 @@ const addProductImage = (productImage) => {
 
 const addProduct = (productData) => ({
   type: CREATE_PRODUCT,
-  productData
-})
+  productData,
+});
 
 const allProductReviews = (reviews) => ({
   type: GET_PRODUCT_REVIEWS,
-  reviews
-})
+  reviews,
+});
 
 const getProductsByUser = (userProducts) => {
   return {
@@ -96,23 +96,26 @@ export const getAllProducts = () => async (dispatch) => {
 
 //Get Product Reviews By Product ID
 
-
 //Create A New Product
 export const addNewProduct = (productData) => async (dispatch) => {
-  const response = await fetch('/api/products', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(productData)
-  })
+  try {
+    const response = await fetch("/api/products/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    });
 
-  if (response.ok) {
-    const newProduct = await response.json()
-    dispatch(addProduct(newProduct))
-    return newProduct
+    if (response.ok) {
+      const newProduct = await response.json();
+      dispatch(addProduct(newProduct));
+      return newProduct;
+    }
+  } catch (error) {
+    throw error;
   }
-}
+};
 
 //Edit a Product
 
@@ -137,14 +140,14 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
 
 //Get Product Reviews By Product ID
 export const getAllProductReviews = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/products/${productId}/reviews`)
+  const response = await fetch(`/api/products/${productId}/reviews`);
 
   if (response.ok) {
-    const reviews = await response.json()
-    dispatch(allProductReviews(reviews))
-    return reviews
+    const reviews = await response.json();
+    dispatch(allProductReviews(reviews));
+    return reviews;
   }
-}
+};
 
 //Get All Products Created By Current User
 
@@ -186,49 +189,37 @@ export const addNewProductImage =
 //Delete A Product Image
 
 const initialState = {
-  allProducts: [],
+  // products:{}
+  allProducts: {},
   newImageAdded: [],
-  productEdit: [],
+  productEdit: {},
   userCreated: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      if (
-        !state.allProducts.some((product) => product.id === action.payload.id)
-      ) {
-        return {
-          ...state,
-          allProducts: [...state.allProducts, action.payload],
-        };
-      }
-      return state;
+      return { ...state, ...state.allProducts, ...action.payload };
     case ADD_PRODUCT_IMAGE:
       return {
         ...state,
         newImageAdded: [...state.newImageAdded, action.payload],
       };
-    // case GET_PRODUCT_DETAILS:
-    //   const singleProductState = action.product;
-    //   return singleProductState;
     case EDIT_PRODUCT:
-      return { ...state, productEdit: [...state.productEdit, action.payload] };
+      return { ...state, ...state.productEdit, ...action.payload };
     case GET_PRODUCTS_BY_USER:
-      const newProducts = action.payload.filter(
-        (newProduct) =>
-          !state.userCreated.some((product) => product.id === newProduct.id)
-      );
       return {
         ...state,
-        userCreated: [...state.userCreated, ...newProducts],
+        userCreated: [state.userCreated, ...action.payload],
       };
     case CREATE_PRODUCT:
-      return { ...state, [action.productData.id]: action.productData }
+      return { ...state, [action.productData.id]: action.productData };
     case GET_PRODUCT_REVIEWS:
-      let productReviewState = {}
-      action.reviews.forEach(review => productReviewState[review.id] = review)
-      return productReviewState
+      let productReviewState = {};
+      action.reviews.forEach(
+        (review) => (productReviewState[review.id] = review)
+      );
+      return productReviewState;
     default:
       return state;
   }
