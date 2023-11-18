@@ -1,8 +1,8 @@
 const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS";
 // const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
-const CREATE_PRODUCT = "products/CREATE_PRODUCT"
-const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS"
+const CREATE_PRODUCT = "products/CREATE_PRODUCT";
+// const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS";
 
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
@@ -29,10 +29,10 @@ const addProductImage = (productImage) => {
 //   };
 // };
 
-const removeProduct = (productId) => {
+const removeProduct = (removedProduct) => {
   return {
     type: REMOVE_PRODUCT,
-    payload: productId,
+    payload: removedProduct,
   };
 };
 
@@ -87,11 +87,22 @@ export const getAllProducts = () => async (dispatch) => {
 // };
 
 //Delete a Product by ID
-export const deleteProduct = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/products/${productId}`, {
-    method: "DELETE",
-  });
-  dispatch(removeProduct(productId));
+export const deleteProduct = (product_id) => async (dispatch) => {
+  try {
+    console.log("THunk reached");
+    const response = await fetch(`/api/products/${product_id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) {
+      console.log("response ok");
+      const deletedItem = await response.json();
+      dispatch(removeProduct(deletedItem));
+      return deletedItem;
+    }
+  } catch (error) {
+    throw error;
+  }
 };
 
 //Get Product Reviews By Product ID
@@ -194,6 +205,7 @@ const initialState = {
   newImageAdded: [],
   productEdit: {},
   userCreated: [],
+  removedProduct: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -213,22 +225,16 @@ export default function reducer(state = initialState, action) {
         userCreated: [state.userCreated, ...action.payload],
       };
     case CREATE_PRODUCT:
-      return { ...state, [action.productData.id]: action.productData }
-    case REMOVE_PRODUCT:
-      let newState = { ...state }
-      delete newState[action.payload.productId]
-      return newState
-    // case GET_PRODUCT_REVIEWS:
-    //   let productReviewState = {}
-    //   action.reviews.forEach(review => productReviewState[review.id] = review)
-    //   return productReviewState
       return { ...state, [action.productData.id]: action.productData };
-    case GET_PRODUCT_REVIEWS:
-      let productReviewState = {};
-      action.reviews.forEach(
-        (review) => (productReviewState[review.id] = review)
-      );
-      return productReviewState;
+    case REMOVE_PRODUCT:
+      // let newState = { ...state };
+      // delete newState[action.payload];
+      // return newState;
+      return {
+        ...state,
+        removedProduct: [...state.removedProduct, action.payload],
+      };
+    // return state;
     default:
       return state;
   }

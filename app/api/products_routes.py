@@ -50,14 +50,13 @@ def get_product_details(product_id):
         Review.product_id == product_id).scalar()
     seller = product_info.user.to_dict()
 
-
     product_with_additional_info = {
         'id': product_info.id,
         'name': product_info.name,
         'description': product_info.description,
         'price': product_info.price,
         'preview_image_url': [
-        product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
+            product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
@@ -74,12 +73,15 @@ def get_product_details(product_id):
 @products_routes.route('/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_product_by_id(product_id):
+    print('Made it to delete product route <-----------------------')
     product_info = Product.query.get(product_id)
 
+    print(product_info, '<---------------Product Info')
     if not product_info:
         return jsonify({"message": f"Product couldn't be found"}), 404
 
     if product_info.user_id == current_user.id:
+        print('reached delete condition userid match <------------------------------')
         db.session.delete(product_info)
         db.session.commit()
         return jsonify({"message": f"Successfully deleted"}), 200

@@ -7,6 +7,7 @@ import {
   addNewProductImage,
   editAproduct,
   addNewProduct,
+  deleteProduct,
 } from "../../store/products";
 
 const HomePage = () => {
@@ -52,6 +53,11 @@ const HomePage = () => {
     dispatch(editAproduct(3, dataToEdit));
     setRefresh((prev) => !prev);
   };
+
+  const handleDeleteProduct = () => {
+    dispatch(deleteProduct(11));
+    setRefresh((prev) => !prev);
+  };
   useEffect(() => {
     dispatch(getUserProducts());
     dispatch(getAllProducts());
@@ -63,6 +69,7 @@ const HomePage = () => {
       <button onClick={addNewImage}>Add New Image</button>
       <button onClick={editProduct}>Edit A Product</button>
       <button onClick={handleCreateProduct}>Create A New Product</button>
+      <button onClick={handleDeleteProduct}>Delete A Product</button>
 
       {userCreatedProducts && userCreatedProducts.length > 0 ? (
         userCreatedProducts.map((product, index) => (

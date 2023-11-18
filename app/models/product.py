@@ -26,10 +26,14 @@ class Product(db.Model):
 
     # RELATIONSHIPS
     user = db.relationship("User", back_populates="products")
-    favorites = db.relationship("Favorite", back_populates="products")
-    product_images = db.relationship('ProductImage', back_populates="products")
-    cartitems = db.relationship('CartItem', back_populates="products")
-    reviews = db.relationship('Review', back_populates='products')
+    favorites = db.relationship(
+        "Favorite", back_populates="products", cascade='all,delete-orphan')
+    product_images = db.relationship(
+        'ProductImage', back_populates="products", cascade='all,delete-orphan')
+    cartitems = db.relationship(
+        'CartItem', back_populates="products", cascade='all,delete-orphan')
+    reviews = db.relationship(
+        'Review', back_populates='products', cascade='all,delete-orphan')
 
     def to_dict(self):
         return {
