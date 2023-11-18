@@ -2,6 +2,7 @@ const GET_ALL_PRODUCTS = "products/GET_PRODUCTS";
 // const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 // const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
 
+const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
 // const EDIT_PRODUCT = "products/EDIT_PRODUCT";
 
@@ -9,6 +10,13 @@ const loadProducts = (allFoundProducts) => {
   return {
     type: GET_ALL_PRODUCTS,
     allFoundProducts,
+  };
+};
+
+const addProductImage = (productImage) => {
+  return {
+    type: ADD_PRODUCT_IMAGE,
+    productImage,
   };
 };
 
@@ -126,6 +134,24 @@ export const getUserProducts = () => async (dispatch) => {
 
 //Add a Product Image
 
+export const addNewProductImage =
+  (product_id, imageInfo) => async (dispatch) => {
+    try {
+      const response = await fetch(`/api/products/${+product_id}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(imageInfo),
+      });
+      if (response.ok) {
+        const newImageToAdd = await response.json();
+        dispatch(addProductImage(newImageToAdd));
+        return newImageToAdd;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
 //Delete A Product Image
 
 const initialState = {
@@ -138,6 +164,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return { ...state, ...action.allFoundProducts };
+    case ADD_PRODUCT_IMAGE:
+      return { ...state, newImageAdded: action.productImage };
     // case GET_PRODUCT_DETAILS:
     //   const singleProductState = action.product;
     //   return singleProductState;
