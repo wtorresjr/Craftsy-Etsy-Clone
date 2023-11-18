@@ -88,7 +88,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
 
 
 //Reducer
-const initialState = {};
+const initialState = {allFavorites: [], byId: {}};
 
 export default function reducer(state = initialState, action) {
     let newState = {};
@@ -96,7 +96,14 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case VIEW:
             if (action.payload.Favorites) {
-                action.payload.Favorites.forEach((favorite) => newState[favorite.id] = favorite)
+                const byId = {};
+                action.payload.Favorites.forEach((favorite) => {
+                  byId[favorite.id] = favorite
+                });
+                newState = {
+                    allFavorites: action.payload.Favorites.map((favorite) => favorite.id),
+                    byId: byId
+                };
                 return newState;
             }
             else {
@@ -104,7 +111,11 @@ export default function reducer(state = initialState, action) {
                 return newState;
             }
         case ADD:
-            newState = {...state, [action.payload.id]: action.payload}
+            // newState = {...state, [action.payload.id]: action.payload}
+            newState = {
+                allFavorites: [...state.allFavorites, action.payload.id],
+                byId: {...state.byId, [action.payload.id]: action.payload},
+            }
             return newState;
         case REMOVE:
             delete newState[action.payload]
