@@ -10,16 +10,15 @@ shopping_cart_routes = Blueprint('cart', __name__)
 
 # Get Shopping Cart for Current User
 
-@shopping_cart_routes.route('/<int:cart_id>', methods=['GET'])
+@shopping_cart_routes.route('', methods=['GET'])
 @login_required
-def get_shopping_cart(cart_id):
+def get_shopping_cart():
     # Get user ID
     user_id = int(current_user.get_id())
     # Retrieve items in cart by url id
-    cart_items = CartItem.query.filter_by(cart_id=cart_id).all()
 
     # Search for cart & validate it's existence
-    cart = Cart.query.get(cart_id)
+    cart = Cart.query.filter_by(user_id=user_id).first()
     if not cart:
         return jsonify({"message": "Cart not found."}), 404
 
@@ -27,6 +26,7 @@ def get_shopping_cart(cart_id):
     if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
+    cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
     # Proceed with going through the list of items found in cart
     if cart_items:
         cart_items_data = []
