@@ -24,7 +24,7 @@ def get_shopping_cart(cart_id):
         return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
-    if cart_id != user_id:
+    if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
     # Proceed with going through the list of items found in cart
@@ -67,7 +67,7 @@ def add_item_to_cart(cart_id):
         return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
-    if cart_id != user_id:
+    if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
    # Validate required fields
@@ -111,7 +111,7 @@ def remove_item_from_cart(cart_id, cart_items_id):
         return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
-    if cart_id != user_id:
+    if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
     # Check if the cart item exists
@@ -143,7 +143,7 @@ def edit_shopping_cart(cart_id, cart_items_id):
         return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
-    if cart_id != user_id:
+    if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
     # Check if the cart item exists
@@ -175,11 +175,12 @@ def purchase_cart_items(cart_id):
 
     # Search for cart & validate it's existence
     cart = Cart.query.get(cart_id)
+
     if not cart:
         return jsonify({"message": "Cart not found."}), 404
 
     # Authorization validation
-    if cart_id != user_id:
+    if cart.user_id != user_id:
         return jsonify({"message": "Forbidden."}), 403
 
     # Validate user response data
