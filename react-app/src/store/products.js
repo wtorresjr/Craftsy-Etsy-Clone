@@ -36,10 +36,10 @@ const removeProduct = (removedProduct) => {
   };
 };
 
-const addProduct = (productData) => ({
-  type: CREATE_PRODUCT,
-  productData,
-});
+// const addProduct = (productData) => ({
+//   type: CREATE_PRODUCT,
+//   productData,
+// });
 
 // const allProductReviews = (reviews) => ({
 //   type: GET_PRODUCT_REVIEWS,
@@ -82,8 +82,8 @@ export const getProductInfo = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
       const productFound = await response.json();
-      dispatch(productDetails(data));
-      return data;
+      dispatch(productDetails(productFound));
+      return productFound;
     }
   } catch (error) {
     throw error;
@@ -154,19 +154,19 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
 };
 
 // Get Product Reviews By Product ID
-export const getAllProductReviews = (productId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/products/${productId}/reviews`);
+// export const getAllProductReviews = (productId) => async (dispatch) => {
+//   try {
+//     const response = await fetch(`/api/products/${productId}/reviews`);
 
-    if (response.ok) {
-      const reviews = await response.json();
-      dispatch(allProductReviews(reviews));
-      return reviews;
-    }
-  } catch (error) {
-    throw error;
-  }
-};
+//     if (response.ok) {
+//       const reviews = await response.json();
+//       dispatch(allProductReviews(reviews));
+//       return reviews;
+//     }
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 //Get All Products Created By Current User
 
@@ -213,6 +213,7 @@ const initialState = {
   productEdit: {},
   allUserCreated: [],
   removedProduct: [],
+  productDetail: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -262,8 +263,18 @@ export default function reducer(state = initialState, action) {
         newState = action.payload;
         return newState;
       }
-    case CREATE_PRODUCT:
-      return { ...state, [action.productData.id]: action.productData };
+    case GET_PRODUCT_DETAILS:
+      if (action.payload.Product_Details) {
+        newState = {
+          productDetail: action.payload.Product_Details,
+        };
+        return newState;
+      } else {
+        newState = action.payload;
+        return newState;
+      }
+    // case CREATE_PRODUCT:
+    //   return { ...state, [action.productData.id]: action.productData };
     case REMOVE_PRODUCT:
       return {
         removedProduct: [state.removedProduct, action.payload],
