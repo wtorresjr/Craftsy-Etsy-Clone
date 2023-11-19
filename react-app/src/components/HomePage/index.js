@@ -41,7 +41,6 @@ const HomePage = () => {
     setRefresh((prev) => !prev);
   };
   const handleCreateProduct = () => {
-
     let newProduct = {
       name: "New Product Created",
       description: "New Product Description",
