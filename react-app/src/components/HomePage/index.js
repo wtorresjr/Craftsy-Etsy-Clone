@@ -10,6 +10,8 @@ import {
   deleteProduct,
 } from "../../store/products";
 
+import { loadCurrUserFavorites } from "../../store/favorite";
+
 const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
@@ -17,6 +19,12 @@ const HomePage = () => {
     (state) => state?.products?.allUserCreated
   );
   const allProducts = useSelector((state) => state?.products?.allProducts);
+
+  useEffect(() => {
+    dispatch(getUserProducts());
+    // dispatch(getAllProducts());
+    dispatch(loadCurrUserFavorites());
+  }, [dispatch, refresh]);
 
   const addNewImage = () => {
     console.log("New Image Button Clicked");
@@ -59,10 +67,6 @@ const HomePage = () => {
     dispatch(deleteProduct(8));
     setRefresh((prev) => !prev);
   };
-  useEffect(() => {
-    // dispatch(getUserProducts());
-    dispatch(getAllProducts());
-  }, [dispatch, refresh]);
 
   return (
     <>
@@ -72,7 +76,7 @@ const HomePage = () => {
       <button onClick={handleCreateProduct}>Create A New Product</button>
       <button onClick={handleDeleteProduct}>Delete A Product</button>
 
-      {/* {userCreatedProducts && userCreatedProducts.length > 0 ? (
+      {userCreatedProducts && userCreatedProducts.length > 0 ? (
         userCreatedProducts.map((product) => (
           <div key={product?.id}>
             <p>{product?.id}</p>
@@ -82,9 +86,9 @@ const HomePage = () => {
         ))
       ) : (
         <p>No Products Loaded</p>
-      )} */}
+      )}
 
-      {allProducts && allProducts.length > 0 ? (
+      {/* {allProducts && allProducts.length > 0 ? (
         allProducts.map((product) => (
           <div key={product?.id}>
             <p>ID{product.id}</p>
@@ -95,7 +99,7 @@ const HomePage = () => {
         ))
       ) : (
         <p>No Products Loaded</p>
-      )}
+      )} */}
     </>
   );
 };

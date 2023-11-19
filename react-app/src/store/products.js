@@ -1,5 +1,5 @@
 const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS";
-// const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
+const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
 const CREATE_PRODUCT = "products/CREATE_PRODUCT";
 // const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS";
@@ -22,12 +22,12 @@ const addProductImage = (productImage) => {
   };
 };
 
-// const productDetails = (product) => {
-//   return {
-//     type: GET_PRODUCT_DETAILS,
-//     payload: product,
-//   };
-// };
+const productDetails = (productDetail) => {
+  return {
+    type: GET_PRODUCT_DETAILS,
+    payload: productDetail,
+  };
+};
 
 const removeProduct = (removedProduct) => {
   return {
@@ -76,15 +76,19 @@ export const getAllProducts = () => async (dispatch) => {
   }
 };
 
-//Get Product By ID
-// export const getProductInfo = (productId) => async (dispatch) => {
-//   const response = await fetch(`/api/products/${productId}`);
-//   if (response.ok) {
-//     const data = await response.json();
-//     dispatch(productDetails(data));
-//     return data;
-//   }
-// };
+// Get Product By ID
+export const getProductInfo = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}`);
+    if (response.ok) {
+      const productFound = await response.json();
+      dispatch(productDetails(data));
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 //Delete a Product by ID
 export const deleteProduct = (product_id) => async (dispatch) => {
@@ -108,25 +112,25 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 //Get Product Reviews By Product ID
 
 //Create A New Product
-export const addNewProduct = (productData) => async (dispatch) => {
-  try {
-    const response = await fetch("/api/products/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    });
+// export const addNewProduct = (productData) => async (dispatch) => {
+//   try {
+//     const response = await fetch("/api/products/", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(productData),
+//     });
 
-    if (response.ok) {
-      const newProduct = await response.json();
-      dispatch(addProduct(newProduct));
-      return newProduct;
-    }
-  } catch (error) {
-    throw error;
-  }
-};
+//     if (response.ok) {
+//       const newProduct = await response.json();
+//       dispatch(addProduct(newProduct));
+//       return newProduct;
+//     }
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 //Edit a Product
 
@@ -149,16 +153,20 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
   }
 };
 
-//Get Product Reviews By Product ID
-// export const getAllProductReviews = (productId) => async (dispatch) => {
-//   const response = await fetch(`/api/products/${productId}/reviews`)
+// Get Product Reviews By Product ID
+export const getAllProductReviews = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}/reviews`);
 
-//   if (response.ok) {
-//     const reviews = await response.json()
-//     dispatch(allProductReviews(reviews))
-//     return reviews
-//   }
-// }
+    if (response.ok) {
+      const reviews = await response.json();
+      dispatch(allProductReviews(reviews));
+      return reviews;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 //Get All Products Created By Current User
 
