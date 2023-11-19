@@ -5,7 +5,7 @@ import {
   getAllProducts,
   addNewProductImage,
   editAproduct,
-  // addNewProduct,
+  addNewProduct,
   deleteProduct,
   getUserProducts,
   getProductInfo,
@@ -25,23 +25,22 @@ const HomePage = () => {
   const [chosenProduct, setChosenProduct] = useState(null);
 
   useEffect(() => {
-    dispatch(getUserProducts());
-    // dispatch(getAllProducts());
-    // dispatch(loadCurrUserFavorites());
+    // dispatch(getUserProducts());
+    dispatch(getAllProducts());
+    dispatch(loadCurrUserFavorites());
   }, [dispatch, refresh, sessionUser]);
 
   const addNewImage = () => {
     console.log("New Image Button Clicked");
 
     let newImage = {
-      image_url: "http://testedAgain2.jpg",
+      image_url: "http://newImageForId39.jpg",
       preview: true,
     };
-    dispatch(addNewProductImage(3, newImage));
+    dispatch(addNewProductImage(2, newImage));
     setRefresh((prev) => !prev);
   };
   const handleCreateProduct = () => {
-    console.log("Create New Product Button Clicked");
 
     let newProduct = {
       name: "New Product Created",
@@ -51,7 +50,7 @@ const HomePage = () => {
       preview_image_url: "http://testedFromSite.jpg",
     };
 
-    // dispatch(addNewProduct(newProduct));
+    dispatch(addNewProduct(newProduct));
     setRefresh((prev) => !prev);
   };
 
@@ -68,12 +67,12 @@ const HomePage = () => {
   };
 
   const handleDeleteProduct = () => {
-    dispatch(deleteProduct(8));
+    dispatch(deleteProduct(3));
     setRefresh((prev) => !prev);
   };
 
   const handleGetProductDetail = () => {
-    setChosenProduct(39);
+    setChosenProduct(35);
     setRefresh((prev) => !prev);
   };
 
@@ -119,7 +118,7 @@ const HomePage = () => {
       <h2>All Products</h2>
       {allProducts && allProducts.length > 0 ? (
         allProducts.map((product) => (
-          <div key={product?.id}>
+          <div key={product?.id} style={{ paddingBottom: "150px" }}>
             <p>ID{product.id}</p>
             <p>{product.name}</p>
             <p>{product.description}</p>

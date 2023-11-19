@@ -2,7 +2,6 @@ const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS";
 const GET_PRODUCT_DETAILS = "products/GET_PRODUCT_DETAILS";
 const REMOVE_PRODUCT = "products/DELETE_PRODUCT";
 const CREATE_PRODUCT = "products/CREATE_PRODUCT";
-// const GET_PRODUCT_REVIEWS = "products/GET_PRODUCT_REVIEWS";
 
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
@@ -36,15 +35,10 @@ const removeProduct = (removedProduct) => {
   };
 };
 
-// const addProduct = (productData) => ({
-//   type: CREATE_PRODUCT,
-//   productData,
-// });
-
-// const allProductReviews = (reviews) => ({
-//   type: GET_PRODUCT_REVIEWS,
-//   reviews
-// })
+const addProduct = (productData) => ({
+  type: CREATE_PRODUCT,
+  productData,
+});
 
 const getProductsByUser = (userProducts) => {
   return {
@@ -112,25 +106,25 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 //Get Product Reviews By Product ID
 
 //Create A New Product
-// export const addNewProduct = (productData) => async (dispatch) => {
-//   try {
-//     const response = await fetch("/api/products/", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(productData),
-//     });
+export const addNewProduct = (productData) => async (dispatch) => {
+  try {
+    const response = await fetch("/api/products/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    });
 
-//     if (response.ok) {
-//       const newProduct = await response.json();
-//       dispatch(addProduct(newProduct));
-//       return newProduct;
-//     }
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+    if (response.ok) {
+      const newProduct = await response.json();
+      dispatch(addProduct(newProduct));
+      return newProduct;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 //Edit a Product
 
@@ -152,21 +146,6 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
     throw error;
   }
 };
-
-// Get Product Reviews By Product ID
-// export const getAllProductReviews = (productId) => async (dispatch) => {
-//   try {
-//     const response = await fetch(`/api/products/${productId}/reviews`);
-
-//     if (response.ok) {
-//       const reviews = await response.json();
-//       dispatch(allProductReviews(reviews));
-//       return reviews;
-//     }
-//   } catch (error) {
-//     throw error;
-//   }
-// };
 
 //Get All Products Created By Current User
 
@@ -219,6 +198,8 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   let newState = {};
   switch (action.type) {
+    ///////////////////////////////////
+    ///////////////////////////////////
     case GET_ALL_PRODUCTS:
       if (action.payload.Products) {
         const productsById = {};
@@ -234,7 +215,8 @@ export default function reducer(state = initialState, action) {
         newState = action.payload;
         return newState;
       }
-
+    ///////////////////////////////////
+    ///////////////////////////////////
     case ADD_PRODUCT_IMAGE:
       if (action.payload.New_Image_Added) {
         newState = {
@@ -245,9 +227,12 @@ export default function reducer(state = initialState, action) {
         newState = action.payload;
         return newState;
       }
-
+    ///////////////////////////////////
+    ///////////////////////////////////
     case EDIT_PRODUCT:
       return { ...state, ...state.productEdit, ...action.payload };
+    ///////////////////////////////////
+    ///////////////////////////////////
     case GET_PRODUCTS_BY_USER:
       if (action.payload.User_Products) {
         const userProductsById = {};
@@ -263,6 +248,8 @@ export default function reducer(state = initialState, action) {
         newState = action.payload;
         return newState;
       }
+    ///////////////////////////////////
+    ///////////////////////////////////
     case GET_PRODUCT_DETAILS:
       if (action.payload.Product_Details) {
         newState = {
@@ -273,12 +260,17 @@ export default function reducer(state = initialState, action) {
         newState = action.payload;
         return newState;
       }
-    // case CREATE_PRODUCT:
-    //   return { ...state, [action.productData.id]: action.productData };
+    ///////////////////////////////////
+    ///////////////////////////////////
+    case CREATE_PRODUCT:
+      return { ...state, [action.productData.id]: action.productData };
+    ///////////////////////////////////
+    ///////////////////////////////////
     case REMOVE_PRODUCT:
       return {
         removedProduct: [state.removedProduct, action.payload],
       };
+
     default:
       return state;
   }
