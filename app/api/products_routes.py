@@ -64,7 +64,7 @@ def get_product_details(product_id):
         'Seller': {'id': seller['id'], 'first_name': seller['firstName'], 'last_name': seller['lastName'], 'email': seller['email']}
     }
 
-    return jsonify(product_with_additional_info)
+    return jsonify({"Product_Details":product_with_additional_info})
 
 
 # Delete Product By Id
