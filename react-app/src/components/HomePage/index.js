@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProducts } from "../../store/products";
 // import { NavLink } from 'react-router-dom';
 import {
   getAllProducts,
@@ -8,6 +7,7 @@ import {
   editAproduct,
   // addNewProduct,
   deleteProduct,
+  getUserProducts,
   getProductInfo,
 } from "../../store/products";
 
@@ -25,10 +25,10 @@ const HomePage = () => {
   const [chosenProduct, setChosenProduct] = useState(null);
 
   useEffect(() => {
-    // dispatch(getUserProducts());
-    dispatch(getAllProducts());
+    dispatch(getUserProducts());
+    // dispatch(getAllProducts());
     // dispatch(loadCurrUserFavorites());
-  }, [dispatch, refresh.sessionUser]);
+  }, [dispatch, refresh, sessionUser]);
 
   const addNewImage = () => {
     console.log("New Image Button Clicked");
@@ -37,7 +37,7 @@ const HomePage = () => {
       image_url: "http://testedAgain2.jpg",
       preview: true,
     };
-    dispatch(addNewProductImage(8, newImage));
+    dispatch(addNewProductImage(3, newImage));
     setRefresh((prev) => !prev);
   };
   const handleCreateProduct = () => {
@@ -80,11 +80,21 @@ const HomePage = () => {
   return (
     <>
       <h1>Home Page (Products page)</h1>
-      <button onClick={addNewImage}>Add New Image</button>
-      <button onClick={editProduct}>Edit A Product</button>
-      <button onClick={handleCreateProduct}>Create A New Product</button>
-      <button onClick={handleDeleteProduct}>Delete A Product</button>
-      <button onClick={handleGetProductDetail}>Get Product Detail</button>
+      <p>
+        <button onClick={addNewImage}>Add New Image</button>
+      </p>
+      <p>
+        <button onClick={editProduct}>Edit A Product</button>
+      </p>
+      <p>
+        <button onClick={handleCreateProduct}>Create A New Product</button>
+      </p>
+      <p>
+        <button onClick={handleDeleteProduct}>Delete A Product</button>
+      </p>
+      <p>
+        <button onClick={handleGetProductDetail}>Get Product Detail</button>
+      </p>
 
       {chosenProduct && (
         <div>
@@ -94,8 +104,8 @@ const HomePage = () => {
           <p>{productById[chosenProduct].quantity}</p>
         </div>
       )}
-
-      {/* {userCreatedProducts && userCreatedProducts.length > 0 ? (
+      <h2>User Created Products</h2>
+      {userCreatedProducts && userCreatedProducts.length > 0 ? (
         userCreatedProducts.map((product) => (
           <div key={product?.id}>
             <p>{product?.id}</p>
@@ -105,9 +115,9 @@ const HomePage = () => {
         ))
       ) : (
         <p>No Products Loaded</p>
-      )} */}
-
-      {/* {allProducts && allProducts.length > 0 ? (
+      )}
+      <h2>All Products</h2>
+      {allProducts && allProducts.length > 0 ? (
         allProducts.map((product) => (
           <div key={product?.id}>
             <p>ID{product.id}</p>
@@ -118,7 +128,7 @@ const HomePage = () => {
         ))
       ) : (
         <p>No Products Loaded</p>
-      )} */}
+      )}
     </>
   );
 };
