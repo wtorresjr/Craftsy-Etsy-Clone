@@ -1,16 +1,17 @@
 from app.models import db, Cart, environment, SCHEMA
 from sqlalchemy.sql import text
+from .seed_files.carts_seed_data import carts_data
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_carts():
-    cart_1 = Cart(user_id=1,transaction_complete=0)
-    cart_2 = Cart(user_id=2,transaction_complete=0)
-    cart_3 = Cart(user_id=3,transaction_complete=0)
-
-    db.session.add(cart_1)
-    db.session.add(cart_2)
-    db.session.add(cart_3)
+    for cart in carts_data:
+        seed_cart = Cart(
+            user_id=cart['user_id'],
+            transaction_complete=cart['transaction_complete']
+        )
+        db.session.add(seed_cart)
+        
     db.session.commit()
 
 

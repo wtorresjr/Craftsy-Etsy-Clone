@@ -21,7 +21,8 @@ class CartItem(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # RELATIONSHIPS
-    products = db.relationship("Product", back_populates='cartitems')
+    products = db.relationship(
+        "Product", back_populates='cartitems')
     carts = db.relationship("Cart", back_populates='cartitems')
 
     def to_dict(self):

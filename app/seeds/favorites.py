@@ -1,12 +1,17 @@
 from app.models import db, Favorite, environment, SCHEMA
 from sqlalchemy.sql import text
+from .seed_files.favorites_seed_data import favorites_data
 
 
 # Adds a favorite example testing
 def seed_favorites():
-    practice = Favorite(product_id = 1, user_id = 1)
-
-    db.session.add(practice)
+    for favorite in favorites_data:
+        seed_favorite = Favorite(
+            product_id=favorite['product_id'],
+            user_id=favorite['user_id']
+        )
+        db.session.add(seed_favorite)
+        
     db.session.commit()
 
 
