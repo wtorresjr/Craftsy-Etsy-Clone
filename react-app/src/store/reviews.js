@@ -10,9 +10,9 @@ const getReview = (reviews) => ({
   payload: reviews
 })
 
-const getReviewById = (product_id) => ({
+const getReviewById = (review) => ({
   type: GET_REVIEW_PRODUCTID,
-  payload: product_id
+  payload: review
 })
 
 const setReview = (review) => ({
@@ -31,6 +31,7 @@ const removeReview = () => ({
 
 const initialState = { review: null };
 
+// Get all Reviews
 export const fetchReviews = () => async (dispatch) => {
   const response = await fetch("/api/current-user/reviews", {
     headers: {
@@ -46,6 +47,26 @@ export const fetchReviews = () => async (dispatch) => {
   }
 }
 
+// Get Review by Id
+export const fetchReviewById = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}/reviews`);
+    if (response.ok) {
+      const review = await response.json();
+      dispatch(getReviewById(review))
+      return review
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Create a Review
+export const createReview = (reviewData) => async (dispatch) => {
+  try {
+    const response = await fetch()
+  }
+}
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_REVIEW:
@@ -64,6 +85,19 @@ export default function reducer(state = initialState, action) {
         newState = action.payload
         return newState
       }
+
+    case GET_REVIEW_PRODUCTID:
+      if (action.payload.Review) {
+        newState = {
+          reviewByProductId: action.payload.Review
+        }
+        return newState
+      }
+      else {
+        newState = action.payload;
+        return newState
+      }
+
 
 		default:
 			return state;
