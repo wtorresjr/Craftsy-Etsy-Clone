@@ -26,10 +26,10 @@ const updateReview = (review) => ({
 })
 
 const removeReview = () => ({
-  type: REMOVE_REVIEW
+  type: REMOVE_REVIEW,
 })
 
-const initialState = { review: null };
+
 
 // Get all Reviews
 export const fetchReviews = () => async (dispatch) => {
@@ -62,11 +62,68 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 }
 
 // Create a Review
-export const createReview = (reviewData) => async (dispatch) => {
+export const createReview = (productId, reviewData) => async (dispatch) => {
   try {
-    const response = await fetch()
+    const response = await fetch(`/api/products/${productId}/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData)
+    })
+    if (response.ok) {
+      const newReview = await response.json();
+      dispatch(setReview(newReview))
+      return newReview
+    }
+  }
+  catch (error) {
+    throw error;
   }
 }
+
+// Update a Review
+export const EditReview = (reviewId, newReviewData) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReviewData),
+    })
+    if (response.ok) {
+      const updatedReview = await response.json();
+      dispatch(updateReview(updatedReview))
+      return updatedReview
+    }
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+// Delete a Review
+
+export const deleteReview = (reviewId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    if (response.ok) {
+      dispatch(removeReview())
+    }
+  }
+  catch(error) {
+    throw error;
+  }
+}
+
+const initialState = { review: null };
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_REVIEW:
@@ -98,6 +155,16 @@ export default function reducer(state = initialState, action) {
         return newState
       }
 
+    case SET_REVIEW:
+      return {...state, [action.Review.id]: action.Review}
+
+    case UPDATE_REVIEW:
+      return {...state, ...state.action.payload}
+
+    case REMOVE_REVIEW:
+      return {
+        ...state
+      }
 
 		default:
 			return state;
