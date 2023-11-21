@@ -26,6 +26,7 @@ const HomePage = () => {
     dispatch(getAllProducts());
   }, [dispatch, refresh, sessionUser]);
 
+
   return (
     <>
       <div className="mainProductDisplay">
