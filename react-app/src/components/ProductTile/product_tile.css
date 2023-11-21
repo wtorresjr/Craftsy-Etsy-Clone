@@ -1,0 +1,17 @@
+.tileContainer {
+  border: solid 1px black;
+  border-radius: 10px;
+  width: 250px;
+  height: 250px;
+}
+
+.priceContainer {
+  background-color: lightcyan;
+  width: 65px;
+  padding: 5px;
+  border-radius: 15px;
+  border: solid 1px black;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: center;
+}

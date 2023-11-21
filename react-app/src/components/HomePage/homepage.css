@@ -1,0 +1,6 @@
+.mainProductDisplay {
+  background-color: antiquewhite;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100vw;
+}
