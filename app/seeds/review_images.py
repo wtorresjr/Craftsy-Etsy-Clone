@@ -7,8 +7,8 @@ import random
 def seed_reviewimages():
 
     for review_id in range(1, 117):
-        for _ in range(random.randint(1,3)):
-            new_review_image = f"https://example.com/image/review-image{random.randint(1, 100)}.jpg"
+        for _ in range(random.randint(1, 3)):
+            new_review_image = f"https://picsum.photos/300/300.jpg?random={random.randint(1,1000)}"
             new_review_image = ReviewImage(
                 review_id=review_id,
                 image_url=new_review_image,
@@ -25,7 +25,8 @@ def seed_reviewimages():
 # it will reset the primary keys for you as well.
 def undo_reviewimages():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.review_images RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.review_images RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM review_images"))
 

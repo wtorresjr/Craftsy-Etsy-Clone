@@ -1,3 +1,4 @@
+import "./homepage.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { NavLink } from 'react-router-dom';
@@ -28,12 +29,12 @@ const HomePage = () => {
 
   return (
     <>
-      {allProducts &&
-        allProducts.map((product) => {
-          return <ProductTile product={product} />;
-        })}
-
-
+      <div className="mainProductDisplay">
+        {allProducts &&
+          allProducts.map((product) => {
+            return <ProductTile key={product.id} product={product} />;
+          })}
+      </div>
     </>
   );
 };
