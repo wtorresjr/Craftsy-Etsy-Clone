@@ -25,12 +25,15 @@ const HomePage = () => {
     dispatch(getAllProducts());
   }, [dispatch, refresh, sessionUser]);
 
+
   return (
     <>
       {allProducts &&
         allProducts.map((product) => {
           return <ProductTile product={product} />;
         })}
+
+
     </>
   );
 };

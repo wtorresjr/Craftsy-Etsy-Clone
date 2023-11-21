@@ -51,9 +51,6 @@ export const fetchReviews = () => async (dispatch) => {
   });
   if (response.ok) {
     const reviews = await response.json();
-    if (data.errors) {
-      return;
-    }
     dispatch(getReview(reviews));
   }
 }
@@ -174,62 +171,61 @@ export const deleteReviewImage = (reviewId, imageId) => async (dispatch) => {
 
 const initialState = {
   allReviews: [],
-  allReviewsById: [],
   reviewByProductId: [],
   allReviewImages: [],
 };
 
 export default function reducer(state = initialState, action) {
-  let newState = {};
 	switch (action.type) {
 		case GET_REVIEW:
       if (action.payload.Reviews) {
-        newState = JSON.parse(JSON.stringify(state));
         const reviewsById = {};
         action.payload.Reviews.forEach((review) => {
           reviewsById[review.id] = review
         })
-        newState = {
-          allReviews: action.payload.Reviews,
-          allReviewsById: reviewsById,
+        return {
+          ...state,
+          allReviews: reviewsById,
         }
-        return newState
       }
       else {
-        newState = action.payload
-        return newState
+        return {...state}
       }
 
     case GET_REVIEW_PRODUCTID:
-      if (action.payload.Review) {
-        newState = JSON.parse(JSON.stringify(state));
-        newState = {
-          reviewByProductId: action.payload.Review
+      if (action.payload.Reviews) {
+        let reviewByProductId = {}
+        action.payload.Reviews.forEach((review) => {
+          reviewByProductId[review.id] = review
+        })
+        return {
+          ...state,
+          reviewByProductId: reviewByProductId
         }
-        return newState
       }
       else {
-        newState = action.payload;
-        return newState
+        return {...state}
       }
 
     case SET_REVIEW:
-      return {...state, [action.Review.id]: action.Review}
+      let newReviewAdded = state.allReviews
+      newReviewAdded[action.Review.id] = action.Review
+      return {...state, allReviews: newReviewAdded}
 
     case UPDATE_REVIEW:
-      return {...state, ...state.action.payload}
+      let updatedReviewAdded = state.allReviews
+      updatedReviewAdded[action.Review.id] = action.Review
+      return {...state, allReviews: updatedReviewAdded}
 
     case REMOVE_REVIEW:
-      let newAllReviews = allReviews.filter((review) => review.id != action.payload)
-      let newAllReviewsById = allReviewsById.filter((review) => review.id != action.payload)
+      let newAllReviews = state.allReviews.filter((review) => review.id != action.payload)
       return {
         ...state,
         allReviews: newAllReviews,
-        allReviewsById: newAllReviewsById
       }
 
     case SET_REVIEW_IMAGE:
-      let newImageState = allReviewImages
+      let newImageState = state.allReviewImages
       newImageState[action.payload.id] = action.payload
       return {
         ...state,
@@ -237,7 +233,7 @@ export default function reducer(state = initialState, action) {
       }
 
     case REMOVE_REVIEW_IMAGE:
-      let newDeletedImageState = allReviewImages.filter((reviewImage) => reviewImage.id != action.payload)
+      let newDeletedImageState = state.allReviewImages.filter((reviewImage) => reviewImage.id != action.payload)
       return {
         ...state,
         allReviewImages: newDeletedImageState
