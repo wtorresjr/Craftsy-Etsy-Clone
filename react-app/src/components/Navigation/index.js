@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
 				</div>
 				{sessionUser && (
 					<div className='favoritesDiv'>
-						<NavLink to="/favorites" className='favorites'>
+						<NavLink to="/current-user/favorites" className='favorites'>
 							<i className="far fa-heart"></i>
 							<i className="far fa-bell"></i>
 							<i className="fas fa-caret-down"></i>
