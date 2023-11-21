@@ -8,12 +8,12 @@ def seed_product_images():
     for product_id in range(1, 40):
         # Generate 4 images with preview value as false
         for _ in range(4):
-            false_image_url = f"https://example.com/image{random.randint(1, 100)}.jpg"
+            false_image_url = f"https://picsum.photos/600/600.jpg?random={random.randint(351,651)}"
             new_false_preview_image = ProductImage(product_id=product_id,image_url=false_image_url,preview=False)
             db.session.add(new_false_preview_image)
-        
+
         # Generate 1 image with preview true
-        true_image_url = f"https://example.com/image{random.randint(101, 200)}.png"
+        true_image_url = f"https://picsum.photos/600/600.jpg?random={random.randint(1,350)}"
         new_true_preview_image = ProductImage(product_id=product_id,image_url=true_image_url,preview=True)
         db.session.add(new_true_preview_image)
 
