@@ -4,11 +4,17 @@ const ProductTile = ({ product }) => {
   return (
     <>
       <div className="tileContainer">
-        <h4>{product.name}</h4>
-        <p>{product.description}</p>
+        <div className="heartFav">
+          {/* <i class="fas fa-heart" style={{ color: "#c70000" }}></i> */}
+
+          <i class="far fa-heart" style={{ color: "black" }}></i>
+        </div>
         <div className="priceContainer">${product.price}</div>
-        <p>Number of Images: {product.Product_Images.length}</p>
-        <img src={product.preview_image_url} />
+        <img
+          style={{ borderRadius: "10px" }}
+          src={product.preview_image_url}
+          className="productImg"
+        />
       </div>
     </>
   );
