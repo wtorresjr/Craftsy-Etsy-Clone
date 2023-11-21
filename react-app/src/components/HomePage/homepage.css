@@ -1,0 +1,7 @@
+.mainProductDisplay {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+}
