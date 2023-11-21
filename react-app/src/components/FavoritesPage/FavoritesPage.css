@@ -1,0 +1,62 @@
+.favorites-page-container {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.container-favorite-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    column-gap: 15px;
+
+}
+
+
+.favorite-card {
+    width: 250px;
+    height: 270px;
+    margin-bottom: 50px;
+}
+
+
+.favorite-product-preview-img {
+    border: 1px solid #D2CDBE;
+    box-shadow: 0 0 3px #D2CDBE;
+    width: 250px;
+    height: 200px;
+}
+
+.favorite-product-preview-img img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.favorite-product-description ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+.favorite-product-description li {
+    list-style: none;
+    padding-bottom: 5px;
+}
+
+.free-shipping-label {
+    background-color: #D4E9D7;
+    width: 100px;
+    border: 1px solid #D4E9D7;
+    border-radius: 20px;
+    font-size: 0.7em;
+    text-align: center;
+    font-weight: 600;
+    padding-top: 3px;
+}
+
+/*************************************/
+
+.favorite-card:hover {
+    cursor: pointer;
+}
