@@ -1,0 +1,18 @@
+.favorite-card {
+    width: 250px;
+    height: 270px;
+    margin-bottom: 50px;
+}
+\
+.favorite-product-preview-img {
+    border: 1px solid #D2CDBE;
+    box-shadow: 0 0 3px #D2CDBE;
+    width: 250px;
+    height: 200px;
+}
+
+.favorite-product-preview-img img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+}
