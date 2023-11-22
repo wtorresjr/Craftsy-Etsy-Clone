@@ -10,119 +10,211 @@
 
 .navBar {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-areas: "cell1 cell2 cell3 cell3 cell3 cell4 cell5 cell6";
+  grid-template-columns: repeat(18, 1fr);
   gap: 10px;
   padding-top: 8px;
   padding-bottom: 8px;
-  /* margin: 15px 0; */
   border-bottom: 2px solid lightgray;
 }
 
 .homeButtonDiv {
-  grid-area: cell1;
+  grid-column: span 2;
+  margin-left: 15px;
+  padding: 5px
 }
 
 .homeButton {
-  /* grid-area: cell1; */
   display: flex;
   align-self: flex-start;
-  margin-right: 12px;
-  margin-left: 12px;
   text-decoration: none;
   color: #F1641F;
   font-weight: light;
   font-size: 40px;
   font-family: "Cambria", serif;
-  /* margin-left: 12px; */
 }
 
 .categoriesDiv {
-  grid-area: cell2;
+  grid-column: span 3;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .categories {
-  /* grid-area: cell2; */
-  display: flexbox;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  height: 100%;
+  place-items: center;
   text-decoration: none;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
   color: rgb(34, 34, 34);
+  /* padding-left: 5px;
+  padding-right: 5px; */
 }
 
-.searchBarDiv {
-  grid-area: cell3;
+.catWord {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.categoriesDiv:hover {
+  background-color: rgb(234, 232, 232);
+  border-radius: 30px;
+}
+
+.searchBarBig {
+  grid-column: span 10;
+  padding: 5px;
+}
+
+.searchBarSmall {
+  grid-column: span 8;
+  padding: 5px;
 }
 
 .searchBar {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .searchBarInput {
-  width: 90%;
+  width: 100%;
   font-size: large;
   border-radius: 25px;
   padding: 10px;
+  border: 3px solid black;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.searchIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 7.5%;
+  right: 1%;
+  background-color: #F1641F;
+  border-radius: 100%;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.magnifyingGlass {
+  text-decoration: none;
+  padding: 8px;
+  color: white;
 }
 
 .fas.fa-search {
   font-size: 25px;
 }
 
+.searchIcon:hover {
+  background-color: rgb(242, 128, 71);
+  transform: scale(1.12);
+}
+
 .favoritesDiv {
-  grid-area: cell4;
+  grid-column: span 1;
 }
 
 .favorites {
+  display: grid;
+  height: 100%;
+  place-items: center;
   text-decoration: none;
   color: black;
   font-size: 30px;
 }
 
-
 .far.fa-heart {
   padding: 0 20px;
 }
 
-.far.fa-bell {
-  padding-left: 20px;
-  padding-right: 10px;
+.bellDiv {
+  grid-column: span 1;
 }
 
-.signInDiv {
-  grid-area: cell5;
-}
-
-.signInButton {
-  /* grid-area: cell4; */
+.bell {
+  display: grid;
+  height: 100%;
+  place-items: center;
   text-decoration: none;
   color: black;
+  font-size: 30px;
+}
+
+div.signInDiv {
+  grid-column: span 2;
+}
+
+.profileButtonDiv {
+  grid-column: span 2;
+}
+
+button.profileButton {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  color: black;
+  background-color: white;
+  border: none;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
   font-weight: bold;
-  color: rgb(34, 34, 34)
+  font-size: 35px;
+  color: rgb(34, 34, 34);
+}
+
+button.signInButton {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  text-decoration: none;
+  background-color: white;
+  border: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(34, 34, 34);
+}
+
+.signInButton:hover {
+  background-color: rgb(234, 232, 232);
+  border-radius: 30px;
 }
 
 .shoppingCartDiv {
-  grid-area: cell6;
+  grid-column: span 1;
+  margin-right: 15px;
+  padding: 5px
 }
 
 .shoppingCart {
-  /* grid-area: cell6; */
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  margin-right: 12px;
-  margin-left: 12px;
+  display: grid;
+  height: 100%;
+  place-items: center;
   text-decoration: none;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: xx-large;
+  font-size: 30px;
   font-weight: light;
-  color: rgb(34, 34, 34)
+  color: rgb(34, 34, 34);
+
+}
+
+.fas.fa-shopping-cart {
+  padding: 10px;
+}
+
+.shoppingCartDiv:hover {
+  background-color: rgb(191, 224, 236);
+  border-radius: 100%;
 }
