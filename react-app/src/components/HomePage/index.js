@@ -13,7 +13,7 @@ import {
   // getProductInfo,
 } from "../../store/products";
 
-// import { loadCurrUserFavorites } from "../../store/favorite";
+import { loadCurrUserFavorites } from "../../store/favorite";
 
 const HomePage = () => {
   // const [refresh, setRefresh] = useState(false);
@@ -21,17 +21,29 @@ const HomePage = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
+  const favoritedProducts = useSelector(
+    (state) => state?.favorite?.allFavorites
+  );
 
   useEffect(() => {
+    dispatch(loadCurrUserFavorites());
     dispatch(getAllProducts());
   }, [dispatch, sessionUser]);
+
+  // console.log(favoritedProducts);
 
   return (
     <>
       <div className="mainProductDisplay">
         {allProducts &&
           allProducts.map((product) => {
-            return <ProductTile key={product.id} product={product} />;
+            return (
+              <ProductTile
+                key={product.id}
+                product={product}
+                favoritedProducts={favoritedProducts}
+              />
+            );
           })}
       </div>
     </>

@@ -58,8 +58,3 @@
   align-items: center;
   visibility: visible;
 }
-
-.tileContainer:hover .heartFav {
-  /* visibility: visible; */
-  /* transform: translateY(-20px); */
-}
