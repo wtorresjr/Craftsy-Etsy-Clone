@@ -118,7 +118,6 @@ def delete_a_favorite(favorite_id):
         if current_user.id == current_favorite.user_id:
             db.session.delete(current_favorite)
             db.session.commit()
-            print('delete route reached')
             return {'message':'Successfully deleted.'}
         else:
             return {'message': 'Forbidden'}, 403
