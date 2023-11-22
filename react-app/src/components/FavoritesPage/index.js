@@ -1,49 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import * as favoriteActions from "../../store/favorite";
 import FavoritesTile from "../FavoritesTile";
+import NoFavorites from "./NoFavorites";
 import "./FavoritesPage.css";
 
 
 function FavoritesPage () {
     const dispatch = useDispatch();
     const allFavorites = useSelector(state => state.favorite.allFavorites)
-    const [favorited, setFavorited] = useState({})
+    const sessionUser = useSelector((state) => state.session.user);
+
 
     useEffect(() => {
         dispatch(favoriteActions.loadCurrUserFavorites())
     }, [dispatch])
 
 
-    useEffect(() => {
-        const initialFavoritedState = {}
-        allFavorites?.forEach((favorite) => {
-            initialFavoritedState[favorite.id] = true
-        })
-        setFavorited(initialFavoritedState)
-    }, [allFavorites])
-
-    const changeState = (id) => {
-        setFavorited(prev=> ({
-            ...prev,
-            [id]: !prev[id]
-        }))
-        dispatch(favoriteActions.removeFromCurrUserFavorites(id))
-    }
-
-    console.log(favorited)
-
-
+    if (!sessionUser) return <Redirect to="/" />
     return (
         <>
-            <div className="favoritespage-container">
-                {allFavorites &&
-                    allFavorites.map((favorite) => {
-                        return <FavoritesTile key={favorite.id} favorite={favorite} favorited={favorited} changeState={changeState} />
-                    })
-                }
-            </div>
+        <div className="favoritespage-container">
+            {allFavorites
+            ? allFavorites.map((favorite) => { return <FavoritesTile key={favorite.id} favorite={favorite} />})
+            : <NoFavorites/>
+            }
+        </div>
         </>
+
     )
 }
 
