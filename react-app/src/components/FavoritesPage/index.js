@@ -8,8 +8,6 @@ function FavoritesPage () {
     const dispatch = useDispatch();
     const allFavorites = useSelector(state => state.favorite.allFavorites)
     const [favorited, setFavorited] = useState({})
-    const [removeId, setRemoveId] = useState('')
-
 
     useEffect(() => {
         dispatch(favoriteActions.loadCurrUserFavorites())
