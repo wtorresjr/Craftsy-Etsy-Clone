@@ -13,7 +13,6 @@ function FavoritesTile ({ favorite }) {
         else setIsFavorited((prev) => !prev)
     };
 
-
     return (
         <>
         <div className="favorite-card">
