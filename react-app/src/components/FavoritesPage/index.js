@@ -18,7 +18,7 @@ function FavoritesPage () {
 
     useEffect(() => {
         const initialFavoritedState = {}
-        allFavorites.forEach((favorite) => {
+        allFavorites?.forEach((favorite) => {
             initialFavoritedState[favorite.id] = true
         })
         setFavorited(initialFavoritedState)
@@ -31,12 +31,17 @@ function FavoritesPage () {
             ...prev,
             [id]: !prev[id]
         }))
+        dispatch(favoriteActions.removeFromCurrUserFavorites(id))
     }
+
+    console.log(favorited)
 
 
     return (
-        <div className="favorites-page-container">
-            <h1 style={{'fontWeight':'300'}}>Favorite items <span style={{'color':'#717171', 'fontSize':'0.65em'}}>{allFavorites.length} items</span></h1>
+        <>
+        {allFavorites &&
+            <div className="favorites-page-container">
+            <h1 style={{'fontWeight':'300'}}>Favorite items <span style={{'color':'#717171', 'fontSize':'0.65em'}}>{allFavorites?.length} items</span></h1>
             <div className="container-favorite-cards">
                 {allFavorites.map((favorite) => {
                     return (
@@ -61,8 +66,9 @@ function FavoritesPage () {
                 })}
             </div>
         </div>
-
-    )
+        }
+    </>
+  )
 }
 
 export default FavoritesPage;
