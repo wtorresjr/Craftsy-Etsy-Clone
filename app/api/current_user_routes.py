@@ -111,15 +111,14 @@ def add_to_favorites():
 @current_user_routes.route('/favorites/<int:favorite_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(favorite_id):
-    current_favorite = Favorite.query.filter_by(id=favorite_id).first()
+        current_favorite = Favorite.query.filter_by(id=favorite_id).first()
+        if not current_favorite:
+            return {'message': 'No favorite by that id was found.'}, 404
 
-    if not current_favorite:
-        return {'message': 'No favorite by that id was found.'}, 404
-
-    if current_user.id == current_favorite.user_id:
-        db.session.delete(current_favorite)
-        db.session.commit()
-        return {'message':'Successfully deleted.'}
-
-    else:
-        return {'message': 'Forbidden'}, 403
+        if current_user.id == current_favorite.user_id:
+            db.session.delete(current_favorite)
+            db.session.commit()
+            print('delete route reached')
+            return {'message':'Successfully deleted.'}
+        else:
+            return {'message': 'Forbidden'}, 403
