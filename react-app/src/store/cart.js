@@ -37,7 +37,6 @@ export const getCart = () => async (dispatch) => {
         const response = await fetch(`/api/cart`);
         if (response.ok) {
             const cartItems = await response.json();
-            console.log(cartItems.cart_id)
             dispatch(loadCartItems(cartItems.Cart));
             dispatch({ type: 'SET_CART_ID', payload: cartItems.cart_id });
             return cartItems;
