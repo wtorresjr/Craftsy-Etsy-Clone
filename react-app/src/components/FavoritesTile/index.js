@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import "./FavoritesTile.css"
 
 
 function FavoritesTile ({ favorite, favorited, changeState }) {
     return (
-        <div className="tileContainer">
+        <div className="favoriteCard">
             <div className="heartFav"  onClick={() => changeState(favorite.id)}>
                 {favorited[favorite.id] ? <i className="fas fa-heart" style={{ color: "#c70000" }} key={`heartFav-${favorite.id}`}></i> : <i className="far fa-heart" style={{ color: "black" }}></i>}
             </div>

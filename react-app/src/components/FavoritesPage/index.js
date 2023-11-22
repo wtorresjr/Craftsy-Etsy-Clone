@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as favoriteActions from "../../store/favorite";
-import FavoritesTile from "../HomePage/FavoritesTile";
+import FavoritesTile from "../FavoritesTile";
 import "./FavoritesPage.css";
 
 
@@ -39,10 +39,9 @@ function FavoritesPage () {
             <div className="favoritespage-container">
                 {allFavorites &&
                     allFavorites.map((favorite) => {
-                         return <FavoritesTile key={favorite.id} favorite={favorite} favorited={favorited} changeState={changeState} />
+                        return <FavoritesTile key={favorite.id} favorite={favorite} favorited={favorited} changeState={changeState} />
                     })
                 }
-
             </div>
         </>
     )
