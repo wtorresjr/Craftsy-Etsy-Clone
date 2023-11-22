@@ -2,7 +2,7 @@ import "./product_tile.css";
 import react, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const ProductTile = ({ product }) => {
+const ProductTile = ({ product, favoritedProducts }) => {
   const dispatch = useDispatch();
   const [heartFaved, setHeartFaved] = useState(false);
   const [favStatus, setFavStatus] = useState("far fa-heart");
@@ -28,11 +28,6 @@ const ProductTile = ({ product }) => {
     }
   };
 
-  const setVisible = () => {
-    setHeartTransform("translateY(-20px)");
-    setFavVisible("visible");
-  };
-
   const checkIfFaved = () => {
     if (heartFaved === true) {
       setFavVisible("visible");
@@ -44,6 +39,18 @@ const ProductTile = ({ product }) => {
     }
   };
 
+  const setVisible = () => {
+    setHeartTransform("translateY(-20px)");
+    setFavVisible("visible");
+  };
+
+  useEffect(() => {
+    favoritedProducts.map((fav) => {
+      if (product.id === fav.id) {
+        setFav(true);
+      }
+    });
+  }, [dispatch]);
 
   return (
     <>
