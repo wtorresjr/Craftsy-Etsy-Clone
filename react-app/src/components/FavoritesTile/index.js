@@ -1,18 +1,31 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as favoriteActions from "../../store/favorite";
 import "./FavoritesTile.css"
 
 
-function FavoritesTile ({ favorite, favorited, changeState }) {
+function FavoritesTile ({ favorite }) {
+    const dispatch = useDispatch()
+    const [isFavorited, setIsFavorited] = useState(true)
+
+    const toggleFavStatus = () => {
+        if (favorite.id !== isFavorited) dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.id))
+        else setIsFavorited((prev) => !prev)
+    };
+
+
     return (
-        <div className="favoriteCard">
-            <div className="heartFav"  onClick={() => changeState(favorite.id)}>
-                {favorited[favorite.id] ? <i className="fas fa-heart" style={{ color: "#c70000" }} key={`heartFav-${favorite.id}`}></i> : <i className="far fa-heart" style={{ color: "black" }}></i>}
+        <>
+        <div className="favorite-card">
+            <div className="fav-card-fav-icon"  onClick={toggleFavStatus}>
+                <i className={isFavorited ? "fas fa-heart" : "far fa-heart"}
+                    style={{color: isFavorited ? "#A5192E" : "#000000"}}>
+                </i>
             </div>
-            <div className="favorite-product-preview-img" title={favorite.name}>
+            <div className="fav-product-preview-img" title={favorite.name}>
                 <img src={favorite.preview_image_url[0]} alt={favorite.name}/>
             </div>
-            <div className="favorite-product-description">
+            <div className="fav-product-description">
                 <ul>
                     <li>{favorite.name}</li>
                     <li style={{'fontWeight': '600'}}>${favorite.price.toFixed(2)}</li>
@@ -20,6 +33,7 @@ function FavoritesTile ({ favorite, favorited, changeState }) {
                 </ul>
             </div>
         </div>
+        </>
     )
 }
 
