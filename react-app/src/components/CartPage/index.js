@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import CartItemTiles from "../CartItemTile";
 import { getCart } from "../../store/cart";
 import { getProductInfo } from "../../store/products";
+import Transaction from "../Transaction";
+import "./cartpage.css";
 
 
 const CartPage = () => {
@@ -44,11 +46,16 @@ const CartPage = () => {
 
     return (
         <>
-            <div className="mainProductDisplay">
-                {cartItemsArray &&
-                    cartItemsArray.map((item) => {
-                        return <CartItemTiles key={item.id} item={item} />;
-                    })}
+            <div className="mainCart">
+                <div className="cartItemTilesContainer">
+                    {cartItemsArray &&
+                        cartItemsArray.map((item) => {
+                            return <CartItemTiles key={item.id} item={item} />;
+                        })}
+                </div>
+                <div id="transactionCartDisplay">
+                    <Transaction />
+                </div>
             </div>
         </>
     );

@@ -1,0 +1,25 @@
+.mainCart {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.cartItemTilesContainer {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 50%;
+    padding: 15px 10px;
+    margin: 30px;
+}
+
+#transactionCartDisplay {
+    position: relative;
+    padding: 15px 10px;
+    margin: 30px;
+    width: 25%;
+    height: 100%;
+}
