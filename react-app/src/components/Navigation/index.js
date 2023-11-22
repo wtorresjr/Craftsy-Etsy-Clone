@@ -25,6 +25,15 @@ function Navigation({ isLoaded }) {
 						<i className="fas fa-search" />
 					</div>
 				</div>
+				{sessionUser && (
+					<div className='favoritesDiv'>
+						<NavLink to="/current-user/favorites" className='favorites'>
+							<i className="far fa-heart"></i>
+							<i className="far fa-bell"></i>
+							<i className="fas fa-caret-down"></i>
+						</NavLink>
+					</div>
+				)}
 				{isLoaded && (
 					<div className="signInDiv">
 						<ProfileButton user={sessionUser} />
