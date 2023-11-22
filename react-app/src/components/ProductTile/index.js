@@ -8,11 +8,9 @@ const ProductTile = ({ product }) => {
   const [favStatus, setFavStatus] = useState("far fa-heart");
   const [heartColor, setHeartColor] = useState("black");
   const [favVisible, setFavVisible] = useState("hidden");
-  const [heartPosition, setHeartPosition] = useState([15, 35]);
-
-  useEffect(() => {
-    setFavVisible((prev) => !prev);
-  }, [heartFaved]);
+  const [heartPositionY, setHeartPositionY] = useState(35);
+  const [heartPositionX, setHeartPositionX] = useState(15);
+  const [heartTransform, setHeartTransform] = useState("translateY(0)");
 
   const setFav = () => {
     if (heartFaved === false) {
@@ -20,25 +18,32 @@ const ProductTile = ({ product }) => {
       setFavStatus("fas fa-heart");
       setHeartColor("#a61a2e");
       setFavVisible("visible");
+      setHeartPositionY(13);
     } else {
       setHeartFaved(false);
       setFavStatus("far fa-heart");
       setHeartColor("black");
       setFavVisible("hidden");
+      setHeartPositionY(35);
     }
   };
+
   const setVisible = () => {
+    setHeartTransform("translateY(-20px)");
     setFavVisible("visible");
   };
 
   const checkIfFaved = () => {
     if (heartFaved === true) {
       setFavVisible("visible");
-      setHeartPosition([13, 33]);
+      setHeartPositionY(39);
     } else {
+      setHeartPositionY(35);
       setFavVisible("hidden");
+      setHeartTransform("translateY(0)");
     }
   };
+
 
   return (
     <>
@@ -52,12 +57,13 @@ const ProductTile = ({ product }) => {
           onClick={setFav}
           style={{
             visibility: favVisible,
-            right: heartPosition[0],
-            top: heartPosition[1],
+            right: `${heartPositionX}px`,
+            top: `${heartPositionY}px`,
+            transform: `${heartTransform}`,
           }}
         >
           <i
-            class={favStatus}
+            className={favStatus}
             style={{ color: heartColor, visibility: favVisible }}
           ></i>
         </div>
