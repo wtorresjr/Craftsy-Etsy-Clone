@@ -37,6 +37,7 @@ function App() {
           <Route exact path="/cart">
             <CartPage />
           </Route>
+
           {/* <Route path="">
             <h1>Page not found</h1>
           </Route> */}
