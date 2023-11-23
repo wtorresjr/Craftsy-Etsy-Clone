@@ -14,6 +14,7 @@ import {
 } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
+import ProductSmallTile from "../ProductSmallTile";
 
 const HomePage = () => {
   // const [refresh, setRefresh] = useState(false);
@@ -37,6 +38,7 @@ const HomePage = () => {
 
   return (
     <>
+      <ProductSmallTile allProducts={allProducts} />
       <div className="mainProductDisplay">
         {allProducts &&
           allProducts.map((product) => {
