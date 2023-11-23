@@ -26,7 +26,10 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    dispatch(loadCurrUserFavorites());
+    if (sessionUser) {
+      dispatch(loadCurrUserFavorites());
+    }
+
     dispatch(getAllProducts());
   }, [dispatch, sessionUser]);
 
