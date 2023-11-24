@@ -22,6 +22,7 @@ const HomePage = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
+  // const productsById = useSelector((state) => state?.products?.allProductsById);
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );

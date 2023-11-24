@@ -20,6 +20,7 @@
   border-radius: 15px;
   border: solid 1px darkgray;
   font-weight: bold;
+  z-index: 9999;
   /* justify-content: center; */
 }
 

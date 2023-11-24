@@ -1,5 +1,5 @@
 import "./product_tile.css";
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const ProductTile = ({ product, favoritedProducts }) => {
@@ -19,12 +19,14 @@ const ProductTile = ({ product, favoritedProducts }) => {
       setHeartColor("#a61a2e");
       setFavVisible("visible");
       setHeartPositionY(13);
+      setHeartPositionX(15);
     } else {
       setHeartFaved(false);
       setFavStatus("far fa-heart");
       setHeartColor("black");
       setFavVisible("hidden");
       setHeartPositionY(35);
+      setHeartPositionX(15);
     }
   };
 
@@ -45,43 +47,44 @@ const ProductTile = ({ product, favoritedProducts }) => {
   };
 
   useEffect(() => {
-    favoritedProducts.map((fav) => {
-      if (product.id === fav.id) {
-        setFav(true);
-      }
-    });
+    if (favoritedProducts) {
+      favoritedProducts.forEach((fav) => {
+        if (product.id === fav.id) {
+          setFav();
+        }
+      });
+    }
   }, [dispatch]);
 
   return (
-    <>
+    <div
+      className="tileContainer"
+      onMouseOver={setVisible}
+      onMouseOut={checkIfFaved}
+    >
       <div
-        className="tileContainer"
-        onMouseOver={setVisible}
-        onMouseOut={checkIfFaved}
+        className="heartFav"
+        onClick={setFav}
+        style={{
+          visibility: favVisible,
+          right: `${heartPositionX}px`,
+          top: `${heartPositionY}px`,
+          transform: `${heartTransform}`,
+        }}
       >
-        <div
-          className="heartFav"
-          onClick={setFav}
-          style={{
-            visibility: favVisible,
-            right: `${heartPositionX}px`,
-            top: `${heartPositionY}px`,
-            transform: `${heartTransform}`,
-          }}
-        >
-          <i
-            className={favStatus}
-            style={{ color: heartColor, visibility: favVisible }}
-          ></i>
-        </div>
-        <div className="priceContainer">${product.price}</div>
-        <img
-          style={{ borderRadius: "10px" }}
-          src={product.preview_image_url}
-          className="productImg"
-        />
+        <i
+          className={favStatus}
+          style={{ color: heartColor, visibility: favVisible }}
+        ></i>
       </div>
-    </>
+      <div className="priceContainer">${product.price}</div>
+      <img
+        alt={product.description}
+        style={{ borderRadius: "10px" }}
+        src={product.preview_image_url}
+        className="productImg"
+      />
+    </div>
   );
 };
 
