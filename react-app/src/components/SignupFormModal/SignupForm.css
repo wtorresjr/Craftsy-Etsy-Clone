@@ -1,19 +1,23 @@
 .signup-container {
     box-shadow: 0px 1px 5px 0px;
     z-index: 10;
-    /* width: 100%; */
     padding: 0 50px;
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 20px;
+}
 
-
+.signup-container h1 {
+    font-weight: 500;
+    margin-top: 60px;
+    line-height: 0px;
 }
 
 .signup-container h2 {
     font-weight: 200;
     color: #3D3D3D;
+    line-height: 0px;
 }
 
 .signup-form label {
