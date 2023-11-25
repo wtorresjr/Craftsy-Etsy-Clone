@@ -77,8 +77,8 @@ export const signUp = (username, email, password, firstName, lastName) => async 
 			username,
 			email,
 			password,
-      first_name: firstName,
-      last_name: lastName,
+			first_name: firstName,
+			last_name: lastName,
 		}),
 	});
 
