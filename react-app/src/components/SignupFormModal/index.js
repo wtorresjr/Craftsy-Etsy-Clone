@@ -42,54 +42,63 @@ function SignupFormModal() {
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-
-        		<label>First Name<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
-					type="text"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
-					required
-				/>
-
-				<label>Last Name<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
-					type="text"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-					required
-				/>
-
-				<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
+				<div className="firstname-div">
+					<label>First Name<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+						type="text"
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="lastname-div">
+					<label>Last Name<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+						type="text"
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="email-div">
+					<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
 						type="text"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
-				/>
-
-				<label>Username<span style={{"color": "#B64B59"}}> *</span></label>
-					<input
-							type="text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-							required
 					/>
-
-				<label>Password<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-				<label>Confirm Password<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
-					type="password"
-					value={confirmPassword}
-					onChange={(e) => setConfirmPassword(e.target.value)}
-					required
-				/>
-				<button className="signup-submit-button" type="submit">Register</button>
+				</div>
+				<div className="username-div">
+					<label>Username<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+						type="text"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="password-div">
+					<label>Password<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="confirm-password-div">
+					<label>Confirm Password<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+						type="password"
+						value={confirmPassword}
+						onChange={(e) => setConfirmPassword(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="signup-submit-button-div">
+					<button className="signup-submit-button" type="submit">Register</button>
+				</div>
 			</form>
 		</div>
 		</>
