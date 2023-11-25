@@ -46,6 +46,7 @@ function SignupFormModal() {
 					<label>First Name<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
+						title="Please fill out this field."
 						value={firstName}
 						onChange={(e) => setFirstName(e.target.value)}
 						required
@@ -55,6 +56,7 @@ function SignupFormModal() {
 					<label>Last Name<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
+						title="Please fill out this field."
 						value={lastName}
 						onChange={(e) => setLastName(e.target.value)}
 						required
@@ -64,6 +66,7 @@ function SignupFormModal() {
 					<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
+						title="Please fill out this field."
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
@@ -73,6 +76,7 @@ function SignupFormModal() {
 					<label>Username<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
+						title="Please fill out this field."
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required
@@ -82,6 +86,7 @@ function SignupFormModal() {
 					<label>Password<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="password"
+						title="Please fill out this field."
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
@@ -91,6 +96,7 @@ function SignupFormModal() {
 					<label>Confirm Password<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="password"
+						title="Please fill out this field."
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
