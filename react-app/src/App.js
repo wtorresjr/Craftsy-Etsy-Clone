@@ -8,7 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import FavoritesPage from "./components/FavoritesPage";
 import CartPage from "./components/CartPage";
-import Transaction from "./components/Transaction";
+// import Transaction from "./components/Transaction";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/current-user/favorites">
+          <Route exact path="/favorites">
             <FavoritesPage />
           </Route>
           <Route exact path="/cart">
