@@ -1,6 +1,6 @@
-import "./product_tile.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import HeartFavorite from "../../HeartFavorite";
 
 const ProductTile = ({ product, favoritedProducts }) => {
   const dispatch = useDispatch();
@@ -62,21 +62,15 @@ const ProductTile = ({ product, favoritedProducts }) => {
       onMouseOver={setVisible}
       onMouseOut={checkIfFaved}
     >
-      <div
-        className="heartFav"
-        onClick={setFav}
-        style={{
-          visibility: favVisible,
-          right: `${heartPositionX}px`,
-          top: `${heartPositionY}px`,
-          transform: `${heartTransform}`,
-        }}
-      >
-        <i
-          className={favStatus}
-          style={{ color: heartColor, visibility: favVisible }}
-        ></i>
-      </div>
+      <HeartFavorite
+        setFav={setFav}
+        favStatus={favStatus}
+        heartColor={heartColor}
+        favVisible={favVisible}
+        heartPositionX={heartPositionX}
+        heartPositionY={heartPositionY}
+        heartTransform={heartTransform}
+      />
       <div className="priceContainer">${product.price}</div>
       <img
         alt={product.description}

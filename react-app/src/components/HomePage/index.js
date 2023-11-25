@@ -2,7 +2,7 @@ import "./homepage.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { NavLink } from 'react-router-dom';
-import ProductTile from "../ProductTile";
+import ProductTile from "../ProductComponents/ProductTile";
 import {
   getAllProducts,
   // addNewProductImage,
@@ -14,7 +14,8 @@ import {
 } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
-import ProductSmallTile from "../ProductSmallTile";
+import ProductSmallTile from "../ProductComponents/ProductSmallTile";
+import ProductShowcase from "../ProductComponents/ProductShowcase";
 
 const HomePage = () => {
   // const [refresh, setRefresh] = useState(false);
@@ -22,7 +23,6 @@ const HomePage = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
-  // const productsById = useSelector((state) => state?.products?.allProductsById);
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
@@ -35,13 +35,18 @@ const HomePage = () => {
     dispatch(getAllProducts());
   }, [dispatch, sessionUser]);
 
-  // console.log(favoritedProducts);
-
   return (
     <>
-      <ProductSmallTile allProducts={allProducts} />
       <div className="mainProductDisplay">
-        {allProducts &&
+        <ProductSmallTile
+          allProducts={allProducts}
+          favoriteProducts={favoritedProducts}
+        />
+        <ProductShowcase
+          allProducts={allProducts}
+          favoritedProducts={favoritedProducts}
+        />
+        {/* {allProducts &&
           allProducts.map((product) => {
             return (
               <ProductTile
@@ -50,7 +55,7 @@ const HomePage = () => {
                 favoritedProducts={favoritedProducts}
               />
             );
-          })}
+          })} */}
       </div>
     </>
   );
