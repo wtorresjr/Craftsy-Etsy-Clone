@@ -1,0 +1,56 @@
+.relatedTileContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tileNameContainer {
+    position: absolute;
+    left: -11px;
+    top: 260px;
+    display: flex;
+    background-color: white;
+    width: auto;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.tilePriceContainer {
+    position: absolute;
+    left: -11px;
+    top: 290px;
+    display: flex;
+    background-color: white;
+    width: auto;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.addToCartButton {
+    position: absolute;
+    left: -1px;
+    top: 330px;
+    display: flex;
+    background-color: white;
+    width: auto;
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: solid 2px black;
+    font-weight: bold;
+}
+
+.addToCartButton:hover {
+    cursor: pointer;
+}
+
+.favoriteHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10% 0px 5% 0px;
+
+}
