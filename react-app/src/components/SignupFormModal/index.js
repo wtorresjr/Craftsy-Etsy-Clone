@@ -6,12 +6,12 @@ import "./SignupForm.css";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
@@ -32,6 +32,7 @@ function SignupFormModal() {
 	};
 
 	return (
+		<>
 		<div className="signup-container">
 			<h1>Create your account</h1>
 			<h2>Registration is easy.</h2>
@@ -41,13 +42,6 @@ function SignupFormModal() {
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-				<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
-				<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
 
         		<label>First Name<span style={{"color": "#B64B59"}}> *</span></label>
 				<input
@@ -56,6 +50,31 @@ function SignupFormModal() {
 					onChange={(e) => setFirstName(e.target.value)}
 					required
 				/>
+
+				<label>Last Name<span style={{"color": "#B64B59"}}> *</span></label>
+				<input
+					type="text"
+					value={lastName}
+					onChange={(e) => setLastName(e.target.value)}
+					required
+				/>
+
+				<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
+				<input
+						type="text"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						required
+				/>
+
+				<label>Username<span style={{"color": "#B64B59"}}> *</span></label>
+					<input
+							type="text"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+					/>
+
 				<label>Password<span style={{"color": "#B64B59"}}> *</span></label>
 				<input
 					type="password"
@@ -73,6 +92,7 @@ function SignupFormModal() {
 				<button className="signup-submit-button" type="submit">Register</button>
 			</form>
 		</div>
+		</>
 	);
 }
 

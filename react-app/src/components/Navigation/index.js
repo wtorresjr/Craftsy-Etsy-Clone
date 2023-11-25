@@ -15,29 +15,47 @@ function Navigation({ isLoaded }) {
 				</div>
 				<div className='categoriesDiv'>
 					<Link className='categories'>
-						<i className="fas fa-bars"> </i>
-						<span> Categories</span>
+						<i className="fas fa-bars"> <span className='catWord'> Categories</span> </i>
+
 					</Link>
 				</div>
-				<div className='searchBarDiv'>
+				{!sessionUser && <div className='searchBarBig'>
 					<div className='searchBar'>
 						<input className='searchBarInput' placeholder='Search for anything' />
-						<i className="fas fa-search" />
+						<div className='searchIcon'>
+							<Link className='magnifyingGlass'><i className="fas fa-search" /></Link>
+						</div>
 					</div>
 				</div>
+				}
+				{sessionUser && <div className='searchBarSmall'>
+					<div className='searchBar'>
+						<input className='searchBarInput' placeholder='Search for anything' />
+						<div className='searchIcon'>
+							<Link className='magnifyingGlass'><i className="fas fa-search" /></Link>
+						</div>
+					</div>
+				</div>
+				}
 				{sessionUser && (
 					<div className='favoritesDiv'>
-						<NavLink to="/current-user/favorites" className='favorites'>
+						<NavLink to="/favorites" className='favorites'>
 							<i className="far fa-heart"></i>
-							<i className="far fa-bell"></i>
-							<i className="fas fa-caret-down"></i>
 						</NavLink>
 					</div>
 				)}
-				{isLoaded && (
-					<div className="signInDiv">
-						<ProfileButton user={sessionUser} />
+				{sessionUser && (
+					<div className='bellDiv'>
+						<Link className='bell'>
+							<i className="far fa-bell"> <i className="fas fa-caret-down"> </i></i>
+
+						</Link>
 					</div>
+				)}
+				{isLoaded && (
+					// <div className=''>
+					<ProfileButton user={sessionUser} />
+					// </div>
 				)}
 				<div className='shoppingCartDiv'>
 					<NavLink to="/cart" className='shoppingCart'>
