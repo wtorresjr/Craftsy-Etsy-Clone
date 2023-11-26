@@ -56,6 +56,14 @@
     margin-bottom: 30px;
 }
 
+.errors-div {
+    color: #A61A2D
+}
+
+.error-input {
+    background-color: #FDDCD8;
+}
+
 
 
 /* Register button color:
