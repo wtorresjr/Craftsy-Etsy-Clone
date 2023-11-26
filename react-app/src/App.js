@@ -8,7 +8,6 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import FavoritesPage from "./components/FavoritesPage";
 import CartPage from "./components/CartPage";
-// import Transaction from "./components/Transaction";
 
 function App() {
   const dispatch = useDispatch();

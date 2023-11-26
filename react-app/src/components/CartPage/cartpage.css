@@ -4,14 +4,14 @@
     flex-direction: row;
     margin: 0 auto;
     justify-content: space-evenly;
-    width: 100%;
+    width: 95%;
 }
 
 .cartItemTilesContainer {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    width: 50%;
+    width: 55%;
     padding: 15px 10px;
     margin: 30px;
 }
@@ -22,4 +22,34 @@
     margin: 30px;
     width: 25%;
     height: 100%;
+}
+
+.itemCount {
+    margin: 0;
+    font-family: Guardian-EgypTT,
+        Charter,
+        "Charter Bitstream",
+        Cambria,
+        "Noto Serif Light",
+        "Droid Serif",
+        Georgia,
+        "serif";
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 300;
+    color: #222222;
+}
+
+.emptyCartContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cartRelatedTiles {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
