@@ -1,11 +1,3 @@
-/* .prodSmallImg {
-  background-color: grey;
-} */
-
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .prodSmallContainer {
   width: 100%;
   display: flex;

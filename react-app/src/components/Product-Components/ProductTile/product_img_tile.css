@@ -1,0 +1,9 @@
+.imageContainer {
+  border-radius: 15px;
+  height: auto;
+  cursor: pointer;
+}
+
+.productTileContain {
+  position: relative;
+}

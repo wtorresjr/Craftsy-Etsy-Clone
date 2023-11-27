@@ -14,11 +14,12 @@ const ProductShowcase = ({ allProducts, favoritedProducts }) => {
 
   return (
     <div class="productShowcase">
-      <h3>
-        {allProducts[showCaseProd]?.name}{" "}
-        <i class="fa-solid fa-arrow-right"></i>
-      </h3>
-
+      <div className="title">
+        <h3>
+          {allProducts[showCaseProd]?.name}{" "}
+          <i class="fa-solid fa-arrow-right"></i>
+        </h3>
+      </div>
       <div class="showcaseImagesContainer">
         <img
           class="showCasePreviewImg"
