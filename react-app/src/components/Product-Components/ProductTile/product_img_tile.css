@@ -1,11 +1,14 @@
 .imageContainer {
   border-radius: 15px;
-  height: auto;
+  /* height: auto; */
   cursor: pointer;
+  width: 250px;
+  height: 250px;
 }
 
 .productTileContain {
   position: relative;
+  
 }
 
 .heartContainer {
@@ -27,7 +30,7 @@
 
 .heartContainer.clicked {
   opacity: 1;
-  top: 8%;
+  top: 14%;
   color: #a61a2e;
 }
 
@@ -39,7 +42,7 @@
 
 .productTileContain:hover .heartContainer {
   opacity: 1;
-  top: 8%;
+  top: 14%;
 }
 
 .fa-heart {
