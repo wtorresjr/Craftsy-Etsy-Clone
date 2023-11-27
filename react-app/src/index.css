@@ -1,1 +1,6 @@
 /* TODO Add site wide styles */
+
+body {
+  display: flex;
+  /* margin: 0 auto; */
+}

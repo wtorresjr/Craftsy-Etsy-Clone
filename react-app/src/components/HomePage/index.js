@@ -1,8 +1,7 @@
 import "./homepage.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { NavLink } from 'react-router-dom';
-import ProductTile from "../ProductComponents/ProductTile";
+import ProductTile from "../Product-Components/ProductTile";
 import {
   getAllProducts,
   // addNewProductImage,
@@ -14,8 +13,6 @@ import {
 } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
-import ProductSmallTile from "../ProductComponents/ProductSmallTile";
-import ProductShowcase from "../ProductComponents/ProductShowcase";
 
 const HomePage = () => {
   // const [refresh, setRefresh] = useState(false);
@@ -38,15 +35,7 @@ const HomePage = () => {
   return (
     <>
       <div className="mainProductDisplay">
-        <ProductSmallTile
-          allProducts={allProducts}
-          favoriteProducts={favoritedProducts}
-        />
-        <ProductShowcase
-          allProducts={allProducts}
-          favoritedProducts={favoritedProducts}
-        />
-        {/* {allProducts &&
+        {allProducts &&
           allProducts.map((product) => {
             return (
               <ProductTile
@@ -55,7 +44,7 @@ const HomePage = () => {
                 favoritedProducts={favoritedProducts}
               />
             );
-          })} */}
+          })}
       </div>
     </>
   );

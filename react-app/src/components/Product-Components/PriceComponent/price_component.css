@@ -1,0 +1,13 @@
+.priceDiv {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  background-color: white;
+  width: auto;
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: solid 1px darkgray;
+  font-weight: bold;
+  z-index: 9999;
+}
