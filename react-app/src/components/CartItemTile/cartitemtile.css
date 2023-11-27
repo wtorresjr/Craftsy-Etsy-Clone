@@ -1,10 +1,10 @@
 .cartItemCard {
     background-color: white;
     border-radius: 20px;
-    width: 55%;
+    width: 100%;
     height: 400px;
     padding: 10px 15px;
-    margin: 30px;
+    margin: 30px 0px;
     box-shadow: 4px 4px 10px grey;
 }
 
@@ -30,6 +30,7 @@
 .sellerHeader span:hover {
     text-decoration: underline;
     color: #595959;
+    cursor: pointer;
 }
 
 .sellerHeader h3 {
@@ -43,6 +44,11 @@
     font-weight: 600;
     color: #222222;
     text-transform: capitalize;
+}
+
+.sellerHeader h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .detailContainer {
@@ -122,11 +128,12 @@
 .detailButtons button:hover {
     transition-duration: 400ms;
     background-color: #cfcfcf;
+    cursor: pointer;
 }
 
 .quantityDropdown {
     margin-left: 7px;
-    width: 55px;
+    width: 65px;
     height: 45px;
     border-radius: 5px;
 }
@@ -167,6 +174,7 @@
 .personalizeItemContainer button:hover {
     transition-duration: 200ms;
     background-color: #cfcfcf;
+    cursor: pointer;
 }
 
 .personalizeItemContainer label {

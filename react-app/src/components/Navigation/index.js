@@ -58,8 +58,8 @@ function Navigation({ isLoaded }) {
 					// </div>
 				)}
 				<div className='shoppingCartDiv'>
-					<NavLink to="/shoppingcart" className='shoppingCart'>
-						<i className="fas fa-shopping-cart"></i>
+					<NavLink to="/cart" className='shoppingCart'>
+						<i class="fas fa-shopping-cart"></i>
 					</NavLink>
 				</div>
 			</div>
