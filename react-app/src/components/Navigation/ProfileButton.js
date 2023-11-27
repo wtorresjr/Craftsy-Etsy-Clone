@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -43,10 +43,11 @@ function ProfileButton({ user }) {
       {user ? (
         <div className="profileButtonDiv">
           <button onClick={openMenu} className="profileButton">
-            <i class="fas fa-user-circle"> <i className="fas fa-caret-down"> </i></i>
+            <i className="fas fa-user-circle">
+              <i className="fas fa-caret-down"> </i>
+            </i>
           </button>
           <ul className={ulClassName} ref={ulRef}>
-
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
@@ -54,7 +55,7 @@ function ProfileButton({ user }) {
                 <button onClick={handleLogout}>Log Out</button>
               </li>
             </>
-          </ul >
+          </ul>
         </div>
       ) : (
         <>
