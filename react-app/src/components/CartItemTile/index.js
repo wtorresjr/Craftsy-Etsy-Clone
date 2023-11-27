@@ -89,6 +89,9 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
 
                             <div className="cartItemPrice">
                                 <h2>${(item.price?.toFixed(2) * item?.quantity).toFixed(2)}</h2>
+                                {item.quantity > 1 && (
+                                    <h4>{`($${item.price} each)`}</h4>
+                                )}
                             </div>
                         </div>
                     </div>
