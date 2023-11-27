@@ -1,0 +1,18 @@
+.heartContainer {
+  display: flex;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  right: 5%;
+  top: 20%;
+  cursor: pointer;
+}
+
+.heartContainer:hover {
+  border: 3px solid lightgray;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.39);
+}

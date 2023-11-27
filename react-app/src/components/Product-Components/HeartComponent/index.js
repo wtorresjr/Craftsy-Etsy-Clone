@@ -1,11 +1,7 @@
-import "./heart_component_styles.css";
+import "../ProductTile/product_img_tile.css";
 
 const FavoriteHeart = () => {
-  return (
-    <div>
-      <p>Heart</p>
-    </div>
-  );
+  return <div className="heartContainer">Heart</div>;
 };
 
 export default FavoriteHeart;
