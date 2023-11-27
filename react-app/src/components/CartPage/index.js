@@ -32,13 +32,13 @@ const CartPage = () => {
         if (productsArray?.length > 0) {
             setProducts(productsArray.slice(0,5));
         }
-    }, [cartItemsArray, productsArray]);
+    }, [cartItemsArray, productsArray, sessionUser]);
 
     return (
         <div className="mainCartContainer">
             <div className="mainCart">
                 <div className="cartItemTilesContainer">
-                    {cartItemsArray.length > 0 ? (
+                    {cartItemsArray.length > 0 && sessionUser ? (
                         <div>
                             <div>
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
@@ -54,14 +54,14 @@ const CartPage = () => {
                         <EmptyCartPage />
                     )}
                 </div>
-                    {itemCount > 0 && (
+                    {itemCount > 0 && sessionUser && (
                         <div id="transactionCartDisplay">
                             <Transaction totalItems={cartItemsArray}/>
                         </div>
                     )}
             </div>
             <div className="cartRelatedTiles">
-                <CartRelatedTiles productsArray={products}/>
+                <CartRelatedTiles productsArray={products} sessionUser={sessionUser}/>
             </div>
         </div>
     );
