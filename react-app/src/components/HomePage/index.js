@@ -25,7 +25,7 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    if (sessionUser) {
+    if (sessionUser && favoritedProducts.length > 0) {
       dispatch(loadCurrUserFavorites());
     }
 
