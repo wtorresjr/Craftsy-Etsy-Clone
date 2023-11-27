@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import "../ProductTile/product_img_tile.css";
+import ProductTile from "../ProductTile";
 
-const FavoriteHeart = () => {
+const FavoriteHeart = ({ product, favoritedProducts }) => {
+  const dispatch = useDispatch();
   const [isClicked, setClicked] = useState(false);
 
   const handleClick = () => {
     setClicked(!isClicked);
   };
+
+  useEffect(() => {
+    favoritedProducts.forEach((fav) => {
+      if (fav.id === product.id) {
+        handleClick();
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div
@@ -23,4 +34,3 @@ const FavoriteHeart = () => {
 };
 
 export default FavoriteHeart;
-
