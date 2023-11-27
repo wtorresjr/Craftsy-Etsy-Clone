@@ -39,17 +39,17 @@ function Navigation({ isLoaded }) {
 				}
 				{sessionUser && (
 					<div className='favoritesDiv'>
-						<NavLink to="/favorites" className='favorites'>
+						<NavLink to="/current-user/favorites" className='favorites'>
 							<i className="far fa-heart"></i>
 						</NavLink>
 					</div>
 				)}
 				{sessionUser && (
 					<div className='bellDiv'>
-						<Link className='bell'>
+						<button className='bell'>
 							<i className="far fa-bell"> <i className="fas fa-caret-down"> </i></i>
 
-						</Link>
+						</button>
 					</div>
 				)}
 				{isLoaded && (
@@ -58,8 +58,8 @@ function Navigation({ isLoaded }) {
 					// </div>
 				)}
 				<div className='shoppingCartDiv'>
-					<NavLink to="/shoppingcart" className='shoppingCart'>
-						<i className="fas fa-shopping-cart"></i>
+					<NavLink to="/cart" className='shoppingCart'>
+						<i class="fas fa-shopping-cart"></i>
 					</NavLink>
 				</div>
 			</div>

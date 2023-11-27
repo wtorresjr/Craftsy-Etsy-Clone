@@ -1,63 +1,69 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+
+import EmptyCartPage from "../EmptyCartPage";
 import CartItemTiles from "../CartItemTile";
-import { getCart } from "../../store/cart";
-import { getProductInfo } from "../../store/products";
 import Transaction from "../Transaction";
+
+import { getCart } from "../../store/cart";
+
 import "./cartpage.css";
+import CartRelatedTiles from "../CartRelatedTiles";
+import { getAllProducts } from "../../store/products";
 
 
 const CartPage = () => {
     const dispatch = useDispatch();
 
+    const cartItemsArray = useSelector(state => state.cart?.allItems);
+    const productsArray = useSelector(state => state.products?.allProducts);
     const sessionUser = useSelector(state => state.session.user);
-    const cartItemsArray = useSelector(state => state.cart.allItems);
-    const cartItemsObj = useSelector(state => state.cart.byId);
-    const productDetailsObj = useSelector(state => state.products.Product_Details);
 
-    const [isloading, setIsLoading] = useState(true);
-    const [shippingFree, setShippingFree] = useState(true);
-    const [productInfoObj, setProductInfoObj] = useState({});
+    const [itemCount, setItemCount] = useState(-Infinity);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         dispatch(getCart());
+        dispatch(getAllProducts());
     }, [dispatch, sessionUser]);
 
     useEffect(() => {
-        const fetchProductInfo = async () => {
-            const productInfoPromises = cartItemsArray.map(item =>
-                dispatch(getProductInfo(item.product_id))
-            );
-            try {
-                const productInfoResults = await Promise.all(productInfoPromises);
-                const infoObj = {};
-                productInfoResults.forEach((info, index) => {
-                    infoObj[cartItemsArray[index].id] = info.Product_Details;
-                });
-                setProductInfoObj(infoObj);
-            } catch (error) {
-                console.error('Error fetching product info:', error);
-            }
-
-            setIsLoading(false);
-        };
-        fetchProductInfo();
-    }, [dispatch, sessionUser, cartItemsArray]);
+        setItemCount(cartItemsArray.length);
+        if (productsArray?.length > 0) {
+            setProducts(productsArray.slice(0,5));
+        }
+    }, [cartItemsArray, productsArray, sessionUser]);
 
     return (
-        <>
+        <div className="mainCartContainer">
             <div className="mainCart">
                 <div className="cartItemTilesContainer">
-                    {cartItemsArray &&
-                        cartItemsArray.map((item) => {
-                            return <CartItemTiles key={item.id} item={item} />;
-                        })}
+                    {cartItemsArray.length > 0 && sessionUser ? (
+                        <div>
+                            <div>
+                                <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
+                                {cartItemsArray &&
+                                    cartItemsArray.map((item) => {
+                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray}/>;
+                                    })}
+
+                            </div>
+
+                        </div>
+                    ): (
+                        <EmptyCartPage />
+                    )}
                 </div>
-                <div id="transactionCartDisplay">
-                    <Transaction />
-                </div>
+                    {itemCount > 0 && sessionUser && (
+                        <div id="transactionCartDisplay">
+                            <Transaction totalItems={cartItemsArray}/>
+                        </div>
+                    )}
             </div>
-        </>
+            <div className="cartRelatedTiles">
+                <CartRelatedTiles productsArray={products} sessionUser={sessionUser}/>
+            </div>
+        </div>
     );
 };
 

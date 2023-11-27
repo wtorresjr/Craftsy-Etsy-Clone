@@ -10,7 +10,7 @@
 
 .navBar {
   display: grid;
-  grid-template-columns: repeat(18, 1fr);
+  grid-template-columns: repeat(20, 1fr);
   gap: 10px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -18,8 +18,9 @@
 }
 
 .homeButtonDiv {
-  grid-column: span 2;
+  grid-column: span 3;
   margin-left: 15px;
+  /* margin-right: 10px; */
   padding: 5px
 }
 
@@ -35,7 +36,7 @@
 
 .categoriesDiv {
   grid-column: span 3;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   margin-right: 5px;
 }
 
@@ -63,7 +64,7 @@
 }
 
 .searchBarBig {
-  grid-column: span 10;
+  grid-column: span 11;
   padding: 5px;
 }
 
@@ -137,14 +138,17 @@
 }
 
 .bellDiv {
-  grid-column: span 1;
+  grid-column: span 2;
 }
 
-.bell {
+button.bell {
   display: grid;
   height: 100%;
+  width: 100%;
   place-items: center;
-  text-decoration: none;
+  background-color: white;
+  border: none;
+  /* text-decoration: none; */
   color: black;
   font-size: 30px;
 }
@@ -167,9 +171,11 @@ button.profileButton {
   border: none;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 35px;
+  font-size: 30px;
   color: rgb(34, 34, 34);
 }
+
+
 
 button.signInButton {
   display: grid;
@@ -215,6 +221,21 @@ button.signInButton {
 }
 
 .shoppingCartDiv:hover {
-  background-color: rgb(191, 224, 236);
+  background-color: #CCEBFF;
+  border-radius: 100%;
+}
+
+.profileButton:hover {
+  background-color: #CCEBFF;
+  border-radius: 30px;
+}
+
+.bell:hover {
+  background-color: #CCEBFF;
+  border-radius: 30px;
+}
+
+.favoritesDiv:hover {
+  background-color: #CCEBFF;
   border-radius: 100%;
 }
