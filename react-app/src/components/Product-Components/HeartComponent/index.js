@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../ProductTile/product_img_tile.css";
+import * as favoriteActions from "../../../store/favorite";
 import ProductTile from "../ProductTile";
 
 const FavoriteHeart = ({ product, favoritedProducts }) => {
@@ -9,14 +10,23 @@ const FavoriteHeart = ({ product, favoritedProducts }) => {
 
   const handleClick = () => {
     setClicked(!isClicked);
+
+    // if (isClicked === false) {
+    //   console.log(product.id, "setting Id for");
+    //   dispatch(favoriteActions.addToCurrUserFavorites(product?.id));
+    // }
+    // if (isClicked === false) {
+    //   dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
+    // }
   };
 
   useEffect(() => {
-    favoritedProducts.forEach((fav) => {
-      if (fav.id === product.id) {
-        handleClick();
-      }
-    });
+    if (favoritedProducts && favoritedProducts.length)
+      favoritedProducts.forEach((fav) => {
+        if (fav.id === product.id) {
+          setClicked(!isClicked);
+        }
+      });
   }, [dispatch]);
 
   return (
