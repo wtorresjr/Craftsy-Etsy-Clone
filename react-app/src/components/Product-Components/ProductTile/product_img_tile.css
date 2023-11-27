@@ -43,7 +43,7 @@
 }
 
 .fa-heart {
-  transition: transform 0.1s bounce;
+  transition: transform 0.1s ease;
 }
 
 .heartContainer:active .far.fa-heart {

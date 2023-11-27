@@ -24,6 +24,3 @@ const FavoriteHeart = () => {
 
 export default FavoriteHeart;
 
-{
-  /* <i className="fas fa-heart fa-lg"></i> */
-}
