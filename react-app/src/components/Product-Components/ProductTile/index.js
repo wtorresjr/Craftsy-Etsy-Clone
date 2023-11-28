@@ -4,7 +4,6 @@ import FavoriteHeart from "../HeartComponent";
 import "./product_img_tile.css";
 
 const ProductTile = ({ product, favoritedProducts }) => {
-  // const [isClicked, setIsClicked] = useState(false);
   const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
   const [localIsClicked, setLocalIsClicked] = useState(isClicked);
 

@@ -9,29 +9,33 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
-
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
+
+  useEffect(() => {
+    if (favoritedProducts) {
+      favoritedProducts.map((fav) => {
+        if (fav.product_id === product.id) {
+          setLocalIsClicked(true);
+        }
+      });
+    }
+  }, [favoritedProducts, setLocalIsClicked]);
 
   const handleClick = () => {
     setLocalIsClicked(!localIsClicked);
 
     if (!localIsClicked) {
       console.log(product.id, "is faved");
+      const newFav = {
+        product_id: product.id,
+      };
+      dispatch(favoriteActions.addToCurrUserFavorites(newFav));
     } else {
       console.log(product.id, "is unfaved");
       dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
+      console.log(product.id, "<----Dispatched product id");
     }
   };
-
-  useEffect(() => {
-    if (favoritedProducts) {
-      favoritedProducts.map((fav) => {
-        if (fav.id === product.id) {
-          setLocalIsClicked(true);
-        }
-      });
-    }
-  }, [favoritedProducts]);
 
   return (
     <div

@@ -76,6 +76,7 @@ def get_curr_user_favorites():
     for favorite in current_user_favorites:
         about_favorite = {
             "id": favorite.id,
+            "product_id": favorite.product_id,
             "name": favorite.products.name,
             "price": favorite.products.price,
             "quantity": favorite.products.quantity,
@@ -110,11 +111,16 @@ def add_to_favorites():
 @current_user_routes.route('/favorites/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(product_id):
-    current_favorite = Favorite.query.filter_by(product_id=product_id).first()
+    current_favorite = Favorite.query.filter_by(
+        product_id=product_id).first()
+
+    # current_favorite = Favorite.query.filter_by(
+    #     product_id=product_id).filter_by(user_id=current_user.id)
     # print(current_favorite, "Current Fave")
     if not current_favorite:
         return {'message': 'No favorited product by that id was found.'}, 404
 
+    print(current_favorite.to_dict(), "<----- Current Fave")
     print(current_user.id, "<----- User id")
     print(current_favorite.user_id, "<----- Current Fav User id")
 
