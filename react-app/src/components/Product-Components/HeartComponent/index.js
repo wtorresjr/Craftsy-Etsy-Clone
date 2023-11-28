@@ -14,7 +14,6 @@ const FavoriteHeart = ({ product, favoritedProducts }) => {
 
     if (!isClicked) {
       console.log(product.id, "is faved");
-
       // const newFav = {
       //   product_id: product.id,
       //   user_id: sessionUser.id,
