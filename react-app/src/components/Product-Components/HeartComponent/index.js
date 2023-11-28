@@ -5,6 +5,7 @@ import * as favoriteActions from "../../../store/favorite";
 import ProductTile from "../ProductTile";
 
 const FavoriteHeart = ({ product, setIsClicked }) => {
+  const dispatch = useDispatch();
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
@@ -18,6 +19,7 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
       console.log(product.id, "is faved");
     } else {
       console.log(product.id, "is unfaved");
+      dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
     }
   };
 
