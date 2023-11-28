@@ -76,6 +76,7 @@ def get_curr_user_favorites():
     for favorite in current_user_favorites:
         about_favorite = {
             "id": favorite.id,
+            "product_id": favorite.product_id,
             "name": favorite.products.name,
             "price": favorite.products.price,
             "quantity": favorite.products.quantity,
@@ -93,16 +94,21 @@ def get_curr_user_favorites():
 @login_required
 def add_to_favorites():
     data = request.get_json()
-    find_favorite = Favorite.query.filter_by(
-        product_id=data.get('product_id'), user_id=current_user.id).first()
-    if find_favorite:
-        return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
-    new_favorite = Favorite(product_id=data.get(
-        'product_id'), user_id=current_user.id)
-    db.session.add(new_favorite)
-    db.session.commit()
+    find_product = Product.query.filter_by(
+        id=data.get('product_id'))
 
-    return new_favorite.to_dict(), 201
+    # print(data, "<----- Data request json")
+
+    if find_product:
+        # if find_favorite:
+        #     return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
+        new_favorite = Favorite(product_id=data.get(
+            'product_id'), user_id=current_user.id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        return new_favorite.to_dict(), 201
+    else:
+        return {"message": "Product could not be found."}
 
 
 # Delete a Favorite
@@ -110,13 +116,11 @@ def add_to_favorites():
 @current_user_routes.route('/favorites/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(product_id):
-    current_favorite = Favorite.query.filter_by(product_id=product_id).first()
-    # print(current_favorite, "Current Fave")
+    current_favorite = Favorite.query.filter_by(user_id=current_user.id).filter_by(
+        product_id=product_id).first()
+
     if not current_favorite:
         return {'message': 'No favorited product by that id was found.'}, 404
-
-    print(current_user.id, "<----- User id")
-    print(current_favorite.user_id, "<----- Current Fav User id")
 
     if current_user.id == current_favorite.user_id:
         db.session.delete(current_favorite)
