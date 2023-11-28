@@ -7,6 +7,9 @@ import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
+import { fetchReviews } from "../../store/reviews";
+
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -21,6 +24,7 @@ const HomePage = () => {
       dispatch(loadCurrUserFavorites());
     }
   }, [dispatch, sessionUser]);
+
 
   return (
     <>

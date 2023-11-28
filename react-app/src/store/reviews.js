@@ -214,6 +214,7 @@ export default function reducer(state = initialState, action) {
       let newAllReviews = state.allReviews.filter(
         (review) => review.id !== action.payload
       );
+
       return {
         ...state,
         allReviews: newAllReviews,
