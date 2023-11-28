@@ -6,17 +6,15 @@ from flask_login import login_required, current_user, LoginManager
 current_user_routes = Blueprint('current-user', __name__)
 
 
-
 # Get Current User Info
 
 @current_user_routes.route('/', methods=['GET'])
 @login_required
 def get_current_user_info():
-        if current_user:
-             return {"user": current_user.to_dict()}
-        else:
-            return {'user': 'null'},
-
+    if current_user:
+        return {"user": current_user.to_dict()}
+    else:
+        return {'user': 'null'},
 
 
 # Get All Current User Reviews
@@ -24,7 +22,8 @@ def get_current_user_info():
 @current_user_routes.route('/reviews', methods=['GET'])
 @login_required
 def get_current_user_reviews():
-    current_user_reviews = Review.query.filter_by(user_id=current_user.id).all()
+    current_user_reviews = Review.query.filter_by(
+        user_id=current_user.id).all()
 
     if not current_user_reviews:
         return {'message': 'You have not created any reviews.'}
@@ -58,25 +57,26 @@ def get_current_user_reviews():
     return {"Reviews": reviews_list}
 
 
-
 # View Current User Favorites
 
 @current_user_routes.route('/favorites', methods=['GET'])
 @login_required
 def get_curr_user_favorites():
-    current_user_favorites = Favorite.query.filter_by(user_id=current_user.id).all()
+    current_user_favorites = Favorite.query.filter_by(
+        user_id=current_user.id).all()
 
     if not current_user_favorites:
         return {'message': 'You have no saved favorites.'}
 
     for favorite in current_user_favorites:
         if favorite.products.quantity == 0:
-             return {'message':'Sorry, this item is sold out'}
+            return {'message': 'Sorry, this item is sold out'}
 
     favorites_list = []
     for favorite in current_user_favorites:
         about_favorite = {
             "id": favorite.id,
+            "product_id": favorite.product_id,
             "name": favorite.products.name,
             "price": favorite.products.price,
             "quantity": favorite.products.quantity,
@@ -88,38 +88,43 @@ def get_curr_user_favorites():
     return {"Favorites": favorites_list}
 
 
-
 #  Add Favorite
 
 @current_user_routes.route('/favorites', methods=['POST'])
 @login_required
 def add_to_favorites():
     data = request.get_json()
-    find_favorite = Favorite.query.filter_by(product_id=data.get('product_id'), user_id=current_user.id).first()
-    if find_favorite:
-        return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
-    new_favorite = Favorite(product_id=data.get('product_id'), user_id=current_user.id)
-    db.session.add(new_favorite)
-    db.session.commit()
+    find_product = Product.query.filter_by(
+        id=data.get('product_id'))
 
-    return new_favorite.to_dict(), 201
+    # print(data, "<----- Data request json")
 
+    if find_product:
+        # if find_favorite:
+        #     return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
+        new_favorite = Favorite(product_id=data.get(
+            'product_id'), user_id=current_user.id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        return new_favorite.to_dict(), 201
+    else:
+        return {"message": "Product could not be found."}
 
 
 # Delete a Favorite
 
-@current_user_routes.route('/favorites/<int:favorite_id>', methods=['DELETE'])
+@current_user_routes.route('/favorites/<int:product_id>', methods=['DELETE'])
 @login_required
-def delete_a_favorite(favorite_id):
-    current_favorite = Favorite.query.filter_by(id=favorite_id).first()
+def delete_a_favorite(product_id):
+    current_favorite = Favorite.query.filter_by(user_id=current_user.id).filter_by(
+        product_id=product_id).first()
 
     if not current_favorite:
-        return {'message': 'No favorite by that id was found.'}, 404
+        return {'message': 'No favorited product by that id was found.'}, 404
 
     if current_user.id == current_favorite.user_id:
         db.session.delete(current_favorite)
         db.session.commit()
-        return {'message':'Successfully deleted.'}
-
+        return {'message': 'Successfully deleted.'}
     else:
         return {'message': 'Forbidden'}, 403

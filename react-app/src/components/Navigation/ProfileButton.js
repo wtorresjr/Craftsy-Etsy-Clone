@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -20,7 +20,7 @@ function ProfileButton({ user }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };
@@ -40,34 +40,67 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <Link onClick={openMenu} className="signInButton">
-        Sign in
-      </Link>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
+      {user ? (
+        <div className="profileButtonDiv">
+          <button onClick={openMenu} className="profileButton">
+            <i className="fas fa-user-circle"> <i className="fas fa-caret-down"> </i></i>
+          </button>
+          <ul className={ulClassName} ref={ulRef}>
+            <>
+              <li>
+                <Link className="profileDropdownUser">
+                  <i className="fas fa-user-circle"></i>
+                  <span className="firstLastName">
+                    <h4>{user.firstName} {user.lastName}</h4>
+                    <p>View your profile</p>
+                  </span>
+                </Link>
+              </li>
+              <li className="dDPartTwo">
+                <Link className="purchasesReviews">
+                  <i className="fas fa-clipboard-list"> </i>
+                  <p>Purchases and reviews</p>
+                </Link>
+                <Link className="messages">
+                  <i className="far fa-comment-dots"> </i>
+                  <p>Messages</p>
+                </Link>
+              </li>
+              <li>
+                <Link className="accountSettings">
+                  <i class="fas fa-cog"></i>
+                  <p>Account settings</p>
+                </Link>
+                <div className="logOutDiv">
+                  <i className="fas fa-sign-out-alt fa-rotate-180"></i>
+                  <button onClick={handleLogout} className="logOutButton">Sign out</button>
+                </div>
+              </li>
+            </>
+          </ul>
+        </div>
+      ) : (
+        <>
+          <div className="signInDiv">
+            <button onClick={openMenu} className="signInButton">
+              Sign in
+            </button>
+            <div className={ulClassName} ref={ulRef}>
+              <OpenModalButton
+                buttonText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
+              />
 
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
+              <OpenModalButton
+                buttonText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

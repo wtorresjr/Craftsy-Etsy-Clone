@@ -6,6 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import FavoritesPage from "./components/FavoritesPage";
+import CartPage from "./components/CartPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <HomePage />
           </Route>
           <Route path="/login">
@@ -28,6 +30,13 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route exact path="/favorites">
+            <FavoritesPage />
+          </Route>
+          <Route exact path="/cart">
+            <CartPage />
+          </Route>
+
           {/* <Route path="">
             <h1>Page not found</h1>
           </Route> */}

@@ -11,7 +11,7 @@ def seed_product_images():
             false_image_url = f"https://picsum.photos/600/600.jpg?random={random.randint(351,651)}"
             new_false_preview_image = ProductImage(product_id=product_id,image_url=false_image_url,preview=False)
             db.session.add(new_false_preview_image)
-        
+
         # Generate 1 image with preview true
         true_image_url = f"https://picsum.photos/600/600.jpg?random={random.randint(1,350)}"
         new_true_preview_image = ProductImage(product_id=product_id,image_url=true_image_url,preview=True)
