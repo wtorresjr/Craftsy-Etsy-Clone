@@ -1,17 +1,13 @@
-
-import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { deleteItem, editItem, getCart } from "../../store/cart";
+import { deleteItem, editItem } from "../../store/cart";
 import { getProductInfo } from "../../store/products";
+
 import "./cartitemtile.css";
 
-
 const CartItemTiles = ({ item, cartItemsArray }) => {
-    console.log('CartItemTiles rendered');
     const dispatch = useDispatch();
-
-    const sessionUser = useSelector(state => state.session.user);
 
     const [shippingFree, setShippingFree] = useState(true);
     const [productInfoObj, setProductInfoObj] = useState({});
