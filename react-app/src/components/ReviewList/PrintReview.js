@@ -1,4 +1,17 @@
-import 'ReviewList.css'
+import './ReviewList.css'
+
+//stars
+function getStars(star) {
+  if (star < 1.5)
+    return <><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></>
+  else if (star < 2.5)
+    return <><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></>
+  else if (star < 3.5)
+    return <><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></>
+  else if (star < 4.5)
+    return <><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></>
+  else return <><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></>
+}
 
 const PrintReview = ({review}) => {
 
@@ -17,7 +30,7 @@ const PrintReview = ({review}) => {
     <>
     <div>
       {/* gotta add stars to show as stars */}
-      {review.star_rating}
+      {getStars(review.star_rating)}
     </div>
     <div>
       {review.review}
