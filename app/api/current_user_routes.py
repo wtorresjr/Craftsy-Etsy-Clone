@@ -116,7 +116,7 @@ def add_to_favorites():
 @current_user_routes.route('/favorites/<int:product_id>', methods=['DELETE'])
 @login_required
 def delete_a_favorite(product_id):
-    current_favorite = Favorite.query.filter_by(
+    current_favorite = Favorite.query.filter_by(user_id=current_user.id).filter_by(
         product_id=product_id).first()
 
     # current_favorite = Favorite.query.filter_by(

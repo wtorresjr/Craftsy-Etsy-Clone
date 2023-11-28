@@ -9,20 +9,15 @@ function FavoritesTile({ favorite }) {
 
   useEffect(() => {
     dispatch(favoriteActions.loadCurrUserFavorites());
-  }, [dispatch, setIsFavorited, isFavorited]);
+  }, [dispatch, isFavorited]);
 
   const toggleFavStatus = () => {
     // setIsFavorited((prev) => !prev);
-
     setIsFavorited(false);
-    console.log(isFavorited, "Is favorited state");
-    if (isFavorited === false) {
-      dispatch(
-        favoriteActions.removeFromCurrUserFavorites(favorite.product_id)
-      );
-    }
-    // if (favorite.id !== isFavorited) dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.id))
-    // else setIsFavorited((prev) => !prev)
+    dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.product_id));
+    // console.log(isFavorited, "Is favorited state");
+    // if (isFavorited == false) {
+    // }
   };
 
   return (

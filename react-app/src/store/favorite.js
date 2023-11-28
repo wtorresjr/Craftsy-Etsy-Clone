@@ -62,7 +62,7 @@ export const addToCurrUserFavorites = (favorite) => async (dispatch) => {
     const newFavorite = await response.json();
     await dispatch(addFavorite(newFavorite));
     await dispatch(loadCurrUserFavorites());
-    return response;
+    return newFavorite;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to add the selected product to your favorites list: ${error.message}`
@@ -81,10 +81,10 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
         `There was an error in deleting favorite #${favoriteId} from your favorites list: ${response.status}`
       );
     }
-    const deleteFav = await response.json();
-    await dispatch(removeFavorite(deleteFav));
+    // const deleteFav = await response.json();
+    await dispatch(removeFavorite(response));
     await dispatch(loadCurrUserFavorites());
-    return deleteFav;
+    // return deleteFav;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to remove favorite #${favoriteId} to your favorites list: ${error.message}`
