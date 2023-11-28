@@ -38,7 +38,7 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
     }
     const favorites = await response.json();
     await dispatch(viewFavorites(favorites));
-    return response;
+    return favorites;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to load your favorites list: ${error.message}`

@@ -10,6 +10,18 @@
   position: relative;
 }
 
+.becauseViewed {
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+}
+
+.recentlyFaved {
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+}
+
 .heartContainer {
   display: flex;
   position: absolute;

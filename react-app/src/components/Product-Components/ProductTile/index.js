@@ -4,15 +4,16 @@ import PriceComponent from "../PriceComponent";
 import FavoriteHeart from "../HeartComponent";
 import "./product_img_tile.css";
 
-const ProductTile = ({ product, favoritedProducts }) => {
+const ProductTile = ({ product, favoritedProducts, currentPage }) => {
   const dispatch = useDispatch();
   const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
   const [localIsClicked, setLocalIsClicked] = useState(isClicked);
 
+  // const [onPage, setOnPage] = useState(currentPage);
+
   useEffect(() => {
     setLocalIsClicked(isClicked);
   }, [dispatch, favoritedProducts, isClicked]);
-
 
   return (
     <div className="productTileContain">
@@ -24,7 +25,7 @@ const ProductTile = ({ product, favoritedProducts }) => {
       />
       <img
         alt={product?.description}
-        className="imageContainer"
+        className={currentPage}
         src={product?.preview_image_url}
       />
     </div>

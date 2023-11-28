@@ -10,11 +10,7 @@ const RecentlyFaved = ({ favorited }) => {
         favorited.length > 4 &&
         favorited.slice(0, 5).map((fav) => {
           return (
-            <ProductTile
-              key={fav.id}
-              product={fav}
-              className="recentFavsProductTile"
-            />
+            <ProductTile key={fav.id} product={fav} currentPage={"recentlyFaved"} />
           );
         })}
     </div>

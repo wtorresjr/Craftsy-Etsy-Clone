@@ -9,7 +9,6 @@ import { loadCurrUserFavorites } from "../../store/favorite";
 
 import { fetchReviews } from "../../store/reviews";
 
-
 const HomePage = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -25,21 +24,24 @@ const HomePage = () => {
     }
   }, [dispatch, sessionUser]);
 
-
   return (
     <>
       <div className="mainProductDisplay">
         {favoritedProducts && favoritedProducts.length > 4 && (
-          <RecentlyFaved favorited={favoritedProducts} />
+          <RecentlyFaved
+            favorited={favoritedProducts}
+            currentPage={"recentlyFaved"}
+          />
         )}
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0, 10).map((product) => {
+          allProducts.slice(0, 5).map((product) => {
             return (
               <ProductTile
                 key={product.id}
                 product={product}
                 favoritedProducts={favoritedProducts}
+                currentPage={"becauseViewed"}
               />
             );
           })}
