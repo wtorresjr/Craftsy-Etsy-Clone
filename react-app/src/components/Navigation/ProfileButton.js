@@ -47,10 +47,34 @@ function ProfileButton({ user }) {
           </button>
           <ul className={ulClassName} ref={ulRef}>
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
               <li>
-                <button onClick={handleLogout}>Log Out</button>
+                <Link className="profileDropdownUser">
+                  <i className="fas fa-user-circle"></i>
+                  <span className="firstLastName">
+                    <h4>{user.firstName} {user.lastName}</h4>
+                    <p>View your profile</p>
+                  </span>
+                </Link>
+              </li>
+              <li className="dDPartTwo">
+                <Link className="purchasesReviews">
+                  <i className="fas fa-clipboard-list"> </i>
+                  <p>Purchases and reviews</p>
+                </Link>
+                <Link className="messages">
+                  <i className="far fa-comment-dots"> </i>
+                  <p>Messages</p>
+                </Link>
+              </li>
+              <li>
+                <Link className="accountSettings">
+                  <i class="fas fa-cog"></i>
+                  <p>Account settings</p>
+                </Link>
+                <div className="logOutDiv">
+                  <i className="fas fa-sign-out-alt fa-rotate-180"></i>
+                  <button onClick={handleLogout} className="logOutButton">Sign out</button>
+                </div>
               </li>
             </>
           </ul>
