@@ -14,7 +14,7 @@
     justify-content: space-between;
 }
 
-.sellerHeader span{
+.sellerHeader span {
     font-family: "Graphik Webfont",
         -apple-system,
         "Helvetica Neue",
@@ -56,7 +56,7 @@
     flex-direction: row;
 }
 
-.detailContainer h3{
+.detailContainer h3 {
     font-size: 16px;
     font-family: "Graphik Webfont",
         -apple-system,
@@ -64,7 +64,7 @@
         "Droid Sans",
         Arial,
         "sans-serif";
-        font-weight: 400;
+    font-weight: 400;
     color: #222222
 }
 
@@ -73,8 +73,20 @@
     justify-content: space-between;
     flex-direction: row;
     width: 100%;
-    margin-left: 25%;
+    align-items: flex-start;
+    margin-left: 10px;
     height: 200px
+}
+
+.cartItemPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartItemPrice h4 {
+    margin: 0px;
 }
 
 .cartItemDetails {
@@ -96,7 +108,8 @@
         "Helvetica Neue",
         "Droid Sans",
         Arial,
-        "sans-serif";;
+        "sans-serif";
+    ;
     line-height: 28px;
     font-weight: 600;
 }
@@ -194,7 +207,7 @@
     align-items: center;
     display: flex;
     align-items: center;
-        /* Align items vertically in the center */
+    /* Align items vertically in the center */
     gap: 4px;
 }
 
@@ -226,4 +239,12 @@
     line-height: 24px;
     font-weight: 400;
     color: #222222;
+}
+
+.cartItemImg {
+    border-radius: 15px;
+    /* height: auto; */
+    cursor: pointer;
+    width: 160px;
+    height: 160px;
 }

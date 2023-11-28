@@ -1,3 +1,4 @@
+
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
@@ -18,9 +19,13 @@ const CartPage = () => {
     const cartItemsArray = useSelector(state => state.cart?.allItems);
     const productsArray = useSelector(state => state.products?.allProducts);
     const sessionUser = useSelector(state => state.session.user);
-
     const [itemCount, setItemCount] = useState(-Infinity);
     const [products, setProducts] = useState([]);
+
+
+
+    useEffect(() => {
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(getCart());
@@ -30,7 +35,7 @@ const CartPage = () => {
     useEffect(() => {
         setItemCount(cartItemsArray.length);
         if (productsArray?.length > 0) {
-            setProducts(productsArray.slice(0,5));
+            setProducts(productsArray.slice(0, 5));
         }
     }, [cartItemsArray, productsArray, sessionUser]);
 
@@ -44,24 +49,24 @@ const CartPage = () => {
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
                                 {cartItemsArray &&
                                     cartItemsArray.map((item) => {
-                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray}/>;
+                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} />;
                                     })}
 
                             </div>
 
                         </div>
-                    ): (
+                    ) : (
                         <EmptyCartPage />
                     )}
                 </div>
-                    {itemCount > 0 && sessionUser && (
-                        <div id="transactionCartDisplay">
-                            <Transaction totalItems={cartItemsArray}/>
-                        </div>
-                    )}
+                {itemCount > 0 && sessionUser && (
+                    <div id="transactionCartDisplay">
+                        <Transaction totalItems={cartItemsArray} />
+                    </div>
+                )}
             </div>
             <div className="cartRelatedTiles">
-                <CartRelatedTiles productsArray={products} sessionUser={sessionUser}/>
+                <CartRelatedTiles productsArray={products} sessionUser={sessionUser} />
             </div>
         </div>
     );
