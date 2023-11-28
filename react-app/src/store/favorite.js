@@ -116,7 +116,8 @@ export default function reducer(state = initialState, action) {
       }
     case ADD:
       newState = {
-        allFavorites: [...state.allFavorites, action.payload.id],
+        allFavorites: state.allFavorites,
+        ...action.payload.id,
         byId: { ...state.byId, [action.payload.id]: action.payload },
       };
       return newState;
