@@ -14,7 +14,8 @@ import {
 } from "../../store/products";
 
 // import { loadCurrUserFavorites } from "../../store/favorite";
-import { fetchReviewById } from "../../store/reviews";
+
+import { fetchReviews } from "../../store/reviews";
 
 
 const HomePage = () => {
@@ -24,10 +25,9 @@ const HomePage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
 
-  let productId = 1;
   useEffect(() => {
     dispatch(getAllProducts());
-    dispatch(fetchReviewById(productId))
+    dispatch(fetchReviews());
   }, [dispatch, refresh, sessionUser]);
 
 

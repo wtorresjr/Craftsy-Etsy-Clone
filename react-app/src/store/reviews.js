@@ -218,7 +218,7 @@ export default function reducer(state = initialState, action) {
       return {...state, allReviews: updatedReviewAdded}
 
     case REMOVE_REVIEW:
-      let newAllReviews = state.allReviews.filter((review) => review.id != action.payload)
+      let newAllReviews = state.allReviews.filter((review) => review.id !== action.payload)
       return {
         ...state,
         allReviews: newAllReviews,
@@ -233,7 +233,7 @@ export default function reducer(state = initialState, action) {
       }
 
     case REMOVE_REVIEW_IMAGE:
-      let newDeletedImageState = state.allReviewImages.filter((reviewImage) => reviewImage.id != action.payload)
+      let newDeletedImageState = state.allReviewImages.filter((reviewImage) => reviewImage.id !== action.payload)
       return {
         ...state,
         allReviewImages: newDeletedImageState
