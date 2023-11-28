@@ -43,7 +43,6 @@ const ReviewList = ({productId}) => {
         <div className = "allReviewsAdded">
           Other reviews from this shop |
           {getStars(reviewPoints.numbers / allReviewsByProductId)}
-
           ({reviewPoints.numbers})
         </div>
         {

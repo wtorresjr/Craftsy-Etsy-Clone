@@ -6,7 +6,6 @@ import LoginFormPage from "./components/LoginFormPage";
 import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import ReviewList from "./components/ReviewList";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ function App() {
         <Switch>
           <Route path="/">
             <HomePage />
-            <ReviewList productId = {1}/>
           </Route>
           <Route path="/login">
             <LoginFormPage />
