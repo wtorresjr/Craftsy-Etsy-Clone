@@ -1,23 +1,98 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
+import React, { useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import { getCart } from "../../store/cart";
+import "./Navigation.css";
 
-function Navigation({ isLoaded }){
-	const sessionUser = useSelector(state => state.session.user);
+function Navigation({ isLoaded }) {
+	const dispatch = useDispatch()
+	const sessionUser = useSelector((state) => state.session.user);
+
+	useEffect(() => {
+		dispatch(getCart())
+	}, [dispatch])
+
+	const cartItemsArray = useSelector(state => state.cart?.allItems);
+	const totalCartItems = cartItemsArray.length
+	console.log(totalCartItems)
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">Home</NavLink>
-			</li>
-			{isLoaded && (
-				<li>
+		<>
+			<div className="navBar">
+				<div className="homeButtonDiv">
+					<NavLink exact to="/" className="homeButton">
+						Craftsy
+					</NavLink>
+				</div>
+				<div className="categoriesDiv">
+					<Link className="categories">
+						<i className="fas fa-bars">
+							{" "}
+							<span className="catWord"> Categories</span>{" "}
+						</i>
+					</Link>
+				</div>
+				{!sessionUser && (
+					<div className="searchBarBig">
+						<div className="searchBar">
+							<input
+								className="searchBarInput"
+								placeholder="Search for anything"
+							/>
+							<div className="searchIcon">
+								<Link className="magnifyingGlass">
+									<i className="fas fa-search" />
+								</Link>
+							</div>
+						</div>
+					</div>
+				)}
+				{sessionUser && (
+					<div className="searchBarSmall">
+						<div className="searchBar">
+							<input
+								className="searchBarInput"
+								placeholder="Search for anything"
+							/>
+							<div className="searchIcon">
+								<Link className="magnifyingGlass">
+									<i className="fas fa-search" />
+								</Link>
+							</div>
+						</div>
+					</div>
+				)}
+				{sessionUser && (
+					<div className="favoritesDiv">
+						<NavLink to="/favorites" className="favorites">
+							<i className="far fa-heart"></i>
+						</NavLink>
+					</div>
+				)}
+				{sessionUser && (
+					<div className="bellDiv">
+						<button className="bell">
+							<i className="far fa-bell">
+								{" "}
+								<i className="fas fa-caret-down"> </i>
+							</i>
+						</button>
+					</div>
+				)}
+				{isLoaded && (
+					// <div className=''>
 					<ProfileButton user={sessionUser} />
-				</li>
-			)}
-		</ul>
+					// </div>
+				)}
+				<div className="shoppingCartDiv">
+					<NavLink to="/cart" className="shoppingCart">
+						<i class="fas fa-shopping-cart"></i>
+						{totalCartItems > 0 && <span className="cartItemCount">{totalCartItems}</span>}
+					</NavLink>
+				</div>
+			</div>
+		</>
 	);
 }
 

@@ -1,36 +1,49 @@
-import React, { useState, useEffect } from "react";
+import "./homepage.css";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { NavLink } from 'react-router-dom';
-import ProductTile from "../ProductTile";
-import {
-  getAllProducts,
-  // addNewProductImage,
-  // editAproduct,
-  // addNewProduct,
-  // deleteProduct,
-  // getUserProducts,
-  // getProductInfo,
-} from "../../store/products";
+import ProductTile from "../Product-Components/ProductTile";
+import RecentlyFaved from "../Product-Components/Recently-Faved-Products";
+import { getAllProducts } from "../../store/products";
 
-// import { loadCurrUserFavorites } from "../../store/favorite";
+import { loadCurrUserFavorites } from "../../store/favorite";
+
+import { fetchReviews } from "../../store/reviews";
+
 
 const HomePage = () => {
-  const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
-
   const sessionUser = useSelector((state) => state.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
+  const favoritedProducts = useSelector(
+    (state) => state?.favorite?.allFavorites
+  );
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, [dispatch, refresh, sessionUser]);
+    if (sessionUser) {
+      dispatch(loadCurrUserFavorites());
+    }
+  }, [dispatch, sessionUser]);
+
 
   return (
     <>
-      {allProducts &&
-        allProducts.map((product) => {
-          return <ProductTile product={product} />;
-        })}
+      <div className="mainProductDisplay">
+        {favoritedProducts && favoritedProducts.length > 4 && (
+          <RecentlyFaved favorited={favoritedProducts} />
+        )}
+        <h3>Because You Viewed...</h3>
+        {allProducts &&
+          allProducts.slice(0, 10).map((product) => {
+            return (
+              <ProductTile
+                key={product.id}
+                product={product}
+                favoritedProducts={favoritedProducts}
+              />
+            );
+          })}
+      </div>
     </>
   );
 };

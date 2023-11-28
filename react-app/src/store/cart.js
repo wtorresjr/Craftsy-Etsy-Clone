@@ -37,7 +37,6 @@ export const getCart = () => async (dispatch) => {
         const response = await fetch(`/api/cart`);
         if (response.ok) {
             const cartItems = await response.json();
-            console.log(cartItems.cart_id)
             dispatch(loadCartItems(cartItems.Cart));
             dispatch({ type: 'SET_CART_ID', payload: cartItems.cart_id });
             return cartItems;
@@ -136,24 +135,23 @@ const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_CART_ITEMS:
             if (action.payload) {
-                newState = { ...state };
-
-                newState.allItems = action.payload;
-
-                newState.byId = action.payload.reduce((acc, item) => {
-                    acc[item.id] = item;
-                    return acc;
-                }, {});
-
-                return newState;
+                return {
+                    ...state,
+                    allItems: action.payload,
+                    byId: action.payload.reduce((acc, item) => {
+                        acc[item.id] = item;
+                        return acc;
+                    }, {})
+                };
             } else {
                 return state;
             }
         case ADD_CART_ITEM:
         case EDIT_CART_ITEM:
+            newState = { ...state };
+            return newState;
         case DELETE_CART_ITEM:
-            newState = { ...state, byId: { ...state.byId, [action.payload.id]: action.payload } };
-            newState.allItems = Object.values(newState.byId);
+            newState = { ...state };
             return newState;
         case PURCHASE_CART:
             newState = { ...state, byId: { ...state.byId, [action.payload.id]: action.payload } };

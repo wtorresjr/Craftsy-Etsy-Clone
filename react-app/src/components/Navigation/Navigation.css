@@ -1,7 +1,365 @@
+@import url('https://fonts.googleapis.com/css?family=Cambria');
+
 .profile-dropdown {
   position: absolute;
+  background-color: white;
+  border: 2px solid #C5C5C5;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  margin: 0;
+  padding: 15px;
+  border-radius: 5px;
+  list-style-type: none;
+  min-width: 150px;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .hidden {
   display: none;
+}
+
+.navBar {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid lightgray;
+}
+
+.homeButtonDiv {
+  grid-column: span 3;
+  margin-left: 65px;
+  padding-top: 5px
+}
+
+.homeButton {
+  display: flex;
+  align-self: flex-start;
+  text-decoration: none;
+  color: #F1641F;
+  font-weight: light;
+  font-size: 40px;
+  font-family: "Cambria", serif;
+}
+
+.categoriesDiv {
+  grid-column: span 3;
+}
+
+.categories {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(34, 34, 34);
+}
+
+.catWord {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.categoriesDiv:hover {
+  background-color: rgb(234, 232, 232);
+  border-radius: 30px;
+}
+
+.searchBarBig {
+  grid-column: span 11;
+  padding: 5px;
+}
+
+.searchBarSmall {
+  grid-column: span 8;
+  padding: 5px;
+}
+
+.searchBar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.searchBarInput {
+  width: 100%;
+  font-size: large;
+  border-radius: 25px;
+  padding: 10px;
+  border: 3px solid black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.searchIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 7.5%;
+  right: 1%;
+  background-color: #F1641F;
+  border-radius: 100%;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.magnifyingGlass {
+  text-decoration: none;
+  padding: 8px;
+  color: white;
+}
+
+.fas.fa-search {
+  font-size: 25px;
+}
+
+.searchIcon:hover {
+  background-color: rgb(242, 128, 71);
+  transform: scale(1.12);
+}
+
+.favoritesDiv {
+  grid-column: span 1;
+  margin-left: 10px;
+}
+
+.favorites {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+}
+
+.far.fa-heart {
+  padding: 0 20px;
+}
+
+.bellDiv {
+  grid-column: span 2;
+}
+
+button.bell {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  background-color: white;
+  border: none;
+  /* text-decoration: none; */
+  color: black;
+  font-size: 30px;
+}
+
+div.signInDiv {
+  grid-column: span 2;
+}
+
+.profileButtonDiv {
+  grid-column: span 2;
+}
+
+button.profileButton {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  color: black;
+  background-color: white;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(34, 34, 34);
+}
+
+
+
+button.signInButton {
+  display: grid;
+  height: 100%;
+  width: 75%;
+  place-items: center;
+  text-decoration: none;
+  background-color: white;
+  border: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(34, 34, 34);
+}
+
+.signInButton:hover {
+  background-color: rgb(234, 232, 232);
+  border-radius: 30px;
+}
+
+.shoppingCartDiv {
+  grid-column: span 1;
+  margin-right: 65px;
+  padding: 5px
+}
+
+.shoppingCart {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  font-weight: light;
+  color: rgb(34, 34, 34);
+  position: relative;
+
+}
+
+.cartItemCount {
+  position: absolute;
+  font-size: 18px;
+  top: -20%;
+  right: -20%;
+  background-color: #CF4018;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: bold;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 100%;
+  border: 3px solid white;
+}
+
+.fas.fa-shopping-cart {
+  padding: 10px;
+}
+
+.shoppingCartDiv:hover {
+  background-color: #CCEBFF;
+  border-radius: 100%;
+}
+
+.profileButton:hover {
+  background-color: #CCEBFF;
+  border-radius: 30px;
+}
+
+.bell:hover {
+  background-color: #CCEBFF;
+  border-radius: 30px;
+}
+
+.favoritesDiv:hover {
+  background-color: #CCEBFF;
+  border-radius: 100%;
+}
+
+.profileDropdownUser {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-bottom: 2px solid lightgray;
+  background-color: #CCEBFF;
+  text-decoration: none;
+  color: black
+}
+
+.profileDropdownUser>i.fas.fa-user-circle {
+  font-size: 25px;
+  grid-column: span 1;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  margin-left: 10px;
+}
+
+.firstLastName {
+  grid-column: span 5;
+}
+
+.firstLastName>p {
+  margin: 0px 10px 15px 15px;
+  font-size: 15px;
+}
+
+.firstLastName>h4 {
+  margin: 5px 10px 5px 15px;
+  font-size: 18px;
+}
+
+.dDPartTwo {
+  border-bottom: 2px solid lightgray;
+}
+
+.purchasesReviews,
+.messages,
+.accountSettings,
+.logOutDiv {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  text-decoration: none;
+  color: black
+}
+
+.purchasesReviews:hover,
+.messages:hover,
+.accountSettings:hover {
+  background-color: rgb(228, 226, 226);
+}
+
+.purchasesReviews>i.fas.fa-clipboard-list,
+.messages>i.far.fa-comment-dots,
+.accountSettings>i.fas.fa-cog,
+.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180 {
+  font-size: 20px;
+  grid-column: span 1;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  margin-left: 10px;
+}
+
+.purchasesReviews>p,
+.messages>p,
+.accountSettings>p,
+.logOutDiv>button {
+  grid-column: span 5;
+  margin: 15px 15px 15px 15px;
+  font-size: 18px;
+}
+
+.logOutDiv {
+  margin: 15px 15px 0px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* div.logOutDiv:hover {
+  background-color: rgb(228, 226, 226);
+} */
+
+/* .fas.fa-sign-out-alt.fa-rotate-180 {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+} */
+
+.logOutButton {
+  background-color: white;
+  border: 0px solid white;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
 }

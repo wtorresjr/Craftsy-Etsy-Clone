@@ -39,6 +39,7 @@ def get_shopping_cart():
             if product:
                 cart_item_data = {
                     "id": item.id,
+                    "product_id": item.product_id,
                     "name": product.name,
                     "price": product.price,
                     "quantity": item.quantity,

@@ -1,0 +1,130 @@
+.transactionContainer {
+    /* background-color: grey; */
+    width: 100%;
+    height: 30rem;
+    padding: 15px 10px;
+    margin: 40px 0px
+}
+
+.transactionHeader {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.paymentOptions label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+}
+
+.paymentOptions input {
+    height: 30px;
+    width: 30px;
+    border: 2px solid grey;
+    margin: 0px;
+}
+
+.pricingFirst {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+}
+
+#section2 {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray;
+}
+#section3 {
+    margin-bottom: 20px;
+}
+
+.totalPrice {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pricingText {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-size: 16px;
+    line-height: 24px;
+    color: #222222;
+    font-weight: 700;
+}
+
+.pricingText2{
+    font-weight: 400;
+}
+
+
+.checkoutButton button{
+    height: 50px;
+    width: 100%;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    background-color: black;
+    font-family: "Graphik Webfont",
+            -apple-system,
+            "Helvetica Neue",
+            "Droid Sans",
+            Arial,
+            "sans-serif";
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.checkoutButton button:hover {
+    transition-duration: 200ms;
+    background-color: #222222;
+    box-shadow: 2px 2px 3px black;
+}
+
+.promoButton button {
+    margin-top: 15px;
+    border-radius: 30px;
+    height: 45px;
+    font-family: "Graphik Webfont",
+            -apple-system,
+            "Helvetica Neue",
+            "Droid Sans",
+            Arial,
+            "sans-serif";
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: 600;
+    background-color: white;
+    border: none;
+}
+
+.promoButton button:hover {
+    background-color: #cfcfcf;
+}
+
+.priceLoad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

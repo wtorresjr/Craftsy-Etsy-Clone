@@ -1,0 +1,71 @@
+.homePageLink {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-size: 16px;
+    line-height: 28px;
+    color: #222222;
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+
+.emptyCartMsg {
+    display: flex;
+    justify-content: center;
+    font-family: Guardian-EgypTT,
+        Charter,
+        "Charter Bitstream",
+        Cambria,
+        "Noto Serif Light",
+        "Droid Serif",
+        Georgia,
+        "serif";
+    margin-bottom: 5%;
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 300;
+    color: #222222;
+}
+
+.emptyCartMsgContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homePageLinkContainer {
+    margin-bottom: 40%;
+}
+
+.cartFavoriteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    height: 45px;
+    width: 170px;
+    text-decoration: none;
+    border-radius: 25px;
+    border: 2px solid black;
+}
+
+.cartFavoriteButton:hover {
+    box-shadow: 1px 5px 10px grey;
+}
+
+#cartFavoriteButtonText {
+    text-decoration: none;
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        sans-serif;
+    font-size: 16px;
+    color: #222222;
+    font-weight: 500;
+}

@@ -1,0 +1,250 @@
+.cartItemCard {
+    background-color: white;
+    border-radius: 20px;
+    width: 100%;
+    height: 400px;
+    padding: 10px 15px;
+    margin: 30px 0px;
+    box-shadow: 4px 4px 10px grey;
+}
+
+.sellerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sellerHeader span {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-size: 16px;
+    font-weight: 400;
+    color: #595959;
+    line-height: 28px;
+}
+
+.sellerHeader span:hover {
+    text-decoration: underline;
+    color: #595959;
+    cursor: pointer;
+}
+
+.sellerHeader h3 {
+    font-size: 16px;
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-weight: 600;
+    color: #222222;
+    text-transform: capitalize;
+}
+
+.sellerHeader h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.detailContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.detailContainer h3 {
+    font-size: 16px;
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-weight: 400;
+    color: #222222
+}
+
+.cartItemDetailsContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    margin-left: 10px;
+    height: 200px
+}
+
+.cartItemPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartItemPrice h4 {
+    margin: 0px;
+}
+
+.cartItemDetails {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: space-evenly;
+}
+
+.cartItemDetails h3 {
+    margin-left: 7px;
+}
+
+.cartItemPrice h2 {
+    color: #258635;
+    font-size: 20px;
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    ;
+    line-height: 28px;
+    font-weight: 600;
+}
+
+.detailButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.detailButtons button {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222222;
+    line-height: 18px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+}
+
+.detailButtons button:hover {
+    transition-duration: 400ms;
+    background-color: #cfcfcf;
+    cursor: pointer;
+}
+
+.quantityDropdown {
+    margin-left: 7px;
+    width: 65px;
+    height: 45px;
+    border-radius: 5px;
+}
+
+.personalizeItemContainer {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 30%;
+    margin-top: 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+
+}
+
+.personalizeItemContainer button {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    color: #222222;
+    background-color: white;
+    height: 40px;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    /* Align items vertically in the center */
+    gap: 8px;
+
+}
+
+.personalizeItemContainer button:hover {
+    transition-duration: 200ms;
+    background-color: #cfcfcf;
+    cursor: pointer;
+}
+
+.personalizeItemContainer label {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        sans-serif;
+
+    display: flex;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    height: 40px;
+    color: #222222;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    /* Align items vertically in the center */
+    gap: 4px;
+}
+
+.personalizeItemContainer input {
+    height: 15px;
+    width: 15px;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.shippingContainer {
+    display: flex;
+    justify-content: end;
+    align-items: flex-start;
+}
+
+.shippingContainer p {
+    font-family: "Graphik Webfont",
+        -apple-system,
+        "Helvetica Neue",
+        "Droid Sans",
+        Arial,
+        "sans-serif";
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #222222;
+}
+
+.cartItemImg {
+    border-radius: 15px;
+    /* height: auto; */
+    cursor: pointer;
+    width: 160px;
+    height: 160px;
+}

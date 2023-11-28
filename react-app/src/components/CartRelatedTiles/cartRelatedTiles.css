@@ -1,0 +1,82 @@
+.relatedProductDisplay {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0 60px;
+    width: 84%;
+    gap: 80px 1%;
+}
+
+.relatedTileContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.relatedProductContainer {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.relatedProductContainer:hover {
+    cursor: pointer
+}
+
+.tileNameContainer {
+    display: flex;
+    background-color: white;
+    width: auto;
+    padding: 5px 0px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.tilePriceContainer {
+    display: flex;
+    background-color: white;
+    padding: 5px 0px;
+    width: auto;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.addToCartButton {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 50%;
+    padding: 5px 0px;
+    border-radius: 15px;
+    border: solid 2px black;
+    font-weight: bold;
+}
+
+.relatedProductContainer {
+    display: flex;
+}
+
+.addToCartButton:hover {
+    cursor: pointer;
+}
+
+.favoriteHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5% 0px 5% 0px;
+}
+
+.cartFavoriteButton:hover {
+    cursor: pointer;
+}
+
+.relatedProductImg {
+
+    /* height: auto; */
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+}
