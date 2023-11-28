@@ -94,16 +94,21 @@ def get_curr_user_favorites():
 @login_required
 def add_to_favorites():
     data = request.get_json()
-    find_favorite = Favorite.query.filter_by(
-        product_id=data.get('product_id'), user_id=current_user.id).first()
-    if find_favorite:
-        return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
-    new_favorite = Favorite(product_id=data.get(
-        'product_id'), user_id=current_user.id)
-    db.session.add(new_favorite)
-    db.session.commit()
+    find_product = Product.query.filter_by(
+        id=data.get('product_id'))
 
-    return new_favorite.to_dict(), 201
+    # print(data, "<----- Data request json")
+
+    if find_product:
+        # if find_favorite:
+        #     return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400
+        new_favorite = Favorite(product_id=data.get(
+            'product_id'), user_id=current_user.id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        return new_favorite.to_dict(), 201
+    else:
+        return {"message": "Product could not be found."}
 
 
 # Delete a Favorite

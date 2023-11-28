@@ -27,7 +27,7 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
     if (!localIsClicked) {
       console.log(product.id, "is faved");
       const newFav = {
-        product_id: product.id,
+        "product_id": product.id,
       };
       dispatch(favoriteActions.addToCurrUserFavorites(newFav));
     } else {

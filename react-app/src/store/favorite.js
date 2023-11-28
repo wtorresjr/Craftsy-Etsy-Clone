@@ -81,9 +81,10 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
         `There was an error in deleting favorite #${favoriteId} from your favorites list: ${response.status}`
       );
     }
-    await dispatch(removeFavorite(favoriteId));
+    const deleteFav = await response.json();
+    await dispatch(removeFavorite(deleteFav));
     await dispatch(loadCurrUserFavorites());
-    return response;
+    return deleteFav;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to remove favorite #${favoriteId} to your favorites list: ${error.message}`
@@ -92,7 +93,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
 };
 
 //Reducer
-const initialState = { allFavorites: [], byId: {} };
+const initialState = { allFavorites: [], byId: {}, removedFavorite: [] };
 
 export default function reducer(state = initialState, action) {
   let newState = {};

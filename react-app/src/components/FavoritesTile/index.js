@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as favoriteActions from "../../store/favorite";
 import "./FavoritesTile.css";
@@ -7,9 +7,20 @@ function FavoritesTile({ favorite }) {
   const dispatch = useDispatch();
   const [isFavorited, setIsFavorited] = useState(true);
 
+  useEffect(() => {
+    dispatch(favoriteActions.loadCurrUserFavorites());
+  }, [dispatch, setIsFavorited, isFavorited]);
+
   const toggleFavStatus = () => {
-    setIsFavorited((prev) => !prev);
-    dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.product_id));
+    // setIsFavorited((prev) => !prev);
+
+    setIsFavorited(false);
+    console.log(isFavorited, "Is favorited state");
+    if (isFavorited === false) {
+      dispatch(
+        favoriteActions.removeFromCurrUserFavorites(favorite.product_id)
+      );
+    }
     // if (favorite.id !== isFavorited) dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.id))
     // else setIsFavorited((prev) => !prev)
   };
