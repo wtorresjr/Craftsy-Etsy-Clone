@@ -4,50 +4,41 @@ import "../ProductTile/product_img_tile.css";
 import * as favoriteActions from "../../../store/favorite";
 import ProductTile from "../ProductTile";
 
-const FavoriteHeart = ({ product, favoritedProducts }) => {
-  const sessionUser = useSelector((state) => state?.session?.user);
-  const dispatch = useDispatch();
-  const [isClicked, setClicked] = useState(false);
+const FavoriteHeart = ({ product, setIsClicked }) => {
+  const favoritedProducts = useSelector(
+    (state) => state?.favorite?.allFavorites
+  );
+
+  const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
 
   const handleClick = () => {
-    setClicked(!isClicked);
+    setLocalIsClicked(!localIsClicked);
 
-    if (!isClicked) {
+    if (!localIsClicked) {
       console.log(product.id, "is faved");
-      // const newFav = {
-      //   product_id: product.id,
-      //   user_id: sessionUser.id,
-      // };
-      // dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-    }
-
-    if (isClicked) {
+    } else {
       console.log(product.id, "is unfaved");
-      // const remFav = {
-      //   product_id: product.id,
-      // };
-      // dispatch(favoriteActions.removeFromCurrUserFavorites(remFav));
     }
   };
 
   useEffect(() => {
-    if (favoritedProducts && favoritedProducts.length > 0) {
-      favoritedProducts.forEach((fav) => {
+    if (favoritedProducts) {
+      favoritedProducts.map((fav) => {
         if (fav.id === product.id) {
-          setClicked(!isClicked);
+          setLocalIsClicked(true);
         }
       });
     }
-  }, [dispatch, favoritedProducts]);
+  }, [favoritedProducts]);
 
   return (
     <div
-      className={`heartContainer ${isClicked ? "clicked" : ""}`}
+      className={`heartContainer ${localIsClicked ? "clicked" : ""}`}
       onClick={handleClick}
     >
       <i
         className={`fa-heart ${
-          isClicked ? "fas fa-heart fa-lg" : "far fa-heart"
+          localIsClicked ? "fas fa-heart fa-lg" : "far fa-heart"
         }`}
       ></i>
     </div>

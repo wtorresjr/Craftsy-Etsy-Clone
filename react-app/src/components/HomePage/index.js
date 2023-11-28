@@ -3,9 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
 import RecentlyFaved from "../Product-Components/Recently-Faved-Products";
-import {
-  getAllProducts,
-} from "../../store/products";
+import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
@@ -18,11 +16,10 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    if (sessionUser && favoritedProducts) {
+    dispatch(getAllProducts());
+    if (sessionUser) {
       dispatch(loadCurrUserFavorites());
     }
-
-    dispatch(getAllProducts());
   }, [dispatch, sessionUser]);
 
   return (

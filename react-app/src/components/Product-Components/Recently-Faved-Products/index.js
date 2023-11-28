@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ProductTile from "../ProductTile";
 import "./recently-faved.css";
 
@@ -8,7 +9,11 @@ const RecentlyFaved = ({ favorited }) => {
         favorited.length > 4 &&
         favorited.map((fav) => {
           return (
-            <ProductTile product={fav} className="recentFavsProductTile" />
+            <ProductTile
+              key={fav.id}
+              product={fav}
+              className="recentFavsProductTile"
+            />
           );
         })}
     </div>
