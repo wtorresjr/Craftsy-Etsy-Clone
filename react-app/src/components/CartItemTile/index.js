@@ -1,7 +1,8 @@
-import { useSelector, useDispatch} from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { addItem, deleteItem, editItem, getCart } from "../../store/cart";
+import { deleteItem, editItem, getCart } from "../../store/cart";
 import { getProductInfo } from "../../store/products";
 import "./cartitemtile.css";
 
@@ -60,7 +61,7 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
 
                 <div className="detailContainer">
                     <div className="cartItemImgContainer">
-                        <img style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} className="cartItemImg"/>
+                        <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
                     </div>
 
                     <div className="cartItemDetailsContainer">
@@ -68,45 +69,45 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
                             <h3>{item.name}</h3>
                             <label htmlFor="quantity"></label>
                             <select
-                                    className="quantityDropdown"
-                                    name="quantity"
-                                    id="quantity"
-                                    style={{ fontSize: '16px' }}
-                                    value={item.quantity}
-                                    onChange={handleEditQuantity}
-                                >
+                                className="quantityDropdown"
+                                name="quantity"
+                                id="quantity"
+                                style={{ fontSize: '16px' }}
+                                value={item.quantity}
+                                onChange={handleEditQuantity}
+                            >
                                 {[...Array(200).keys()].map((i) => (
                                     <option key={i + 1} value={i + 1}>
                                         {i + 1}
                                     </option>
                                 ))}
                             </select>
-                        <div className="detailButtons">
-                            <button>Save for later</button>
-                            <button onClick={() => handleDeleteItem(item.id)}>Remove</button>
-                        </div>
-                    </div>
-
-                            <div className="cartItemPrice">
-                                <h2>${(item.price?.toFixed(2) * item?.quantity).toFixed(2)}</h2>
-                                {item.quantity > 1 && (
-                                    <h4>{`($${item.price} each)`}</h4>
-                                )}
+                            <div className="detailButtons">
+                                <button>Save for later</button>
+                                <button onClick={() => handleDeleteItem(item.id)}>Remove</button>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="cardFooter">
-                        <div className="personalizeItemContainer">
-                            <button><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
-                            <button><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
-                            <label><input type="checkbox" />Mark order as a gift</label>
-                        </div>
-
-                        <div className="shippingContainer">
-                            <p>Shipping: {shippingFree ? <span style={{ color: 'green' }}>FREE</span> : <span style={{ color: 'red' }}>$10.00</span>}</p>
+                        <div className="cartItemPrice">
+                            <h2>${(item.price?.toFixed(2) * item?.quantity).toFixed(2)}</h2>
+                            {item.quantity > 1 && (
+                                <h4>{`($${item.price} each)`}</h4>
+                            )}
                         </div>
                     </div>
+                </div>
+
+                <div className="cardFooter">
+                    <div className="personalizeItemContainer">
+                        <button><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
+                        <button><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
+                        <label><input type="checkbox" />Mark order as a gift</label>
+                    </div>
+
+                    <div className="shippingContainer">
+                        <p>Shipping: {shippingFree ? <span style={{ color: 'green' }}>FREE</span> : <span style={{ color: 'red' }}>$10.00</span>}</p>
+                    </div>
+                </div>
             </div>
         </>
     );
