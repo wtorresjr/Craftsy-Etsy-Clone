@@ -119,15 +119,8 @@ def delete_a_favorite(product_id):
     current_favorite = Favorite.query.filter_by(user_id=current_user.id).filter_by(
         product_id=product_id).first()
 
-    # current_favorite = Favorite.query.filter_by(
-    #     product_id=product_id).filter_by(user_id=current_user.id)
-    # print(current_favorite, "Current Fave")
     if not current_favorite:
         return {'message': 'No favorited product by that id was found.'}, 404
-
-    print(current_favorite.to_dict(), "<----- Current Fave")
-    print(current_user.id, "<----- User id")
-    print(current_favorite.user_id, "<----- Current Fav User id")
 
     if current_user.id == current_favorite.user_id:
         db.session.delete(current_favorite)
