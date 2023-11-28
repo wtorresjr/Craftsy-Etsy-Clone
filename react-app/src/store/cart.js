@@ -154,8 +154,7 @@ const cartReducer = (state = initialState, action) => {
             newState = { ...state };
             return newState;
         case PURCHASE_CART:
-            newState = { ...state, byId: { ...state.byId, [action.payload.id]: action.payload } };
-            newState.allItems = Object.values(newState.byId);
+            newState = { ...state };
             return newState;
         case 'SET_CART_ID':
             return { ...state, cartId: action.payload };

@@ -24,26 +24,28 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
     }
 
     useEffect(() => {
-        const fetchProductInfo = async () => {
-            try {
-                const productInfoPromises = cartItemsArray.map(item =>
-                    dispatch(getProductInfo(item.product_id))
-                );
-                const productInfoResults = await Promise.all(productInfoPromises);
-                const infoObj = {};
-                productInfoResults.forEach((info, index) => {
-                    infoObj[cartItemsArray[index].id] = info.Product_Details;
-                });
-                setProductInfoObj(infoObj);
-            } catch (error) {
-                console.error('Error fetching product info:', error);
-            }
-
-            setIsLoading(false);
-        };
-
         if (cartItemsArray.length > 0) {
+            const fetchProductInfo = async () => {
+                try {
+                    const productInfoPromises = cartItemsArray.map(item =>
+                        dispatch(getProductInfo(item?.product_id))
+                    );
+                    const productInfoResults = await Promise.all(productInfoPromises);
+                    const infoObj = {};
+                    productInfoResults.forEach((info, index) => {
+                        infoObj[cartItemsArray[index].id] = info?.Product_Details;
+                    });
+                    setProductInfoObj(infoObj);
+                } catch (error) {
+                    console.error('Error fetching product info:', error);
+                }
+
+                setIsLoading(false);
+            };
+
             fetchProductInfo();
+        } else {
+            return;
         }
     }, [dispatch, cartItemsArray]);
 
