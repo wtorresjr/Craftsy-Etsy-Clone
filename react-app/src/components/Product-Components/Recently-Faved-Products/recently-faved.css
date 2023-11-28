@@ -3,5 +3,11 @@
   width: 100%;
   flex-flow: row wrap;
   padding: 20px 0 20px 0;
-  justify-content: center;
+  justify-content: space-between;
+
+}
+
+.recentFavsContainer h3 {
+  /* padding: 0 80px; */
+  width: 100%;
 }

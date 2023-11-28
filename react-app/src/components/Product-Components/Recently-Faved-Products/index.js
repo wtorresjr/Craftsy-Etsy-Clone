@@ -5,9 +5,10 @@ import "./recently-faved.css";
 const RecentlyFaved = ({ favorited }) => {
   return (
     <div className="recentFavsContainer">
+      <h3>Recently Favorited...</h3>
       {favorited &&
         favorited.length > 4 &&
-        favorited.map((fav) => {
+        favorited.slice(0, 5).map((fav) => {
           return (
             <ProductTile
               key={fav.id}

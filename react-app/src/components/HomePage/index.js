@@ -28,8 +28,9 @@ const HomePage = () => {
         {favoritedProducts && favoritedProducts.length > 4 && (
           <RecentlyFaved favorited={favoritedProducts} />
         )}
+        <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.map((product) => {
+          allProducts.slice(0, 10).map((product) => {
             return (
               <ProductTile
                 key={product.id}
