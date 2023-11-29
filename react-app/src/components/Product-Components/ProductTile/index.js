@@ -4,7 +4,13 @@ import PriceComponent from "../PriceComponent";
 import FavoriteHeart from "../HeartComponent";
 import "./product_img_tile.css";
 
-const ProductTile = ({ product, favoritedProducts, prodTileImgStyle, tileContainerStyle }) => {
+const ProductTile = ({
+  product,
+  favoritedProducts,
+  prodTileImgStyle,
+  tileContainerStyle,
+  priceStyle,
+}) => {
   const dispatch = useDispatch();
   const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
   const [localIsClicked, setLocalIsClicked] = useState(isClicked);
@@ -17,7 +23,7 @@ const ProductTile = ({ product, favoritedProducts, prodTileImgStyle, tileContain
 
   return (
     <div className={tileContainerStyle}>
-      <PriceComponent product={product} />
+      <PriceComponent product={product} priceStyle={priceStyle} />
       <FavoriteHeart
         product={product}
         isClicked={localIsClicked}
