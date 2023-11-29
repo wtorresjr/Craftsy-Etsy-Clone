@@ -8,11 +8,14 @@
   z-index: 1;
   margin: 0;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 10px;
   list-style-type: none;
   min-width: 150px;
   font-family: Arial, Helvetica, sans-serif;
+}
 
+.profile-dropdown>li {
+  padding-bottom: 0px;
 }
 
 .hidden {
@@ -164,6 +167,11 @@ div.signInDiv {
   grid-column: span 2;
 }
 
+div.signInDiv>button {
+  background-color: transparent;
+  border: none;
+}
+
 .profileButtonDiv {
   grid-column: span 1;
 }
@@ -200,7 +208,7 @@ button.signInButton {
   color: rgb(34, 34, 34);
 }
 
-.signInButton:hover {
+.signInDiv.signInButton:hover {
   background-color: rgb(234, 232, 232);
   border-radius: 30px;
 }
@@ -274,7 +282,8 @@ i.far.fa-heart:hover {
   border-bottom: 2px solid lightgray;
   background-color: #CCEBFF;
   text-decoration: none;
-  color: black
+  color: black;
+  padding-top: 5px;
 }
 
 .profileDropdownUser>i.fas.fa-user-circle {
@@ -308,23 +317,30 @@ i.far.fa-heart:hover {
 .purchasesReviews,
 .messages,
 .accountSettings,
-.logOutDiv {
+.logOutDiv,
+.sellerListings {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   text-decoration: none;
   color: black
 }
 
+.sellerListings {
+  padding-bottom: 10px;
+}
+
 .purchasesReviews:hover,
 .messages:hover,
-.accountSettings:hover {
+.accountSettings:hover,
+.sellerListings:hover {
   background-color: rgb(228, 226, 226);
 }
 
 .purchasesReviews>i.fas.fa-clipboard-list,
 .messages>i.far.fa-comment-dots,
 .accountSettings>i.fas.fa-cog,
-.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180 {
+.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180,
+.sellerListings>i.fas.fa-store {
   font-size: 20px;
   grid-column: span 1;
   display: grid;
@@ -336,28 +352,30 @@ i.far.fa-heart:hover {
 
 .purchasesReviews>p,
 .messages>p,
-.accountSettings>p {
+.accountSettings>p,
+.sellerListings>p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;
 }
 
 .logOutDiv {
-  margin: 15px 15px 0px 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
+  margin: 0px 15px 0px 0px;
 }
 
-.logOutDiv>button {
-  grid-column: span 5;
-  margin: 15px 15px 15px 0px;
-  font-size: 18px;
-  cursor: pointer;
+.logOutDiv:hover {
+  background-color: rgb(228, 226, 226);
 }
 
 .logOutButton {
-  background-color: white;
+  background-color: transparent;
   border: none;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
+  grid-column: span 5;
+  margin: 15px 15px 12px 0px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 15px;
+  font-weight: lighter;
 }

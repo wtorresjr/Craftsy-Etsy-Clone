@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Redirect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as favoriteActions from "../../../store/favorite";
 import FavoritesTile from "../FavoritesTile";
