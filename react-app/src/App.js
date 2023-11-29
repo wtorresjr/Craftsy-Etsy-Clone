@@ -8,6 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import FavoritesPage from "./components/FavoritesPage";
 import CartPage from "./components/CartPage";
+import ShopManagerPage from "./components/ShopManagerPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/favorites">
             <FavoritesPage />
+          </Route>
+          <Route path="/shop-manager">
+            <ShopManagerPage />
           </Route>
           <Route exact path="/cart">
             <CartPage />
