@@ -38,7 +38,7 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
     }
     const favorites = await response.json();
     await dispatch(viewFavorites(favorites));
-    return response;
+    return favorites;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to load your favorites list: ${error.message}`
@@ -116,7 +116,8 @@ export default function reducer(state = initialState, action) {
       }
     case ADD:
       newState = {
-        allFavorites: [...state.allFavorites, action.payload.id],
+        allFavorites: state.allFavorites,
+        ...action.payload.id,
         byId: { ...state.byId, [action.payload.id]: action.payload },
       };
       return newState;

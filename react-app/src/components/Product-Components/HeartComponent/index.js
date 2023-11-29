@@ -2,38 +2,54 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ProductTile/product_img_tile.css";
 import * as favoriteActions from "../../../store/favorite";
-import ProductTile from "../ProductTile";
+import { useModal } from "../../../context/Modal";
+import LoginFormModal from "../../LoginFormModal";
+import { getAllProducts } from "../../../store/products";
 
 const FavoriteHeart = ({ product, setIsClicked }) => {
+  const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
+  const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
 
   useEffect(() => {
-    if (favoritedProducts) {
-      favoritedProducts.map((fav) => {
-        if (fav.product_id === product.id) {
-          setLocalIsClicked(true);
-        }
-      });
+    // if (favoritedProducts) {
+    //   favoritedProducts.map((fav) => {
+    //     if (fav.product_id === product.id) {
+    //       setLocalIsClicked(true);
+    //     }
+    //   });
+    // }
+    const faved = favoritedProducts?.some(
+      (faved) => faved.product_id == product.id
+    );
+    if (faved) {
+      setLocalIsClicked(!localIsClicked);
+      console.log("Already Faved");
     }
-  }, [favoritedProducts, setLocalIsClicked]);
+  }, [dispatch, favoritedProducts]);
 
   const handleClick = () => {
     setLocalIsClicked(!localIsClicked);
-
-    if (!localIsClicked) {
-      console.log(product.id, "is faved");
-      const newFav = {
-        "product_id": product.id,
-      };
-      dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+    if (sessionUser) {
+      if (!localIsClicked) {
+        const newFav = {
+          product_id: product.id,
+        };
+        dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+        // dispatch(favoriteActions.loadCurrUserFavorites());
+        dispatch(getAllProducts());
+      } else {
+        dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
+        // dispatch(favoriteActions.loadCurrUserFavorites());
+        dispatch(getAllProducts());
+      }
     } else {
-      console.log(product.id, "is unfaved");
-      dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
-      console.log(product.id, "<----Dispatched product id");
+      setLocalIsClicked(false);
+      return setModalContent(<LoginFormModal />);
     }
   };
 
