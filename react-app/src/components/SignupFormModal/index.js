@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { signUp } from "../../store/session";
+import { signUp, login } from "../../store/session";
 import "./SignupForm.css";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
+	let [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	let [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState({});
 	const [canSubmit, setCanSubmit] = useState(true);
@@ -28,14 +28,19 @@ function SignupFormModal() {
 
 	useEffect(() => {
 		const validationErrors = {};
-
 		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
 		if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
 		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
 		setErrors(validationErrors)
 	}, [email, password, confirmPassword])
 
-	// console.log('validation errors present?', Object.values(errors))
+
+	const handleDemoUser = () => {
+		dispatch(login(email="demo@aa.io", password="password"));
+		closeModal();
+	  };
+
+
 
 
 	const handleSubmit = async (e) => {
@@ -60,7 +65,7 @@ function SignupFormModal() {
 			<h2>Registration is easy.</h2>
 			<form className="signup-form" onSubmit={handleSubmit}>
 				<div className="firstname-div">
-					<label>First Name<span style={{"color": "#B64B59"}}>*</span></label>
+					<label>First name<span style={{"color": "#B64B59"}}>*</span></label>
 					<input
 						type="text"
 						title="Please fill out this field."
@@ -74,7 +79,7 @@ function SignupFormModal() {
 					{!canSubmit && errors && errors.firstName}
 				</div>
 				<div className="lastname-div">
-					<label>Last Name<span style={{"color": "#B64B59"}}> *</span></label>
+					<label>Last name<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
 						title="Please fill out this field."
@@ -88,7 +93,7 @@ function SignupFormModal() {
 					{!canSubmit && errors && errors.lastName}
 				</div>
 				<div className="email-div">
-					<label>Email<span style={{"color": "#B64B59"}}> *</span></label>
+					<label>Email address<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="text"
 						title="Please fill out this field."
@@ -130,7 +135,7 @@ function SignupFormModal() {
 					{!canSubmit && errors && errors.password}
 				</div>
 				<div className="confirm-password-div">
-					<label>Confirm Password<span style={{"color": "#B64B59"}}> *</span></label>
+					<label>Confirm password<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
 						type="password"
 						title="Please fill out this field."
@@ -143,8 +148,9 @@ function SignupFormModal() {
 				<div className="errors-div">
 					{!canSubmit && errors && errors.confirmPassword}
 				</div>
-				<div className="signup-submit-button-div">
+				<div className="signup-button-divs">
 					<button className="signup-submit-button" type="submit" disabled={(firstName && lastName && email && username && password && confirmPassword) ? false : true}>Register</button>
+					<button className="demo-user-button" type="submit" onClick={handleDemoUser}>Demo User</button>
 				</div>
 			</form>
 		</div>
