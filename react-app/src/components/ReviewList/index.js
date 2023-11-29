@@ -41,9 +41,7 @@ const ReviewList = ({productId}) => {
       }
       <div className = "reviewListing">
         <div className = "allReviewsAdded">
-          Other reviews from this shop |
-          {getStars(reviewPoints.numbers / allReviewsByProductId)}
-          ({reviewPoints.numbers})
+          <h3>{reviewPoints.numbers} reviews  {getStars(reviewPoints.numbers / allReviewsByProductId)}</h3>
         </div>
         {
           allReviewsByProductId.map((review) => (

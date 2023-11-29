@@ -207,6 +207,7 @@ export default function reducer(state = initialState, action) {
           productsById[productFound.id] = productFound;
         });
         newState = {
+          ...state,
           allProducts: action.payload.Products,
           allProductsById: productsById,
         };
@@ -251,6 +252,7 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCT_DETAILS:
+      return {...state, productDetail: action.payload.Product_Details}
       if (action.payload.Product_Details) {
         newState = {
           productDetail: action.payload.Product_Details,
