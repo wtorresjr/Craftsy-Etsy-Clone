@@ -13,13 +13,12 @@
 .becauseViewed {
   width: 250px;
   height: 250px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
-
-.recentlyFaved {
+.recentFaves {
   width: 250px;
   height: 250px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
 
 .heartContainer {

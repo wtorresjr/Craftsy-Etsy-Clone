@@ -4,7 +4,7 @@ import "../ProductTile/product_img_tile.css";
 import * as favoriteActions from "../../../store/favorite";
 import { useModal } from "../../../context/Modal";
 import LoginFormModal from "../../LoginFormModal";
-import ProductTile from "../ProductTile";
+import { getAllProducts } from "../../../store/products";
 
 const FavoriteHeart = ({ product, setIsClicked }) => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,9 +23,15 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
         }
       });
     }
-  }, [dispatch, favoritedProducts, setLocalIsClicked]);
+  }, [dispatch]);
 
   const handleClick = () => {
+    const alreadyFaved = favoritedProducts?.some(
+      (faved) => faved.product_id == product.id
+    );
+    if (alreadyFaved) {
+      return console.log("Already Faved");
+    }
     setLocalIsClicked(!localIsClicked);
     if (sessionUser) {
       if (!localIsClicked) {
@@ -33,13 +39,16 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
           product_id: product.id,
         };
         dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+        // dispatch(favoriteActions.loadCurrUserFavorites());
+        dispatch(getAllProducts());
       } else {
         dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
+        // dispatch(favoriteActions.loadCurrUserFavorites());
+        dispatch(getAllProducts());
       }
     } else {
       setLocalIsClicked(false);
       return setModalContent(<LoginFormModal />);
-      console.log("Please log in");
     }
   };
 
