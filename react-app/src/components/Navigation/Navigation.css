@@ -21,16 +21,16 @@
 
 .navBar {
   display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 10px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  grid-template-columns: repeat(16, 1fr);
+  /* gap: 10px; */
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
 }
 
 .homeButtonDiv {
-  grid-column: span 3;
-  margin-left: 65px;
+  grid-column: span 2;
+  margin-left: 50px;
   padding-top: 5px
 }
 
@@ -45,7 +45,7 @@
 }
 
 .categoriesDiv {
-  grid-column: span 3;
+  grid-column: span 2;
 }
 
 .categories {
@@ -71,7 +71,7 @@
 }
 
 .searchBarBig {
-  grid-column: span 11;
+  grid-column: span 9;
   padding: 5px;
 }
 
@@ -129,7 +129,6 @@
 
 .favoritesDiv {
   grid-column: span 1;
-  margin-left: 10px;
 }
 
 .favorites {
@@ -142,11 +141,11 @@
 }
 
 .far.fa-heart {
-  padding: 0 20px;
+  padding: 15px;
 }
 
 .bellDiv {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 button.bell {
@@ -166,7 +165,7 @@ div.signInDiv {
 }
 
 .profileButtonDiv {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 button.profileButton {
@@ -181,6 +180,7 @@ button.profileButton {
   font-weight: bold;
   font-size: 30px;
   color: rgb(34, 34, 34);
+  cursor: pointer;
 }
 
 
@@ -188,7 +188,7 @@ button.profileButton {
 button.signInButton {
   display: grid;
   height: 100%;
-  width: 75%;
+  width: 100%;
   place-items: center;
   text-decoration: none;
   background-color: white;
@@ -207,7 +207,7 @@ button.signInButton {
 
 .shoppingCartDiv {
   grid-column: span 1;
-  margin-right: 65px;
+  margin-right: 50px;
   padding: 5px
 }
 
@@ -262,9 +262,10 @@ button.signInButton {
   border-radius: 30px;
 }
 
-.favoritesDiv:hover {
+i.far.fa-heart:hover {
   background-color: #CCEBFF;
   border-radius: 100%;
+  /* width: 50%; */
 }
 
 .profileDropdownUser {
@@ -335,31 +336,28 @@ button.signInButton {
 
 .purchasesReviews>p,
 .messages>p,
-.accountSettings>p,
-.logOutDiv>button {
+.accountSettings>p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;
 }
 
 .logOutDiv {
-  margin: 15px 15px 0px 20px;
+  margin: 15px 15px 0px 0px;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
-/* div.logOutDiv:hover {
-  background-color: rgb(228, 226, 226);
-} */
-
-/* .fas.fa-sign-out-alt.fa-rotate-180 {
-  font-size: 20px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-} */
+.logOutDiv>button {
+  grid-column: span 5;
+  margin: 15px 15px 15px 0px;
+  font-size: 18px;
+  cursor: pointer;
+}
 
 .logOutButton {
   background-color: white;
-  border: 0px solid white;
+  border: none;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
 }

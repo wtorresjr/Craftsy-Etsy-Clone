@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import * as favoriteActions from "../../store/favorite";
+import * as favoriteActions from "../../../store/favorite";
 import "./FavoritesTile.css";
 
 function FavoritesTile({ favorite }) {

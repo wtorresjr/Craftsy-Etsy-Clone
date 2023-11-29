@@ -1,15 +1,20 @@
 
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
-import "./cartRelatedTiles.css";
-
-import { useDispatch } from "react-redux";
-import { addItem } from "../../store/cart";
-import { useModal } from "../../context/Modal";
+import FavoriteHeart from "../Product-Components/HeartComponent";
 import LoginFormModal from "../LoginFormModal";
 
-const CartRelatedTiles = ({ productsArray, sessionUser }) => {
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { useModal } from "../../context/Modal";
+import { addItem } from "../../store/cart";
+
+import "./cartRelatedTiles.css";
+
+const CartRelatedTiles = ({ productsArray, sessionUser, favoritedProducts }) => {
     const dispatch = useDispatch();
     const { setModalContent } = useModal();
+    const [localIsClicked, setLocalIsClicked] = useState(false);
 
 
     const setModal = () => {
@@ -17,7 +22,6 @@ const CartRelatedTiles = ({ productsArray, sessionUser }) => {
             return setModalContent(<LoginFormModal />)
         }
     }
-
 
 
     const addToCart = (productId) => {
@@ -44,11 +48,14 @@ const CartRelatedTiles = ({ productsArray, sessionUser }) => {
                                     className="relatedProductImg"
                                     alt={`Product ${index}`}
                                 />
+                                <div className="relatedProductHeart" onClick={() => setModal()}>
+                                    <FavoriteHeart product={product} setIsClicked={setLocalIsClicked}/>
+                                </div>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <h2>...loading</h2>
+                    <h2 className="loadingHeader">...loading</h2>
                 )}
             </div>
             <div className="favoriteHeaderContainer">

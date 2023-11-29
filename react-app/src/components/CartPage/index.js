@@ -2,34 +2,39 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
+import CartRelatedTiles from "../CartRelatedTiles";
 import EmptyCartPage from "../EmptyCartPage";
 import CartItemTiles from "../CartItemTile";
 import Transaction from "../Transaction";
 
+import { loadCurrUserFavorites } from "../../store/favorite";
+import { getAllProducts } from "../../store/products";
 import { getCart } from "../../store/cart";
 
 import "./cartpage.css";
-import CartRelatedTiles from "../CartRelatedTiles";
-import { getAllProducts } from "../../store/products";
-
 
 const CartPage = () => {
     const dispatch = useDispatch();
 
     const cartItemsArray = useSelector(state => state.cart?.allItems);
     const productsArray = useSelector(state => state.products?.allProducts);
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session?.user);
+    const favoritedProductsArr = useSelector(state => state?.favorite?.allFavorites);
     const [itemCount, setItemCount] = useState(-Infinity);
+    const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
     const [products, setProducts] = useState([]);
 
 
 
     useEffect(() => {
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(getCart());
         dispatch(getAllProducts());
+        if (sessionUser) {
+            dispatch(loadCurrUserFavorites());
+        } else {
+            // Set favoritedProducts to an empty array when there is no session user
+            setFavoritedProducts([]);
+        }
     }, [dispatch, sessionUser]);
 
     useEffect(() => {
@@ -66,7 +71,7 @@ const CartPage = () => {
                 )}
             </div>
             <div className="cartRelatedTiles">
-                <CartRelatedTiles productsArray={products} sessionUser={sessionUser} />
+                <CartRelatedTiles productsArray={products} sessionUser={sessionUser} favoritedProducts={favoritedProducts}/>
             </div>
         </div>
     );

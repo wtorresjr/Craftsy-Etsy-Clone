@@ -1,6 +1,5 @@
 .imageContainer {
   border-radius: 15px;
-  /* height: auto; */
   cursor: pointer;
   width: 250px;
   height: 250px;
@@ -8,6 +7,29 @@
 
 .productTileContain {
   position: relative;
+}
+.smallTileContain {
+  position: relative;
+  width: 50%;
+  display: flex;
+  gap: 20px;
+  border-radius: 8px;
+}
+
+.becauseViewed {
+  width: 100px;
+  height:100px;
+  border-radius: 8px;
+}
+
+.notVisible {
+  visibility: hidden;
+}
+
+.recentFaves {
+  width: 250px;
+  height: 250px;
+  border-radius: 8px;
 }
 
 .heartContainer {

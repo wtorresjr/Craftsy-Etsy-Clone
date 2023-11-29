@@ -6,9 +6,13 @@ import LoginFormPage from "./components/LoginFormPage";
 import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import FavoritesPage from "./components/FavoritesPage";
+import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
+
 import CartPage from "./components/CartPage";
+
 import ShopManagerPage from "./components/ShopManagerPage";
+import CreateProduct from "./components/CreateProduct";
+import ProductDetailPage from "./components/ProductDetailPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +29,9 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
+          <Route path="/products/:productId">
+            <ProductDetailPage />
+          </Route>
           <Route path="/login">
             <LoginFormPage />
           </Route>
@@ -39,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <CartPage />
+          </Route>
+          <Route exact path="/create-a-product">
+            <CreateProduct />
           </Route>
 
           {/* <Route path="">
