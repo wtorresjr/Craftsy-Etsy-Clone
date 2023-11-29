@@ -26,18 +26,18 @@ function SignupFormModal() {
 	const confirmPasswordInputCN = showErrors && frontendErrors.confirmPassword ? "error-input" : ""
 
 
-	const errorObj = {};
-	errors?.forEach(error => {
-	  const [key, value] = error.split(':')
-	  errorObj[key.trim()] = value.trim()
-	});
+	// const errorObj = {};
+	// errors?.forEach(error => {
+	//   const [key, value] = error.split(':')
+	//   errorObj[key.trim()] = value.trim()
+	// });
 
 
 	useEffect(() => {
 		const validationErrors = {};
 		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
-		if (errorObj.email) validationErrors.email = errorObj.email
-		if (errorObj.username) validationErrors.username = errorObj.username
+		// if (errorObj.email) validationErrors.email = errorObj.email
+		// if (errorObj.username) validationErrors.username = errorObj.username
 		if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
 		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
 		setFrontendErrors(validationErrors)
