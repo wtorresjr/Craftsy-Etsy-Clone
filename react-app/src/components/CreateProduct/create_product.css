@@ -9,6 +9,7 @@
 form {
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
 }
 
 li {
@@ -30,7 +31,8 @@ input {
 button {
   font-weight: bolder;
   font-size: 18px;
-  /* width: 100%; */
+  width: 100%;
   height: 40px;
   margin: 20px 0;
+  box-sizing: border-box;
 }

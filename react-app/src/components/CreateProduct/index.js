@@ -4,29 +4,37 @@ import { addNewProduct } from "../../store/products";
 import "./create_product.css";
 
 const CreateProduct = () => {
+  const sessionUser = useSelector((state) => state.session.user);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [previewImg, setPreviewImg] = useState("");
+  const [previewImg, setPreviewImg] = useState("http://");
   const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const data = await dispatch(addNewProduct()); //<----- Needs items to create product.
-    // if (data) {
-    //   setErrors(data);
-    // }
+    const newProduct = {
+      name: name,
+      description: description,
+      price: price,
+      quantity: quantity,
+      preview_image_url: previewImg,
+    };
+    // console.log(newProduct, "Test create new");
+    const data = await dispatch(addNewProduct(newProduct)); //<----- Needs items to create product.
+    if (data) {
+      setErrors(data);
+    }
   };
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit}>
         <h1>Create A Product</h1>
         <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
+          {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <li>
           <label>
@@ -52,20 +60,9 @@ const CreateProduct = () => {
         </li>
         <li>
           <label>
-            Description:
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </label>
-        </li>
-        <li>
-          <label>
             Price:
             <input
-              type="float"
+              type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
