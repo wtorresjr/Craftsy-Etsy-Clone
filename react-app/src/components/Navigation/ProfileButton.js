@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -65,6 +65,10 @@ function ProfileButton({ user }) {
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
                 </Link>
+                <NavLink to="/shop-manager" className="sellerListings">
+                  <i className="fas fa-store"></i>
+                  <p>Sell on Craftsy</p>
+                </NavLink>
               </li>
               <li>
                 <Link className="accountSettings">

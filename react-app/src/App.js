@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
 
 import CartPage from "./components/CartPage";
+
+import ShopManagerPage from "./components/ShopManagerPage";
 import CreateProduct from "./components/CreateProduct";
 import ProductDetailPage from "./components/ProductDetailPage";
 
@@ -38,6 +40,9 @@ function App() {
           </Route>
           <Route exact path="/favorites">
             <FavoritesPage />
+          </Route>
+          <Route path="/shop-manager">
+            <ShopManagerPage />
           </Route>
           <Route exact path="/cart">
             <CartPage />
