@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getUserProducts } from "../../store/products";
 import './ShopManager.css'
 import UserListingTile from "./UserListingTile";
@@ -34,10 +34,7 @@ function ShopManagerPage() {
                     })
                     }
                 </div>
-                <div className="editOrDeleteListing">
 
-
-                </div>
             </div>
         </>
     )
