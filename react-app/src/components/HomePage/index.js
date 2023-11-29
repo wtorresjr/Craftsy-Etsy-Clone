@@ -7,7 +7,7 @@ import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
-import { fetchReviews } from "../../store/reviews";
+import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
 const HomePage = () => {
   const dispatch = useDispatch();
