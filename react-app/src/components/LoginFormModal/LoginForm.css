@@ -80,6 +80,7 @@
     margin-bottom: 10px;
 }
 
+
 .login-submit-button:hover {
     opacity: 0.9;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.233);
@@ -87,6 +88,7 @@
     transition-duration: 0.1s;
     cursor: pointer;
 }
+
 
 .login-buttons-div {
     display: flex;
@@ -106,6 +108,7 @@
     margin-bottom: 30px;
 }
 
+
 .demo-user-button:hover {
     opacity: 0.9;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.233);
@@ -115,12 +118,12 @@
 }
 
 
-
 .errors-div {
     color: #A61A2D;
     margin-bottom: 20px;
     width: 300px;
 }
+
 
 .error-input {
     background-color: #FDDCD8;
