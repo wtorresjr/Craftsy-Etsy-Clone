@@ -44,7 +44,8 @@ function SignupFormModal() {
 	}, [email, username, password, confirmPassword, errors])
 
 
-	console.log('current validation errors', errors)
+	console.log('current backend errors', errors)
+	console.log('current frontend errors', frontendErrors)
 	console.log("show error status", showErrors)
 
 
