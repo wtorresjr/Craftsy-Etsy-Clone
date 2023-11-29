@@ -34,24 +34,24 @@ def password_length(form, field):
         raise ValidationError('Must be at least 6 characters.')
 
 
-def max_char_first_name(form, field):
-    first_name = field.data
-    if len(first_name) > 15:
+def max_char_15(form, field):
+    if len(field.data) > 15:
         raise ValidationError('Character limit exceeded. Must be no more than 15 characters.')
 
 
-def max_char_last_name(form, field):
-    last_name = field.data
-    if len(last_name) > 15:
-        raise ValidationError('Character limit exceeded. Must be no more than 15 characters.')
+
+def starting_with_spaces(form, field):
+    if field.data.startswith(' '):
+        raise ValidationError('Invalid data. User input cannot begin with a space.')
+
 
 
 class SignUpForm(FlaskForm):
     first_name = StringField(
-        'first name', validators=[DataRequired(), max_char_first_name])
+        'first name', validators=[DataRequired(), max_char_15, starting_with_spaces])
     last_name = StringField(
-        'last name', validators=[DataRequired(), max_char_last_name])
+        'last name', validators=[DataRequired(), max_char_15, starting_with_spaces])
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists, email_format])
-    password = StringField('password', validators=[DataRequired(), password_length])
+        'username', validators=[DataRequired(), username_exists, starting_with_spaces])
+    email = StringField('email', validators=[DataRequired(), user_exists, email_format, starting_with_spaces])
+    password = StringField('password', validators=[DataRequired(), password_length, starting_with_spaces])
