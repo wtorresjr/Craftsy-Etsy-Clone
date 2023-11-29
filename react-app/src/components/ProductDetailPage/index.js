@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
-import { getAllProducts, getProductInfo} from "../../store/products";
+import { getAllProducts, getProductInfo } from "../../store/products";
 import { fetchReviews, fetchReviewById } from "../../store/reviews";
 import ReviewList from '../ReviewList'
 import ProductTile from "../Product-Components/ProductTile";
@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
   const { productId } = useParams();
   const [selected, setSelected] = useState('');
 
-  const currentProduct = useSelector((state) => state.products.productDetail);
+  const currentProduct = useSelector((state) => state?.products?.productDetail);
 
   useEffect(() => {
     dispatch(fetchReviewById(parseInt(productId)))
@@ -34,7 +34,7 @@ const ProductDetailPage = () => {
 
       {
         currentProduct.preview_image_url ?
-        <img src={currentProduct.preview_image_url[0]} /> : "no image"
+          <img src={currentProduct.preview_image_url[0]} /> : "no image"
       }
 
       <div>
@@ -53,7 +53,7 @@ const ProductDetailPage = () => {
       </div>
 
       <label className="dropdown">Quantity</label>
-      <select id="dropdown" value = {selected} onChange={handleSelectChange}>
+      <select id="dropdown" value={selected} onChange={handleSelectChange}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -61,15 +61,15 @@ const ProductDetailPage = () => {
       </select>
       <button>Add to Cart</button>
 
-      <hr/>
+      <hr />
 
       Releated Searches
 
-      <hr/>
+      <hr />
 
-      <ReviewList productId = {productId} />
+      <ReviewList productId={productId} />
 
-      <hr/>
+      <hr />
     </>
   );
 };
