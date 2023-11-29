@@ -30,11 +30,11 @@ const HomePage = () => {
         <h3>Recently Favorited...</h3>
         {favoritedProducts &&
           favoritedProducts.length > 4 &&
-          favoritedProducts.slice(0, 5).map((fav) => {
+          favoritedProducts.slice(0, 5).map((product) => {
             return (
               <ProductTile
-                key={fav.id}
-                product={fav}
+                key={product.id}
+                product={product}
                 prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
               />
@@ -42,7 +42,7 @@ const HomePage = () => {
           })}
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0).map((product) => {
+          allProducts.slice(0, 10).map((product) => {
             return (
               <ProductTile
                 key={product.id}
