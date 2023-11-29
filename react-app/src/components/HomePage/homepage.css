@@ -1,13 +1,11 @@
 .mainProductDisplay {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 0 300px;
   gap: 20px 0;
 }
 
 .mainProductDisplay h3 {
   width: 100%;
 }
-

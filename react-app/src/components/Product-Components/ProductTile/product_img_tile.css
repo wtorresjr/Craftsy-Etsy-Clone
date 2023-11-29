@@ -8,17 +8,40 @@
 .productTileContain {
   position: relative;
 }
+
 .smallTileContain {
   position: relative;
-  width: 50%;
+  width: 70%;
   display: flex;
   gap: 20px;
   border-radius: 8px;
+  flex-flow: row wrap;
+}
+
+.smallTileContain h3 {
+  width: 100%;
+}
+
+.largeTileContain h3 {
+  width: 100%;
+}
+
+.largeTileContain {
+  /* position: relative; */
+  width: 70%;
+  display: flex;
+  gap: 20px;
+  border-radius: 8px;
+  flex-flow: row wrap;
+}
+
+.largeTileContain h3 {
+  width: 100%;
 }
 
 .becauseViewed {
   width: 100px;
-  height:100px;
+  height: 100px;
   border-radius: 8px;
 }
 
@@ -27,8 +50,8 @@
 }
 
 .recentFaves {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   border-radius: 8px;
 }
 

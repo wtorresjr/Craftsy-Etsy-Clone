@@ -16,10 +16,12 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
 
   useEffect(() => {
+    console.log(localIsClicked, "setIsClicked value");
     if (favoritedProducts) {
       favoritedProducts.map((fav) => {
         if (fav.product_id === product.id) {
           setLocalIsClicked(true);
+          // console.log(localIsClicked, "setIsClicked value");
         }
       });
     }
