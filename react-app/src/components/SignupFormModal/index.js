@@ -27,7 +27,7 @@ function SignupFormModal() {
 
 
 	const errorObj = {};
-	errors.forEach(error => {
+	errors?.forEach(error => {
 	  const [key, value] = error.split(':')
 	  errorObj[key.trim()] = value.trim()
 	});
@@ -42,6 +42,10 @@ function SignupFormModal() {
 		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
 		setFrontendErrors(validationErrors)
 	}, [email, username, password, confirmPassword, errors])
+
+
+	console.log('current validation errors', errors)
+	console.log("show error status", showErrors)
 
 
 	const handleDemoUser = () => {
