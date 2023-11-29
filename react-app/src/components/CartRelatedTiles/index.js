@@ -10,11 +10,17 @@ import { useModal } from "../../context/Modal";
 import { addItem } from "../../store/cart";
 
 import "./cartRelatedTiles.css";
+import { useHistory } from "react-router-dom";
 
 const CartRelatedTiles = ({ productsArray, sessionUser, favoritedProducts }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { setModalContent } = useModal();
     const [localIsClicked, setLocalIsClicked] = useState(false);
+
+    const productDetailRedirect = (product) => {
+        history.push(`/products/${product.id}`)
+    }
 
 
     const setModal = () => {
@@ -40,9 +46,10 @@ const CartRelatedTiles = ({ productsArray, sessionUser, favoritedProducts }) => 
                         <div className="tileContainer" key={index}>
                             <div className="relatedProductContainer" key={index}>
                                 <button className="addToCartButton" onClick={() => addToCart(product.id)}>Add to cart</button>
-                                <div className="tilePriceContainer">${product?.price}</div>
-                                <div className="tileNameContainer">{product?.name}</div>
+                                <div className="tilePriceContainer" onClick={() => productDetailRedirect(product)}>${product?.price.toFixed(2)}</div>
+                                <div className="tileNameContainer" onClick={() => productDetailRedirect(product)}>{product?.name}</div>
                                 <img
+                                    onClick={() => productDetailRedirect(product)}
                                     style={{ borderRadius: "10px" }}
                                     src={product?.preview_image_url}
                                     className="relatedProductImg"
