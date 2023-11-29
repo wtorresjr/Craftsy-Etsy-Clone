@@ -1,0 +1,36 @@
+.createProductContainer {
+  display: flex;
+  justify-content: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  /* flex-flow: column nowrap; */
+}
+
+form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+li {
+  padding: 10px 0;
+  list-style-type: none;
+}
+
+label {
+  font-weight: bolder;
+}
+
+input {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  height: 30px;
+}
+
+button {
+  font-weight: bolder;
+  font-size: 18px;
+  /* width: 100%; */
+  height: 40px;
+  margin: 20px 0;
+}

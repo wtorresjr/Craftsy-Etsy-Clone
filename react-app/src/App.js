@@ -9,6 +9,7 @@ import Navigation from "./components/Navigation";
 // import FavoritesPage from "./components/FavoritesPage";
 import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
 import CartPage from "./components/CartPage";
+import CreateProduct from "./components/CreateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <CartPage />
+          </Route>
+          <Route exact path="/create-a-product">
+            <CreateProduct />
           </Route>
 
           {/* <Route path="">
