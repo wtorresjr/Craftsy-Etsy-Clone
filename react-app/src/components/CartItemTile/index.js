@@ -6,7 +6,7 @@ import { getProductInfo } from "../../store/products";
 
 import "./cartitemtile.css";
 
-const CartItemTiles = ({ item, cartItemsArray }) => {
+const CartItemTiles = ({ item, cartItemsArray, productsArr }) => {
     const dispatch = useDispatch();
 
     const [shippingFree, setShippingFree] = useState(true);
@@ -74,11 +74,18 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
                                 value={item.quantity}
                                 onChange={handleEditQuantity}
                             >
-                                {[...Array(200).keys()].map((i) => (
-                                    <option key={i + 1} value={i + 1}>
-                                        {i + 1}
-                                    </option>
-                                ))}
+                                {productsArr?.map((product) => {
+                                    if (product.id === item.product_id) {
+                                        return (
+                                            [...Array(product.quantity).keys()].map((i) => (
+                                                <option key={i + 1} value={i + 1}>
+                                                    {i + 1}
+                                                </option>
+                                            ))
+                                        );
+                                    }
+                                    return null; // Make sure to return null if the condition is not met
+                                })}
                             </select>
                             <div className="detailButtons">
                                 <button>Save for later</button>

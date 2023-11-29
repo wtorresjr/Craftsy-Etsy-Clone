@@ -53,12 +53,10 @@ const CartPage = () => {
                             <div>
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
                                 {cartItemsArray &&
-                                    cartItemsArray.map((item) => {
-                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} />;
+                                    cartItemsArray.map((item, i) => {
+                                            return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray}/>;
                                     })}
-
                             </div>
-
                         </div>
                     ) : (
                         <EmptyCartPage />
