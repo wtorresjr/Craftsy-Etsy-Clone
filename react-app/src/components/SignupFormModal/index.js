@@ -12,27 +12,36 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	let [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [errors, setErrors] = useState({});
-	const [canSubmit, setCanSubmit] = useState(true);
+	const [errors, setErrors] = useState([]);
+	const [frontendErrors, setFrontendErrors] = useState({});
+	const [showErrors, setShowErrors] = useState(false);
 	const { closeModal } = useModal();
 
 
-	const firstNameInputCN = !canSubmit && errors.firstName ? "error-input" : ""
-	const lastNameInputCN = !canSubmit && errors.lastName ? "error-input" : ""
-	const usernameInputCN = !canSubmit && errors.username ? "error-input" : ""
-	const emailInputCN = !canSubmit && errors.email ? "error-input" : ""
-	const passwordInputCN = !canSubmit && errors.password ? "error-input" : ""
-	const confirmPasswordInputCN = !canSubmit && errors.confirmPassword ? "error-input" : ""
+	const firstNameInputCN = showErrors && frontendErrors.firstName ? "error-input" : ""
+	const lastNameInputCN = showErrors && frontendErrors.lastName ? "error-input" : ""
+	const usernameInputCN = showErrors && frontendErrors.username ? "error-input" : ""
+	const emailInputCN = showErrors && frontendErrors.email ? "error-input" : ""
+	const passwordInputCN = showErrors && frontendErrors.password ? "error-input" : ""
+	const confirmPasswordInputCN = showErrors && frontendErrors.confirmPassword ? "error-input" : ""
 
+
+	const errorObj = {};
+	errors.forEach(error => {
+	  const [key, value] = error.split(':')
+	  errorObj[key.trim()] = value.trim()
+	});
 
 
 	useEffect(() => {
 		const validationErrors = {};
 		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
+		if (errorObj.email) validationErrors.email = errorObj.email
+		if (errorObj.username) validationErrors.username = errorObj.username
 		if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
 		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
-		setErrors(validationErrors)
-	}, [email, password, confirmPassword])
+		setFrontendErrors(validationErrors)
+	}, [email, username, password, confirmPassword])
 
 
 	const handleDemoUser = () => {
@@ -41,21 +50,22 @@ function SignupFormModal() {
 	  };
 
 
-
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (!Object.values(errors)) {
-			const data = await dispatch(signUp(username, email, password, firstName, lastName));
-			if (data) {
-				setErrors(data);
-			} else {
-				closeModal();
-			}
+		setShowErrors(true)
+		const data = await dispatch(signUp(username, email, password, firstName, lastName));
+		if (data || Object.values(frontendErrors).length) {
+		  setErrors(data);
+		//   setFirstName("")
+		//   setLastName("")
+		//   setEmail("")
+		//   setUsername("")
+		//   setPassword("")
+		//   setConfirmPassword("")
 		} else {
-			setCanSubmit(false)
+			closeModal()
 		}
-	};
+	  };
 
 
 	return (
@@ -76,8 +86,9 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.firstName}
+					{showErrors && frontendErrors?.firstName}
 				</div>
+
 				<div className="lastname-div">
 					<label>Last name<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
@@ -90,8 +101,9 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.lastName}
+					{showErrors && frontendErrors?.lastName}
 				</div>
+
 				<div className="email-div">
 					<label>Email address<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
@@ -104,8 +116,9 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.email}
+					{showErrors && frontendErrors?.email}
 				</div>
+
 				<div className="username-div">
 					<label>Username<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
@@ -118,8 +131,9 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.username}
+					{showErrors && frontendErrors?.username}
 				</div>
+
 				<div className="password-div">
 					<label>Password<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
@@ -132,8 +146,9 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.password}
+					{showErrors && frontendErrors?.password}
 				</div>
+
 				<div className="confirm-password-div">
 					<label>Confirm password<span style={{"color": "#B64B59"}}> *</span></label>
 					<input
@@ -146,10 +161,13 @@ function SignupFormModal() {
 					/>
 				</div>
 				<div className="errors-div">
-					{!canSubmit && errors && errors.confirmPassword}
+					{showErrors && frontendErrors?.confirmPassword}
 				</div>
+
 				<div className="signup-button-divs">
-					<button className="signup-submit-button" type="submit" disabled={(firstName && lastName && email && username && password && confirmPassword) ? false : true}>Register</button>
+					{(firstName && lastName && email && username && password && confirmPassword)
+					? <button className="signup-submit-button" type="submit">Register</button>
+					:  <button className="disabled-signup-submit-button" type="submit" disabled="true">Register</button>}
 					<button className="demo-user-button" type="submit" onClick={handleDemoUser}>Demo User</button>
 				</div>
 			</form>
