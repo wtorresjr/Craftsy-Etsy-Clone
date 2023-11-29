@@ -6,7 +6,7 @@ import { getProductInfo } from "../../store/products";
 
 import "./cartitemtile.css";
 
-const CartItemTiles = ({ item, cartItemsArray, shippingPrice }) => {
+const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => {
     const dispatch = useDispatch();
 
     const [productInfoObj, setProductInfoObj] = useState({});
