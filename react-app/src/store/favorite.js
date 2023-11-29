@@ -82,7 +82,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
       );
     }
     // const deleteFav = await response.json();
-    await dispatch(removeFavorite(response));
+    await dispatch(removeFavorite(+favoriteId));
     await dispatch(loadCurrUserFavorites());
     // return deleteFav;
   } catch (error) {
@@ -122,7 +122,12 @@ export default function reducer(state = initialState, action) {
       };
       return newState;
     case REMOVE:
-      delete newState[action.payload];
+      const updatedById = { ...state.byId };
+      delete updatedById[action.payload];
+      newState = {
+        ...state,
+        byId: updatedById,
+      };
       return newState;
     default:
       return state;
