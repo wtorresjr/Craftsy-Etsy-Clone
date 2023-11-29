@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import PriceComponent from "../PriceComponent";
 import FavoriteHeart from "../HeartComponent";
 import "./product_img_tile.css";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProductTile = ({ product, favoritedProducts, prodTileImgStyle, tileContainerStyle }) => {
   const dispatch = useDispatch();
@@ -23,11 +24,13 @@ const ProductTile = ({ product, favoritedProducts, prodTileImgStyle, tileContain
         isClicked={localIsClicked}
         setIsClicked={setLocalIsClicked}
       />
+      <Link to = {`/products/${product.id}`}>
       <img
         alt={product?.description}
         className={prodTileImgStyle}
         src={product?.preview_image_url}
       />
+      </Link>
     </div>
   );
 };
