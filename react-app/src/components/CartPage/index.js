@@ -24,8 +24,6 @@ const CartPage = () => {
     const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
     const [products, setProducts] = useState([]);
 
-
-
     useEffect(() => {
         dispatch(getCart());
         dispatch(getAllProducts());
@@ -39,8 +37,9 @@ const CartPage = () => {
 
     useEffect(() => {
         setItemCount(cartItemsArray.length);
+        const randomNumber = Math.floor(Math.random() * (productsArray.length - 5 + 1)) + 5;
         if (productsArray?.length > 0) {
-            setProducts(productsArray.slice(0, 5));
+            setProducts(productsArray.slice(randomNumber - 5, randomNumber));
         }
     }, [cartItemsArray, productsArray, sessionUser]);
 
@@ -69,6 +68,7 @@ const CartPage = () => {
                 )}
             </div>
             <div className="cartRelatedTiles">
+                <h3 className="newProductHeader">Discover new products</h3>
                 <CartRelatedTiles productsArray={products} sessionUser={sessionUser} favoritedProducts={favoritedProducts}/>
             </div>
         </div>
