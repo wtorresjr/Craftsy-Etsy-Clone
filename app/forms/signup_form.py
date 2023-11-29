@@ -21,6 +21,7 @@ def username_exists(form, field):
 
 
 def email_format(form, field):
+    # Checking to see if the email inputted is in the reequested format
     email = form.data
     email_pattern = r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
     if not re.match(email_pattern, email):
@@ -28,13 +29,14 @@ def email_format(form, field):
 
 
 def password_length(form, field):
-    # Chekcing if password length is at least 6 characters long
+    # Checking if password length is at least 6 characters long
     password = field.data
     if len(password) < 6:
         raise ValidationError('Must be at least 6 characters.')
 
 
 def max_char_15(form, field):
+    # Checking if user input is no more than 15 characters long
     if len(field.data) > 15:
         raise ValidationError('Character limit exceeded. Must be no more than 15 characters.')
 
