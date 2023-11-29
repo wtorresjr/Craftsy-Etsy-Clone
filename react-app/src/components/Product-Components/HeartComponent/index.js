@@ -16,19 +16,12 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
 
   useEffect(() => {
-    // if (favoritedProducts) {
-    //   favoritedProducts.map((fav) => {
-    //     if (fav.product_id === product.id) {
-    //       setLocalIsClicked(true);
-    //     }
-    //   });
-    // }
-    const faved = favoritedProducts?.some(
-      (faved) => faved.product_id == product.id
-    );
-    if (faved) {
-      setLocalIsClicked(!localIsClicked);
-      console.log("Already Faved");
+    if (favoritedProducts) {
+      favoritedProducts.map((fav) => {
+        if (fav.product_id === product.id) {
+          setLocalIsClicked(true);
+        }
+      });
     }
   }, [dispatch, favoritedProducts]);
 
@@ -40,11 +33,11 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
           product_id: product.id,
         };
         dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-        // dispatch(favoriteActions.loadCurrUserFavorites());
+
         dispatch(getAllProducts());
       } else {
         dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
-        // dispatch(favoriteActions.loadCurrUserFavorites());
+
         dispatch(getAllProducts());
       }
     } else {

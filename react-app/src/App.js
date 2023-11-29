@@ -6,8 +6,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import FavoritesPage from "./components/Favorite-Components/FavoritesPage"
+import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
+
 import CartPage from "./components/CartPage";
+import CreateProduct from "./components/CreateProduct";
 import ProductDetailPage from "./components/ProductDetailPage";
 
 function App() {
@@ -39,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <CartPage />
+          </Route>
+          <Route exact path="/create-a-product">
+            <CreateProduct />
           </Route>
 
           {/* <Route path="">
