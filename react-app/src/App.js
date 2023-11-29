@@ -6,8 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-// import FavoritesPage from "./components/FavoritesPage";
 import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
+
 import CartPage from "./components/CartPage";
 import CreateProduct from "./components/CreateProduct";
 

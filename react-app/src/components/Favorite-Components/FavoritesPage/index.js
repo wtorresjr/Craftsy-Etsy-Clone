@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-// import * as favoriteActions from "../../store/favorite";
 import * as favoriteActions from "../../../store/favorite";
 import FavoritesTile from "../FavoritesTile";
-import NoFavorites from "../NoFavorites";
+import NoFavorites from "./NoFavorites";
 import "./FavoritesPage.css";
 
 function FavoritesPage() {

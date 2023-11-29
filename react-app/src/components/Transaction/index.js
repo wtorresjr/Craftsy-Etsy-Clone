@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import "./transaction.css";
+import { useDispatch } from "react-redux";
+import { purchaseCart } from "../../store/cart";
 
 
 const Transaction = ({ totalItems }) => {
+    const dispatch = useDispatch();
     const [randomShipping, setRandomShipping] = useState(0);
     let totalPrice = 0;
 
     useEffect(() => {
         setRandomShipping(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
-
+        console.log(totalItems, '---------------------------')
     }, [])
+
+    const handlePurchase = (e) => {
+        const cartData = {"Cart": []};
+
+        totalItems.forEach((item) => {
+            const itemData = { item_id: item.id, purchased: true }
+            cartData.Cart.push(itemData);
+        })
+
+        dispatch(purchaseCart(cartData))
+    }
 
 
     for (let i = 0; i < totalItems.length; i++) {
@@ -53,7 +67,7 @@ const Transaction = ({ totalItems }) => {
                             </div>
                         </div>
                         <div className="checkoutButton">
-                            <button>Proceed to checkout</button>
+                            <button onClick={() => handlePurchase()}>Proceed to checkout</button>
                         </div>
                         <div className="promoButton">
                             <button>Apply Craftsy coupon code</button>
