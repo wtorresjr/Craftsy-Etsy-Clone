@@ -10,9 +10,50 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [previewImg, setPreviewImg] = useState("http://");
+  const [previewImg, setPreviewImg] = useState("");
   const [extraImgs, setExtraImgs] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [isDisabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const errorCollector = {};
+    const validImgFormats = [".jpg", ".png", "jpeg"];
+
+    if (name.length < 3 || name.length > 30) {
+      errorCollector.name =
+        "Product name must be between 3 and 30 characters long.";
+    }
+    if (name.length && name.trim() === "") {
+      errorCollector.name = "Name must include alphabetic characters";
+    }
+    if (description.length < 3 || description.length > 255) {
+      errorCollector.description =
+        "Description must be between 3 and 255 characters.";
+    }
+    if (description.length && description.trim() === "") {
+      errorCollector.description = "Description must be alphabetic characters";
+    }
+    if (price <= 0) {
+      errorCollector.price = "Price must be a valid number greater than 0.";
+    }
+    if (quantity <= 0) {
+      errorCollector.quantity =
+        "Quantity must be a valid number greater than 0.";
+    }
+    if (!previewImg) {
+      errorCollector.previewImg = "Preview image is required.";
+    }
+    if (!validImgFormats.includes(previewImg.slice(-4))) {
+      errorCollector.wrongFormat =
+        "Preview image must be .jpg, .jpeg or .png format.";
+    }
+    setErrors(errorCollector);
+    if (Object.keys(errorCollector).length > 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [name, description, price, quantity, previewImg, extraImgs]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,19 +64,18 @@ const CreateProduct = () => {
       quantity: quantity,
       preview_image_url: previewImg,
     };
-    // console.log(newProduct, "Test create new");
-    const data = await dispatch(addNewProduct(newProduct)); //<----- Needs items to create product.
+    const data = await dispatch(addNewProduct(newProduct));
     if (data) {
       setErrors(data);
+      console.log(errors, "Errors from dispatch");
     }
   };
+
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit}>
         <h1>Create A Product</h1>
-        <ul>
-          {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        <ul></ul>
         <li>
           <label>
             Name:
@@ -46,6 +86,7 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.name && <p className="errorDiv">{errors.name}</p>}
         </li>
         <li>
           <label>
@@ -57,6 +98,7 @@ const CreateProduct = () => {
               required
             />
           </label>
+          <p className="errorDiv">{errors.description}</p>
         </li>
         <li>
           <label>
@@ -66,8 +108,10 @@ const CreateProduct = () => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
+              placeholder="example: 19.99"
             />
           </label>
+          {errors && errors.price && <p className="errorDiv">{errors.price}</p>}
         </li>
         <li>
           <label>
@@ -79,6 +123,9 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.quantity && (
+            <p className="errorDiv">{errors.quantity}</p>
+          )}
         </li>
         <li>
           <label>
@@ -90,8 +137,16 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.previewImg && (
+            <p className="errorDiv">{errors.previewImg}</p>
+          )}
+          {errors && errors.wrongFormat && (
+            <p className="errorDiv">{errors.wrongFormat}</p>
+          )}
         </li>
-        <button type="submit">Create Product</button>
+        <button className="submitBtn" type="submit" disabled={isDisabled}>
+          Create Product
+        </button>
       </form>
     </div>
   );
