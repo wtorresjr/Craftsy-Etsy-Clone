@@ -109,7 +109,6 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.firstName}
-					{showErrors && backendErrors?.firstName}
 				</div>
 
 				<div className="lastname-div">
@@ -140,6 +139,7 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.email}
+					{showErrors && backendErrors?.email}
 				</div>
 
 				<div className="username-div">
@@ -155,6 +155,7 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.username}
+					{showErrors && backendErrors?.username}
 				</div>
 
 				<div className="password-div">
