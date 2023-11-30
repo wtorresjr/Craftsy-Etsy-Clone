@@ -11,7 +11,6 @@ const Transaction = ({ totalItems }) => {
 
     useEffect(() => {
         setRandomShipping(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
-        console.log(totalItems, '---------------------------')
     }, [])
 
     const handlePurchase = (e) => {
