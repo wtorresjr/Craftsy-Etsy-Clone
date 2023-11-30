@@ -11,6 +11,7 @@ function LoginFormModal() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [showErrors, setShowErrors] = useState(false)
   const { closeModal } = useModal();
 
 
@@ -21,7 +22,7 @@ function LoginFormModal() {
   });
 
 
-  const emailInputCN = errorObj && errorObj.email ? "error-input" : ""
+  const emailInputCN = (errorObj && errorObj.email) || (errorObj?.password) ? "error-input" : ""
   const passwordInputCN = errorObj && errorObj.password ? "error-input" : ""
 
 
@@ -33,6 +34,7 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowErrors(true)
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
@@ -68,7 +70,7 @@ function LoginFormModal() {
           />
         </div>
         <div className="errors-div">
-            {errorObj && errorObj.email}
+            {showErrors && errorObj?.email}
         </div>
         <div className="password-div">
           <label>Password</label>
@@ -81,7 +83,7 @@ function LoginFormModal() {
           />
         </div>
         <div className="errors-div">
-          {errorObj && errorObj.password}
+          {showErrors && errorObj?.password}
         </div>
         <div className="login-buttons-div">
           <button className="login-submit-button" type="submit">Log In</button>

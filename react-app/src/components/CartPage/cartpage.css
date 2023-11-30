@@ -53,3 +53,10 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.newProductHeader {
+    display: flex;
+    width: 84%;
+    align-items: center;
+    justify-content: flex-start;
+}
