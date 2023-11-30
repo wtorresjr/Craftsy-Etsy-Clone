@@ -20,12 +20,12 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
-# def email_format(form, field):
-#     # Checking to see if the email inputted is in the reequested format
-#     email = form.data
-#     email_pattern = r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
-#     if not re.match(email_pattern, email):
-#         raise ValidationError("Not a valid email.")
+def email_format(form, field):
+    # Checking to see if the email inputted is in the reequested format
+    email = field.data
+    email_pattern = r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
+    if not re.match(email_pattern, email):
+        raise ValidationError("Not a valid email.")
 
 
 def password_length(form, field):
@@ -55,5 +55,5 @@ class SignUpForm(FlaskForm):
         'last name', validators=[DataRequired(), max_char_15, starting_with_spaces])
     username = StringField(
         'username', validators=[DataRequired(), username_exists, starting_with_spaces])
-    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces])
+    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, email_format])
     password = StringField('password', validators=[DataRequired(), password_length, starting_with_spaces])
