@@ -22,12 +22,8 @@ function ReviewFormModal ({productId}) {
     }
     //dispatching to create a review
     const data = await dispatch(createReview(productId, newReview));
-    if(data) {
-      setErrors(data);
-    }
-    else {
-      closeModal()
-    }
+    closeModal()
+    window.location.reload()
   }
 
   return(

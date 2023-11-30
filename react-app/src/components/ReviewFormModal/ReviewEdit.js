@@ -24,7 +24,6 @@ function ReviewEditModal ({review}) {
 
     //dispatching to create a review
     const data = await dispatch(EditReview(review.id, newReview));
-    console.log('data', data)
     closeModal()
     window.location.reload()
   }

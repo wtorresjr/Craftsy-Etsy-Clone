@@ -27,20 +27,25 @@ const ReviewList = ({productId}) => {
   const allReviewsByProductId = useSelector((state) => Object.values(state.reviews.reviewByProductId))
   const sessionUser = useSelector((state) => state.session.user);
 
+  const reviewExists = allReviewsByProductId.some(review => review.user_id === sessionUser.id)
+  console.log('review exists', reviewExists)
+
   const reviewPoints = {
     stars: 0,
     numbers: 0
   }
 
+  // if(sessionUser){
+  //   for(let i = 0; i < allReviewsByProductId.length; i++){
+  //     console.log(allReviewsByProductId[i].user_id)
+  //     console.log(sessionUser.id)
+  //     if(allReviewsByProductId[i].user_id == sessionUser.id) setHasReview(true)
+  //   }
+  // }
+
   useEffect(() => {
     dispatch(fetchReviewById(productId))
-    if(sessionUser){
-      for(const [key, value] in allReviewsByProductId){
-        if(allReviewsByProductId[key].user_id === sessionUser.id) setHasReview(true)
-      }
-    }
   }, [dispatch, sessionUser])
-
   return(
     <>
       {
@@ -52,7 +57,7 @@ const ReviewList = ({productId}) => {
 
       {/* if user has a review conditions */}
       {
-        hasReview === false  && sessionUser ?
+        sessionUser && reviewExists === false ?
         <OpenModalButton className="ReviewFormButton" buttonText="Leave a Review" modalComponent={<ReviewFormModal productId = {productId}/>} />:
         ""
       }
