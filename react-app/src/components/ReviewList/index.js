@@ -55,7 +55,7 @@ const ReviewList = ({productId}) => {
 
       {/* if user has a review conditions */}
       {
-        hasReview === true ?
+        hasReview === false ?
         <OpenModalButton className="ReviewFormButton" buttonText="Leave a Review" modalComponent={<ReviewFormModal productId = {productId}/>} />:
         ""
       }

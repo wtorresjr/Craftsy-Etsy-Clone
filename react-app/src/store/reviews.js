@@ -207,7 +207,7 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_REVIEW:
       let updatedReviewAdded = state.allReviews;
-      updatedReviewAdded[action.Review.id] = action.Review;
+      updatedReviewAdded[action.payload.id] = action.Review;
       return { ...state, allReviews: updatedReviewAdded };
 
     case REMOVE_REVIEW:
