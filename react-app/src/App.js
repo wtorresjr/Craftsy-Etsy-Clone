@@ -13,6 +13,7 @@ import CartPage from "./components/CartPage";
 import ShopManagerPage from "./components/ShopManagerPage";
 import CreateProduct from "./components/CreateProduct";
 import ProductDetailPage from "./components/ProductDetailPage";
+import UpdateProduct from "./components/UpdateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route path="/products/:product_id/edit">
+            <UpdateProduct />
           </Route>
           <Route path="/products/:productId">
             <ProductDetailPage />
@@ -50,6 +54,7 @@ function App() {
           <Route exact path="/create-a-product">
             <CreateProduct />
           </Route>
+
 
           {/* <Route path="">
             <h1>Page not found</h1>
