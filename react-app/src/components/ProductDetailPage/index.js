@@ -18,6 +18,10 @@ const ProductDetailPage = () => {
   const [selected, setSelected] = useState('');
 
   const currentProduct = useSelector((state) => state?.products?.productDetail);
+  let index = [];
+  for(let i = 1; i < currentProduct.quantity + 1; i++){
+    index.push(i)
+  }
 
   useEffect(() => {
     dispatch(fetchReviewById(parseInt(productId)))
@@ -30,20 +34,20 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <h1>{currentProduct.name}</h1>
+      <h1>{currentProduct?.name}</h1>
 
       {
-        currentProduct.preview_image_url ?
-          <img src={currentProduct.preview_image_url[0]} /> : "no image"
+        currentProduct?.preview_image_url ?
+          <img src={currentProduct?.preview_image_url[0]} /> : "no image"
       }
 
       <div>
 
         <div className="itemprice">
-          ${currentProduct.price}
+          ${currentProduct?.price}
         </div>
         <div className="itemdescription">
-          {currentProduct.description}
+          {currentProduct?.description}
         </div>
         <div className="itemarriving">
           <i class="fa-solid fa-check"></i>
@@ -54,10 +58,11 @@ const ProductDetailPage = () => {
 
       <label className="dropdown">Quantity</label>
       <select id="dropdown" value={selected} onChange={handleSelectChange}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+        {
+          index.map((idx) => {
+          return (<option value={idx}>{idx}</option>)
+          })
+        }
       </select>
       <button>Add to Cart</button>
 
