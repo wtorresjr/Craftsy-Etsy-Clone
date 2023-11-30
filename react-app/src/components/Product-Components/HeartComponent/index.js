@@ -6,7 +6,7 @@ import { useModal } from "../../../context/Modal";
 import LoginFormModal from "../../LoginFormModal";
 import { getAllProducts } from "../../../store/products";
 
-const FavoriteHeart = ({ product, setIsClicked }) => {
+const FavoriteHeart = ({ product, setIsClicked, heartVal }) => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const favoritedProducts = useSelector(
@@ -14,46 +14,44 @@ const FavoriteHeart = ({ product, setIsClicked }) => {
   );
   const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
-
-  useEffect(() => {
-    if (favoritedProducts) {
-      favoritedProducts.map((fav) => {
-        if (fav.product_id === product.id) {
-          setLocalIsClicked(true);
-        }
-      });
-    }
-  }, [dispatch, favoritedProducts]);
-
+  console.log(heartVal, "heartValue");
+  
+  
   const handleClick = () => {
-    setLocalIsClicked(!localIsClicked);
-    if (sessionUser) {
-      if (!localIsClicked) {
-        const newFav = {
-          product_id: product.id,
-        };
-        dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-
-        dispatch(getAllProducts());
-      } else {
-        dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
-
-        dispatch(getAllProducts());
-      }
-    } else {
+    if (!sessionUser) {
       setLocalIsClicked(false);
       return setModalContent(<LoginFormModal />);
+    }
+
+    setLocalIsClicked(!localIsClicked);
+    if (!localIsClicked) {
+      const newFav = {
+        product_id: product.id,
+      };
+      dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+
+      // dispatch(favoriteActions.loadCurrUserFavorites());
+      dispatch(getAllProducts());
+    } else {
+      dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
+
+      // dispatch(favoriteActions.loadCurrUserFavorites());
+      dispatch(getAllProducts());
     }
   };
 
   return (
     <div
-      className={`heartContainer ${localIsClicked ? "clicked" : ""}`}
+      className={`heartContainer ${
+        localIsClicked === true || heartVal ? "clicked" : ""
+      }`}
       onClick={handleClick}
     >
       <i
         className={`fa-heart ${
-          localIsClicked ? "fas fa-heart fa-lg" : "far fa-heart"
+          localIsClicked === true || heartVal
+            ? "fas fa-heart fa-lg"
+            : "far fa-heart"
         }`}
       ></i>
     </div>

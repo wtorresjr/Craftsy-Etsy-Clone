@@ -4,15 +4,9 @@ import { useDispatch } from "react-redux";
 import { purchaseCart } from "../../store/cart";
 
 
-const Transaction = ({ totalItems }) => {
+const Transaction = ({ totalItems, shippingPrice }) => {
     const dispatch = useDispatch();
-    const [randomShipping, setRandomShipping] = useState(0);
     let totalPrice = 0;
-
-    useEffect(() => {
-        setRandomShipping(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
-        console.log(totalItems, '---------------------------')
-    }, [])
 
     const handlePurchase = (e) => {
         const cartData = {"Cart": []};
@@ -57,13 +51,13 @@ const Transaction = ({ totalItems }) => {
                             </div>
                             <div className="totalPrice">
                                 <p className="pricingText2">Shipping</p>
-                                <p className="pricingText2">${randomShipping > 0 ? +randomShipping: "..."}</p>
+                                <p className="pricingText2">{shippingPrice > 10.00 ? "$" + (shippingPrice.toFixed(2)) : (<span style={{ color: 'green' }}>FREE</span>)}</p>
                             </div>
                         </div>
                         <div className="pricingFirst2">
                             <div className="totalPrice" id="section3">
                                 <p className="pricingText">Total {`(${totalItems.length} items)`}</p>
-                                <p className="pricingText2">${randomShipping > 0 ? (totalPrice + +randomShipping).toFixed(2) : "..."}</p>
+                                <p className="pricingText2">${shippingPrice > 10.00 ? (totalPrice + +shippingPrice).toFixed(2) : (totalPrice.toFixed(2))}</p>
                             </div>
                         </div>
                         <div className="checkoutButton">

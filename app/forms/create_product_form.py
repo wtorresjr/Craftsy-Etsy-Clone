@@ -9,4 +9,5 @@ class CreateProductForm(FlaskForm):
     description = StringField('description', validators=[DataRequired()])
     price = IntegerField('price', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
-    preview_image_url = StringField('preview image url', validators=[DataRequired()])
+    preview_image_url = StringField(
+        'preview image url', validators=[DataRequired()])

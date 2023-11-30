@@ -77,10 +77,8 @@ function SignupFormModal() {
 		e.preventDefault();
 		setShowErrors(true)
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		const hasBEerrors = Object.values(backendErrors).length > 0;
-		const hasFEerrors = Object.values(frontendErrors).length > 0;
 
-		if (hasBEerrors || hasFEerrors) {
+		if (data || Object.values(frontendErrors).length) {
 			setErrors(data)
 		}
 		else {
@@ -109,7 +107,6 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.firstName}
-					{showErrors && backendErrors?.firstName}
 				</div>
 
 				<div className="lastname-div">
@@ -140,6 +137,7 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.email}
+					{showErrors && backendErrors?.email}
 				</div>
 
 				<div className="username-div">
@@ -155,6 +153,7 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.username}
+					{showErrors && backendErrors?.username}
 				</div>
 
 				<div className="password-div">

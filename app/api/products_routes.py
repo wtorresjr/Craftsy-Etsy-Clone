@@ -55,7 +55,7 @@ def get_product_details(product_id):
         'id': product_info.id,
         'name': product_info.name,
         'description': product_info.description,
-        'price': product_info.price,
+        'price': round(product_info.price, 2),
         'preview_image_url': [
             product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
         'quantity': product_info.quantity,
