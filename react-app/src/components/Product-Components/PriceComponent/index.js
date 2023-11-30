@@ -1,7 +1,11 @@
 import "./price_component.css";
 
-const PriceComponent = ({ product }) => {
-  return <div className="priceDiv">${product?.price}</div>;
+const PriceComponent = ({ product, priceStyle }) => {
+  return (
+    <div className="priceDiv" style={{ visibility: priceStyle }}>
+      ${product?.price}
+    </div>
+  );
 };
 
 export default PriceComponent;

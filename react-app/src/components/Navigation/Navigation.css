@@ -8,11 +8,14 @@
   z-index: 1;
   margin: 0;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 10px;
   list-style-type: none;
   min-width: 150px;
   font-family: Arial, Helvetica, sans-serif;
+}
 
+.profile-dropdown>li {
+  padding-bottom: 0px;
 }
 
 .hidden {
@@ -21,16 +24,16 @@
 
 .navBar {
   display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 10px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  grid-template-columns: repeat(16, 1fr);
+  /* gap: 10px; */
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
 }
 
 .homeButtonDiv {
-  grid-column: span 3;
-  margin-left: 65px;
+  grid-column: span 2;
+  margin-left: 50px;
   padding-top: 5px
 }
 
@@ -45,7 +48,7 @@
 }
 
 .categoriesDiv {
-  grid-column: span 3;
+  grid-column: span 2;
 }
 
 .categories {
@@ -71,7 +74,7 @@
 }
 
 .searchBarBig {
-  grid-column: span 11;
+  grid-column: span 9;
   padding: 5px;
 }
 
@@ -129,7 +132,6 @@
 
 .favoritesDiv {
   grid-column: span 1;
-  margin-left: 10px;
 }
 
 .favorites {
@@ -142,11 +144,11 @@
 }
 
 .far.fa-heart {
-  padding: 0 20px;
+  padding: 15px;
 }
 
 .bellDiv {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 button.bell {
@@ -165,8 +167,13 @@ div.signInDiv {
   grid-column: span 2;
 }
 
+div.signInDiv>button {
+  background-color: transparent;
+  border: none;
+}
+
 .profileButtonDiv {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 button.profileButton {
@@ -181,6 +188,7 @@ button.profileButton {
   font-weight: bold;
   font-size: 30px;
   color: rgb(34, 34, 34);
+  cursor: pointer;
 }
 
 
@@ -188,7 +196,7 @@ button.profileButton {
 button.signInButton {
   display: grid;
   height: 100%;
-  width: 75%;
+  width: 100%;
   place-items: center;
   text-decoration: none;
   background-color: white;
@@ -200,14 +208,14 @@ button.signInButton {
   color: rgb(34, 34, 34);
 }
 
-.signInButton:hover {
+.signInDiv.signInButton:hover {
   background-color: rgb(234, 232, 232);
   border-radius: 30px;
 }
 
 .shoppingCartDiv {
   grid-column: span 1;
-  margin-right: 65px;
+  margin-right: 50px;
   padding: 5px
 }
 
@@ -262,9 +270,10 @@ button.signInButton {
   border-radius: 30px;
 }
 
-.favoritesDiv:hover {
+i.far.fa-heart:hover {
   background-color: #CCEBFF;
   border-radius: 100%;
+  /* width: 50%; */
 }
 
 .profileDropdownUser {
@@ -273,7 +282,8 @@ button.signInButton {
   border-bottom: 2px solid lightgray;
   background-color: #CCEBFF;
   text-decoration: none;
-  color: black
+  color: black;
+  padding-top: 5px;
 }
 
 .profileDropdownUser>i.fas.fa-user-circle {
@@ -307,23 +317,30 @@ button.signInButton {
 .purchasesReviews,
 .messages,
 .accountSettings,
-.logOutDiv {
+.logOutDiv,
+.sellerListings {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   text-decoration: none;
   color: black
 }
 
+.sellerListings {
+  padding-bottom: 10px;
+}
+
 .purchasesReviews:hover,
 .messages:hover,
-.accountSettings:hover {
+.accountSettings:hover,
+.sellerListings:hover {
   background-color: rgb(228, 226, 226);
 }
 
 .purchasesReviews>i.fas.fa-clipboard-list,
 .messages>i.far.fa-comment-dots,
 .accountSettings>i.fas.fa-cog,
-.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180 {
+.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180,
+.sellerListings>i.fas.fa-store {
   font-size: 20px;
   grid-column: span 1;
   display: grid;
@@ -336,30 +353,29 @@ button.signInButton {
 .purchasesReviews>p,
 .messages>p,
 .accountSettings>p,
-.logOutDiv>button {
+.sellerListings>p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;
 }
 
 .logOutDiv {
-  margin: 15px 15px 0px 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px 15px 0px 0px;
 }
 
-/* div.logOutDiv:hover {
+.logOutDiv:hover {
   background-color: rgb(228, 226, 226);
-} */
-
-/* .fas.fa-sign-out-alt.fa-rotate-180 {
-  font-size: 20px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-} */
+}
 
 .logOutButton {
-  background-color: white;
-  border: 0px solid white;
+  background-color: transparent;
+  border: none;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
+  grid-column: span 5;
+  margin: 15px 15px 12px 0px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 15px;
+  font-weight: lighter;
 }

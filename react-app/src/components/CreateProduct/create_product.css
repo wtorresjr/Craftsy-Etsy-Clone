@@ -1,0 +1,51 @@
+.createProductContainer {
+  display: flex;
+  justify-content: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  /* flex-flow: column nowrap; */
+}
+
+.createProductContainer h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 480px;
+}
+
+li {
+  padding: 10px 0;
+  list-style-type: none;
+}
+
+label {
+  font-weight: bolder;
+}
+
+input {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  height: 30px;
+}
+
+.submitBtn {
+  font-weight: bolder;
+  font-size: 18px;
+  width: 100%;
+  height: 40px;
+  margin: 20px 0;
+  box-sizing: border-box;
+}
+
+.errorDiv {
+  color: red;
+  font-weight: bolder;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+}

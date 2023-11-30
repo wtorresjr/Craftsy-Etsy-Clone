@@ -38,7 +38,7 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
     }
     const favorites = await response.json();
     await dispatch(viewFavorites(favorites));
-    return response;
+    return favorites;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to load your favorites list: ${error.message}`
@@ -82,7 +82,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
       );
     }
     // const deleteFav = await response.json();
-    await dispatch(removeFavorite(response));
+    await dispatch(removeFavorite(+favoriteId));
     await dispatch(loadCurrUserFavorites());
     // return deleteFav;
   } catch (error) {
@@ -115,13 +115,17 @@ export default function reducer(state = initialState, action) {
         return newState;
       }
     case ADD:
-      newState = {
-        allFavorites: [...state.allFavorites, action.payload.id],
+      return {
+        ...state,
         byId: { ...state.byId, [action.payload.id]: action.payload },
       };
-      return newState;
     case REMOVE:
-      delete newState[action.payload];
+      const updatedById = { ...state.byId };
+      delete updatedById[action.payload];
+      newState = {
+        ...state,
+        byId: updatedById,
+      };
       return newState;
     default:
       return state;

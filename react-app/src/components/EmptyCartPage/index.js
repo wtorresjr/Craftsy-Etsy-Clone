@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink } from "react-router-dom";
 
 import "./emptyCartPage.css";
 
@@ -16,11 +16,6 @@ const EmptyCartPage = () => {
                     </NavLink>
                 </div>
             </div>
-
-            {/* <div className="emptyCartMsgContainer">
-                <h3>Looking for more of your finds?</h3>
-                <button className="cartFavoriteButton"><NavLink to="/current-user/favorites" id="cartFavoriteButtonText">View your favorites</NavLink></button>
-            </div> */}
         </div>
     )
 }

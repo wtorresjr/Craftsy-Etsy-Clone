@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -30,6 +30,10 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const handleNonFunctioningLinks = () => {
+    alert('Feature Coming Soon...')
+  }
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -48,7 +52,7 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef}>
             <>
               <li>
-                <Link className="profileDropdownUser">
+                <Link className="profileDropdownUser" onClick={handleNonFunctioningLinks}>
                   <i className="fas fa-user-circle"></i>
                   <span className="firstLastName">
                     <h4>{user.firstName} {user.lastName}</h4>
@@ -57,17 +61,21 @@ function ProfileButton({ user }) {
                 </Link>
               </li>
               <li className="dDPartTwo">
-                <Link className="purchasesReviews">
+                <Link className="purchasesReviews" onClick={handleNonFunctioningLinks}>
                   <i className="fas fa-clipboard-list"> </i>
                   <p>Purchases and reviews</p>
                 </Link>
-                <Link className="messages">
+                <Link className="messages" onClick={handleNonFunctioningLinks}>
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
                 </Link>
+                <NavLink to="/shop-manager" className="sellerListings">
+                  <i className="fas fa-store"></i>
+                  <p>Sell on Craftsy</p>
+                </NavLink>
               </li>
               <li>
-                <Link className="accountSettings">
+                <Link className="accountSettings" onClick={handleNonFunctioningLinks}>
                   <i class="fas fa-cog"></i>
                   <p>Account settings</p>
                 </Link>
@@ -81,8 +89,9 @@ function ProfileButton({ user }) {
         </div>
       ) : (
         <>
-          <div className="signInDiv">
-            <button onClick={openMenu} className="signInButton">
+          <div className="signInDiv signInButton">
+            <OpenModalButton className="signInButton" buttonText="Sign in" modalComponent={<LoginFormModal />} />
+            {/* <button onClick={openMenu} className="signInButton">
               Sign in
             </button>
             <div className={ulClassName} ref={ulRef}>
@@ -97,7 +106,7 @@ function ProfileButton({ user }) {
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </div>
+            </div> */}
           </div>
         </>
       )}

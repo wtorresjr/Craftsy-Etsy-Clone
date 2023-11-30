@@ -96,6 +96,7 @@ export const deleteProduct = (product_id) => async (dispatch) => {
       console.log("response ok");
       const deletedItem = await response.json();
       dispatch(removeProduct(deletedItem));
+      dispatch(getUserProducts())
       return deletedItem;
     }
   } catch (error) {
@@ -207,6 +208,7 @@ export default function reducer(state = initialState, action) {
           productsById[productFound.id] = productFound;
         });
         newState = {
+          ...state,
           allProducts: action.payload.Products,
           allProductsById: productsById,
         };
@@ -251,6 +253,7 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCT_DETAILS:
+      return {...state, productDetail: action.payload.Product_Details}
       if (action.payload.Product_Details) {
         newState = {
           productDetail: action.payload.Product_Details,
@@ -268,7 +271,8 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     case REMOVE_PRODUCT:
       return {
-        removedProduct: [state.removedProduct, action.payload],
+        ...state,
+        // removedProduct: [state.removedProduct, action.payload],
       };
 
     default:

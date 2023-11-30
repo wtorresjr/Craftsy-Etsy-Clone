@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import "./transaction.css";
+import { useDispatch } from "react-redux";
+import { purchaseCart } from "../../store/cart";
 
 
-const Transaction = ({ totalItems }) => {
-    const [randomShipping, setRandomShipping] = useState(0);
+const Transaction = ({ totalItems, shippingPrice }) => {
+    const dispatch = useDispatch();
     let totalPrice = 0;
 
-    useEffect(() => {
-        setRandomShipping(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
+    const handlePurchase = (e) => {
+        const cartData = {"Cart": []};
 
-    }, [])
+        totalItems.forEach((item) => {
+            const itemData = { item_id: item.id, purchased: true }
+            cartData.Cart.push(itemData);
+        })
+
+        dispatch(purchaseCart(cartData))
+    }
 
 
     for (let i = 0; i < totalItems.length; i++) {
@@ -43,17 +51,17 @@ const Transaction = ({ totalItems }) => {
                             </div>
                             <div className="totalPrice">
                                 <p className="pricingText2">Shipping</p>
-                                <p className="pricingText2">${randomShipping > 0 ? +randomShipping: "..."}</p>
+                                <p className="pricingText2">{shippingPrice > 10.00 ? "$" + (shippingPrice.toFixed(2)) : (<span style={{ color: 'green' }}>FREE</span>)}</p>
                             </div>
                         </div>
                         <div className="pricingFirst2">
                             <div className="totalPrice" id="section3">
                                 <p className="pricingText">Total {`(${totalItems.length} items)`}</p>
-                                <p className="pricingText2">${randomShipping > 0 ? (totalPrice + +randomShipping).toFixed(2) : "..."}</p>
+                                <p className="pricingText2">${shippingPrice > 10.00 ? (totalPrice + +shippingPrice).toFixed(2) : (totalPrice.toFixed(2))}</p>
                             </div>
                         </div>
                         <div className="checkoutButton">
-                            <button>Proceed to checkout</button>
+                            <button onClick={() => handlePurchase()}>Proceed to checkout</button>
                         </div>
                         <div className="promoButton">
                             <button>Apply Craftsy coupon code</button>

@@ -2,13 +2,11 @@ import "./homepage.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
-import RecentlyFaved from "../Product-Components/Recently-Faved-Products";
 import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
-import { fetchReviews } from "../../store/reviews";
-
+import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -25,26 +23,42 @@ const HomePage = () => {
     }
   }, [dispatch, sessionUser]);
 
-
   return (
-    <>
-      <div className="mainProductDisplay">
-        {favoritedProducts && favoritedProducts.length > 4 && (
-          <RecentlyFaved favorited={favoritedProducts} />
-        )}
+    <div className="mainProductDisplay">
+      <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0, 10).map((product) => {
+          allProducts.slice(0, 5).map((product) => {
             return (
               <ProductTile
                 key={product.id}
                 product={product}
-                favoritedProducts={favoritedProducts}
+                prodTileImgStyle={"becauseViewed"}
+                tileContainerStyle={"productTileContain"}
+                priceStyle={"hidden"}
               />
             );
           })}
       </div>
-    </>
+      <div className="largeTileContain">
+        {favoritedProducts && favoritedProducts.length > 4 && (
+          <h3>Recently Favorited...</h3>
+        )}
+        {favoritedProducts &&
+          favoritedProducts.length > 4 &&
+          favoritedProducts.slice(0, 5).map((product) => {
+            return (
+              <ProductTile
+                key={product.id}
+                product={product}
+                prodTileImgStyle={"recentFaves"}
+                tileContainerStyle={"productTileContain"}
+                heartVal={true}
+              />
+            );
+          })}
+      </div>
+    </div>
   );
 };
 

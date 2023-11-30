@@ -202,12 +202,12 @@ export default function reducer(state = initialState, action) {
 
     case SET_REVIEW:
       let newReviewAdded = state.allReviews;
-      newReviewAdded[action.Review.id] = action.Review;
+      newReviewAdded[action.payload.id] = action.Review;
       return { ...state, allReviews: newReviewAdded };
 
     case UPDATE_REVIEW:
       let updatedReviewAdded = state.allReviews;
-      updatedReviewAdded[action.Review.id] = action.Review;
+      updatedReviewAdded[action.payload.id] = action.Review;
       return { ...state, allReviews: updatedReviewAdded };
 
     case REMOVE_REVIEW:
@@ -221,11 +221,11 @@ export default function reducer(state = initialState, action) {
       };
 
     case SET_REVIEW_IMAGE:
-      let newImageState = state.allReviewImages;
-      newImageState[action.payload.id] = action.payload;
+      let newImageState = state.reviewByProductId;
+      newImageState[action.payload.review_id].ReviewImages.image = action.payload.image_url;
       return {
         ...state,
-        allReviewImages: newImageState,
+        reviewByProductId: newImageState,
       };
 
     case REMOVE_REVIEW_IMAGE:

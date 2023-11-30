@@ -24,6 +24,7 @@ def get_all_products():
             'description': product.description,
             'price': product.price,
             'preview_image_url': [product_img.image_url for product_img in product.product_images if product_img.preview == True],
+            'quantity': product.quantity,
             'user_id': product.user_id,
             'Product_Images': [{'id': image.id, 'image_url': image.image_url, 'preview': image.preview} for image in product.product_images]
         }
@@ -54,9 +55,10 @@ def get_product_details(product_id):
         'id': product_info.id,
         'name': product_info.name,
         'description': product_info.description,
-        'price': product_info.price,
+        'price': round(product_info.price, 2),
         'preview_image_url': [
             product_img.image_url for product_img in product_info.product_images if product_img.preview == True],
+        'quantity': product_info.quantity,
         'user_id': product_info.user_id,
         'num_reviews': number_of_reviews,
         'avg_star_rating': average_rating,
@@ -64,7 +66,7 @@ def get_product_details(product_id):
         'Seller': {'id': seller['id'], 'first_name': seller['firstName'], 'last_name': seller['lastName'], 'email': seller['email']}
     }
 
-    return jsonify({"Product_Details":product_with_additional_info})
+    return jsonify({"Product_Details": product_with_additional_info})
 
 
 # Delete Product By Id

@@ -1,5 +1,10 @@
 import './ReviewList.css'
 
+import { useSelector } from 'react-redux'
+import OpenModalButton from '../OpenModalButton'
+import ReviewEditModal from '../ReviewFormModal/ReviewEdit'
+import ReviewDeleteModal from '../ReviewFormModal/ReviewDelete'
+
 //stars
 function getStars(star) {
   if (star < 1.5)
@@ -14,6 +19,8 @@ function getStars(star) {
 }
 
 const PrintReview = ({review}) => {
+
+  const sessionUser = useSelector((state) => state.session.user);
 
   let image = ""
   let name = ""
@@ -43,6 +50,24 @@ const PrintReview = ({review}) => {
       {/* need styling */}
       {name}
     </div>
+    {/* EDIT REVIEW */}
+    {
+      sessionUser && sessionUser.id === review.user_id ?
+      (
+        <div className="ReviewEditButton">
+        <OpenModalButton className="ReviewEditButtonModal" buttonText="Edit" modalComponent={<ReviewEditModal review = {review}/>} />:
+        </div>
+      ) :""
+    }
+    {/* DELETE REVIEW */}
+    {
+      sessionUser && sessionUser.id === review.user_id ?
+      (
+        <div className="ReviewDeleteButton">
+        <OpenModalButton className="ReviewDeleteButtonModal" buttonText="Delete" modalComponent={<ReviewDeleteModal review = {review} />} />:
+        </div>
+      ) :""
+    }
     </>
   )
 }

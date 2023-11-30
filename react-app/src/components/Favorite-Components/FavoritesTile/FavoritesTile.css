@@ -1,5 +1,4 @@
 .favorite-container {
-
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
@@ -30,18 +29,23 @@
 }
 
 .fav-card-fav-icon {
-  width: 35px;
-  height: 35px;
-  z-index: 9000;
-  background-color: white;
-  border-radius: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 150px;
+  z-index: 9000;
   transition: transform 0.3s ease;
   visibility: visible;
+  cursor: pointer;
 }
+
+
+
+
 
 .fav-card-fav-icon:hover {
   width: 35px;
