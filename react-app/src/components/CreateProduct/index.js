@@ -64,7 +64,7 @@ const CreateProduct = () => {
       quantity: quantity,
       preview_image_url: previewImg,
     };
-    const data = await dispatch(addNewProduct(newProduct)); //<----- Needs items to create product.
+    const data = await dispatch(addNewProduct(newProduct));
     if (data) {
       setErrors(data);
       console.log(errors, "Errors from dispatch");
@@ -108,6 +108,7 @@ const CreateProduct = () => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
+              placeholder="example: 19.99"
             />
           </label>
           {errors && errors.price && <p className="errorDiv">{errors.price}</p>}
