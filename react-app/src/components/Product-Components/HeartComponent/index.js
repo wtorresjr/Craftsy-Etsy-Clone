@@ -15,21 +15,24 @@ const FavoriteHeart = ({ product, isFavorite }) => {
   const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState();
 
-  useEffect(() => {
-    if (favoritedProducts && favoritedProducts.length > 0) {
-      favoritedProducts.map((fav) => {
-        if (fav.product_id === product.id) {
-          setLocalIsClicked(true);
-        }
-      });
-    }
-  }, [dispatch, favoritedProducts]);
+  // useEffect(() => {
+  //   if (favoritedProducts && favoritedProducts.length > 0) {
+  //     favoritedProducts.map((fav) => {
+  //       if (fav.product_id === product.id) {
+  //         setLocalIsClicked(true);
+  //       }
+  //     });
+  //   }
+  // }, [dispatch, favoritedProducts]);
+
+  const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
 
   const handleClick = () => {
     if (!sessionUser) {
       setLocalIsClicked(false);
       return setModalContent(<LoginFormModal />);
     }
+    setLocalIsClicked(!localIsClicked);
     if (!localIsClicked) {
       const newFav = {
         product_id: product.id,
@@ -37,23 +40,26 @@ const FavoriteHeart = ({ product, isFavorite }) => {
       dispatch(favoriteActions.addToCurrUserFavorites(newFav));
       dispatch(favoriteActions.loadCurrUserFavorites());
       dispatch(getAllProducts());
-      setLocalIsClicked(true);
+      // setLocalIsClicked(true);
     } else {
       dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
       dispatch(favoriteActions.loadCurrUserFavorites());
       dispatch(getAllProducts());
-      setLocalIsClicked(false);
+      isClicked = false;
+      // setLocalIsClicked(false);
     }
   };
 
   return (
     <div
-      className={`heartContainer ${localIsClicked ? "clicked" : ""}`}
+      className={`heartContainer ${
+        localIsClicked || isClicked ? "clicked" : ""
+      }`}
       onClick={handleClick}
     >
       <i
         className={`fa-heart ${
-          localIsClicked ? "fas fa-heart fa-lg" : "far fa-heart"
+          localIsClicked || isClicked ? "fas fa-heart fa-lg" : "far fa-heart"
         }`}
       ></i>
     </div>
