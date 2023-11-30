@@ -13,6 +13,7 @@ const CreateProduct = () => {
   const [previewImg, setPreviewImg] = useState("http://");
   const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
+  const [isDisabled, setDisabled] = useState(true);
 
   useEffect(() => {
     setErrors({});
@@ -25,8 +26,37 @@ const CreateProduct = () => {
     if (description.length < 3 || description.length > 255) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        description: "Description must be between 3 and 255 characters",
+        description: "Description must be between 3 and 255 characters.",
       }));
+    }
+    if (price <= 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        price: "Price must be a valid number greater than 0.",
+      }));
+    }
+    if (quantity <= 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        quantity: "Quantity must be a valid number greater than 0.",
+      }));
+    }
+    if (!previewImg) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        previewImg: "Preview image is required.",
+      }));
+    }
+    if (previewImg.length < 7) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        wrongFormat: "Preview image must be .jpg, .jpeg or .png format.",
+      }));
+    }
+    if (errors.length == 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [dispatch, name, description, price, quantity, previewImg, extraImgs]);
 
@@ -39,7 +69,6 @@ const CreateProduct = () => {
       quantity: quantity,
       preview_image_url: previewImg,
     };
-    // console.log(newProduct, "Test create new");
     const data = await dispatch(addNewProduct(newProduct)); //<----- Needs items to create product.
     if (data) {
       setErrors(data);
@@ -62,9 +91,7 @@ const CreateProduct = () => {
               required
             />
           </label>
-          {errors && errors.name && (
-            <p className="errorDiv">{errors.name}</p>
-          )}
+          {errors && errors.name && <p className="errorDiv">{errors.name}</p>}
         </li>
         <li>
           <label>
@@ -88,6 +115,7 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.price && <p className="errorDiv">{errors.price}</p>}
         </li>
         <li>
           <label>
@@ -99,6 +127,9 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.quantity && (
+            <p className="errorDiv">{errors.quantity}</p>
+          )}
         </li>
         <li>
           <label>
@@ -110,8 +141,16 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.previewImg && (
+            <p className="errorDiv">{errors.previewImg}</p>
+          )}
+          {errors && errors.wrongFormat && (
+            <p className="errorDiv">{errors.wrongFormat}</p>
+          )}
         </li>
-        <button type="submit">Create Product</button>
+        <button type="submit" disabled={isDisabled}>
+          Create Product
+        </button>
       </form>
     </div>
   );
