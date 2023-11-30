@@ -33,7 +33,7 @@ input {
   height: 30px;
 }
 
-button {
+.submitBtn {
   font-weight: bolder;
   font-size: 18px;
   width: 100%;

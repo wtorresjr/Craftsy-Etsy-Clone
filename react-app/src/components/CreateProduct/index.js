@@ -144,7 +144,7 @@ const CreateProduct = () => {
             <p className="errorDiv">{errors.wrongFormat}</p>
           )}
         </li>
-        <button type="submit" disabled={isDisabled}>
+        <button className="submitBtn" type="submit" disabled={isDisabled}>
           Create Product
         </button>
       </form>
