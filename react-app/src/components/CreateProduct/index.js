@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../store/products";
+import { useHistory } from "react-router-dom";
 import "./create_product.css";
 
 const CreateProduct = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -43,7 +45,7 @@ const CreateProduct = () => {
     if (!previewImg) {
       errorCollector.previewImg = "Preview image is required.";
     }
-    if (!validImgFormats.includes(previewImg.slice(-4))) {
+    if (!validImgFormats.includes(previewImg.slice(-4).toLowerCase())) {
       errorCollector.wrongFormat =
         "Preview image must be .jpg, .jpeg or .png format.";
     }
@@ -64,11 +66,9 @@ const CreateProduct = () => {
       quantity: quantity,
       preview_image_url: previewImg,
     };
-    const data = await dispatch(addNewProduct(newProduct));
-    if (data) {
-      setErrors(data);
-      console.log(errors, "Errors from dispatch");
-    }
+    dispatch(addNewProduct(newProduct)).then(async (createdProduct) => {
+      history.push(`/products/${createdProduct.id}`);
+    });
   };
 
   return (
