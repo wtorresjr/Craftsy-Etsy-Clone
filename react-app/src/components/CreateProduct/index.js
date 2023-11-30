@@ -10,55 +10,44 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [previewImg, setPreviewImg] = useState("http://");
+  const [previewImg, setPreviewImg] = useState("");
   const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    setErrors({});
-    if (name.length < 3) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        name: "Product name must be at least 3 characters long.",
-      }));
+    const errorCollector = {};
+    const validImgFormats = [".jpg", ".png", "jpeg"];
+
+    if (name.length < 3 || name.length > 30) {
+      errorCollector.name =
+        "Product name must be between 3 and 30 characters long.";
     }
     if (description.length < 3 || description.length > 255) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "Description must be between 3 and 255 characters.",
-      }));
+      errorCollector.description =
+        "Description must be between 3 and 255 characters.";
     }
     if (price <= 0) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        price: "Price must be a valid number greater than 0.",
-      }));
+      errorCollector.price = "Price must be a valid number greater than 0.";
     }
     if (quantity <= 0) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        quantity: "Quantity must be a valid number greater than 0.",
-      }));
+      errorCollector.quantity =
+        "Quantity must be a valid number greater than 0.";
     }
     if (!previewImg) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        previewImg: "Preview image is required.",
-      }));
+      errorCollector.previewImg = "Preview image is required.";
     }
-    if (previewImg.length < 7) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        wrongFormat: "Preview image must be .jpg, .jpeg or .png format.",
-      }));
+    if (!validImgFormats.includes(previewImg.slice(-4))) {
+      errorCollector.wrongFormat =
+        "Preview image must be .jpg, .jpeg or .png format.";
     }
-    if (errors.length == 0) {
-      setDisabled(false);
-    } else {
+    setErrors(errorCollector);
+    if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
+    } else {
+      setDisabled(false);
     }
-  }, [dispatch, name, description, price, quantity, previewImg, extraImgs]);
+  }, [name, description, price, quantity, previewImg, extraImgs]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
