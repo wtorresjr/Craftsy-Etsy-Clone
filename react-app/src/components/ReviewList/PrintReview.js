@@ -52,7 +52,7 @@ const PrintReview = ({review}) => {
     </div>
     {/* EDIT REVIEW */}
     {
-      sessionUser.id === review.user_id ?
+      sessionUser && sessionUser.id === review.user_id ?
       (
         <div className="ReviewEditButton">
         <OpenModalButton className="ReviewEditButtonModal" buttonText="Edit" modalComponent={<ReviewEditModal review = {review}/>} />:
@@ -61,7 +61,7 @@ const PrintReview = ({review}) => {
     }
     {/* DELETE REVIEW */}
     {
-      sessionUser.id === review.user_id ?
+      sessionUser && sessionUser.id === review.user_id ?
       (
         <div className="ReviewDeleteButton">
         <OpenModalButton className="ReviewDeleteButtonModal" buttonText="Delete" modalComponent={<ReviewDeleteModal review = {review} />} />:
