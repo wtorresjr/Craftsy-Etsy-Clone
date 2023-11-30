@@ -21,6 +21,7 @@ const CartPage = () => {
     const sessionUser = useSelector(state => state.session?.user);
     const favoritedProductsArr = useSelector(state => state?.favorite?.allFavorites);
     const [itemCount, setItemCount] = useState(-Infinity);
+    const [shippingPrice, setShippingPrice] = useState(0);
     const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
     const [products, setProducts] = useState([]);
 
@@ -35,6 +36,7 @@ const CartPage = () => {
             // Set favoritedProducts to an empty array when there is no session user
             setFavoritedProducts([]);
         }
+        setShippingPrice(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
     }, [dispatch, sessionUser]);
 
     useEffect(() => {
@@ -53,8 +55,8 @@ const CartPage = () => {
                             <div>
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
                                 {cartItemsArray &&
-                                    cartItemsArray.map((item, i) => {
-                                            return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray}/>;
+                                    cartItemsArray.map((item) => {
+                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray} shippingPrice={shippingPrice} />;
                                     })}
                             </div>
                         </div>
@@ -64,7 +66,7 @@ const CartPage = () => {
                 </div>
                 {itemCount > 0 && sessionUser && (
                     <div id="transactionCartDisplay">
-                        <Transaction totalItems={cartItemsArray} />
+                        <Transaction totalItems={cartItemsArray} shippingPrice={shippingPrice}/>
                     </div>
                 )}
             </div>
