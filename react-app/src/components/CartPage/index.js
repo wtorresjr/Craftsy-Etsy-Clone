@@ -58,9 +58,7 @@ const CartPage = () => {
                                     cartItemsArray.map((item) => {
                                         return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray} shippingPrice={shippingPrice} />;
                                     })}
-
                             </div>
-
                         </div>
                     ) : (
                         <EmptyCartPage />

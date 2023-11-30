@@ -8,7 +8,6 @@ const Transaction = ({ totalItems, shippingPrice }) => {
     const dispatch = useDispatch();
     let totalPrice = 0;
 
-
     const handlePurchase = (e) => {
         const cartData = {"Cart": []};
 
