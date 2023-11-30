@@ -6,10 +6,10 @@ import { getProductInfo } from "../../store/products";
 
 import "./cartitemtile.css";
 
-const CartItemTiles = ({ item, cartItemsArray }) => {
+
+const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => {
     const dispatch = useDispatch();
 
-    const [shippingFree, setShippingFree] = useState(true);
     const [productInfoObj, setProductInfoObj] = useState({});
     const [isloading, setIsLoading] = useState(true);
 
@@ -74,11 +74,18 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
                                 value={item.quantity}
                                 onChange={handleEditQuantity}
                             >
-                                {[...Array(200).keys()].map((i) => (
-                                    <option key={i + 1} value={i + 1}>
-                                        {i + 1}
-                                    </option>
-                                ))}
+                                {productsArr?.map((product) => {
+                                    if (product.id === item.product_id) {
+                                        return (
+                                            [...Array(product.quantity).keys()].map((i) => (
+                                                <option key={i + 1} value={i + 1}>
+                                                    {i + 1}
+                                                </option>
+                                            ))
+                                        );
+                                    }
+                                    return null; // Make sure to return null if the condition is not met
+                                })}
                             </select>
                             <div className="detailButtons">
                                 <button>Save for later</button>
@@ -89,7 +96,7 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
                         <div className="cartItemPrice">
                             <h2>${(item.price?.toFixed(2) * item?.quantity).toFixed(2)}</h2>
                             {item.quantity > 1 && (
-                                <h4>{`($${item.price} each)`}</h4>
+                                <h4>{`($${item.price.toFixed(2)} each)`}</h4>
                             )}
                         </div>
                     </div>
@@ -103,7 +110,14 @@ const CartItemTiles = ({ item, cartItemsArray }) => {
                     </div>
 
                     <div className="shippingContainer">
-                        <p>Shipping: {shippingFree ? <span style={{ color: 'green' }}>FREE</span> : <span style={{ color: 'red' }}>$10.00</span>}</p>
+                        <p>
+                            Shipping: {shippingPrice > 10.00 ? (
+                                <span style={{ color: 'red' }}>${(shippingPrice / cartItemsArray.length).toFixed(2)}</span>
+                            ) : (
+                                <span style={{ color: 'green' }}>FREE</span>
+                            )}
+                        </p>
+
                     </div>
                 </div>
             </div>
