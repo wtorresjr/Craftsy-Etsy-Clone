@@ -2,7 +2,7 @@ import './ReviewForm.css';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { createReview } from '../../store/reviews'
+import { createReview, createReviewImage } from '../../store/reviews'
 import { useModal } from '../../context/Modal'
 
 function ReviewFormModal ({productId}) {
@@ -12,6 +12,7 @@ function ReviewFormModal ({productId}) {
 
   const [review, setReview] = useState('');
   const [star_rating, setStar_rating] = useState('');
+  const [image, setImage] = useState(null)
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -22,6 +23,9 @@ function ReviewFormModal ({productId}) {
     }
     //dispatching to create a review
     const data = await dispatch(createReview(productId, newReview));
+    if(image){
+      await dispatch(createReviewImage(data.id, image))
+    }
     closeModal()
     window.location.reload()
   }
@@ -52,6 +56,14 @@ function ReviewFormModal ({productId}) {
             value={star_rating}
             onChange={(e) => setStar_rating(e.target.value)}
             required
+          />
+        </label>
+        <label>
+          Stars
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
           />
         </label>
         <button type="submit">Submit a Review</button>
