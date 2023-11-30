@@ -14,34 +14,57 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
 	const [frontendErrors, setFrontendErrors] = useState({});
+	const [backendErrors, setBackendErrors] = useState({});
 	const [showErrors, setShowErrors] = useState(false);
 	const { closeModal } = useModal();
 
 
 	const firstNameInputCN = showErrors && frontendErrors.firstName ? "error-input" : ""
 	const lastNameInputCN = showErrors && frontendErrors.lastName ? "error-input" : ""
-	const usernameInputCN = showErrors && frontendErrors.username ? "error-input" : ""
-	const emailInputCN = showErrors && frontendErrors.email ? "error-input" : ""
+	const usernameInputCN = showErrors && (frontendErrors.username || backendErrors.username) ? "error-input" : ""
+	const emailInputCN = showErrors && (frontendErrors.email || backendErrors.email) ? "error-input" : ""
 	const passwordInputCN = showErrors && frontendErrors.password ? "error-input" : ""
 	const confirmPasswordInputCN = showErrors && frontendErrors.confirmPassword ? "error-input" : ""
 
 
 	const errorObj = {};
-	errors.forEach(error => {
+	errors?.forEach(error => {
 	  const [key, value] = error.split(':')
 	  errorObj[key.trim()] = value.trim()
 	});
 
+	console.log('current backend errors', backendErrors)
+	console.log('current frontend errors', frontendErrors)
+	console.log("show error status", showErrors)
+
+
 
 	useEffect(() => {
-		const validationErrors = {};
-		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
-		if (errorObj.email) validationErrors.email = errorObj.email
-		if (errorObj.username) validationErrors.username = errorObj.username
-		if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
-		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
-		setFrontendErrors(validationErrors)
-	}, [email, username, password, confirmPassword])
+		const frontendErrs = {};
+		if (firstName.startsWith(" ")) frontendErrs.firstName = "Input cannot begin with a space.";
+		if (lastName.startsWith(" ")) frontendErrs.lastName = "Input cannot begin with a space.";
+		if (email.startsWith(" ")) frontendErrs.email= "Input cannot begin with a space.";
+		if (username.startsWith(" ")) frontendErrs.username = "Input cannot begin with a space.";
+		if (password.startsWith(" ")) frontendErrs.password = "Input cannot begin with a space.";
+		if (confirmPassword.startsWith(" ")) frontendErrs.confirmPassword = "Input cannot begin with a space.";;
+		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) frontendErrs.email = "Not a valid email."
+		if (password && password.length < 6) frontendErrs.password = "Must be at least 6 characters.";
+		if (password !== confirmPassword) frontendErrs.confirmPassword = "Confirm Password field must be the same as the Password field.";
+		setFrontendErrors(frontendErrs)
+	}, [firstName, lastName, email, username, password, confirmPassword, errors])
+
+
+	useEffect(() => {
+		const backendErrs = {};
+		if (errorObj.firstName) backendErrs.firstName = errorObj.firstName
+		if (errorObj.lastName) backendErrs.lastName = errorObj.lastName
+		if (errorObj.email) backendErrs.email = errorObj.email
+		if (errorObj.username) backendErrs.username = errorObj.username
+		if (errorObj.password) backendErrs.password= errorObj.password
+		if (errorObj.confirmPassword) backendErrs.confirmPassword= errorObj.confirmPassword
+		setBackendErrors(backendErrs)
+	}, [errorObj.firstName, errorObj.lastName, errorObj.email, errorObj.username, errorObj.password, errorObj.confirmPassword])
+
 
 
 	const handleDemoUser = () => {
@@ -54,18 +77,17 @@ function SignupFormModal() {
 		e.preventDefault();
 		setShowErrors(true)
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		if (data || Object.values(frontendErrors).length) {
-		  setErrors(data);
-		//   setFirstName("")
-		//   setLastName("")
-		//   setEmail("")
-		//   setUsername("")
-		//   setPassword("")
-		//   setConfirmPassword("")
-		} else {
+		const hasBEerrors = Object.values(backendErrors).length > 0;
+		const hasFEerrors = Object.values(frontendErrors).length > 0;
+
+		if (hasBEerrors || hasFEerrors) {
+			setErrors(data)
+		}
+		else {
 			closeModal()
 		}
 	  };
+
 
 
 	return (
@@ -87,6 +109,7 @@ function SignupFormModal() {
 				</div>
 				<div className="errors-div">
 					{showErrors && frontendErrors?.firstName}
+					{showErrors && backendErrors?.firstName}
 				</div>
 
 				<div className="lastname-div">
@@ -167,7 +190,7 @@ function SignupFormModal() {
 				<div className="signup-button-divs">
 					{(firstName && lastName && email && username && password && confirmPassword)
 					? <button className="signup-submit-button" type="submit">Register</button>
-					:  <button className="disabled-signup-submit-button" type="submit" disabled="true">Register</button>}
+					:  <button className="disabled-signup-submit-button" type="submit" disabled={true}>Register</button>}
 					<button className="demo-user-button" type="submit" onClick={handleDemoUser}>Demo User</button>
 				</div>
 			</form>
