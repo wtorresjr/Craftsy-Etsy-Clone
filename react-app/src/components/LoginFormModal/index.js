@@ -48,6 +48,9 @@ function LoginFormModal() {
 
   return (
     <>
+    <div className="close-modal" onClick={closeModal}>
+			<i className="fa-solid fa-x"></i>
+		</div>
     <div className="login-container">
       <div className="login-header-div">
         <h1>Sign In</h1>

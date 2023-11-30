@@ -90,6 +90,9 @@ function SignupFormModal() {
 
 	return (
 		<>
+		<div className="close-modal" onClick={closeModal}>
+			<i className="fa-solid fa-x"></i>
+		</div>
 		<div className="signup-container">
 			<h1>Create your account</h1>
 			<h2>Registration is easy.</h2>
