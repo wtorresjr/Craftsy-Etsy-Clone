@@ -53,6 +53,7 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
+                heartVal={true}
               />
             );
           })}

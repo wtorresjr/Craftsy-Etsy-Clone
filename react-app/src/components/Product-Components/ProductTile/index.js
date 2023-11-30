@@ -11,6 +11,7 @@ const ProductTile = ({
   prodTileImgStyle,
   tileContainerStyle,
   priceStyle,
+  heartVal,
 }) => {
   const dispatch = useDispatch();
   const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
@@ -29,13 +30,14 @@ const ProductTile = ({
         product={product}
         isClicked={localIsClicked}
         setIsClicked={setLocalIsClicked}
+        heartVal={heartVal}
       />
-      <Link to = {`/products/${product.id}`}>
-      <img
-        alt={product?.description}
-        className={prodTileImgStyle}
-        src={product?.preview_image_url}
-      />
+      <Link to={`/products/${product.id}`}>
+        <img
+          alt={product?.description}
+          className={prodTileImgStyle}
+          src={product?.preview_image_url}
+        />
       </Link>
     </div>
   );
