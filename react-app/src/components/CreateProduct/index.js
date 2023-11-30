@@ -23,9 +23,15 @@ const CreateProduct = () => {
       errorCollector.name =
         "Product name must be between 3 and 30 characters long.";
     }
+    if (name.length && name.trim() === "") {
+      errorCollector.name = "Name must include alphabetic characters";
+    }
     if (description.length < 3 || description.length > 255) {
       errorCollector.description =
         "Description must be between 3 and 255 characters.";
+    }
+    if (description.length && description.trim() === "") {
+      errorCollector.description = "Description must be alphabetic characters";
     }
     if (price <= 0) {
       errorCollector.price = "Price must be a valid number greater than 0.";
