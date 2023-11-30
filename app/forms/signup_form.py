@@ -44,7 +44,7 @@ def max_char_15(form, field):
 
 def starting_with_spaces(form, field):
     if (field.data).startswith(' '):
-        raise ValidationError('Invalid data. User input cannot begin with a space.')
+        raise ValidationError('Input cannot begin with a space.')
 
 
 
