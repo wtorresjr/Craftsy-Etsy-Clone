@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import * as favoriteActions from "../../../store/favorite";
 import "./FavoritesTile.css";
 
@@ -29,8 +30,11 @@ function FavoritesTile({ favorite }) {
             style={{ color: isFavorited ? "#A5192E" : "#000000" }}
           ></i>
         </div>
+
         <div className="fav-product-preview-img" title={favorite.name}>
-          <img src={favorite.preview_image_url[0]} alt={favorite.name} />
+          <Link to={`/products/${favorite.product_id}`}>
+            <img src={favorite.preview_image_url[0]} alt={favorite.name} />
+          </Link>
         </div>
         <div className="fav-product-description">
           <ul>

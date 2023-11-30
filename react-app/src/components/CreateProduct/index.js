@@ -23,7 +23,15 @@ const CreateProduct = () => {
 
   const errorCollector = {};
   useEffect(() => {
-    const validImgFormats = [".jpg", ".png", "jpeg"];
+    const validImgFormats = [
+      ".jpg",
+      ".png",
+      "jpeg",
+      "http:",
+      "https",
+      "ftp:/",
+      "ftps:",
+    ];
 
     const formatError = "Image must be .jpg, .jpeg or .png format.";
     const imageRequired = "Preview image is required.";
