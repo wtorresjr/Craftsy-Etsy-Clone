@@ -2,37 +2,35 @@ import './ReviewForm.css';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { createReview, createReviewImage } from '../../store/reviews'
+import { EditReview } from '../../store/reviews'
 import { useModal } from '../../context/Modal'
 
-function ReviewFormModal ({productId}) {
+function ReviewEditModal ({review}) {
   const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-  const [review, setReview] = useState('');
-  const [star_rating, setStar_rating] = useState('');
-  const [image, setImage] = useState(null)
+  const [reviewData, setReviewData] = useState(review.review);
+  const [star_rating, setStar_rating] = useState(review.star_rating);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     let newReview = {
-      review,
-      star_rating
+      review: reviewData,
+      stars : parseInt(star_rating)
     }
+
     //dispatching to create a review
-    const data = await dispatch(createReview(productId, newReview));
-    if(image){
-      await dispatch(createReviewImage(data.id, image))
-    }
+    const data = await dispatch(EditReview(review.id, newReview));
     closeModal()
     window.location.reload()
   }
 
   return(
     <>
-      <h1>Leave a Review</h1>
+      <h1>Edit a Review</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -44,8 +42,8 @@ function ReviewFormModal ({productId}) {
           Review
           <input
             type="text"
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
+            value={reviewData}
+            onChange={(e) => setReviewData(e.target.value)}
             required
           />
         </label>
@@ -58,19 +56,11 @@ function ReviewFormModal ({productId}) {
             required
           />
         </label>
-        <label>
-          Stars
-          <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit a Review</button>
+        <button type="submit">Edit a Review</button>
       </form>
     </>
   )
 
 }
 
-export default ReviewFormModal
+export default ReviewEditModal
