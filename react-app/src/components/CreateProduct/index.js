@@ -78,6 +78,7 @@ const CreateProduct = () => {
     if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
       errorCollector.formatImg4 = formatError;
     }
+
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
@@ -119,6 +120,7 @@ const CreateProduct = () => {
       });
   };
 
+  
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit}>

@@ -24,14 +24,13 @@ function FavoritesTile({ favorite }) {
   return (
     <>
       <div className="favorite-card">
-        <Link to={`/products/${favorite.product_id}`}>
-          <div className="fav-card-fav-icon" onClick={toggleFavStatus}>
-            <i
-              className={isFavorited ? "fas fa-heart" : "far fa-heart"}
-              style={{ color: isFavorited ? "#A5192E" : "#000000" }}
-            ></i>
-          </div>
-
+        <div className="fav-card-fav-icon" onClick={toggleFavStatus}>
+          <i
+            className={isFavorited ? "fas fa-heart" : "far fa-heart"}
+            style={{ color: isFavorited ? "#A5192E" : "#000000" }}
+          ></i>
+        </div>
+          <Link to={`/products/${favorite.product_id}`}>
           <div className="fav-product-preview-img" title={favorite.name}>
             <img src={favorite.preview_image_url[0]} alt={favorite.name} />
           </div>
