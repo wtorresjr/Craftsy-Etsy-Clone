@@ -77,8 +77,6 @@ function SignupFormModal() {
 		e.preventDefault();
 		setShowErrors(true)
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		// const hasBEerrors = Object.values(backendErrors).length > 0;
-		// const hasFEerrors = Object.values(frontendErrors).length > 0;
 
 		if (data || Object.values(frontendErrors).length) {
 			setErrors(data)
