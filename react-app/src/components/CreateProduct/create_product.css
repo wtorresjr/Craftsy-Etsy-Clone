@@ -6,10 +6,15 @@
   /* flex-flow: column nowrap; */
 }
 
+.createProductContainer h1 {
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  width: 480px;
 }
 
 li {
@@ -35,4 +40,12 @@ button {
   height: 40px;
   margin: 20px 0;
   box-sizing: border-box;
+}
+
+.errorDiv {
+  color: red;
+  font-weight: bolder;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
 }

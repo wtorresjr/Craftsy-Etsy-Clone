@@ -12,7 +12,23 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState(0);
   const [previewImg, setPreviewImg] = useState("http://");
   const [extraImgs, setExtraImgs] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors({});
+    if (name.length < 3) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "Product name must be at least 3 characters long.",
+      }));
+    }
+    if (description.length < 3 || description.length > 255) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        description: "Description must be between 3 and 255 characters",
+      }));
+    }
+  }, [dispatch, name, description, price, quantity, previewImg, extraImgs]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,15 +43,15 @@ const CreateProduct = () => {
     const data = await dispatch(addNewProduct(newProduct)); //<----- Needs items to create product.
     if (data) {
       setErrors(data);
+      console.log(errors, "Errors from dispatch");
     }
   };
+
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit}>
         <h1>Create A Product</h1>
-        <ul>
-          {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        <ul></ul>
         <li>
           <label>
             Name:
@@ -46,6 +62,9 @@ const CreateProduct = () => {
               required
             />
           </label>
+          {errors && errors.name && (
+            <p className="errorDiv">{errors.name}</p>
+          )}
         </li>
         <li>
           <label>
@@ -57,6 +76,7 @@ const CreateProduct = () => {
               required
             />
           </label>
+          <p className="errorDiv">{errors.description}</p>
         </li>
         <li>
           <label>

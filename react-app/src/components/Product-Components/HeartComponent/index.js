@@ -54,10 +54,12 @@ const FavoriteHeart = ({ product, setIsClicked, heartVal }) => {
       };
       dispatch(favoriteActions.addToCurrUserFavorites(newFav));
 
+      // dispatch(favoriteActions.loadCurrUserFavorites());
       dispatch(getAllProducts());
     } else {
       dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
 
+      // dispatch(favoriteActions.loadCurrUserFavorites());
       dispatch(getAllProducts());
     }
   };
