@@ -1,8 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import './UserListingTile.css'
+import DeleteProductModal from "./DeleteProductModal";
 
 function UserListingTile({ product }) {
+    const { setModalContent } = useModal();
+
+    const setModal = () => {
+        return setModalContent(<DeleteProductModal product={product} />)
+    }
+
+
+
     return (
         <>
             <div className="listingTileContainer">
@@ -21,9 +31,7 @@ function UserListingTile({ product }) {
                         <Link to={`/products/${product.id}/edit`} key={product.id} className="updateListingButton">Update</Link>
                     </button>
                     <p></p>
-                    <button>
-                        <Link to={`/products/${product.id}/delete`} key={product.id} className="deleteListingButton">Delete</Link>
-                    </button>
+                    <button onClick={setModal}>DELETE</button>
                     <p></p>
                 </div>
             </div>
