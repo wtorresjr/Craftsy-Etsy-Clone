@@ -26,22 +26,27 @@ function SignupFormModal() {
 	const confirmPasswordInputCN = showErrors && frontendErrors.confirmPassword ? "error-input" : ""
 
 
-	// const errorObj = {};
-	// errors?.forEach(error => {
-	//   const [key, value] = error.split(':')
-	//   errorObj[key.trim()] = value.trim()
-	// });
+	const errorObj = {};
+	errors?.forEach(error => {
+	  const [key, value] = error.split(':')
+	  errorObj[key.trim()] = value.trim()
+	});
+
 
 
 	useEffect(() => {
 		const validationErrors = {};
 		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
-		// if (errorObj.email) validationErrors.email = errorObj.email
-		// if (errorObj.username) validationErrors.username = errorObj.username
+		if (errorObj.firstName) validationErrors.firstName = errorObj.firstName
+		if (errorObj.lastName) validationErrors.lastName = errorObj.lastName
+		if (errorObj.email) validationErrors.email = errorObj.email
+		if (errorObj.username) validationErrors.username = errorObj.username
+		if (errorObj.password) validationErrors.password= errorObj.password
+		if (errorObj.confirmPassword) validationErrors.confirmPassword= errorObj.confirmPassword
 		if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
 		if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
 		setFrontendErrors(validationErrors)
-	}, [email, username, password, confirmPassword, errors])
+	}, [firstName, lastName, email, username, password, confirmPassword, errors, errorObj.firstName, errorObj.lastName, errorObj.password, errorObj.confirmPassword, errorObj.username, errorObj.email])
 
 
 	console.log('current backend errors', errors)
@@ -59,16 +64,25 @@ function SignupFormModal() {
 		e.preventDefault();
 		setShowErrors(true)
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		if (data || Object.values(frontendErrors).length) {
-		  setErrors(data);
-		//   setFirstName("")
-		//   setLastName("")
-		//   setEmail("")
-		//   setUsername("")
-		//   setPassword("")
-		//   setConfirmPassword("")
-		} else {
+		const hasBEerrors = data?.length > 0;
+		const hasFEerrors = Object.values(frontendErrors).length > 0;
+
+		if (hasBEerrors || hasFEerrors) {
+			setErrors(data)
+		}
+		else {
 			closeModal()
+			// const validationErrors = {};
+			// if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) validationErrors.email = "Not a valid email."
+			// if (password && password.length < 6) validationErrors.password = "Must be at least 6 characters.";
+			// if (password !== confirmPassword) validationErrors.confirmPassword = "Confirm Password field must be the same as the Password field.";
+
+			// setFrontendErrors(validationErrors);
+
+			// if (Object.values(frontendErrors).length === 0) {
+			// 	setErrors([]);
+			// 	closeModal();
+
 		}
 	  };
 
@@ -172,7 +186,7 @@ function SignupFormModal() {
 				<div className="signup-button-divs">
 					{(firstName && lastName && email && username && password && confirmPassword)
 					? <button className="signup-submit-button" type="submit">Register</button>
-					:  <button className="disabled-signup-submit-button" type="submit" disabled="true">Register</button>}
+					:  <button className="disabled-signup-submit-button" type="submit" disabled={true}>Register</button>}
 					<button className="demo-user-button" type="submit" onClick={handleDemoUser}>Demo User</button>
 				</div>
 			</form>
