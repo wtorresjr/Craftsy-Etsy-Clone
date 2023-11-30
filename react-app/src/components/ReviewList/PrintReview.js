@@ -3,6 +3,7 @@ import './ReviewList.css'
 import { useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
 import ReviewEditModal from '../ReviewFormModal/ReviewEdit'
+import ReviewDeleteModal from '../ReviewFormModal/ReviewDelete'
 
 //stars
 function getStars(star) {
@@ -63,7 +64,7 @@ const PrintReview = ({review}) => {
       sessionUser.id === review.user_id ?
       (
         <div className="ReviewDeleteButton">
-        <OpenModalButton className="ReviewDeleteButtonModal" buttonText="Delete" modalComponent={<></    >} />:
+        <OpenModalButton className="ReviewDeleteButtonModal" buttonText="Delete" modalComponent={<ReviewDeleteModal review = {review} />} />:
         </div>
       ) :""
     }
