@@ -125,6 +125,27 @@
     cursor: pointer;
 }
 
+.close-modal {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 105%;
+    color: #FFFFFF;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    transform: scale(1.05);
+}
+
 
 .errors-div {
     color: #A61A2D;
