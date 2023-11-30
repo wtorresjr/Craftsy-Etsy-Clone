@@ -14,38 +14,14 @@ const FavoriteHeart = ({ product, setIsClicked, heartVal }) => {
   );
   const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState(setIsClicked);
-
-  // const [heartValue, setHeartValue] = useState(isClicked);
-
-  // console.log(isClicked, "isClicked value");
   console.log(heartVal, "heartValue");
-
-  useEffect(() => {
-    if (favoritedProducts) {
-      favoritedProducts.map((fav) => {
-        if (fav.product_id === product.id) {
-          setLocalIsClicked(heartVal);
-        }
-      });
-    }
-  }, [dispatch, favoritedProducts]);
-
+  
+  
   const handleClick = () => {
     if (!sessionUser) {
       setLocalIsClicked(false);
       return setModalContent(<LoginFormModal />);
     }
-
-    // setLocalIsClicked((prev) => !prev);
-
-    // if (!localIsClicked) {
-    //   dispatch(favoriteActions.removeFromCurrUserFavorites(+product.id));
-    // } else {
-    //   const newFav = {
-    //     product_id: product.id,
-    //   };
-    //   dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-    // }
 
     setLocalIsClicked(!localIsClicked);
     if (!localIsClicked) {
@@ -67,13 +43,15 @@ const FavoriteHeart = ({ product, setIsClicked, heartVal }) => {
   return (
     <div
       className={`heartContainer ${
-        localIsClicked || heartVal ? "clicked" : ""
+        localIsClicked === true || heartVal ? "clicked" : ""
       }`}
       onClick={handleClick}
     >
       <i
         className={`fa-heart ${
-          localIsClicked || heartVal ? "fas fa-heart fa-lg" : "far fa-heart"
+          localIsClicked === true || heartVal
+            ? "fas fa-heart fa-lg"
+            : "far fa-heart"
         }`}
       ></i>
     </div>
