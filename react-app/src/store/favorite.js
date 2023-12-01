@@ -146,11 +146,11 @@ export default function reducer(state = initialState, action) {
       };
       return newState;
     case CLEARFAVS:
-      return {
-        ...state,
+      newState = {
         allFavorites: [],
         byId: {},
       };
+      return newState;
     default:
       return state;
   }

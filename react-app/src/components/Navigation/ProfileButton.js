@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { useHistory } from "react-router-dom";
@@ -10,7 +11,8 @@ import { clearMyFavorites } from "../../store/favorite";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  // const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -43,7 +45,7 @@ function ProfileButton({ user }) {
     // if (successLogout) {
     //   history.push("/");
     // }
-    dispatch(logout()).then(history.push("/"));
+    dispatch(logout()).then(() => window.location.replace("/"));
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
