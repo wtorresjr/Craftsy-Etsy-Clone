@@ -42,15 +42,17 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
   try {
     const response = await fetch("/api/current-user/favorites", {
       method: "GET",
+      // if (!response.ok) {
+      //   throw new Error(
+      //     `There was an error in loading your favorites list: ${response.status}`
+      //   );
+      // }
     });
-    if (!response.ok) {
-      throw new Error(
-        `There was an error in loading your favorites list: ${response.status}`
-      );
+    if (response.ok) {
+      const favorites = await response.json();
+      await dispatch(viewFavorites(favorites));
+      return favorites;
     }
-    const favorites = await response.json();
-    await dispatch(viewFavorites(favorites));
-    return favorites;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to load your favorites list: ${error.message}`
@@ -73,7 +75,7 @@ export const addToCurrUserFavorites = (favorite) => async (dispatch) => {
     }
     const newFavorite = await response.json();
     await dispatch(addFavorite(newFavorite));
-    // await dispatch(loadCurrUserFavorites());
+    await dispatch(loadCurrUserFavorites());
     return newFavorite;
   } catch (error) {
     throw new Error(
@@ -95,7 +97,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
     }
     const deleteFav = await response.json();
     await dispatch(removeFavorite(+favoriteId));
-    // await dispatch(loadCurrUserFavorites());
+    await dispatch(loadCurrUserFavorites());
     return deleteFav;
   } catch (error) {
     throw new Error(

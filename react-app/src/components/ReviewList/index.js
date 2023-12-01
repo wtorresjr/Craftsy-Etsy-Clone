@@ -11,51 +11,51 @@ function getStars(star) {
   if (star < 1.5)
     return (
       <>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
       </>
     );
   else if (star < 2.5)
     return (
       <>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
       </>
     );
   else if (star < 3.5)
     return (
       <>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
       </>
     );
   else if (star < 4.5)
     return (
       <>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-regular fa-star"></i>
       </>
     );
   else
     return (
       <>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
       </>
     );
 }
@@ -117,7 +117,7 @@ const ReviewList = ({ productId }) => {
           </h3>
         </div>
         {allReviewsByProductId.map((review) => (
-          <PrintReview review={review} />
+          <PrintReview key={review.id} review={review} />
         ))}
       </div>
     </>
