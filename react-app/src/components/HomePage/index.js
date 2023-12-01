@@ -33,14 +33,14 @@ const HomePage = () => {
               <ProductTile
                 key={product.id}
                 product={product}
-                prodTileImgStyle={"becauseViewed"}
+                prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
                 priceStyle={"hidden"}
               />
             );
           })}
       </div>
-      <div className="largeTileContain">
+      {/* <div className="largeTileContain">
         {favoritedProducts && favoritedProducts.length > 4 && (
           <h3>Recently Favorited...</h3>
         )}
@@ -53,11 +53,10 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
-                isFavorite={true}
               />
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
