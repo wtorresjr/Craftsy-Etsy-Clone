@@ -41,6 +41,17 @@ def max_char_15(form, field):
         raise ValidationError('Character limit exceeded. Must be no more than 15 characters.')
 
 
+def max_char_40(form, field):
+    # Checking if user input is no more than 40 characters long
+    if len(field.data) > 40:
+        raise ValidationError('Character limit exceeded. Username must be no more than 40 characters.')
+
+
+def max_char_255(form, field):
+    # Checking if email is no more than 255 characters long
+    if len(field.data)> 255:
+        raise ValidationError('Character limit exceeded. Email must be no more than 255 characters.')
+
 
 def starting_with_spaces(form, field):
     if (field.data).startswith(' '):
@@ -54,6 +65,6 @@ class SignUpForm(FlaskForm):
     last_name = StringField(
         'last name', validators=[DataRequired(), max_char_15, starting_with_spaces])
     username = StringField(
-        'username', validators=[DataRequired(), username_exists, starting_with_spaces])
-    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, email_format])
+        'username', validators=[DataRequired(), username_exists, starting_with_spaces, max_char_40])
+    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, max_char_255, email_format])
     password = StringField('password', validators=[DataRequired(), password_length, starting_with_spaces])
