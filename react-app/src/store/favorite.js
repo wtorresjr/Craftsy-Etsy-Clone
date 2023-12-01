@@ -33,7 +33,11 @@ const clearFavorites = (favorites) => {
 };
 
 export const clearMyFavorites = () => async (dispatch) => {
-  dispatch(clearFavorites);
+  try {
+    await dispatch(clearFavorites());
+  } catch (error) {
+    throw error;
+  }
 };
 
 //Thunk Action Creators:

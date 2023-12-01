@@ -2,9 +2,9 @@ import "./homepage.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
-import { getAllProducts } from "../../store/products";
+import { getAllProducts, resetAllProducts } from "../../store/products";
 
-import { clearMyFavorites, loadCurrUserFavorites } from "../../store/favorite";
+import { loadCurrUserFavorites } from "../../store/favorite";
 
 // import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
