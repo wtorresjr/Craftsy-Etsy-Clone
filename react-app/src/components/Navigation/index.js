@@ -15,7 +15,11 @@ function Navigation({ isLoaded }) {
 
 	const cartItemsArray = useSelector(state => state.cart?.allItems);
 	const totalCartItems = cartItemsArray.length
-	console.log(totalCartItems)
+	// console.log(totalCartItems)
+
+	const handleNonFunctioningLinks = () => {
+		alert('Feature Coming Soon...')
+	}
 
 	return (
 		<>
@@ -26,7 +30,7 @@ function Navigation({ isLoaded }) {
 					</NavLink>
 				</div>
 				<div className="categoriesDiv">
-					<Link className="categories">
+					<Link className="categories" onClick={handleNonFunctioningLinks}>
 						<i className="fas fa-bars">
 							{" "}
 							<span className="catWord"> Categories</span>{" "}
@@ -41,7 +45,7 @@ function Navigation({ isLoaded }) {
 								placeholder="Search for anything"
 							/>
 							<div className="searchIcon">
-								<Link className="magnifyingGlass">
+								<Link className="magnifyingGlass" onClick={handleNonFunctioningLinks}>
 									<i className="fas fa-search" />
 								</Link>
 							</div>
@@ -56,7 +60,7 @@ function Navigation({ isLoaded }) {
 								placeholder="Search for anything"
 							/>
 							<div className="searchIcon">
-								<Link className="magnifyingGlass">
+								<Link className="magnifyingGlass" onClick={handleNonFunctioningLinks}>
 									<i className="fas fa-search" />
 								</Link>
 							</div>
@@ -72,7 +76,7 @@ function Navigation({ isLoaded }) {
 				)}
 				{sessionUser && (
 					<div className="bellDiv">
-						<button className="bell">
+						<button className="bell" onClick={handleNonFunctioningLinks}>
 							<i className="far fa-bell">
 								{" "}
 								<i className="fas fa-caret-down"> </i>
