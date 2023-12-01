@@ -40,7 +40,7 @@ const HomePage = () => {
             );
           })}
       </div>
-      {/* <div className="largeTileContain">
+      <div className="largeTileContain">
         {favoritedProducts && favoritedProducts.length > 4 && (
           <h3>Recently Favorited...</h3>
         )}
@@ -56,7 +56,7 @@ const HomePage = () => {
               />
             );
           })}
-      </div> */}
+      </div>
     </div>
   );
 };

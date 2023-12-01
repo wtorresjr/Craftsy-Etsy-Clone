@@ -17,25 +17,26 @@ const FavoriteHeart = ({ product }) => {
     (fav) => fav.product_id === product.id
   );
 
-  const handleClick = () => {
-    if (!sessionUser) {
-      setLocalIsClicked(false);
-      return setModalContent(<LoginFormModal />);
-    }
-    setLocalIsClicked(!isClicked);
+const handleClick = () => {
+  if (!sessionUser) {
+    setLocalIsClicked(false);
+    return setModalContent(<LoginFormModal />);
+  }
 
-    if (isClicked) {
-      dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
-      dispatch(favoriteActions.loadCurrUserFavorites());
-    }
-    if (!isClicked) {
-      let newFav = {
-        product_id: product.id,
-      };
-      dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-      dispatch(favoriteActions.loadCurrUserFavorites());
-    }
-  };
+  setLocalIsClicked(!isClicked);
+
+  if (isClicked) {
+    dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
+  } else {
+    const newFav = {
+      product_id: product.id,
+    };
+    dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+  }
+
+  dispatch(favoriteActions.loadCurrUserFavorites());
+};
+
 
   return (
     <div
