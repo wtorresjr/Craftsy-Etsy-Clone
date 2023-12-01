@@ -23,8 +23,11 @@
 }
 
 .navBar {
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* display: grid;
+  grid-template-columns: repeat(16, 1fr); */
   /* gap: 10px; */
   padding-top: 15px;
   padding-bottom: 15px;
@@ -32,7 +35,7 @@
 }
 
 .homeButtonDiv {
-  grid-column: span 2;
+  /* grid-column: span 2; */
   margin-left: 50px;
   padding-top: 5px
 }
@@ -47,9 +50,9 @@
   font-family: "Cambria", serif;
 }
 
-.categoriesDiv {
+/* .categoriesDiv {
   grid-column: span 2;
-}
+} */
 
 .categories {
   display: grid;
@@ -74,13 +77,15 @@
 }
 
 .searchBarBig {
-  grid-column: span 9;
+  /* grid-column: span 9; */
   padding: 5px;
+  width: 65%
 }
 
 .searchBarSmall {
-  grid-column: span 8;
+  /* grid-column: span 8; */
   padding: 5px;
+  width: 50%
 }
 
 .searchBar {
@@ -130,9 +135,9 @@
   transform: scale(1.12);
 }
 
-.favoritesDiv {
+/* .favoritesDiv {
   grid-column: span 1;
-}
+} */
 
 .favorites {
   display: grid;
@@ -147,9 +152,9 @@
   padding: 15px;
 }
 
-.bellDiv {
+/* .bellDiv {
   grid-column: span 1;
-}
+} */
 
 button.bell {
   display: grid;
@@ -172,9 +177,9 @@ div.signInDiv>button {
   border: none;
 }
 
-.profileButtonDiv {
+/* .profileButtonDiv {
   grid-column: span 1;
-}
+} */
 
 button.profileButton {
   display: grid;
@@ -193,13 +198,13 @@ button.profileButton {
 
 
 
-button.signInButton {
+.signInButton {
   display: grid;
   height: 100%;
   width: 100%;
   place-items: center;
   text-decoration: none;
-  background-color: white;
+  background-color: transparent;
   border: none;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
@@ -208,13 +213,13 @@ button.signInButton {
   color: rgb(34, 34, 34);
 }
 
-.signInDiv.signInButton:hover {
+.signInDiv:hover {
   background-color: rgb(234, 232, 232);
   border-radius: 30px;
 }
 
 .shoppingCartDiv {
-  grid-column: span 1;
+  /* grid-column: span 1; */
   margin-right: 50px;
   padding: 5px
 }
