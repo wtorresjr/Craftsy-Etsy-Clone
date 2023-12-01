@@ -17,8 +17,11 @@ const ProductDetailPage = () => {
 
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
-  for (let i = 1; i < currentProduct.quantity + 1; i++) {
-    index.push(i);
+  
+  if (currentProduct) {
+    for (let i = 1; i < currentProduct.quantity + 1; i++) {
+      index.push(i);
+    }
   }
 
   useEffect(() => {
