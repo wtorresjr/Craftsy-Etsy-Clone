@@ -27,7 +27,7 @@ const ReviewList = ({productId}) => {
   const allReviewsByProductId = useSelector((state) => Object.values(state.reviews.reviewByProductId))
   const sessionUser = useSelector((state) => state.session.user);
 
-  const reviewExists = allReviewsByProductId.some(review => review.user_id === sessionUser.id)
+  const reviewExists = allReviewsByProductId.some(review => review?.user_id === sessionUser?.id)
   console.log('review exists', reviewExists)
 
   const reviewPoints = {
