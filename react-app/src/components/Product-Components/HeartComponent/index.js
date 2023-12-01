@@ -4,7 +4,6 @@ import "../ProductTile/product_img_tile.css";
 import * as favoriteActions from "../../../store/favorite";
 import { useModal } from "../../../context/Modal";
 import LoginFormModal from "../../LoginFormModal";
-import { getAllProducts } from "../../../store/products";
 
 const FavoriteHeart = ({ product }) => {
   const sessionUser = useSelector((state) => state.session.user);
