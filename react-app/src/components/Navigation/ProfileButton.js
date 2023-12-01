@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
+import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -31,12 +33,13 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   const handleNonFunctioningLinks = () => {
-    alert('Feature Coming Soon...')
-  }
+    alert("Feature Coming Soon...");
+  };
 
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    history.push("/");
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -47,21 +50,32 @@ function ProfileButton({ user }) {
       {user ? (
         <div className="profileButtonDiv">
           <button onClick={openMenu} className="profileButton">
-            <i className="fas fa-user-circle"> <i className="fas fa-caret-down"> </i></i>
+            <i className="fas fa-user-circle">
+              {" "}
+              <i className="fas fa-caret-down"> </i>
+            </i>
           </button>
           <ul className={ulClassName} ref={ulRef}>
             <>
               <li>
-                <Link className="profileDropdownUser" onClick={handleNonFunctioningLinks}>
+                <Link
+                  className="profileDropdownUser"
+                  onClick={handleNonFunctioningLinks}
+                >
                   <i className="fas fa-user-circle"></i>
                   <span className="firstLastName">
-                    <h4>{user.firstName} {user.lastName}</h4>
+                    <h4>
+                      {user.firstName} {user.lastName}
+                    </h4>
                     <p>View your profile</p>
                   </span>
                 </Link>
               </li>
               <li className="dDPartTwo">
-                <Link className="purchasesReviews" onClick={handleNonFunctioningLinks}>
+                <Link
+                  className="purchasesReviews"
+                  onClick={handleNonFunctioningLinks}
+                >
                   <i className="fas fa-clipboard-list"> </i>
                   <p>Purchases and reviews</p>
                 </Link>
@@ -75,13 +89,18 @@ function ProfileButton({ user }) {
                 </NavLink>
               </li>
               <li>
-                <Link className="accountSettings" onClick={handleNonFunctioningLinks}>
+                <Link
+                  className="accountSettings"
+                  onClick={handleNonFunctioningLinks}
+                >
                   <i class="fas fa-cog"></i>
                   <p>Account settings</p>
                 </Link>
                 <div className="logOutDiv">
                   <i className="fas fa-sign-out-alt fa-rotate-180"></i>
-                  <button onClick={handleLogout} className="logOutButton">Sign out</button>
+                  <button onClick={handleLogout} className="logOutButton">
+                    Sign out
+                  </button>
                 </div>
               </li>
             </>
@@ -90,7 +109,11 @@ function ProfileButton({ user }) {
       ) : (
         <>
           <div className="signInDiv">
-            <OpenModalButton className="signInButton" buttonText="Sign in" modalComponent={<LoginFormModal />} />
+            <OpenModalButton
+              className="signInButton"
+              buttonText="Sign in"
+              modalComponent={<LoginFormModal />}
+            />
             {/* <button onClick={openMenu} className="signInButton">
               Sign in
             </button>
