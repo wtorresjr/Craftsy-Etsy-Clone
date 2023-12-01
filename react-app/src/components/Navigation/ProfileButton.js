@@ -3,11 +3,9 @@ import { NavLink, Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { clearMyFavorites } from "../../store/favorite";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -41,10 +39,6 @@ function ProfileButton({ user }) {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    // const successLogout = dispatch(await logout());
-    // if (successLogout) {
-    //   history.push("/");
-    // }
     dispatch(logout()).then(() => window.location.replace("/"));
   };
 
