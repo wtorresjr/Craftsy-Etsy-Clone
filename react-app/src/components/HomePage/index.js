@@ -6,11 +6,11 @@ import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
-import { fetchReviews, fetchReviewById } from "../../store/reviews";
+// import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state?.session.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites

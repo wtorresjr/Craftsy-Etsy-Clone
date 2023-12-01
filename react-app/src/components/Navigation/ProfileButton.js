@@ -36,10 +36,12 @@ function ProfileButton({ user }) {
     alert("Feature Coming Soon...");
   };
 
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-    dispatch(logout());
-    history.push("/");
+    const successLogout = dispatch(logout());
+    if (successLogout) {
+      history.push("/");
+    }
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
