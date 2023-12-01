@@ -39,10 +39,11 @@ function ProfileButton({ user }) {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    const successLogout = dispatch(await logout());
-    if (successLogout) {
-      history.push("/");
-    }
+    // const successLogout = dispatch(await logout());
+    // if (successLogout) {
+    //   history.push("/");
+    // }
+    dispatch(logout()).then(history.push("/"));
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts, resetAllProducts } from "../../store/products";
 
-import { clearMyFavorites, loadCurrUserFavorites } from "../../store/favorite";
+import { loadCurrUserFavorites } from "../../store/favorite";
 
 // import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
@@ -19,8 +19,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    dispatch(clearMyFavorites());
-    if (sessionUser) {
+    if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
   }, [dispatch, sessionUser]);
