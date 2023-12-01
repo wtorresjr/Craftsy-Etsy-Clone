@@ -18,10 +18,10 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    if (sessionUser && sessionUser.id && favoritedProducts.length) {
+    if (sessionUser?.id && favoritedProducts?.length > 0) {
       dispatch(loadCurrUserFavorites());
     }
-  }, [dispatch, sessionUser, favoritedProducts]);
+  }, [dispatch, sessionUser]);
 
   return (
     <div className="mainProductDisplay">
@@ -35,7 +35,7 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
-                priceStyle={"hidden"}
+                // priceStyle={"hidden"}
               />
             );
           })}

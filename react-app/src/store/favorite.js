@@ -1,7 +1,7 @@
 const VIEW = "favorites/VIEW_FAVORITE";
 const ADD = "favorites/ADD_FAVORITE";
 const REMOVE = "favorites/REMOVE_FAVORITE";
-
+const CLEARFAVS = "favorites/CLEAR_FAVORITES";
 
 //Actions:
 const viewFavorites = (favorites) => {
@@ -23,6 +23,17 @@ const removeFavorite = (favoriteId) => {
     type: REMOVE,
     payload: favoriteId,
   };
+};
+
+const clearFavorites = (favorites) => {
+  return {
+    type: CLEARFAVS,
+    payload: favorites,
+  };
+};
+
+export const clearMyFavorites = () => async (dispatch) => {
+  dispatch(clearFavorites);
 };
 
 //Thunk Action Creators:
@@ -62,7 +73,7 @@ export const addToCurrUserFavorites = (favorite) => async (dispatch) => {
     }
     const newFavorite = await response.json();
     await dispatch(addFavorite(newFavorite));
-    await dispatch(loadCurrUserFavorites());
+    // await dispatch(loadCurrUserFavorites());
     return newFavorite;
   } catch (error) {
     throw new Error(
@@ -84,7 +95,7 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
     }
     const deleteFav = await response.json();
     await dispatch(removeFavorite(+favoriteId));
-    await dispatch(loadCurrUserFavorites());
+    // await dispatch(loadCurrUserFavorites());
     return deleteFav;
   } catch (error) {
     throw new Error(
@@ -128,6 +139,12 @@ export default function reducer(state = initialState, action) {
         byId: updatedById,
       };
       return newState;
+    case CLEARFAVS:
+      return {
+        ...state,
+        allFavorites: [],
+        byId: {},
+      };
     default:
       return state;
   }
