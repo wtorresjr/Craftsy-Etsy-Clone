@@ -98,7 +98,6 @@ def add_to_favorites():
         id=data.get('product_id'))
 
     # print(data, "<----- Data request json")
-
     if find_product:
         # if find_favorite:
         #     return {'message': 'This product has already been favorited. Please unfavorite product before attempting to favorite it again.'}, 400

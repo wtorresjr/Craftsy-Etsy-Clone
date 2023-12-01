@@ -28,36 +28,35 @@ const HomePage = () => {
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0, 5).map((product) => {
-            return (
-              <ProductTile
-                key={product.id}
-                product={product}
-                prodTileImgStyle={"becauseViewed"}
-                tileContainerStyle={"productTileContain"}
-                priceStyle={"hidden"}
-              />
-            );
-          })}
-      </div>
-      <div className="largeTileContain">
-        {favoritedProducts && favoritedProducts.length > 4 && (
-          <h3>Recently Favorited...</h3>
-        )}
-        {favoritedProducts &&
-          favoritedProducts.length > 4 &&
-          favoritedProducts.slice(0, 5).map((product) => {
+          allProducts.map((product) => {
             return (
               <ProductTile
                 key={product.id}
                 product={product}
                 prodTileImgStyle={"recentFaves"}
                 tileContainerStyle={"productTileContain"}
-                heartVal={true}
+                priceStyle={"hidden"}
               />
             );
           })}
       </div>
+      {/* <div className="largeTileContain">
+        {favoritedProducts && favoritedProducts.length > 4 && (
+          <h3>Recently Favorited...</h3>
+        )}
+        {favoritedProducts &&
+          favoritedProducts.length > 4 &&
+          favoritedProducts.slice(0,5).map((product) => {
+            return (
+              <ProductTile
+                key={product.id}
+                product={product}
+                prodTileImgStyle={"recentFaves"}
+                tileContainerStyle={"productTileContain"}
+              />
+            );
+          })}
+      </div> */}
     </div>
   );
 };

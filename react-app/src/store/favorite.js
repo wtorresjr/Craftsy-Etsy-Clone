@@ -81,10 +81,10 @@ export const removeFromCurrUserFavorites = (favoriteId) => async (dispatch) => {
         `There was an error in deleting favorite #${favoriteId} from your favorites list: ${response.status}`
       );
     }
-    // const deleteFav = await response.json();
+    const deleteFav = await response.json();
     await dispatch(removeFavorite(+favoriteId));
     await dispatch(loadCurrUserFavorites());
-    // return deleteFav;
+    return deleteFav;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to remove favorite #${favoriteId} to your favorites list: ${error.message}`

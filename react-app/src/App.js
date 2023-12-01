@@ -14,6 +14,7 @@ import ShopManagerPage from "./components/ShopManagerPage";
 import CreateProduct from "./components/CreateProduct";
 import ProductDetailPage from "./components/ProductDetailPage";
 import UpdateProduct from "./components/UpdateProduct";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,9 +31,9 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/products/:product_id/edit">
+          <ProtectedRoute path="/products/:product_id/edit">
             <UpdateProduct />
-          </Route>
+          </ProtectedRoute>
           <Route path="/products/:productId">
             <ProductDetailPage />
           </Route>
@@ -42,19 +43,18 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/favorites">
+          <ProtectedRoute path="/favorites">
             <FavoritesPage />
-          </Route>
-          <Route path="/shop-manager">
+          </ProtectedRoute>
+          <ProtectedRoute path="/shop-manager">
             <ShopManagerPage />
-          </Route>
-          <Route exact path="/cart">
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/cart">
             <CartPage />
-          </Route>
-          <Route exact path="/create-a-product">
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/create-a-product">
             <CreateProduct />
-          </Route>
-
+          </ProtectedRoute>
 
           {/* <Route path="">
             <h1>Page not found</h1>
