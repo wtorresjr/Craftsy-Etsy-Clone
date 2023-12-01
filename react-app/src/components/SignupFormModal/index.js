@@ -42,13 +42,18 @@ function SignupFormModal() {
 	useEffect(() => {
 		const frontendErrs = {};
 		if (firstName.startsWith(" ")) frontendErrs.firstName = "Input cannot begin with a space.";
+		if (firstName.length > 15) frontendErrs.firsttName = "Character limit exceeded. Must be no more than 15 characters."
 		if (lastName.startsWith(" ")) frontendErrs.lastName = "Input cannot begin with a space.";
+		if (lastName.length > 15) frontendErrs.lastName = "Character limit exceeded. Must be no more than 15 characters.";
 		if (email.startsWith(" ")) frontendErrs.email= "Input cannot begin with a space.";
+		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) frontendErrs.email = "Not a valid email."
+		if (email.length > 255) frontendErrs.email = "Character limit exceeded. Email must be no more than 255 characters."
 		if (username.startsWith(" ")) frontendErrs.username = "Input cannot begin with a space.";
+		if (username.length > 40) frontendErrs.username = "Character limit exceeded. Username must be no more than 40 characters."
 		if (password.startsWith(" ")) frontendErrs.password = "Input cannot begin with a space.";
 		if (confirmPassword.startsWith(" ")) frontendErrs.confirmPassword = "Input cannot begin with a space.";;
-		if (email && !(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/).test(email)) frontendErrs.email = "Not a valid email."
-		if (password && password.length < 6) frontendErrs.password = "Must be at least 6 characters.";
+
+		if (password && password.length < 6) frontendErrs.password = "Must be at sleast 6 characters.";
 		if (password !== confirmPassword) frontendErrs.confirmPassword = "Confirm Password field must be the same as the Password field.";
 		setFrontendErrors(frontendErrs)
 	}, [firstName, lastName, email, username, password, confirmPassword, errors])
