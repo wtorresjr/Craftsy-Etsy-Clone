@@ -33,15 +33,7 @@ const ProductDetailPage = () => {
   return (
     <>
       <h1>{currentProduct?.name}</h1>
-      {currentProduct?.preview_image_url ? (
-        <img src={currentProduct?.preview_image_url[0]} />
-      ) : (
-        "no image"
-      )}
-
       <div>
-        <div className="itemprice">${currentProduct?.price}</div>
-        <div className="itemdescription">{currentProduct?.description}</div>
         {currentProduct?.preview_image_url ? (
           <img src={currentProduct?.preview_image_url[0]} />
         ) : (
