@@ -21,7 +21,10 @@ def get_shopping_cart():
     cart = Cart.query.filter_by(user_id=user_id, transaction_complete=False).first();
 
     if not cart:
-        return jsonify({"message": "Cart not found."}), 404
+        cart = Cart(user_id=user_id, transaction_complete=False)
+        db.session.add(cart)
+        # Commit the changes
+        db.session.commit()
 
     # Authorization validation
     if cart.user_id != user_id:

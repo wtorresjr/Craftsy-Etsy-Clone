@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
 
 	useEffect(() => {
 		dispatch(getCart())
-	}, [dispatch])
+	}, [dispatch, sessionUser])
 
 	const cartItemsArray = useSelector(state => state.cart?.allItems);
 	const totalCartItems = cartItemsArray.length
