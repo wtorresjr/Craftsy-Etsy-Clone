@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
 
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
-  
+
   if (currentProduct) {
     for (let i = 1; i < currentProduct.quantity + 1; i++) {
       index.push(i);
