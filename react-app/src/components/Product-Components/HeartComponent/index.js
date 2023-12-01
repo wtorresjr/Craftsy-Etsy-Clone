@@ -13,30 +13,34 @@ const FavoriteHeart = ({ product }) => {
   );
   const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState(false);
+  const [isLikeLoaded, setIsLikeLoaded] = useState(true);
   let isClicked = favoritedProducts?.some(
     (fav) => fav.product_id === product.id
   );
 
-const handleClick = () => {
-  if (!sessionUser) {
-    setLocalIsClicked(false);
-    return setModalContent(<LoginFormModal />);
-  }
+  const handleClick = async () => {
+    if (!sessionUser) {
+      setLocalIsClicked(false);
+      return setModalContent(<LoginFormModal />);
+    }
 
-  setLocalIsClicked(!isClicked);
+    setLocalIsClicked(!isClicked);
 
-  if (isClicked) {
-    dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
-  } else {
-    const newFav = {
-      product_id: product.id,
-    };
-    dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-  }
+    if (isClicked) {
+      setIsLikeLoaded(false);
+      await dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
+      setIsLikeLoaded(true);
+    } else {
+      const newFav = {
+        product_id: product.id,
+      };
+      setIsLikeLoaded(false);
+      await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
+      setIsLikeLoaded(true);
+    }
 
-  dispatch(favoriteActions.loadCurrUserFavorites());
-};
-
+    dispatch(favoriteActions.loadCurrUserFavorites());
+  };
 
   return (
     <div

@@ -28,7 +28,7 @@ const HomePage = () => {
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0).map((product) => {
+          allProducts.map((product) => {
             return (
               <ProductTile
                 key={product.id}
@@ -40,13 +40,13 @@ const HomePage = () => {
             );
           })}
       </div>
-      <div className="largeTileContain">
+      {/* <div className="largeTileContain">
         {favoritedProducts && favoritedProducts.length > 4 && (
           <h3>Recently Favorited...</h3>
         )}
         {favoritedProducts &&
           favoritedProducts.length > 4 &&
-          favoritedProducts.slice(0).map((product) => {
+          favoritedProducts.slice(0,5).map((product) => {
             return (
               <ProductTile
                 key={product.id}
@@ -56,7 +56,7 @@ const HomePage = () => {
               />
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
