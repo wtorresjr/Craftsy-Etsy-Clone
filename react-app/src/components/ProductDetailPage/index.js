@@ -35,7 +35,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      {currentProduct.id ? (
+      {currentProduct?.id ? (
         <>
           <h1>{currentProduct?.name}</h1>
           <div>

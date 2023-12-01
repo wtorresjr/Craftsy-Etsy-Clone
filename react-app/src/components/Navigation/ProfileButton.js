@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { clearMyFavorites } from "../../store/favorite";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();

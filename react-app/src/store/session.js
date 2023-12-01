@@ -63,8 +63,8 @@ export const logout = () => async (dispatch) => {
   });
 
   if (response.ok) {
-    await dispatch(clearMyFavorites());
     await dispatch(removeUser());
+    await dispatch(clearMyFavorites());
   }
 };
 
