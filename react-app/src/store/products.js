@@ -6,6 +6,14 @@ const CREATE_PRODUCT = "products/CREATE_PRODUCT";
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
 const EDIT_PRODUCT = "products/EDIT_PRODUCT";
+const RESET_PRODUCTS = "products/RESET_PRODUCTS";
+
+const resetProducts = (products) => {
+  return {
+    type: RESET_PRODUCTS,
+    payload: products,
+  };
+};
 
 const loadProducts = (allFoundProducts) => {
   return {
@@ -187,6 +195,14 @@ export const addNewProductImage =
 
 //Delete A Product Image
 
+export const resetAllProducts = () => async (dispatch) => {
+  try {
+    await dispatch(resetProducts());
+  } catch (err) {
+    throw err;
+  }
+};
+
 const initialState = {
   allProducts: [],
   newImageAdded: [],
@@ -199,6 +215,14 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   let newState = {};
   switch (action.type) {
+    ///////////////////////////////////
+    ///////////////////////////////////
+    case RESET_PRODUCTS:
+      return {
+        ...state,
+        allProducts: [],
+        allProducts: [],
+      };
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_ALL_PRODUCTS:

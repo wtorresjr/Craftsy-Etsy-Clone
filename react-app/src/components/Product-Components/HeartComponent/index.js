@@ -38,8 +38,9 @@ const FavoriteHeart = ({ product }) => {
       await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
       setIsLikeLoaded(true);
     }
-
-    dispatch(favoriteActions.loadCurrUserFavorites());
+    if (sessionUser) {
+      dispatch(favoriteActions.loadCurrUserFavorites());
+    }
   };
 
   return (

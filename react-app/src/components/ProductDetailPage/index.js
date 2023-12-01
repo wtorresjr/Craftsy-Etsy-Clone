@@ -35,7 +35,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      {currentProduct.id ? (
+      {currentProduct?.id ? (
         <>
           <h1>{currentProduct?.name}</h1>
           <div>
@@ -61,7 +61,11 @@ const ProductDetailPage = () => {
               onChange={handleSelectChange}
             >
               {index.map((idx) => {
-                return <option value={idx}>{idx}</option>;
+                return (
+                  <option key={idx} value={idx}>
+                    {idx}
+                  </option>
+                );
               })}
             </select>
             <button>Add to Cart</button>

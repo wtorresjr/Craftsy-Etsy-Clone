@@ -1,6 +1,7 @@
 const VIEW = "favorites/VIEW_FAVORITE";
 const ADD = "favorites/ADD_FAVORITE";
 const REMOVE = "favorites/REMOVE_FAVORITE";
+const CLEARFAVS = "favorites/CLEAR_FAVORITES";
 
 //Actions:
 const viewFavorites = (favorites) => {
@@ -24,21 +25,38 @@ const removeFavorite = (favoriteId) => {
   };
 };
 
+const clearFavorites = (favorites) => {
+  return {
+    type: CLEARFAVS,
+    payload: favorites,
+  };
+};
+
+export const clearMyFavorites = () => async (dispatch) => {
+  try {
+    await dispatch(clearFavorites());
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Thunk Action Creators:
 //VIEW FAVORITES
 export const loadCurrUserFavorites = () => async (dispatch) => {
   try {
     const response = await fetch("/api/current-user/favorites", {
       method: "GET",
+      // if (!response.ok) {
+      //   throw new Error(
+      //     `There was an error in loading your favorites list: ${response.status}`
+      //   );
+      // }
     });
-    if (!response.ok) {
-      throw new Error(
-        `There was an error in loading your favorites list: ${response.status}`
-      );
+    if (response.ok) {
+      const favorites = await response.json();
+      await dispatch(viewFavorites(favorites));
+      return favorites;
     }
-    const favorites = await response.json();
-    await dispatch(viewFavorites(favorites));
-    return favorites;
   } catch (error) {
     throw new Error(
       `The following error occured while attempting to load your favorites list: ${error.message}`
@@ -125,6 +143,12 @@ export default function reducer(state = initialState, action) {
       newState = {
         ...state,
         byId: updatedById,
+      };
+      return newState;
+    case CLEARFAVS:
+      newState = {
+        allFavorites: [],
+        byId: {},
       };
       return newState;
     default:
