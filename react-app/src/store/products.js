@@ -96,7 +96,7 @@ export const deleteProduct = (product_id) => async (dispatch) => {
       console.log("response ok");
       const deletedItem = await response.json();
       dispatch(removeProduct(deletedItem));
-      dispatch(getUserProducts())
+      dispatch(getUserProducts());
       return deletedItem;
     }
   } catch (error) {
@@ -253,15 +253,16 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCT_DETAILS:
-      return {...state, productDetail: action.payload.Product_Details}
       if (action.payload.Product_Details) {
-        newState = {
+        return {
+          ...state,
           productDetail: action.payload.Product_Details,
         };
-        return newState;
       } else {
-        newState = action.payload;
-        return newState;
+        return {
+          ...state,
+          productDetail: action.payload,
+        };
       }
     ///////////////////////////////////
     ///////////////////////////////////

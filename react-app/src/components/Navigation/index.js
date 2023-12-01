@@ -88,7 +88,7 @@ function Navigation({ isLoaded }) {
 				<div className="shoppingCartDiv">
 					<NavLink to="/cart" className="shoppingCart">
 						<i class="fas fa-shopping-cart"></i>
-						{totalCartItems > 0 && <span className="cartItemCount">{totalCartItems}</span>}
+						{totalCartItems > 0 && sessionUser && <span className="cartItemCount">{totalCartItems}</span>}
 					</NavLink>
 				</div>
 			</div>
