@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp, login } from "../../store/session";
 import "./SignupForm.css";
+import { getCart } from "../../store/cart";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
@@ -77,6 +78,7 @@ function SignupFormModal() {
 		e.preventDefault();
 		setShowErrors(true)
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
+		dispatch(getCart())
 
 		if (data || Object.values(frontendErrors).length) {
 			setErrors(data)

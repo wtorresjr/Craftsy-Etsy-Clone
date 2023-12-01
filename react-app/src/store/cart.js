@@ -38,7 +38,7 @@ export const getCart = () => async (dispatch) => {
         if (response.ok) {
             const cartItems = await response.json();
             dispatch(loadCartItems(cartItems.Cart));
-            dispatch({ type: 'SET_CART_ID', payload: cartItems.cart_id });
+            dispatch({ type: 'SET_CART_ID', payload: cartItems.cart_id || undefined});
             return cartItems;
         }
     } catch (res) {
