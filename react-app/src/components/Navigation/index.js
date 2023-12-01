@@ -45,7 +45,7 @@ function Navigation({ isLoaded }) {
 								placeholder="Search for anything"
 							/>
 							<div className="searchIcon">
-								<Link className="magnifyingGlass">
+								<Link className="magnifyingGlass" onClick={handleNonFunctioningLinks}>
 									<i className="fas fa-search" />
 								</Link>
 							</div>
@@ -60,7 +60,7 @@ function Navigation({ isLoaded }) {
 								placeholder="Search for anything"
 							/>
 							<div className="searchIcon">
-								<Link className="magnifyingGlass">
+								<Link className="magnifyingGlass" onClick={handleNonFunctioningLinks}>
 									<i className="fas fa-search" />
 								</Link>
 							</div>
