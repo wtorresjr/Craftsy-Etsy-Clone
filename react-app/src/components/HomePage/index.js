@@ -10,7 +10,7 @@ import { loadCurrUserFavorites } from "../../store/favorite";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state?.session.user);
+  const sessionUser = useSelector((state) => state?.session?.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
@@ -18,10 +18,10 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    if (sessionUser) {
+    if (sessionUser && sessionUser.id && favoritedProducts.length) {
       dispatch(loadCurrUserFavorites());
     }
-  }, [dispatch, sessionUser]);
+  }, [dispatch, sessionUser, favoritedProducts]);
 
   return (
     <div className="mainProductDisplay">

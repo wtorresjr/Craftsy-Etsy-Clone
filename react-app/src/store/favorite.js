@@ -2,6 +2,7 @@ const VIEW = "favorites/VIEW_FAVORITE";
 const ADD = "favorites/ADD_FAVORITE";
 const REMOVE = "favorites/REMOVE_FAVORITE";
 
+
 //Actions:
 const viewFavorites = (favorites) => {
   return {

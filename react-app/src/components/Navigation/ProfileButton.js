@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    const successLogout = dispatch(logout());
+    const successLogout = dispatch(await logout());
     if (successLogout) {
       history.push("/");
     }
