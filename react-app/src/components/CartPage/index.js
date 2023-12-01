@@ -12,6 +12,7 @@ import { getAllProducts } from "../../store/products";
 import { getCart } from "../../store/cart";
 
 import "./cartpage.css";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const CartPage = () => {
     const dispatch = useDispatch();
@@ -44,6 +45,8 @@ const CartPage = () => {
             setProducts(productsArray.slice(randomNumber - 5, randomNumber));
         }
     }, [cartItemsArray, productsArray, sessionUser]);
+
+    if (!sessionUser) return <Redirect to="/" />;
 
     return (
         <div className="mainCartContainer">
