@@ -42,7 +42,7 @@ function SignupFormModal() {
 	useEffect(() => {
 		const frontendErrs = {};
 		if (firstName.startsWith(" ")) frontendErrs.firstName = "Input cannot begin with a space.";
-		if (firstName.length > 15) frontendErrs.firsttName = "Character limit exceeded. Must be no more than 15 characters."
+		if (firstName.length > 15) frontendErrs.firstName = "Character limit exceeded. Must be no more than 15 characters."
 		if (lastName.startsWith(" ")) frontendErrs.lastName = "Input cannot begin with a space.";
 		if (lastName.length > 15) frontendErrs.lastName = "Character limit exceeded. Must be no more than 15 characters.";
 		if (email.startsWith(" ")) frontendErrs.email= "Input cannot begin with a space.";
