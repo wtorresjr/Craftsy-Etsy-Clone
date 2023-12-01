@@ -113,7 +113,7 @@ function ProfileButton({ user }) {
               className="signInButton"
               buttonText="Sign in"
               modalComponent={<LoginFormModal />}
-            />
+
             {/* <button onClick={openMenu} className="signInButton">
               Sign in
             </button>
