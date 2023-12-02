@@ -208,7 +208,7 @@ export const addNewProductImage =
 
 //Delete A Product Image
 
-export const resetAllProducts = (product, productId, imageId) => async (dispatch) => {
+export const RemoveProductImg = (productId, imageId) => async (dispatch) => {
   try {
     const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
       method: "DELETE",
@@ -217,7 +217,7 @@ export const resetAllProducts = (product, productId, imageId) => async (dispatch
       },
     })
     if (response.ok) {
-      dispatch(removeProductImage(product))
+      dispatch(removeProductImage())
     }
   } catch (error) {
     throw error;
@@ -326,7 +326,6 @@ export default function reducer(state = initialState, action) {
     case REMOVE_PRODUCT_IMAGE:
       return {
         ...state,
-        // removedProduct: [state.removedProduct, action.payload],
       };
 
     default:
