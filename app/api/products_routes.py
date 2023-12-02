@@ -145,6 +145,7 @@ def create_new_product():
     db.session.add(new_product)
     db.session.commit()
 
+
     newPreviewImage = ProductImage(
         product_id=new_product.id,
         image_url=data.get('preview_image_url'),
@@ -153,6 +154,8 @@ def create_new_product():
 
     db.session.add(newPreviewImage)
     db.session.commit()
+    
+    
 
     product_with_img = new_product.to_dict()
     product_with_img["preview_image_url"] = data.get('preview_image_url')
