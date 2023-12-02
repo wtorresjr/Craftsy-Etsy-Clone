@@ -51,25 +51,19 @@ const ProductDetailPage = () => {
   return (
     <>
       {currentProduct?.id ? (
-        <>
-          <h1>{currentProduct?.name}</h1>
+        <div className="prodDetailsContain">
           <div>
+            <h1>{currentProduct?.name}</h1>
             {currentProduct?.preview_image_url ? (
               <img src={currentProduct?.preview_image_url[0]} />
             ) : (
               "no image"
             )}
-            <div>
-              <div className="itemprice">
-                ${currentProduct?.price.toFixed(2)}
-              </div>
-              <div className="itemdescription">
-                {currentProduct?.description}
-              </div>
-              <div className="itemarriving">
-                <i className="fa-solid fa-check"></i>
-                Arrives soon! Get it by Tomorrow if you order today
-              </div>
+            <div className="itemprice">${currentProduct?.price.toFixed(2)}</div>
+            <div className="itemdescription">{currentProduct?.description}</div>
+            <div className="itemarriving">
+              <i className="fa-solid fa-check"></i>
+              Arrives soon! Get it by Tomorrow if you order today
             </div>
             <label className="dropdown">Quantity</label>
             <select
@@ -92,7 +86,7 @@ const ProductDetailPage = () => {
             <ReviewList productId={productId} />
             <hr />
           </div>
-        </>
+        </div>
       ) : (
         <div style={{ textAlign: "center" }}>
           <h2>No product found</h2>
