@@ -20,6 +20,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
+    
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
@@ -46,15 +47,13 @@ const HomePage = () => {
                   />
                 ))}
           </>
-        ) : (
-          ""
-        )}
+        ) : null}
       </div>
       {/* <SellerSpotLight product={allProducts[2]} /> */}
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.map((product) => {
+          allProducts.slice(0, 5).map((product) => {
             return (
               <ProductTile
                 key={product.id}

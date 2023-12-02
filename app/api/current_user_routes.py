@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from ..models import User, Review, Favorite, Product, ReviewImage, db
 from flask_login import login_required, current_user, LoginManager
+from sqlalchemy import desc
 
 
 current_user_routes = Blueprint('current-user', __name__)
@@ -63,7 +64,7 @@ def get_current_user_reviews():
 @login_required
 def get_curr_user_favorites():
     current_user_favorites = Favorite.query.filter_by(
-        user_id=current_user.id).all()
+        user_id=current_user.id).order_by(desc(Favorite.created_at)).all()
 
     if not current_user_favorites:
         return {'message': 'You have no saved favorites.'}
