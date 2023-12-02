@@ -9,16 +9,41 @@ function UpdateProduct() {
     const dispatch = useDispatch()
     const history = useHistory()
     const currentProductInfo = useSelector((state) => state?.products?.productDetail);
-
-    const [updatedProductInfo, setUpdatedProductInfo] = useState({ ...currentProductInfo })
+    // const [updatedName, setUpdatedName] = useState(currentProductInfo?.name)
+    // const [updatedDescription, setUpdatedDescription] = useState(currentProductInfo?.description)
+    // const [updatedPrice, setUpdatedPrice] = useState(currentProductInfo?.price)
+    // const [updatedQuantity, setUpdatedQuantity] = useState(currentProductInfo?.quantity)
+    // const [updatedPreviewImg, setUpdatedPreviewImg] = useState(currentProductInfo?.preview_image_url)
 
     const [errors, setErrors] = useState({});
 
+    // console.log(currentProductInfo)
+
     useEffect(() => {
         if (product_id) {
-            dispatch(getProductInfo(product_id))
+            dispatch(getProductInfo(parseInt(product_id)))
         }
     }, [dispatch, product_id])
+
+
+    const [updatedProductInfo, setUpdatedProductInfo] = useState({
+        name: '',
+        description: '',
+        price: '',
+        quantity: '',
+        preview_image_url: ''
+    })
+
+
+    // const updatedProductInfo = {
+    //     id: product_id,
+    //     updatedName,
+    //     updatedDescription,
+    //     updatedPrice,
+    //     updatedQuantity,
+    //     updatedPreviewImg
+    // }
+
 
     useEffect(() => {
         if (currentProductInfo && currentProductInfo.id) {
@@ -28,13 +53,14 @@ function UpdateProduct() {
                 price: currentProductInfo.price,
                 quantity: currentProductInfo.quantity,
                 preview_image_url: currentProductInfo.preview_image_url
+
             })
         }
     }, [currentProductInfo])
 
 
-    // console.log('THE CURRENT PRODUCT INFO--', currentProductInfo)
-    // console.log('THE **UPDATED ** PRODUT INFO', updatedProductInfo)
+
+
 
 
     useEffect(() => {
@@ -116,8 +142,7 @@ function UpdateProduct() {
     const handleProductUpdate = (e) => {
         e.preventDefault()
 
-        dispatch(editAproduct(product_id, updatedProductInfo)).then((updatedProduct) => history.push(`products/${updatedProduct.id}`))
-        console.log(+(updatedProductInfo.name).length)
+        dispatch(editAproduct(product_id, updatedProductInfo)).then(() => history.push(`/products/${product_id}`))
     }
 
     return (
@@ -131,6 +156,7 @@ function UpdateProduct() {
                             Name:
                             <input
                                 type="text"
+                                name="name"
                                 value={updatedProductInfo.name}
                                 onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, name: e.target.value })}
                                 required
@@ -143,6 +169,7 @@ function UpdateProduct() {
                             Description:
                             <input
                                 type="text"
+                                name="description"
                                 value={updatedProductInfo.description}
                                 onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, description: e.target.value })}
                                 required
@@ -155,6 +182,7 @@ function UpdateProduct() {
                             Price:
                             <input
                                 type="number"
+                                name="price"
                                 value={updatedProductInfo.price}
                                 onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, price: e.target.value })}
                                 required
@@ -167,6 +195,7 @@ function UpdateProduct() {
                             Quantity:
                             <input
                                 type="number"
+                                name="quantity"
                                 value={updatedProductInfo.quantity}
                                 onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, quantity: e.target.value })}
                                 required
@@ -181,6 +210,7 @@ function UpdateProduct() {
                             Preview Image:
                             <input
                                 type="text"
+                                name="preview_image_url"
                                 value={updatedProductInfo.preview_image_url}
                                 onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, preview_image_url: e.target.value })}
                                 required
@@ -193,6 +223,47 @@ function UpdateProduct() {
                             <p className="errorDiv">{errors.wrongFormat}</p>
                         )}
                     </li>
+                    {/* <li>
+                        <label>
+                            Additional Images: (Optional)
+                            <input
+                                value={extImg1}
+                                onChange={(e) => setExtImg1(e.target.value)}
+                                type="text"
+                                name="extImg1"
+                            />
+                            {errors && errors.formatImg1 && (
+                                <p className="errorDiv">{errors.formatImg1}</p>
+                            )}
+                            <input
+                                value={extImg2}
+                                onChange={(e) => setExtImg2(e.target.value)}
+                                type="text"
+                                name="extImg2"
+                            />
+                            {errors && errors.formatImg2 && (
+                                <p className="errorDiv">{errors.formatImg2}</p>
+                            )}
+                            <input
+                                value={extImg3}
+                                onChange={(e) => setExtImg3(e.target.value)}
+                                type="text"
+                                name="extImg3"
+                            />
+                            {errors && errors.formatImg3 && (
+                                <p className="errorDiv">{errors.formatImg3}</p>
+                            )}
+                            <input
+                                value={extImg4}
+                                onChange={(e) => setExtImg4(e.target.value)}
+                                type="text"
+                                name="extImg4"
+                            />
+                            {errors && errors.formatImg4 && (
+                                <p className="errorDiv">{errors.formatImg4}</p>
+                            )}
+                        </label>
+                    </li> */}
                     <button className="submitBtn" type="submit">
                         Update Product
                     </button>
