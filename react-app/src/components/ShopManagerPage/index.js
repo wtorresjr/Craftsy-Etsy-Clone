@@ -20,7 +20,7 @@ function ShopManagerPage() {
             <div className="manageListingssHeader">
                 <h1>Listings Manager</h1>
                 <button>
-                    <Link to='/create-a-product' className="createListingButton"> <i class="fas fa-plus"></i> Add a listing</Link>
+                    <Link to='/create-a-product' className="createListingButton"> <i className="fas fa-plus"></i> Add a listing</Link>
                 </button>
             </div>
             <div className="userListings">
