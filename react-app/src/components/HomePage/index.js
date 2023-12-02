@@ -13,17 +13,21 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state?.session?.user);
   const allProducts = useSelector((state) => state?.products?.allProducts);
-
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
 
+  let randomProd;
+
   useEffect(() => {
     dispatch(getAllProducts());
-    
+    if (allProducts.length) {
+      randomProd = Math.floor(Math.random() * allProducts?.length);
+    }
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
+    console.log("Random Num Gen'd", randomProd);
   }, [dispatch, sessionUser]);
 
   return (
@@ -58,9 +62,9 @@ const HomePage = () => {
               <ProductTile
                 key={product.id}
                 product={product}
-                prodTileImgStyle={"recentFaves"}
+                prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
-                // priceStyle={"hidden"}
+                priceStyle={"hidden"}
               />
             );
           })}
