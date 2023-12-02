@@ -21,13 +21,13 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    if (allProducts.length) {
-      randomProd = Math.floor(Math.random() * allProducts?.length);
-    }
+    // if (allProducts.length) {
+    //   randomProd = Math.floor(Math.random() * allProducts?.length);
+    // }
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
-    console.log("Random Num Gen'd", randomProd);
+    // console.log("Random Num Gen'd", randomProd);
   }, [dispatch, sessionUser]);
 
   return (
@@ -57,14 +57,14 @@ const HomePage = () => {
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0, 5).map((product) => {
+          allProducts.slice(0, 4).map((product) => {
             return (
               <ProductTile
                 key={product.id}
                 product={product}
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
-                priceStyle={"hidden"}
+                // priceStyle={"hidden"}
               />
             );
           })}
