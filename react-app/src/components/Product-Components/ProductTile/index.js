@@ -32,7 +32,7 @@ const ProductTile = ({
         setIsClicked={setLocalIsClicked}
         heartVal={heartVal}
       />
-      <Link to={`/products/${product.id}`}>
+      <Link to={`/products/${product?.id}`}>
         <img
           alt={product?.description}
           className={prodTileImgStyle}
