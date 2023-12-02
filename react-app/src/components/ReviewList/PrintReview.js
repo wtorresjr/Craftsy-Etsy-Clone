@@ -74,6 +74,7 @@ const PrintReview = ({ review }) => {
   }
 
   return (
+  return (
     <>
       <div>
         {/* gotta add stars to show as stars */}

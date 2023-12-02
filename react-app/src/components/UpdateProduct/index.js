@@ -10,27 +10,62 @@ function UpdateProduct() {
     const history = useHistory()
     const currentProductInfo = useSelector((state) => state?.products?.productDetail);
 
-    const [updatedProductInfo, setUpdatedProductInfo] = useState({ ...currentProductInfo })
+
+    console.log(currentProductInfo)
+    const [updatedProductInfo, setUpdatedProductInfo] = useState({
+        name: '',
+        description: '',
+        price: '',
+        quantity: '',
+        preview_image_url: ''
+    })
+    // const [updatedName, setUpdatedName] = useState(currentProductInfo?.name)
+    // const [updatedDescription, setUpdatedDescription] = useState(currentProductInfo?.description)
+    // const [updatedPrice, setUpdatedPrice] = useState(currentProductInfo?.price)
+    // const [updatedQuantity, setUpdatedQuantity] = useState(currentProductInfo?.quantity)
+    // const [updatedPreviewImg, setUpdatedPreviewImg] = useState(currentProductInfo?.preview_image_url)
 
     const [errors, setErrors] = useState({});
 
+    // const updatedProductInfo = {
+    //     id: product_id,
+    //     updatedName,
+    //     updatedDescription,
+    //     updatedPrice,
+    //     updatedQuantity,
+    //     updatedPreviewImg
+    // }
+
     useEffect(() => {
         if (product_id) {
-            dispatch(getProductInfo(product_id))
+            dispatch(getProductInfo(parseInt(product_id)))
         }
     }, [dispatch, product_id])
 
     useEffect(() => {
         if (currentProductInfo && currentProductInfo.id) {
             setUpdatedProductInfo({
-                name: currentProductInfo.name,
-                description: currentProductInfo.description,
-                price: currentProductInfo.price,
-                quantity: currentProductInfo.quantity,
-                preview_image_url: currentProductInfo.preview_image_url
+                name: currentProductInfo.name || '',
+                description: currentProductInfo.description || '',
+                price: currentProductInfo.price || '',
+                quantity: currentProductInfo.quantity || '',
+                preview_image_url: currentProductInfo.preview_image_url || ''
             })
         }
     }, [currentProductInfo])
+
+    useEffect(() => {
+        return () => {
+            setUpdatedProductInfo({
+                name: '',
+                description: '',
+                price: '',
+                quantity: '',
+                preview_image_url: ''
+            })
+        }
+    }, [])
+
 
     // const errorCollector = {};
     // useEffect(() => {
@@ -52,6 +87,8 @@ function UpdateProduct() {
     //     const descError2 = "Description must be alphabetic characters";
     //     const priceError = "Price must be a valid number greater than 0.";
     //     const quantityError = "Quantity must be a valid number greater than 0.";
+
+    //     console.log(updatedProductInfo)
 
 
     //     if (updatedProductInfo.name.length < 3 || updatedProductInfo.name.length > 30) {
@@ -81,13 +118,12 @@ function UpdateProduct() {
 
     //     setErrors(errorCollector);
 
-    // }, [{ ...updatedProductInfo }]);
+    // }, [updatedProductInfo.name, updatedProductInfo.description, updatedProductInfo.price, updatedProductInfo.quantity, updatedProductInfo.preview_image_url]);
 
     const handleProductUpdate = (e) => {
         e.preventDefault()
 
-        dispatch(editAproduct(product_id, updatedProductInfo)).then((updatedProduct) => history.push(`products/${updatedProduct.id}`))
-        console.log(+(updatedProductInfo.name).length)
+        dispatch(editAproduct(product_id, updatedProductInfo)).then(() => history.push(`/products/${product_id}`))
     }
 
     return (
@@ -101,8 +137,9 @@ function UpdateProduct() {
                             Name:
                             <input
                                 type="text"
-                                value={updatedProductInfo.name}
-                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, name: e.target.value })}
+                                name="name"
+                                value={updatedProductInfo}
+                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, name: (e.target.value) })}
                                 required
                             />
                         </label>
@@ -113,8 +150,9 @@ function UpdateProduct() {
                             Description:
                             <input
                                 type="text"
-                                value={updatedProductInfo.description}
-                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, description: e.target.value })}
+                                name="description"
+                                value={updatedProductInfo}
+                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, description: (e.target.value) })}
                                 required
                             />
                         </label>
@@ -125,8 +163,9 @@ function UpdateProduct() {
                             Price:
                             <input
                                 type="number"
-                                value={updatedProductInfo.price}
-                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, price: e.target.value })}
+                                name="price"
+                                value={updatedProductInfo}
+                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, price: (e.target.value) })}
                                 required
                             />
                         </label>
@@ -137,8 +176,9 @@ function UpdateProduct() {
                             Quantity:
                             <input
                                 type="number"
-                                value={updatedProductInfo.quantity}
-                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, quantity: e.target.value })}
+                                name="quantity"
+                                value={updatedProductInfo}
+                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, quantity: (e.target.value) })}
                                 required
                             />
                         </label>
@@ -151,8 +191,9 @@ function UpdateProduct() {
                             Preview Image:
                             <input
                                 type="text"
-                                value={updatedProductInfo.preview_image_url}
-                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, preview_image_url: e.target.value })}
+                                name="preview_image_url"
+                                value={updatedProductInfo}
+                                onChange={(e) => setUpdatedProductInfo({ ...updatedProductInfo, preview_image_url: (e.target.value) })}
                                 required
                             />
                         </label>
