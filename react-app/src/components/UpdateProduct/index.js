@@ -114,14 +114,6 @@ function UpdateProduct() {
 
     const handleProductUpdate = (e) => {
         e.preventDefault()
-        // const updatedProductInfo = {
-        //     id: product_id,
-        //     updatedName,
-        //     updatedDescription,
-        //     updatedPrice,
-        //     updatedQuantity,
-        //     updatedPreviewImg
-        // }
 
         dispatch(editAproduct(product_id, updatedProductInfo)).then(() => history.push(`/products/${product_id}`))
     }
