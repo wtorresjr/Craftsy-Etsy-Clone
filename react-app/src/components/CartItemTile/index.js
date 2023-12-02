@@ -5,6 +5,7 @@ import { deleteItem, editItem } from "../../store/cart";
 import { getProductInfo } from "../../store/products";
 
 import "./cartitemtile.css";
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 
 const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => {
@@ -58,9 +59,14 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => 
                 </div>
 
                 <div className="detailContainer">
+
                     <div className="cartItemImgContainer">
-                        <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
+                        <NavLink to={`/products/${item.product_id}`}>
+                            <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
+                        </NavLink>
                     </div>
+
+
 
                     <div className="cartItemDetailsContainer">
                         <div className="cartItemDetails">
