@@ -92,6 +92,7 @@ const ReviewList = ({ productId }) => {
   useEffect(() => {
     dispatch(fetchReviewById(productId));
   }, [dispatch, sessionUser]);
+
   return (
     <>
       {allReviewsByProductId.forEach((review) => {
@@ -100,7 +101,7 @@ const ReviewList = ({ productId }) => {
       })}
 
       {/* if user has a review conditions */}
-      {sessionUser && sessionUser.id !== currentProduct.user_id&& reviewExists === false ? (
+      {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
         <OpenModalButton
           className="ReviewFormButton"
           buttonText="Leave a Review"
