@@ -19,7 +19,6 @@ function UpdateProduct() {
     // const [updatedPrice, setUpdatedPrice] = useState(currentProductInfo?.price)
     // const [updatedQuantity, setUpdatedQuantity] = useState(currentProductInfo?.quantity)
     // const [updatedPreviewImg, setUpdatedPreviewImg] = useState(currentProductInfo?.preview_image_url)
-    const [isLoaded, setIsLoaded] = useState(false)
 
     const [errors, setErrors] = useState({});
 
@@ -58,7 +57,7 @@ function UpdateProduct() {
                 extraImages[i] = extra_images_urls[i] || ''
             }
         }
-        console.log(extraImages)
+        console.log(extraImages[0].image_url)
         return extraImages
     }
 
@@ -76,9 +75,9 @@ function UpdateProduct() {
                 preview_image_url: currentProductInfo.preview_image_url,
                 extra_images_urls: extra_images_array(currentProductInfo?.Product_Images.filter(image => image.preview !== true))
 
-            }).then(() => setIsLoaded(true))
+            })
         }
-    }, [currentProductInfo, isLoaded])
+    }, [currentProductInfo])
 
 
     useEffect(() => {
@@ -275,23 +274,27 @@ function UpdateProduct() {
                     <li>
                         <label>
                             Additional Images:
-                            {updatedProductInfo.extra_images_urls.map((_, index) => {
-                                <input
-                                    value={updatedProductInfo.extra_images_urls[index]}
-                                    onChange={(e) => {
-                                        let newExtraImages = [...updatedProductInfo.extra_images_urls]
-                                        newExtraImages[index] = e.target.value
-                                        setUpdatedProductInfo({ ...updatedProductInfo, extra_images_urls: newExtraImages })
-                                    }}
-                                    type="text"
-                                    name={`extraImage${index + 1}`}
-                                    key={index}
-                                />
-                                {
-                                    errors && errors.formatImg && (
-                                        <p className="errorDiv">{errors.formatImg}</p>
-                                    )
-                                }
+                            {extra_images_array?.map((index) => {
+                                return (
+                                    <>
+                                        <input
+                                            value={extra_images_array[index]?.image_url}
+                                            onChange={(e) => {
+                                                let newExtraImages = [...updatedProductInfo.extra_images_urls]
+                                                newExtraImages[index] = e.target.value
+                                                setUpdatedProductInfo({ ...updatedProductInfo, extra_images_urls: newExtraImages })
+                                            }}
+                                            type="text"
+                                            name={`extraImage${index + 1}`}
+                                            key={index}
+                                        />
+                                        {
+                                            errors && errors.formatImg && (
+                                                <p className="errorDiv">{errors.formatImg}</p>
+                                            )
+                                        }
+                                    </>
+                                )
                             })}
                         </label>
                     </li>
