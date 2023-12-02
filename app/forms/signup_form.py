@@ -23,7 +23,7 @@ def username_exists(form, field):
 def email_format(form, field):
     # Checking to see if the email inputted is in the reequested format
     email = field.data
-    email_pattern = r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
+    email_pattern = r"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
     if not re.match(email_pattern, email):
         raise ValidationError("Not a valid email.")
 
@@ -38,7 +38,19 @@ def password_length(form, field):
 def max_char_15(form, field):
     # Checking if user input is no more than 15 characters long
     if len(field.data) > 15:
-        raise ValidationError('Character limit exceeded. Must be no more than 15 characters.')
+         raise ValidationError("Input must not exceed 15 characters.")
+
+
+def max_char_40(form, field):
+    # Checking if user input is no more than 40 characters long
+    if len(field.data) > 40:
+        raise ValidationError("Input must not exceed 40 characters.")
+
+
+def max_char_255(form, field):
+    # Checking if user input is no more than 40 characters long
+    if len(field.data) > 255:
+        raise ValidationError("Input must not exceed 255 characters.")
 
 
 
@@ -50,10 +62,10 @@ def starting_with_spaces(form, field):
 
 class SignUpForm(FlaskForm):
     first_name = StringField(
-        'first name', validators=[DataRequired(), max_char_15, starting_with_spaces])
+        'first name', validators=[DataRequired(), starting_with_spaces, max_char_15])
     last_name = StringField(
-        'last name', validators=[DataRequired(), max_char_15, starting_with_spaces])
+        'last name', validators=[DataRequired(), starting_with_spaces, max_char_15])
     username = StringField(
-        'username', validators=[DataRequired(), username_exists, starting_with_spaces])
-    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, email_format])
-    password = StringField('password', validators=[DataRequired(), password_length, starting_with_spaces])
+        'username', validators=[DataRequired(), username_exists, starting_with_spaces, max_char_40])
+    email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, email_format, max_char_255])
+    password = StringField('password', validators=[DataRequired(), password_length, starting_with_spaces, max_char_255])
