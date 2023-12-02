@@ -60,7 +60,9 @@ const ProductDetailPage = () => {
               "no image"
             )}
             <div>
-              <div className="itemprice">${currentProduct?.price}</div>
+              <div className="itemprice">
+                ${currentProduct?.price.toFixed(2)}
+              </div>
               <div className="itemdescription">
                 {currentProduct?.description}
               </div>
