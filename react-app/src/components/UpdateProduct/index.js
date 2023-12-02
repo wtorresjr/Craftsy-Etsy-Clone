@@ -17,7 +17,7 @@ function UpdateProduct() {
 
     const [errors, setErrors] = useState({});
 
-    console.log(currentProductInfo)
+    // console.log(currentProductInfo)
 
     useEffect(() => {
         if (product_id) {
