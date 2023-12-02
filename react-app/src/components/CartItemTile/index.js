@@ -110,8 +110,8 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => 
 
                 <div className="cardFooter">
                     <div className="personalizeItemContainer">
-                        <button><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
-                        <button><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
+                        <button><i className="fa-solid fa-tag"></i>Apply shop coupon codes</button>
+                        <button><i className="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
                         <label><input type="checkbox" />Mark order as a gift</label>
                     </div>
 

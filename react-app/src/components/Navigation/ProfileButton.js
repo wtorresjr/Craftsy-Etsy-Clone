@@ -83,7 +83,11 @@ function ProfileButton({ user }) {
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
                 </Link>
-                <NavLink to="/shop-manager" className="sellerListings">
+                <NavLink
+                  to="/shop-manager"
+                  className="sellerListings"
+                  onClick={() => setShowMenu(false)}
+                >
                   <i className="fas fa-store"></i>
                   <p>Sell on Craftsy</p>
                 </NavLink>
@@ -93,7 +97,7 @@ function ProfileButton({ user }) {
                   className="accountSettings"
                   onClick={handleNonFunctioningLinks}
                 >
-                  <i class="fas fa-cog"></i>
+                  <i className="fas fa-cog"></i>
                   <p>Account settings</p>
                 </Link>
                 <div className="logOutDiv">

@@ -18,6 +18,8 @@ const FavoriteHeart = ({ product }) => {
     (fav) => fav.product_id === product.id
   );
 
+  
+
   const handleClick = async () => {
     if (!sessionUser) {
       setLocalIsClicked(false);
