@@ -125,5 +125,6 @@ const ReviewList = ({ productId }) => {
       </>
     );
   };
+};
 
-  export default ReviewList;
+export default ReviewList;
