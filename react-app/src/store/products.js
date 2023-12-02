@@ -149,11 +149,11 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
       body: JSON.stringify(editData),
     });
     if (response.ok) {
-      console.log(response, "res")
+      // console.log(response, "res")
       const edited = await response.json();
-      console.log(edited, "predispatch")
+      // console.log(edited, "predispatch")
       dispatch(editProduct(edited));
-      console.log(edited, "postdispatch")
+      // console.log(edited, "postdispatch")
       return edited;
     }
   } catch (error) {

@@ -9,15 +9,18 @@ function UpdateProduct() {
     const dispatch = useDispatch()
     const history = useHistory()
     const currentProductInfo = useSelector((state) => state?.products?.productDetail);
+    // const currentProductImages = useSelector((state) => state?.products?.productDetail?.Product_Images)
     // const [updatedName, setUpdatedName] = useState(currentProductInfo?.name)
     // const [updatedDescription, setUpdatedDescription] = useState(currentProductInfo?.description)
     // const [updatedPrice, setUpdatedPrice] = useState(currentProductInfo?.price)
     // const [updatedQuantity, setUpdatedQuantity] = useState(currentProductInfo?.quantity)
     // const [updatedPreviewImg, setUpdatedPreviewImg] = useState(currentProductInfo?.preview_image_url)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const [errors, setErrors] = useState({});
 
-    // console.log(currentProductInfo)
+    console.log(currentProductInfo)
+    // console.log(currentProductInfo.Product_Images)
 
     useEffect(() => {
         if (product_id) {
@@ -31,7 +34,8 @@ function UpdateProduct() {
         description: '',
         price: '',
         quantity: '',
-        preview_image_url: ''
+        preview_image_url: '',
+        extra_images_urls: Array(4).fill('')
     })
 
 
@@ -44,6 +48,20 @@ function UpdateProduct() {
     //     updatedPreviewImg
     // }
 
+    const extra_images_array = (extra_images_urls = []) => {
+        const extraImages = Array(4).fill('')
+        for (let i = 0; i < extra_images_urls.length; i++) {
+            if (extra_images_urls[i].preview === false) {
+                extraImages[i] = extra_images_urls[i] || ''
+            }
+        }
+        console.log(extraImages)
+        return extraImages
+    }
+
+    const currentProductImages = currentProductInfo?.Product_Images.filter(image => image.preview !== true)
+    console.log(currentProductImages)
+
 
     useEffect(() => {
         if (currentProductInfo && currentProductInfo.id) {
@@ -52,11 +70,12 @@ function UpdateProduct() {
                 description: currentProductInfo.description,
                 price: currentProductInfo.price,
                 quantity: currentProductInfo.quantity,
-                preview_image_url: currentProductInfo.preview_image_url
+                preview_image_url: currentProductInfo.preview_image_url,
+                extra_images_urls: extra_images_array(currentProductInfo?.Product_Images.filter(image => image.preview !== true))
 
-            })
+            }).then(() => setIsLoaded(true))
         }
-    }, [currentProductInfo])
+    }, [currentProductInfo, isLoaded])
 
 
     // const errorCollector = {};
@@ -204,47 +223,29 @@ function UpdateProduct() {
                             <p className="errorDiv">{errors.wrongFormat}</p>
                         )}
                     </li>
-                    {/* <li>
+                    <li>
                         <label>
-                            Additional Images: (Optional)
-                            <input
-                                value={extImg1}
-                                onChange={(e) => setExtImg1(e.target.value)}
-                                type="text"
-                                name="extImg1"
-                            />
-                            {errors && errors.formatImg1 && (
-                                <p className="errorDiv">{errors.formatImg1}</p>
-                            )}
-                            <input
-                                value={extImg2}
-                                onChange={(e) => setExtImg2(e.target.value)}
-                                type="text"
-                                name="extImg2"
-                            />
-                            {errors && errors.formatImg2 && (
-                                <p className="errorDiv">{errors.formatImg2}</p>
-                            )}
-                            <input
-                                value={extImg3}
-                                onChange={(e) => setExtImg3(e.target.value)}
-                                type="text"
-                                name="extImg3"
-                            />
-                            {errors && errors.formatImg3 && (
-                                <p className="errorDiv">{errors.formatImg3}</p>
-                            )}
-                            <input
-                                value={extImg4}
-                                onChange={(e) => setExtImg4(e.target.value)}
-                                type="text"
-                                name="extImg4"
-                            />
-                            {errors && errors.formatImg4 && (
-                                <p className="errorDiv">{errors.formatImg4}</p>
-                            )}
+                            Additional Images:
+                            {updatedProductInfo.extra_images_urls.map((_, index) => {
+                                <input
+                                    value={updatedProductInfo.extra_images_urls[index]}
+                                    onChange={(e) => {
+                                        let newExtraImages = [...updatedProductInfo.extra_images_urls]
+                                        newExtraImages[index] = e.target.value
+                                        setUpdatedProductInfo({ ...updatedProductInfo, extra_images_urls: newExtraImages })
+                                    }}
+                                    type="text"
+                                    name={`extraImage${index + 1}`}
+                                    key={index}
+                                />
+                                {
+                                    errors && errors.formatImg && (
+                                        <p className="errorDiv">{errors.formatImg}</p>
+                                    )
+                                }
+                            })}
                         </label>
-                    </li> */}
+                    </li>
                     <button className="submitBtn" type="submit">
                         Update Product
                     </button>
