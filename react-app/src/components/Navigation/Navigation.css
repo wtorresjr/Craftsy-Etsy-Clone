@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Cambria');
+@import url("https://fonts.googleapis.com/css?family=Cambria");
 
 .profile-dropdown {
   position: absolute;
   background-color: white;
-  border: 2px solid #C5C5C5;
+  border: 2px solid #c5c5c5;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
   margin: 0;
@@ -14,7 +14,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.profile-dropdown>li {
+.profile-dropdown > li {
   padding-bottom: 0px;
 }
 
@@ -37,14 +37,14 @@
 .homeButtonDiv {
   /* grid-column: span 2; */
   margin-left: 50px;
-  padding-top: 5px
+  padding-top: 5px;
 }
 
 .homeButton {
   display: flex;
   align-self: flex-start;
   text-decoration: none;
-  color: #F1641F;
+  color: #f1641f;
   font-weight: light;
   font-size: 40px;
   font-family: "Cambria", serif;
@@ -79,13 +79,13 @@
 .searchBarBig {
   /* grid-column: span 9; */
   padding: 5px;
-  width: 65%
+  width: 65%;
 }
 
 .searchBarSmall {
   /* grid-column: span 8; */
   padding: 5px;
-  width: 50%
+  width: 50%;
 }
 
 .searchBar {
@@ -103,7 +103,8 @@
   border-radius: 25px;
   padding: 10px;
   border: 3px solid black;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .searchIcon {
@@ -114,7 +115,7 @@
   position: absolute;
   top: 7.5%;
   right: 1%;
-  background-color: #F1641F;
+  background-color: #f1641f;
   border-radius: 100%;
   transition: transform 0.3s ease;
   overflow: hidden;
@@ -172,7 +173,7 @@ div.signInDiv {
   grid-column: span 2;
 }
 
-div.signInDiv>button {
+div.signInDiv > button {
   background-color: transparent;
   border: none;
 }
@@ -196,8 +197,6 @@ button.profileButton {
   cursor: pointer;
 }
 
-
-
 .signInButton {
   display: grid;
   height: 100%;
@@ -219,9 +218,9 @@ button.profileButton {
 }
 
 .shoppingCartDiv {
-  /* grid-column: span 1; */
   margin-right: 50px;
-  padding: 5px
+  padding: 5px;
+  cursor: pointer;
 }
 
 .shoppingCart {
@@ -236,7 +235,6 @@ button.profileButton {
   font-weight: light;
   color: rgb(34, 34, 34);
   position: relative;
-
 }
 
 .cartItemCount {
@@ -244,7 +242,7 @@ button.profileButton {
   font-size: 18px;
   top: -20%;
   right: -20%;
-  background-color: #CF4018;
+  background-color: #cf4018;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   font-weight: bold;
@@ -261,22 +259,22 @@ button.profileButton {
 }
 
 .shoppingCartDiv:hover {
-  background-color: #CCEBFF;
+  background-color: #ccebff;
   border-radius: 100%;
 }
 
 .profileButton:hover {
-  background-color: #CCEBFF;
+  background-color: #ccebff;
   border-radius: 30px;
 }
 
 .bell:hover {
-  background-color: #CCEBFF;
+  background-color: #ccebff;
   border-radius: 30px;
 }
 
 i.far.fa-heart:hover {
-  background-color: #CCEBFF;
+  background-color: #ccebff;
   border-radius: 100%;
   /* width: 50%; */
 }
@@ -285,13 +283,13 @@ i.far.fa-heart:hover {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   border-bottom: 2px solid lightgray;
-  background-color: #CCEBFF;
+  background-color: #ccebff;
   text-decoration: none;
   color: black;
   padding-top: 5px;
 }
 
-.profileDropdownUser>i.fas.fa-user-circle {
+.profileDropdownUser > i.fas.fa-user-circle {
   font-size: 25px;
   grid-column: span 1;
   display: grid;
@@ -305,12 +303,12 @@ i.far.fa-heart:hover {
   grid-column: span 5;
 }
 
-.firstLastName>p {
+.firstLastName > p {
   margin: 0px 10px 15px 15px;
   font-size: 15px;
 }
 
-.firstLastName>h4 {
+.firstLastName > h4 {
   margin: 5px 10px 5px 15px;
   font-size: 18px;
 }
@@ -327,7 +325,7 @@ i.far.fa-heart:hover {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   text-decoration: none;
-  color: black
+  color: black;
 }
 
 .sellerListings {
@@ -341,11 +339,11 @@ i.far.fa-heart:hover {
   background-color: rgb(228, 226, 226);
 }
 
-.purchasesReviews>i.fas.fa-clipboard-list,
-.messages>i.far.fa-comment-dots,
-.accountSettings>i.fas.fa-cog,
-.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180,
-.sellerListings>i.fas.fa-store {
+.purchasesReviews > i.fas.fa-clipboard-list,
+.messages > i.far.fa-comment-dots,
+.accountSettings > i.fas.fa-cog,
+.logOutDiv > i.fas.fa-sign-out-alt.fa-rotate-180,
+.sellerListings > i.fas.fa-store {
   font-size: 20px;
   grid-column: span 1;
   display: grid;
@@ -355,10 +353,10 @@ i.far.fa-heart:hover {
   margin-left: 10px;
 }
 
-.purchasesReviews>p,
-.messages>p,
-.accountSettings>p,
-.sellerListings>p {
+.purchasesReviews > p,
+.messages > p,
+.accountSettings > p,
+.sellerListings > p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;

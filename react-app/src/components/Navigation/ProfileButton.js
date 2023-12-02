@@ -83,7 +83,11 @@ function ProfileButton({ user }) {
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
                 </Link>
-                <NavLink to="/shop-manager" className="sellerListings">
+                <NavLink
+                  to="/shop-manager"
+                  className="sellerListings"
+                  onClick={() => setShowMenu(false)}
+                >
                   <i className="fas fa-store"></i>
                   <p>Sell on Craftsy</p>
                 </NavLink>

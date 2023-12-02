@@ -16,7 +16,7 @@ const ProductDetailPage = () => {
   const history = useHistory();
 
   const { productId } = useParams();
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(1);
 
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
@@ -28,7 +28,7 @@ const ProductDetailPage = () => {
   }
 
   //useSelector to get the current cart
-  const currentCart = useSelector((state) => state?.cart?.cartId)
+  const currentCart = useSelector((state) => state?.cart?.cartId);
 
   useEffect(() => {
     dispatch(fetchReviewById(parseInt(productId)));
@@ -43,11 +43,10 @@ const ProductDetailPage = () => {
     const newCartItem = {
       product_id: productId,
       cart_id: currentCart,
-      quantity: selected
-    }
+      quantity: selected,
+    };
     dispatch(addItem(newCartItem, currentCart)).then(history.push("/cart"));
   };
-
 
   return (
     <>
@@ -73,7 +72,7 @@ const ProductDetailPage = () => {
             <label className="dropdown">Quantity</label>
             <select
               id="dropdown"
-              value={selected}
+              defaultValue={1}
               onChange={handleSelectChange}
             >
               {index.map((idx) => {

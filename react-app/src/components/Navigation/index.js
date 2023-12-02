@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import { getCart } from "../../store/cart";
+import { useModal } from "../../context/Modal";
+import LoginFormModal from "../LoginFormModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
+	const history = useHistory();
+	const { setModalContent, closeModal } = useModal();
 
 	useEffect(() => {
 		dispatch(getCart());
@@ -19,6 +23,15 @@ function Navigation({ isLoaded }) {
 
 	const handleNonFunctioningLinks = () => {
 		alert("Feature Coming Soon...");
+	};
+
+	const checkLoggedIn = () => {
+		if (!sessionUser) {
+			return setModalContent(<LoginFormModal />);
+		} else {
+			// closeModal();
+			history.push("/cart");
+		}
 	};
 
 	return (
@@ -95,13 +108,13 @@ function Navigation({ isLoaded }) {
 					<ProfileButton user={sessionUser} />
 					// </div>
 				)}
-				<div className="shoppingCartDiv">
-					<NavLink to="/cart" className="shoppingCart">
+				<div className="shoppingCartDiv" onClick={checkLoggedIn}>
+					<div className="shoppingCart">
 						<i className="fas fa-shopping-cart"></i>
 						{totalCartItems > 0 && sessionUser && (
 							<span className="cartItemCount">{totalCartItems}</span>
 						)}
-					</NavLink>
+					</div>
 				</div>
 			</div>
 		</>
