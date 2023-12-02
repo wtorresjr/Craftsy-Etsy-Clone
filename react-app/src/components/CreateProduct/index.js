@@ -120,7 +120,7 @@ const CreateProduct = () => {
       });
   };
 
-  
+
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit}>
