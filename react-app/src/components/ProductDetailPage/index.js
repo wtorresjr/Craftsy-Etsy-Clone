@@ -65,7 +65,7 @@ const ProductDetailPage = () => {
                 {currentProduct?.description}
               </div>
               <div className="itemarriving">
-                <i class="fa-solid fa-check"></i>
+                <i className="fa-solid fa-check"></i>
                 Arrives soon! Get it by Tomorrow if you order today
               </div>
             </div>

@@ -31,10 +31,10 @@ const Transaction = ({ totalItems, shippingPrice }) => {
                     <h2 className="transactionHeader">How you'll pay</h2>
                 </div>
                 <div className="paymentOptions">
-                    <label><input type="radio" /><i class="fa-brands fa-cc-visa fa-2xl"></i><i class="fa-brands fa-cc-discover fa-2xl"></i><i class="fa-brands fa-cc-amex fa-2xl"></i><i class="fa-brands fa-cc-mastercard fa-2xl"></i></label>
-                    <label><input type="radio" /><i class="fa-brands fa-cc-paypal fa-2xl"></i></label>
-                    <label><input type="radio" /><i class="fa-brands fa-google-pay fa-2xl"></i></label>
-                    <label><input type="radio" /><i class="fa-brands fa-cc-apple-pay fa-2xl"></i></label>
+                    <label><input type="radio" /><i className="fa-brands fa-cc-visa fa-2xl"></i><i className="fa-brands fa-cc-discover fa-2xl"></i><i className="fa-brands fa-cc-amex fa-2xl"></i><i className="fa-brands fa-cc-mastercard fa-2xl"></i></label>
+                    <label><input type="radio" /><i className="fa-brands fa-cc-paypal fa-2xl"></i></label>
+                    <label><input type="radio" /><i className="fa-brands fa-google-pay fa-2xl"></i></label>
+                    <label><input type="radio" /><i className="fa-brands fa-cc-apple-pay fa-2xl"></i></label>
                 </div>
                 {totalPrice > 0 ? (
                     <div className="priceCalculationContainer">
