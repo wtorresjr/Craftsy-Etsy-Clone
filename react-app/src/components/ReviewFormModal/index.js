@@ -29,9 +29,9 @@ function ReviewFormModal ({productId}) {
     if(star_rating === ''){
       errorCollector.stars = "stars is empty"
     }
-    else if(parseInt(star_rating) !== 1 || parseInt(star_rating) !== 2 ||
-    parseInt(star_rating) !== 3 ||
-    parseInt(star_rating) !== 4 ||
+    else if(parseInt(star_rating) !== 1 && parseInt(star_rating) !== 2 &&
+    parseInt(star_rating) !== 3 &&
+    parseInt(star_rating) !== 4 &&
     parseInt(star_rating) !== 5 ) {
       errorCollector.stars = "invalid input for stars (must be between 1 - 5)"
     }
