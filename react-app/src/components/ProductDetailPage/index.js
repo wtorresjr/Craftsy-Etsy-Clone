@@ -3,14 +3,17 @@ import "./ProductDetail.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { getAllProducts, getProductInfo } from "../../store/products";
 import { fetchReviews, fetchReviewById } from "../../store/reviews";
 import ReviewList from "../ReviewList";
 import ProductTile from "../Product-Components/ProductTile";
 
+import { addItem } from "../../store/cart";
+
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { productId } = useParams();
   const [selected, setSelected] = useState("");
@@ -24,6 +27,9 @@ const ProductDetailPage = () => {
     }
   }
 
+  //useSelector to get the current cart
+  const currentCart = useSelector((state) => state?.cart?.cartId)
+
   useEffect(() => {
     dispatch(fetchReviewById(parseInt(productId)));
     dispatch(getProductInfo(parseInt(productId)));
@@ -32,6 +38,16 @@ const ProductDetailPage = () => {
   const handleSelectChange = (e) => {
     setSelected(e.target.value);
   };
+
+  const handleAddToCart = async () => {
+    const newCartItem = {
+      product_id: productId,
+      cart_id: currentCart,
+      quantity: selected
+    }
+    dispatch(addItem(newCartItem, currentCart)).then(history.push("/cart"));
+  };
+
 
   return (
     <>
@@ -68,7 +84,7 @@ const ProductDetailPage = () => {
                 );
               })}
             </select>
-            <button>Add to Cart</button>
+            <button onClick={handleAddToCart}>Add to Cart</button>
             <hr />
             Related Searches
             <hr />
