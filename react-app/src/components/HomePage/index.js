@@ -57,7 +57,7 @@ const HomePage = () => {
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
-          allProducts.slice(0, 4).map((product) => {
+          allProducts.slice(0).map((product) => {
             return (
               <ProductTile
                 key={product.id}

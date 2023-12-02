@@ -97,7 +97,7 @@ function ProfileButton({ user }) {
                   className="accountSettings"
                   onClick={handleNonFunctioningLinks}
                 >
-                  <i class="fas fa-cog"></i>
+                  <i className="fas fa-cog"></i>
                   <p>Account settings</p>
                 </Link>
                 <div className="logOutDiv">

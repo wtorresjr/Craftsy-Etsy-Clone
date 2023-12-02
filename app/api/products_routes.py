@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request, url_for, abort
 from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -233,7 +233,8 @@ def create_product_review(product_id):
 @login_required
 def get_current_user_products():
 
-    products_by_user = Product.query.filter_by(user_id=current_user.id).all()
+    products_by_user = Product.query.filter_by(
+        user_id=current_user.id).order_by(desc(Product.created_at)).all()
 
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})
