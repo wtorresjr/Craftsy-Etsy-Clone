@@ -2,6 +2,7 @@ import "./homepage.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
+import SellerSpotLight from "../SellerSpotLight_View";
 import { getAllProducts, resetAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
@@ -27,6 +28,30 @@ const HomePage = () => {
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
+        {favoritedProducts && favoritedProducts.length > 4 ? (
+          <>
+            <h3>Recently Faved...</h3>
+            {allProducts &&
+              allProducts
+                .filter((product) =>
+                  favoritedProducts.some((fav) => product.id === fav.product_id)
+                )
+                .slice(0, 5)
+                .map((filteredProduct) => (
+                  <ProductTile
+                    key={filteredProduct.id}
+                    product={filteredProduct}
+                    prodTileImgStyle={"recentFaves"}
+                    tileContainerStyle={"productTileContain"}
+                  />
+                ))}
+          </>
+        ) : (
+          ""
+        )}
+      </div>
+      {/* <SellerSpotLight product={allProducts[2]} /> */}
+      <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
           allProducts.map((product) => {
@@ -41,23 +66,6 @@ const HomePage = () => {
             );
           })}
       </div>
-      {/* <div className="largeTileContain">
-        {favoritedProducts && favoritedProducts.length > 4 && (
-          <h3>Recently Favorited...</h3>
-        )}
-        {favoritedProducts &&
-          favoritedProducts.length > 4 &&
-          favoritedProducts.slice(0,5).map((product) => {
-            return (
-              <ProductTile
-                key={product.id}
-                product={product}
-                prodTileImgStyle={"recentFaves"}
-                tileContainerStyle={"productTileContain"}
-              />
-            );
-          })}
-      </div> */}
     </div>
   );
 };
