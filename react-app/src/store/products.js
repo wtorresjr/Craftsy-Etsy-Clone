@@ -7,6 +7,14 @@ const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
 const EDIT_PRODUCT = "products/EDIT_PRODUCT";
 const RESET_PRODUCTS = "products/RESET_PRODUCTS";
+const REMOVE_PRODUCT_IMAGE = "products/REMOVE_PRODUCT_IMAGE"
+
+const removeProductImage = (product) => {
+  return {
+    type: REMOVE_PRODUCT_IMAGE,
+    payload: product
+  }
+}
 
 const resetProducts = (products) => {
   return {
@@ -200,11 +208,19 @@ export const addNewProductImage =
 
 //Delete A Product Image
 
-export const resetAllProducts = () => async (dispatch) => {
+export const resetAllProducts = (product, productId, imageId) => async (dispatch) => {
   try {
-    await dispatch(resetProducts());
-  } catch (err) {
-    throw err;
+    const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    if (response.ok) {
+      dispatch(removeProductImage(product))
+    }
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -307,7 +323,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, [action.productData.id]: action.productData };
     ///////////////////////////////////
     ///////////////////////////////////
-    case REMOVE_PRODUCT:
+    case REMOVE_PRODUCT_IMAGE:
       return {
         ...state,
         // removedProduct: [state.removedProduct, action.payload],
