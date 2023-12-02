@@ -218,11 +218,16 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case RESET_PRODUCTS:
-      return {
-        ...state,
+      console.log("Reset Products");
+      newState = {
         allProducts: [],
-        allProducts: [],
+        newImageAdded: [],
+        productEdit: {},
+        allUserCreated: [],
+        removedProduct: [],
+        productDetail: [],
       };
+      return newState;
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_ALL_PRODUCTS:

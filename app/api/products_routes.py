@@ -13,8 +13,7 @@ products_routes = Blueprint('products', __name__)
 
 @products_routes.route('/', methods=['GET'])
 def get_all_products():
-    products = Product.query.all()
-    # products_data = [product.to_dict() for product in products]
+    products = Product.query.order_by(Product.created_at.desc()).all()
     products_with_images = []
 
     for product in products:
