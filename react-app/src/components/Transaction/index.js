@@ -9,7 +9,7 @@ const Transaction = ({ totalItems, shippingPrice }) => {
     let totalPrice = 0;
 
     const handlePurchase = (e) => {
-        const cartData = {"Cart": []};
+        const cartData = { "Cart": [] };
 
         totalItems.forEach((item) => {
             const itemData = { item_id: item.id, purchased: true }

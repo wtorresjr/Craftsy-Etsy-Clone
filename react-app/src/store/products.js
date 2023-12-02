@@ -81,9 +81,11 @@ export const getAllProducts = () => async (dispatch) => {
 // Get Product By ID
 export const getProductInfo = (productId) => async (dispatch) => {
   try {
+    // console.log(productId)
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
       const productFound = await response.json();
+      console.log(productFound)
       dispatch(productDetails(productFound));
       return productFound;
     }
@@ -147,8 +149,11 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
       body: JSON.stringify(editData),
     });
     if (response.ok) {
+      console.log(response, "res")
       const edited = await response.json();
+      console.log(edited, "predispatch")
       dispatch(editProduct(edited));
+      console.log(edited, "postdispatch")
       return edited;
     }
   } catch (error) {
@@ -256,7 +261,15 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case EDIT_PRODUCT:
-      return { ...state, ...state.productEdit, ...action.payload };
+      // return { ...state, ...state.productEdit, ...action.payload };
+      newState = { ...state }
+      newState.allUserCreated = newState.allUserCreated.map((product) => {
+        return product.id === action.payload.id ? action.payload : product
+      })
+      newState.productEdit = { ...action.payload }
+      newState.userCreatedById[action.payload.id] = { ...action.payload }
+
+      return newState
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCTS_BY_USER:
