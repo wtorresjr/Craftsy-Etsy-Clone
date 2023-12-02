@@ -96,7 +96,7 @@ const PrintReview = ({ review }) => {
             buttonText="Edit"
             modalComponent={<ReviewEditModal review={review} />}
           />
-          :
+
         </div>
       ) : (
         ""
@@ -109,7 +109,7 @@ const PrintReview = ({ review }) => {
             buttonText="Delete"
             modalComponent={<ReviewDeleteModal review={review} />}
           />
-          :
+
         </div>
       ) : (
         ""

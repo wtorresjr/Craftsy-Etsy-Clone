@@ -69,6 +69,7 @@ const ReviewList = ({ productId }) => {
     Object.values(state.reviews.reviewByProductId)
   );
   const sessionUser = useSelector((state) => state.session.user);
+  const currentProduct = useSelector((state) => state.products.productDetail)
 
   const reviewExists = allReviewsByProductId.some(
     (review) => review?.user_id === sessionUser?.id
@@ -99,7 +100,7 @@ const ReviewList = ({ productId }) => {
       })}
 
       {/* if user has a review conditions */}
-      {sessionUser && reviewExists === false ? (
+      {sessionUser && sessionUser.id !== currentProduct.user_id&& reviewExists === false ? (
         <OpenModalButton
           className="ReviewFormButton"
           buttonText="Leave a Review"
