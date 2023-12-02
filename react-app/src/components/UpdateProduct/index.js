@@ -32,56 +32,86 @@ function UpdateProduct() {
         }
     }, [currentProductInfo])
 
-    // const errorCollector = {};
-    // useEffect(() => {
-    //     const validImgFormats = [
-    //         ".jpg",
-    //         ".png",
-    //         "jpeg",
-    //         "http:",
-    //         "https",
-    //         "ftp:/",
-    //         "ftps:",
-    //     ];
 
-    //     const formatError = "Image must be .jpg, .jpeg or .png format.";
-    //     const imageRequired = "Preview image is required.";
-    //     const nameError1 = "Product name must be between 3 and 30 characters long.";
-    //     const nameError2 = "Name must include alphabetic characters";
-    //     const descError1 = "Description must be between 3 and 255 characters.";
-    //     const descError2 = "Description must be alphabetic characters";
-    //     const priceError = "Price must be a valid number greater than 0.";
-    //     const quantityError = "Quantity must be a valid number greater than 0.";
+    // console.log('THE CURRENT PRODUCT INFO--', currentProductInfo)
+    // console.log('THE **UPDATED ** PRODUT INFO', updatedProductInfo)
 
 
-    //     if (updatedProductInfo.name.length < 3 || updatedProductInfo.name.length > 30) {
-    //         errorCollector.name = nameError1;
-    //     }
-    //     if (updatedProductInfo.name.length && updatedProductInfo.name.trim() === "") {
-    //         errorCollector.name = nameError2;
-    //     }
-    //     if (updatedProductInfo.description.length < 3 || updatedProductInfo.description.length > 255) {
-    //         errorCollector.description = descError1;
-    //     }
-    //     if (updatedProductInfo.description.length && updatedProductInfo.description.trim() === "") {
-    //         errorCollector.description = descError2;
-    //     }
-    //     if (updatedProductInfo.price <= 0) {
-    //         errorCollector.price = priceError;
-    //     }
-    //     if (updatedProductInfo.quantity <= 0) {
-    //         errorCollector.quantity = quantityError;
-    //     }
-    //     if (!updatedProductInfo.preview_image_url) {
-    //         errorCollector.previewImg = imageRequired;
-    //     }
-    //     if (!validImgFormats.includes(updatedProductInfo.preview_image_url.slice(-4).toLowerCase())) {
-    //         errorCollector.wrongFormat = formatError;
-    //     }
+    useEffect(() => {
+        const errorCollector={};
+
+        const validImgFormats = [
+                ".jpg",
+                ".png",
+                "jpeg",
+                "http:",
+                "https",
+                "ftp:/",
+                "ftps:",
+            ];
+
+        const formatError = "Image must be .jpg, .jpeg or .png format.";
+        const imageRequired = "Preview image is required.";
+        const nameError1 = "Product name must be between 3 and 30 characters long.";
+        const nameError2 = "Name must include alphabetic characters";
+        const descError1 = "Description must be between 3 and 255 characters.";
+        const descError2 = "Description must be alphabetic characters";
+        const priceError = "Price must be a valid number greater than 0.";
+        const quantityError = "Quantity must be a valid number greater than 0.";
+        const whiteSpaceErrors = "Input cannot begin with a space."
+
+        if (updatedProductInfo?.name){
+            if (updatedProductInfo.name.length < 3 || updatedProductInfo.name.length > 30) errorCollector.name = nameError1;
+            else if (updatedProductInfo.name.length && updatedProductInfo.name.trim() === "") errorCollector.name = nameError2;
+            else if (updatedProductInfo.name.startsWith(" ")) errorCollector.name = whiteSpaceErrors;
+        };
+
+        if (updatedProductInfo?.description){
+            if (updatedProductInfo.description.length < 3 || updatedProductInfo.description.length > 255) errorCollector.description = descError1;
+            else if (updatedProductInfo.description.length && updatedProductInfo.description.trim() === "") errorCollector.description = descError2;
+            else if (updatedProductInfo.description.startsWith(" ")) errorCollector.description = whiteSpaceErrors;
+        };
+
+        if (updatedProductInfo?.price){
+            if (updatedProductInfo.price <= 0) errorCollector.price = priceError;
+        };
+
+        if (updatedProductInfo?.quantity){
+            if (updatedProductInfo.quantity <= 0) errorCollector.quantity = quantityError;
+        };
+
+        if (updatedProductInfo?.preview_image_url){
+            const preview_img = updatedProductInfo.preview_image_url[0].toString()
+            const lastFourCharacters = preview_img.substring(preview_img.length - 4)
+            console.log('the last 4 of the url:', lastFourCharacters)
+
+            if (!lastFourCharacters.includes(validImgFormats)) errorCollector.wrongFormat = formatError;
+            if (updatedProductInfo.preview_image_url[0].startsWith(" ")) errorCollector.wrongFormat = whiteSpaceErrors;
+        };
+
+        if (!updatedProductInfo.preview_image_url) errorCollector.previewImg = imageRequired;
+
+        setErrors(errorCollector)
+    }, [updatedProductInfo])
+
+
+    console.log('the current error are --', errors)
+
+
+
+
+
+
+        // if (!updatedProductInfo?.preview_image_url) {
+        //     errorCollector.previewImg = imageRequired;
+        // }
+        // if (!validImgFormats?.includes(updatedProductInfo?.preview_image_url.slice(-4).toLowerCase())) {
+        //     errorCollector.wrongFormat = formatError;
+        // }
 
     //     setErrors(errorCollector);
 
-    // }, [{ ...updatedProductInfo }]);
+    // }, []);
 
     const handleProductUpdate = (e) => {
         e.preventDefault()
@@ -170,10 +200,6 @@ function UpdateProduct() {
             </div>
         </>
     )
-
-
-
-
 }
 
 export default UpdateProduct;
