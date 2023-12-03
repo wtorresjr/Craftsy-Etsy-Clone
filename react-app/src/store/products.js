@@ -7,14 +7,14 @@ const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
 const EDIT_PRODUCT = "products/EDIT_PRODUCT";
 const RESET_PRODUCTS = "products/RESET_PRODUCTS";
-const REMOVE_PRODUCT_IMAGE = "products/REMOVE_PRODUCT_IMAGE"
+const REMOVE_PRODUCT_IMAGE = "products/REMOVE_PRODUCT_IMAGE";
 
 const removeProductImage = (product) => {
   return {
     type: REMOVE_PRODUCT_IMAGE,
-    payload: product
-  }
-}
+    payload: product,
+  };
+};
 
 const resetProducts = (products) => {
   return {
@@ -93,7 +93,7 @@ export const getProductInfo = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
       const productFound = await response.json();
-      console.log(productFound)
+      // console.log(productFound);
       dispatch(productDetails(productFound));
       return productFound;
     }
@@ -105,13 +105,13 @@ export const getProductInfo = (productId) => async (dispatch) => {
 //Delete a Product by ID
 export const deleteProduct = (product_id) => async (dispatch) => {
   try {
-    console.log("THunk reached");
+    // console.log("THunk reached");
     const response = await fetch(`/api/products/${product_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      console.log("response ok");
+      // console.log("response ok");
       const deletedItem = await response.json();
       dispatch(removeProduct(deletedItem));
       dispatch(getUserProducts());
@@ -157,11 +157,8 @@ export const editAproduct = (product_id, editData) => async (dispatch) => {
       body: JSON.stringify(editData),
     });
     if (response.ok) {
-      console.log(response, "res")
       const edited = await response.json();
-      console.log(edited, "predispatch")
       dispatch(editProduct(edited));
-      console.log(edited, "postdispatch")
       return edited;
     }
   } catch (error) {
@@ -210,14 +207,17 @@ export const addNewProductImage =
 
 export const RemoveProductImg = (productId, imageId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    const response = await fetch(
+      `/api/products/${productId}/images/${imageId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.ok) {
-      dispatch(removeProductImage())
+      dispatch(removeProductImage());
     }
   } catch (error) {
     throw error;
@@ -277,15 +277,21 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case EDIT_PRODUCT:
-      // return { ...state, ...state.productEdit, ...action.payload };
-      newState = { ...state }
-      newState.allUserCreated = newState.allUserCreated.map((product) => {
-        return product.id === action.payload.id ? action.payload : product
-      })
-      newState.productEdit = { ...action.payload }
-      newState.userCreatedById[action.payload.id] = { ...action.payload }
+      newState = { ...state };
 
-      return newState
+      if (!newState.userCreatedById) {
+        newState.userCreatedById = {};
+      }
+
+      newState.allUserCreated = newState?.allUserCreated?.map((product) => {
+        return product.id === action.payload.id ? action.payload : product;
+      });
+
+      newState.productEdit = { ...action.payload };
+      newState.userCreatedById[action.payload.id] = { ...action.payload };
+
+      return newState;
+
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCTS_BY_USER:
