@@ -61,6 +61,7 @@ function UpdateProduct() {
     const descError2 = "Description must be alphabetic characters";
     const priceError = "Price must be a valid number greater than 0.";
     const quantityError = "Quantity must be a valid number greater than 0.";
+    const whiteSpaceError = "Input cannot begin with a space.";
 
     if (name.length < 3 || name.length > 30) {
       errorCollector.name = nameError1;
@@ -68,11 +69,17 @@ function UpdateProduct() {
     if (name.length && name.trim() === "") {
       errorCollector.name = nameError2;
     }
+    if (name.length && name.startsWith(" ")) {
+      errorCollector.name = whiteSpaceError;
+    }
     if (description.length < 3 || description.length > 255) {
       errorCollector.description = descError1;
     }
     if (description.length && description.trim() === "") {
       errorCollector.description = descError2;
+    }
+    if (description.length && description.startsWith(" ")) {
+      errorCollector.description = whiteSpaceError;
     }
     if (price <= 0) {
       errorCollector.price = priceError;
@@ -82,6 +89,9 @@ function UpdateProduct() {
     }
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
+    }
+    if (previewImg.length && previewImg[0].startsWith(" ")) {
+      errorCollector.previewImg = whiteSpaceError;
     }
     if (
       !validImgFormats.includes(previewImg.toString().toLowerCase().slice(-4))
@@ -122,8 +132,8 @@ function UpdateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProduct = {
-      name: name,
-      description: description,
+      name: name.trimEnd(),
+      description: description.trimEnd(),
       price: price,
       quantity: quantity,
       preview_image_url: previewImg,
