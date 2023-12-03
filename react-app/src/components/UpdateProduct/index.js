@@ -136,7 +136,7 @@ function UpdateProduct() {
       description: description.trimEnd(),
       price: price,
       quantity: quantity,
-      preview_image_url: previewImg.trimEnd(),
+      preview_image_url: previewImg,
     };
     dispatch(editAproduct(+product_id, newProduct))
       .then(async (createdProduct) => {
