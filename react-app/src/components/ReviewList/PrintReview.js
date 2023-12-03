@@ -75,7 +75,7 @@ const PrintReview = ({ review }) => {
   }, [dispatch]);
   // console.log(review.review, "<------- REview");
   // console.log(review.ReviewImages[0].image, "<------- Rev Image");
-  console.log(review.ReviewImages, "<------- Rev? Image");
+  // console.log(review.ReviewImages, "<------- Rev? Image");
 
   if (review.ReviewImages.length) {
     revImage = review.ReviewImages;

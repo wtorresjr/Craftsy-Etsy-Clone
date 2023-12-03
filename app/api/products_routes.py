@@ -100,7 +100,6 @@ def get_reviews_by_product_id(product_id):
         return jsonify({"message": "Product not found."}), 404
 
     reviews = []
-    # review_imgs = []
     for review in product.reviews:
 
         for review_img in review.review_images:
@@ -212,8 +211,6 @@ def create_product_review(product_id):
             return jsonify({"message": "User already has a review for this product"}), 403
 
     requestData = request.get_json()
-
-    print(requestData, "<--------------------- Request Data for review creation")
 
     new_review = Review(
         user_id=current_user.id,
