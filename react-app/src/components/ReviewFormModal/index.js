@@ -33,7 +33,7 @@ function ReviewFormModal({ productId }) {
     }
     if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
       errorCollector.rev_image =
-        "Images are optional. Accepted formats .jpg, .jpeg or .png formats";
+        "Images are optional: Accepted formats .jpg, .jpeg or .png";
     }
 
     setErrors(errorCollector);
