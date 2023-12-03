@@ -279,7 +279,7 @@ export default function reducer(state = initialState, action) {
     case EDIT_PRODUCT:
       // return { ...state, ...state.productEdit, ...action.payload };
       newState = { ...state };
-      newState.allUserCreated = newState?.allUserCreated?.forEach((product) => {
+      newState.allUserCreated = newState?.allUserCreated?.map((product) => {
         return product.id === action.payload.id ? action.payload : product;
       });
       newState.productEdit = { ...action.payload };

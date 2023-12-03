@@ -145,7 +145,7 @@ function UpdateProduct() {
         image_url: previewImg,
         preview: true,
       };
-      dispatch(addNewProductImage(+product_id, newPrevImg));
+      dispatch(addNewProductImage(product_id, newPrevImg));
     }
   };
 

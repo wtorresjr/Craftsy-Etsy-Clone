@@ -1,13 +1,10 @@
 import "./homepage.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
-import SellerSpotLight from "../SellerSpotLight_View";
-import { getAllProducts, resetAllProducts } from "../../store/products";
+import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
-
-// import { fetchReviews, fetchReviewById } from "../../store/reviews";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -17,17 +14,11 @@ const HomePage = () => {
     (state) => state?.favorite?.allFavorites
   );
 
-  let randomProd;
-
   useEffect(() => {
     dispatch(getAllProducts());
-    // if (allProducts.length) {
-    //   randomProd = Math.floor(Math.random() * allProducts?.length);
-    // }
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
-    // console.log("Random Num Gen'd", randomProd);
   }, [dispatch, sessionUser]);
 
   return (
@@ -53,7 +44,6 @@ const HomePage = () => {
           </>
         ) : null}
       </div>
-      {/* <SellerSpotLight product={allProducts[2]} /> */}
       <div className="smallTileContain">
         <h3>Because You Viewed...</h3>
         {allProducts &&
