@@ -13,12 +13,8 @@ function FavoritesTile({ favorite }) {
   }, [dispatch, isFavorited]);
 
   const toggleFavStatus = () => {
-    // setIsFavorited((prev) => !prev);
     setIsFavorited(false);
     dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.product_id));
-    // console.log(isFavorited, "Is favorited state");
-    // if (isFavorited == false) {
-    // }
   };
 
   return (
