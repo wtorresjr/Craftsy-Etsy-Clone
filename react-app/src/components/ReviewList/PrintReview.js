@@ -1,9 +1,11 @@
 import "./ReviewList.css";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import OpenModalButton from "../OpenModalButton";
 import ReviewEditModal from "../ReviewFormModal/ReviewEdit";
 import ReviewDeleteModal from "../ReviewFormModal/ReviewDelete";
+import { cleartRevImgState } from "../../store/reviews";
 
 //stars
 function getStars(star) {
@@ -61,12 +63,22 @@ function getStars(star) {
 
 const PrintReview = ({ review }) => {
   const sessionUser = useSelector((state) => state.session.user);
+  const dispatch = useDispatch();
 
   let image = "";
   let name = "";
 
-  if (review.ReviewImages) {
-    image = review.ReviewImages[0].image;
+  let revImage = "";
+
+  useEffect(() => {
+    dispatch(cleartRevImgState());
+  }, [dispatch]);
+  // console.log(review.review, "<------- REview");
+  // console.log(review.ReviewImages[0].image, "<------- Rev Image");
+  console.log(review.ReviewImages, "<------- Rev? Image");
+
+  if (review.ReviewImages.length) {
+    revImage = review.ReviewImages;
   }
 
   if (review.User) {
@@ -81,13 +93,23 @@ const PrintReview = ({ review }) => {
       </div>
       <div>{review.review}</div>
       <div>
-        {/* gotta add conditions where image doesnt exist */}
-        <img className="reviewImage" src={image} />
+        {revImage &&
+          revImage.map((image) => {
+            return (
+              <img
+                className="reviewImage"
+                src={image.image}
+                key={image.id}
+                alt="Review Image"
+              />
+            );
+          })}
       </div>
       <div>
         {/* need styling */}
         {name}
       </div>
+
       {/* EDIT REVIEW */}
       {sessionUser && sessionUser.id === review.user_id ? (
         <div className="ReviewEditButton">
@@ -96,7 +118,6 @@ const PrintReview = ({ review }) => {
             buttonText="Edit"
             modalComponent={<ReviewEditModal review={review} />}
           />
-
         </div>
       ) : (
         ""
@@ -109,7 +130,6 @@ const PrintReview = ({ review }) => {
             buttonText="Delete"
             modalComponent={<ReviewDeleteModal review={review} />}
           />
-
         </div>
       ) : (
         ""

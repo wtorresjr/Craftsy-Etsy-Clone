@@ -6,6 +6,14 @@ const UPDATE_REVIEW = "review/UPDATE_REVIEW";
 const REMOVE_REVIEW = "review/REMOVE_REVIEW";
 const SET_REVIEW_IMAGE = "review/SET_REVIEW_IMAGE";
 const REMOVE_REVIEW_IMAGE = "review/REMOVE_REVIEW_IMAGE";
+const CLEAR_REV_IMAGES = "review/CLEAR_REV_IMAGES";
+
+const clearImageHistory = (revImgs) => {
+  return {
+    type: CLEAR_REV_IMAGES,
+    payload: revImgs,
+  };
+};
 
 const getReview = (reviews) => ({
   type: GET_REVIEW,
@@ -41,6 +49,16 @@ const removeReviewImage = (reviewImageId) => ({
   type: REMOVE_REVIEW_IMAGE,
   payload: reviewImageId,
 });
+
+//Clear Image State
+
+export const cleartRevImgState = () => async (dispatch) => {
+  try {
+    dispatch(clearImageHistory());
+  } catch (error) {
+    throw error;
+  }
+};
 
 // Get all Reviews
 export const fetchReviews = () => async (dispatch) => {
@@ -166,12 +184,17 @@ export const deleteReviewImage = (reviewId, imageId) => async (dispatch) => {
 
 const initialState = {
   allReviews: [],
-  reviewByProductId: [],
+  reviewByProductId: {},
   allReviewImages: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case CLEAR_REV_IMAGES:
+      return {
+        ...state,
+        allReviewImages: [],
+      };
     case GET_REVIEW:
       if (action.payload.Reviews) {
         const reviewsById = {};
@@ -221,8 +244,12 @@ export default function reducer(state = initialState, action) {
       };
 
     case SET_REVIEW_IMAGE:
-      let newImageState = state.reviewByProductId;
-      newImageState[action.payload.review_id].ReviewImages.image = action.payload.image_url;
+      let newImageState = state.reviewByProductId || {};
+      if (newImageState[action.payload.review_id]) {
+        newImageState[action.payload.review_id].ReviewImages = {
+          image: action.payload.image_url,
+        };
+      }
       return {
         ...state,
         reviewByProductId: newImageState,
