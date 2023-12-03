@@ -9,51 +9,40 @@ import {
 import "./UpdateProduct.css";
 
 function UpdateProduct() {
-  const { product_id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const currentProductInfo = useSelector(
-    (state) => state?.products?.productDetail
-  );
-  // const currentProductImages = useSelector((state) => state?.products?.productDetail?.Product_Images)
-  // const [updatedName, setUpdatedName] = useState(currentProductInfo?.name)
-  // const [updatedDescription, setUpdatedDescription] = useState(currentProductInfo?.description)
-  // const [updatedPrice, setUpdatedPrice] = useState(currentProductInfo?.price)
-  // const [updatedQuantity, setUpdatedQuantity] = useState(currentProductInfo?.quantity)
-  // const [updatedPreviewImg, setUpdatedPreviewImg] = useState(currentProductInfo?.preview_image_url)
+  const { product_id } = useParams();
+  const productToEdit = useSelector((state) => state?.products?.productDetail);
 
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [previewImg, setPreviewImg] = useState("");
+  const [extImg1, setExtImg1] = useState("");
+  const [extImg2, setExtImg2] = useState("");
+  const [extImg3, setExtImg3] = useState("");
+  const [extImg4, setExtImg4] = useState("");
+  const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
-
-  console.log(
-    currentProductInfo?.Product_Images,
-    "Product Images <-----------------------------"
-  );
+  const [isDisabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (product_id) {
-      dispatch(getProductInfo(parseInt(product_id)));
+    dispatch(getProductInfo(product_id));
+  }, [product_id]);
+
+  useEffect(() => {
+    if (productToEdit) {
+      setName(productToEdit?.name || "");
+      setDescription(productToEdit?.description || "");
+      setPrice(productToEdit?.price || "");
+      setQuantity(productToEdit?.quantity || "");
+      setPreviewImg(productToEdit?.preview_image_url || "");
     }
-  }, [dispatch, product_id]);
+  }, [productToEdit]);
 
-  const [productInfo, setProductInfo] = useState({
-    name: currentProductInfo?.name,
-    description: currentProductInfo?.description,
-    price: currentProductInfo?.price,
-    quantity: currentProductInfo?.quantity,
-    preview_image_url: currentProductInfo?.preview_image_url,
-    extra_images_urls: currentProductInfo?.Product_Images?.filter(
-      (img) => img?.preview === false
-    ),
-  });
-
-  console.log(
-    productInfo?.extra_images_urls,
-    "<------------------ Extra images"
-  );
-
+  const errorCollector = {};
   useEffect(() => {
-    const errorCollector = {};
-
     const validImgFormats = [
       ".jpg",
       ".png",
@@ -72,231 +61,200 @@ function UpdateProduct() {
     const descError2 = "Description must be alphabetic characters";
     const priceError = "Price must be a valid number greater than 0.";
     const quantityError = "Quantity must be a valid number greater than 0.";
-    const whiteSpaceErrors = "Input cannot begin with a space.";
 
-    if (productInfo?.name) {
-      if (productInfo.name.length < 3 || productInfo.name.length > 30)
-        errorCollector.name = nameError1;
-      else if (productInfo.name.length && productInfo.name.trim() === "")
-        errorCollector.name = nameError2;
-      else if (productInfo.name.startsWith(" "))
-        errorCollector.name = whiteSpaceErrors;
+    if (name.length < 3 || name.length > 30) {
+      errorCollector.name = nameError1;
     }
-
-    if (productInfo?.description) {
-      if (
-        productInfo.description.length < 3 ||
-        productInfo.description.length > 255
-      )
-        errorCollector.description = descError1;
-      else if (
-        productInfo.description.length &&
-        productInfo.description.trim() === ""
-      )
-        errorCollector.description = descError2;
-      else if (productInfo.description.startsWith(" "))
-        errorCollector.description = whiteSpaceErrors;
+    if (name.length && name.trim() === "") {
+      errorCollector.name = nameError2;
     }
-
-    if (productInfo?.price) {
-      if (productInfo.price <= 0) errorCollector.price = priceError;
+    if (description.length < 3 || description.length > 255) {
+      errorCollector.description = descError1;
     }
-
-    if (productInfo?.quantity) {
-      if (productInfo.quantity <= 0) errorCollector.quantity = quantityError;
+    if (description.length && description.trim() === "") {
+      errorCollector.description = descError2;
     }
-
-    if (productInfo?.preview_image_url) {
-      const preview_img = productInfo.preview_image_url;
-      const lastFourCharacters = preview_img.slice(-4);
-      console.log("the last 4 of the url:", lastFourCharacters);
-
-      if (!validImgFormats.includes(lastFourCharacters))
-        errorCollector.wrongFormat = formatError;
-      if (productInfo.preview_image_url[0].startsWith(" "))
-        errorCollector.wrongFormat = whiteSpaceErrors;
+    if (price <= 0) {
+      errorCollector.price = priceError;
     }
-
-    if (!productInfo.preview_image_url)
+    if (quantity <= 0) {
+      errorCollector.quantity = quantityError;
+    }
+    if (!previewImg) {
       errorCollector.previewImg = imageRequired;
+    }
+    if (!validImgFormats.includes(previewImg.slice(-4))) {
+      errorCollector.wrongFormat = formatError;
+    }
+    if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
+      errorCollector.formatImg1 = formatError;
+    }
+    if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
+      errorCollector.formatImg2 = formatError;
+    }
+    if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
+      errorCollector.formatImg3 = formatError;
+    }
+    if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
+      errorCollector.formatImg4 = formatError;
+    }
 
     setErrors(errorCollector);
-  }, [productInfo]);
-
-  console.log("the current error are --", errors);
-
-  // if (!productInfo?.preview_image_url) {
-  //     errorCollector.previewImg = imageRequired;
-  // }
-  // if (!validImgFormats?.includes(productInfo?.preview_image_url.slice(-4).toLowerCase())) {
-  //     errorCollector.wrongFormat = formatError;
-  // }
-
-  //     setErrors(errorCollector);
-
-  // }, []);
-
-  const handleProductUpdate = async (e) => {
-    e.preventDefault();
-
-    dispatch(editAproduct(product_id, productInfo)).then(() =>
-      history.push(`/products/${product_id}`)
-    );
-    if (
-      currentProductInfo.preview_image_url !== productInfo.preview_image_url
-    ) {
-      const newProdPreviewImg = {
-        image_url: productInfo.preview_image_url,
-        preview: true,
-      };
-      await dispatch(
-        addNewProductImage(currentProductInfo.id, newProdPreviewImg)
-      );
+    if (Object.keys(errorCollector).length > 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
+  }, [
+    name,
+    description,
+    price,
+    quantity,
+    previewImg,
+    extImg1,
+    extImg2,
+    extImg3,
+    extImg4,
+  ]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newProduct = {
+      name: name,
+      description: description,
+      price: price,
+      quantity: quantity,
+      preview_image_url: previewImg,
+    };
+    dispatch(editAproduct(newProduct))
+      .then(async (createdProduct) => {
+        history.push(`/products/${createdProduct.id}`);
+      })
+      .catch(async (res) => {
+        if (res instanceof Response) {
+          const data = await res.json();
+          if (data.errors) {
+            return setErrors(errorCollector);
+          }
+        }
+      });
   };
 
   return (
-    <>
-      <div className="editListingContainer">
-        <form onSubmit={handleProductUpdate}>
-          <h1>Update Your Product</h1>
-          <ul></ul>
-          <li>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={productInfo.name}
-                onChange={(e) =>
-                  setProductInfo({
-                    ...productInfo,
-                    name: e.target.value,
-                  })
-                }
-                required
-              />
-            </label>
-            {errors && errors.name && <p className="errorDiv">{errors.name}</p>}
-          </li>
-          <li>
-            <label>
-              Description:
-              <input
-                type="text"
-                name="description"
-                value={productInfo.description}
-                onChange={(e) =>
-                  setProductInfo({
-                    ...productInfo,
-                    description: e.target.value,
-                  })
-                }
-                required
-              />
-            </label>
-            <p className="errorDiv">{errors.description}</p>
-          </li>
-          <li>
-            <label>
-              Price:
-              <input
-                type="number"
-                name="price"
-                value={productInfo.price}
-                onChange={(e) =>
-                  setProductInfo({
-                    ...productInfo,
-                    price: e.target.value,
-                  })
-                }
-                required
-              />
-            </label>
-            {errors && errors.price && (
-              <p className="errorDiv">{errors.price}</p>
+    <div className="createProductContainer">
+      <form onSubmit={handleSubmit}>
+        <h1>Update A Product</h1>
+        <ul></ul>
+        <li>
+          <label>
+            Name:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
+          {errors && errors.name && <p className="errorDiv">{errors.name}</p>}
+        </li>
+        <li>
+          <label>
+            Description:
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </label>
+          <p className="errorDiv">{errors.description}</p>
+        </li>
+        <li>
+          <label>
+            Price:
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              placeholder="example: 19.99"
+            />
+          </label>
+          {errors && errors.price && <p className="errorDiv">{errors.price}</p>}
+        </li>
+        <li>
+          <label>
+            Quantity:
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              required
+            />
+          </label>
+          {errors && errors.quantity && (
+            <p className="errorDiv">{errors.quantity}</p>
+          )}
+        </li>
+        <li>
+          <label>
+            Preview Image:
+            <input
+              type="text"
+              value={previewImg}
+              onChange={(e) => setPreviewImg(e.target.value)}
+              required
+            />
+          </label>
+          {errors && errors.previewImg && (
+            <p className="errorDiv">{errors.previewImg}</p>
+          )}
+          {errors && errors.wrongFormat && (
+            <p className="errorDiv">{errors.wrongFormat}</p>
+          )}
+        </li>
+        {/* <li>
+          <label>
+            Additional Images: (Optional)
+            <input
+              value={extImg1}
+              onChange={(e) => setExtImg1(e.target.value)}
+              type="text"
+            />
+            {errors && errors.formatImg1 && (
+              <p className="errorDiv">{errors.formatImg1}</p>
             )}
-          </li>
-          <li>
-            <label>
-              Quantity:
-              <input
-                type="number"
-                name="quantity"
-                value={productInfo.quantity}
-                onChange={(e) =>
-                  setProductInfo({
-                    ...productInfo,
-                    quantity: e.target.value,
-                  })
-                }
-                required
-              />
-            </label>
-            {errors && errors.quantity && (
-              <p className="errorDiv">{errors.quantity}</p>
+            <input
+              value={extImg2}
+              onChange={(e) => setExtImg2(e.target.value)}
+              type="text"
+            />
+            {errors && errors.formatImg2 && (
+              <p className="errorDiv">{errors.formatImg2}</p>
             )}
-          </li>
-          <li>
-            <label>
-              Preview Image:
-              <input
-                type="text"
-                name="preview_image_url"
-                value={productInfo.preview_image_url}
-                onChange={(e) =>
-                  setProductInfo({
-                    ...productInfo,
-                    preview_image_url: e.target.value,
-                  })
-                }
-                required
-              />
-            </label>
-            {errors && errors.previewImg && (
-              <p className="errorDiv">{errors.previewImg}</p>
+            <input
+              value={extImg3}
+              onChange={(e) => setExtImg3(e.target.value)}
+              type="text"
+            />
+            {errors && errors.formatImg3 && (
+              <p className="errorDiv">{errors.formatImg3}</p>
             )}
-            {errors && errors.wrongFormat && (
-              <p className="errorDiv">{errors.wrongFormat}</p>
+            <input
+              value={extImg4}
+              onChange={(e) => setExtImg4(e.target.value)}
+              type="text"
+            />
+            {errors && errors.formatImg4 && (
+              <p className="errorDiv">{errors.formatImg4}</p>
             )}
-          </li>
-          <li>
-            {/* <label>
-              Additional Images:
-              {productInfo &&
-                productInfo?.extra_images_urls?.map((index) => {
-                  return (
-                    <>
-                      <input
-                        value={index?.image_url}
-                        onChange={(e) => {
-                          let newExtraImages = [
-                            ...productInfo?.extra_images_urls,
-                          ];
-                          newExtraImages[index] = e.target.value;
-                          setProductInfo({
-                            ...productInfo,
-                            extra_images_urls: newExtraImages,
-                          });
-                        }}
-                        type="text"
-                        name={`extraImage${index + 1}`}
-                        key={index}
-                      />
-                      {errors && errors.formatImg && (
-                        <p className="errorDiv">{errors.formatImg}</p>
-                      )}
-                    </>
-                  );
-                })}
-            </label> */}
-          </li>
-          <button className="submitBtn" type="submit">
-            Update Product
-          </button>
-        </form>
-      </div>
-    </>
+          </label>
+        </li> */}
+        <button className="submitBtn" type="submit" disabled={isDisabled}>
+          Update Product
+        </button>
+      </form>
+    </div>
   );
 }
 
