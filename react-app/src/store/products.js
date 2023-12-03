@@ -93,7 +93,7 @@ export const getProductInfo = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
       const productFound = await response.json();
-      console.log(productFound);
+      // console.log(productFound);
       dispatch(productDetails(productFound));
       return productFound;
     }
@@ -105,13 +105,13 @@ export const getProductInfo = (productId) => async (dispatch) => {
 //Delete a Product by ID
 export const deleteProduct = (product_id) => async (dispatch) => {
   try {
-    console.log("THunk reached");
+    // console.log("THunk reached");
     const response = await fetch(`/api/products/${product_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      console.log("response ok");
+      // console.log("response ok");
       const deletedItem = await response.json();
       dispatch(removeProduct(deletedItem));
       dispatch(getUserProducts());
