@@ -149,6 +149,7 @@
     width: 65px;
     height: 45px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .personalizeItemContainer {

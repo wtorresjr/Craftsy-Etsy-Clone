@@ -100,6 +100,7 @@
     transition-duration: 200ms;
     background-color: #222222;
     box-shadow: 2px 2px 3px black;
+    cursor: pointer;
 }
 
 .promoButton button {
@@ -117,6 +118,7 @@
     font-weight: 600;
     background-color: white;
     border: none;
+    cursor: pointer;
 }
 
 .promoButton button:hover {
@@ -127,4 +129,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.paymentOptions input:checked{
+    color: black;
 }
