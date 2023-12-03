@@ -90,7 +90,7 @@ function UpdateProduct() {
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
     }
-    if (previewImg.length && previewImg.startsWith(" ")) {
+    if (previewImg.length && previewImg[0].startsWith(" ")) {
       errorCollector.previewImg = whiteSpaceError;
     }
     if (
@@ -158,6 +158,7 @@ function UpdateProduct() {
       dispatch(addNewProductImage(product_id, newPrevImg));
     }
   };
+
 
   return (
     <div className="createProductContainer">
