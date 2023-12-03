@@ -106,7 +106,6 @@ function SignupFormModal() {
 		<div className="signup-container">
 			<h1>Create your account</h1>
 			<h2>Registration is easy.</h2>
-			<pre>{JSON.stringify(formValues, undefined, 2)}</pre>
 			<form className="signup-form" onSubmit={handleSubmit}>
 				<div className="firstname-div">
 					<label>First name<span style={{"color": "#B64B59"}}>*</span></label>
