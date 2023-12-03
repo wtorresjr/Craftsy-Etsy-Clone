@@ -21,6 +21,7 @@ function LoginFormModal() {
   const toggleInputCN = (formField) =>
     showErrors && backendErrors[formField] ? "error-input" : "";
 
+
   //handles input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +86,7 @@ function LoginFormModal() {
               required
             />
           </div>
-          {showErrors && <p className="errors-text">{backendErrors.email}</p>}
+          {backendErrors?.email && showErrors && <p className="errors-text">{backendErrors.email}</p>}
 
           <div className="password-div">
             <label>Password</label>
@@ -102,9 +103,7 @@ function LoginFormModal() {
               required
             />
           </div>
-          {showErrors && (
-            <p className="errors-text">{backendErrors.password}</p>
-          )}
+          {backendErrors?.password && showErrors && <p className="errors-text">{backendErrors.password}</p>}
 
           <div className="login-buttons-div">
             <button className="login-submit-button" type="submit">

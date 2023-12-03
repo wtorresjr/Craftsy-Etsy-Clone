@@ -19,9 +19,15 @@ def username_exists(form, field):
     if user:
         raise ValidationError('Username is already in use.')
 
+def name_format(form, field):
+    # Checking to see if the input is in the requested format
+    name_pattern = r"^[a-zA-Z][a-zA-Z ]*$"
+    if not re.match(name_pattern, field.data):
+        raise ValidationError("Input can only contain letters and spaces in between words.")
+
 
 def email_format(form, field):
-    # Checking to see if the email inputted is in the reequested format
+    # Checking to see if the email inputted is in the requested format
     email = field.data
     email_pattern = r"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
     if not re.match(email_pattern, email):
@@ -62,9 +68,9 @@ def starting_with_spaces(form, field):
 
 class SignUpForm(FlaskForm):
     first_name = StringField(
-        'first name', validators=[DataRequired(), starting_with_spaces, max_char_15])
+        'first name', validators=[DataRequired(), starting_with_spaces, max_char_15, name_format])
     last_name = StringField(
-        'last name', validators=[DataRequired(), starting_with_spaces, max_char_15])
+        'last name', validators=[DataRequired(), starting_with_spaces, max_char_15, name_format])
     username = StringField(
         'username', validators=[DataRequired(), username_exists, starting_with_spaces, max_char_40])
     email = StringField('email', validators=[DataRequired(), user_exists, starting_with_spaces, email_format, max_char_255])
