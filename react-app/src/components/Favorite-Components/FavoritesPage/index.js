@@ -18,7 +18,7 @@ function FavoritesPage() {
   return (
     <>
       <div className="favoritespage-container">
-        <h1 className="favoritespage-header">Favorite items <span>{allFavorites.length} items</span></h1>
+        {allFavorites?.length ? <h1 className="favoritespage-header">Favorite items <span>{allFavorites.length} items</span></h1> : null}
         <div className="favoritetiles">
           {allFavorites ? (
             allFavorites.map((favorite) => {
