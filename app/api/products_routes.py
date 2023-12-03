@@ -103,10 +103,8 @@ def get_reviews_by_product_id(product_id):
     for review in product.reviews:
 
         for review_img in review.review_images:
-            curr_review_imgs = [{
-                "id": review_img.id,
-                "image": review_img.image_url
-            }]
+            review_imgs = [{"id": review_img.id, "image": review_img.image_url}
+                           for review_img in review.review_images]
 
         reviews.append({
             "id": review.id,
@@ -119,7 +117,7 @@ def get_reviews_by_product_id(product_id):
                 "firstName": review.user.first_name,
                 "lastName": review.user.last_name
             },
-            "ReviewImages": curr_review_imgs
+            "ReviewImages": review_imgs
         })
 
     return jsonify({"Reviews": reviews}), 200
@@ -222,6 +220,15 @@ def create_product_review(product_id):
     )
 
     db.session.add(new_review)
+    db.session.commit()
+
+
+    new_image = ReviewImage(
+        review_id=new_review.id,
+        image_url=requestData.get("image_url") or " "
+    )
+
+    db.session.add(new_image)
     db.session.commit()
 
     return new_review.to_dict()

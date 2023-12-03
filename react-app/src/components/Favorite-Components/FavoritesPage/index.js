@@ -18,13 +18,16 @@ function FavoritesPage() {
   return (
     <>
       <div className="favoritespage-container">
-        {allFavorites ? (
-          allFavorites.map((favorite) => {
-            return <FavoritesTile key={favorite.id} favorite={favorite} />;
-          })
-        ) : (
-          <NoFavorites />
-        )}
+        {allFavorites?.length ? <h1 className="favoritespage-header">Favorite items <span>{allFavorites.length} items</span></h1> : null}
+        <div className="favoritetiles">
+          {allFavorites ? (
+            allFavorites.map((favorite) => {
+              return <FavoritesTile key={favorite.id} favorite={favorite} />;
+            })
+          ) : (
+            <NoFavorites />
+          )}
+        </div>
       </div>
     </>
   );

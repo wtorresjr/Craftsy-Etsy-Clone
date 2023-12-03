@@ -13,12 +13,8 @@ function FavoritesTile({ favorite }) {
   }, [dispatch, isFavorited]);
 
   const toggleFavStatus = () => {
-    // setIsFavorited((prev) => !prev);
     setIsFavorited(false);
     dispatch(favoriteActions.removeFromCurrUserFavorites(favorite.product_id));
-    // console.log(isFavorited, "Is favorited state");
-    // if (isFavorited == false) {
-    // }
   };
 
   return (
@@ -30,7 +26,7 @@ function FavoritesTile({ favorite }) {
             style={{ color: isFavorited ? "#A5192E" : "#000000" }}
           ></i>
         </div>
-          <Link to={`/products/${favorite.product_id}`}>
+          <Link to={`/products/${favorite.product_id}`} style={{textDecoration: "none"}}>
           <div className="fav-product-preview-img" title={favorite.name}>
             <img src={favorite.preview_image_url[0]} alt={favorite.name} />
           </div>
