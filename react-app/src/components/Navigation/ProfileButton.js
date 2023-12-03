@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  // const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -36,10 +37,9 @@ function ProfileButton({ user }) {
     alert("Feature Coming Soon...");
   };
 
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-    dispatch(logout());
-    history.push("/");
+    dispatch(logout()).then(() => window.location.replace("/"));
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef}>
             <>
               <li>
-                <Link
+                <div
                   className="profileDropdownUser"
                   onClick={handleNonFunctioningLinks}
                 >
@@ -69,33 +69,37 @@ function ProfileButton({ user }) {
                     </h4>
                     <p>View your profile</p>
                   </span>
-                </Link>
+                </div>
               </li>
               <li className="dDPartTwo">
-                <Link
+                <div
                   className="purchasesReviews"
                   onClick={handleNonFunctioningLinks}
                 >
                   <i className="fas fa-clipboard-list"> </i>
                   <p>Purchases and reviews</p>
-                </Link>
-                <Link className="messages" onClick={handleNonFunctioningLinks}>
+                </div>
+                <div className="messages" onClick={handleNonFunctioningLinks}>
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
-                </Link>
-                <NavLink to="/shop-manager" className="sellerListings">
+                </div>
+                <NavLink
+                  to="/shop-manager"
+                  className="sellerListings"
+                  onClick={() => setShowMenu(false)}
+                >
                   <i className="fas fa-store"></i>
                   <p>Sell on Craftsy</p>
                 </NavLink>
               </li>
               <li>
-                <Link
+                <div
                   className="accountSettings"
                   onClick={handleNonFunctioningLinks}
                 >
-                  <i class="fas fa-cog"></i>
+                  <i className="fas fa-cog"></i>
                   <p>Account settings</p>
-                </Link>
+                </div>
                 <div className="logOutDiv">
                   <i className="fas fa-sign-out-alt fa-rotate-180"></i>
                   <button onClick={handleLogout} className="logOutButton">

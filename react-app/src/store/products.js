@@ -6,6 +6,22 @@ const CREATE_PRODUCT = "products/CREATE_PRODUCT";
 const ADD_PRODUCT_IMAGE = "products/ADD_PRODUCT_IMAGE";
 const GET_PRODUCTS_BY_USER = "products/GET_PRODUCTS_BY_USER";
 const EDIT_PRODUCT = "products/EDIT_PRODUCT";
+const RESET_PRODUCTS = "products/RESET_PRODUCTS";
+const REMOVE_PRODUCT_IMAGE = "products/REMOVE_PRODUCT_IMAGE";
+
+const removeProductImage = (product) => {
+  return {
+    type: REMOVE_PRODUCT_IMAGE,
+    payload: product,
+  };
+};
+
+const resetProducts = (products) => {
+  return {
+    type: RESET_PRODUCTS,
+    payload: products,
+  };
+};
 
 const loadProducts = (allFoundProducts) => {
   return {
@@ -73,9 +89,11 @@ export const getAllProducts = () => async (dispatch) => {
 // Get Product By ID
 export const getProductInfo = (productId) => async (dispatch) => {
   try {
+    // console.log(productId)
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
       const productFound = await response.json();
+      // console.log(productFound);
       dispatch(productDetails(productFound));
       return productFound;
     }
@@ -87,13 +105,13 @@ export const getProductInfo = (productId) => async (dispatch) => {
 //Delete a Product by ID
 export const deleteProduct = (product_id) => async (dispatch) => {
   try {
-    console.log("THunk reached");
+    // console.log("THunk reached");
     const response = await fetch(`/api/products/${product_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      console.log("response ok");
+      // console.log("response ok");
       const deletedItem = await response.json();
       dispatch(removeProduct(deletedItem));
       dispatch(getUserProducts());
@@ -187,6 +205,25 @@ export const addNewProductImage =
 
 //Delete A Product Image
 
+export const RemoveProductImg = (productId, imageId) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `/api/products/${productId}/images/${imageId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      dispatch(removeProductImage());
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 const initialState = {
   allProducts: [],
   newImageAdded: [],
@@ -199,6 +236,13 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   let newState = {};
   switch (action.type) {
+    ///////////////////////////////////
+    ///////////////////////////////////
+    case RESET_PRODUCTS:
+      return {
+        ...state,
+        allProducts: [],
+      };
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_ALL_PRODUCTS:
@@ -232,7 +276,21 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case EDIT_PRODUCT:
-      return { ...state, ...state.productEdit, ...action.payload };
+      newState = { ...state };
+
+      if (!newState.userCreatedById) {
+        newState.userCreatedById = {};
+      }
+
+      newState.allUserCreated = newState?.allUserCreated?.map((product) => {
+        return product.id === action.payload.id ? action.payload : product;
+      });
+
+      newState.productEdit = { ...action.payload };
+      newState.userCreatedById[action.payload.id] = { ...action.payload };
+
+      return newState;
+
     ///////////////////////////////////
     ///////////////////////////////////
     case GET_PRODUCTS_BY_USER:
@@ -270,10 +328,9 @@ export default function reducer(state = initialState, action) {
       return { ...state, [action.productData.id]: action.productData };
     ///////////////////////////////////
     ///////////////////////////////////
-    case REMOVE_PRODUCT:
+    case REMOVE_PRODUCT_IMAGE:
       return {
         ...state,
-        // removedProduct: [state.removedProduct, action.payload],
       };
 
     default:

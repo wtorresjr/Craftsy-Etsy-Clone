@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request, url_for, abort
 from app.models import User, Product, Review, ProductImage, ReviewImage, Cart, CartItem, Favorite, db
 from app.forms.create_product_form import CreateProductForm
 from flask_login import current_user, login_required
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from sqlalchemy.orm import joinedload
 
 products_routes = Blueprint('products', __name__)
@@ -103,10 +103,8 @@ def get_reviews_by_product_id(product_id):
     for review in product.reviews:
 
         for review_img in review.review_images:
-            curr_review_imgs = [{
-                "id": review_img.id,
-                "image": review_img.image_url
-            }]
+            review_imgs = [{"id": review_img.id, "image": review_img.image_url}
+                           for review_img in review.review_images]
 
         reviews.append({
             "id": review.id,
@@ -119,7 +117,7 @@ def get_reviews_by_product_id(product_id):
                 "firstName": review.user.first_name,
                 "lastName": review.user.last_name
             },
-            "ReviewImages": curr_review_imgs
+            "ReviewImages": review_imgs
         })
 
     return jsonify({"Reviews": reviews}), 200
@@ -224,6 +222,15 @@ def create_product_review(product_id):
     db.session.add(new_review)
     db.session.commit()
 
+
+    new_image = ReviewImage(
+        review_id=new_review.id,
+        image_url=requestData.get("image_url") or " "
+    )
+
+    db.session.add(new_image)
+    db.session.commit()
+
     return new_review.to_dict()
 
 
@@ -233,7 +240,8 @@ def create_product_review(product_id):
 @login_required
 def get_current_user_products():
 
-    products_by_user = Product.query.filter_by(user_id=current_user.id).all()
+    products_by_user = Product.query.filter_by(
+        user_id=current_user.id).order_by(desc(Product.created_at)).all()
 
     if not products_by_user:
         return jsonify({"message": "You have not created any items."})

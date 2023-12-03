@@ -48,9 +48,9 @@ const CartPage = () => {
 
     useEffect(() => {
         setItemCount(cartItemsArray.length);
-        const randomNumber = Math.floor(Math.random() * (productsArray.length - 5 + 1)) + 5;
+        const randomNumber = Math.floor(Math.random() * (productsArray?.length - 5 + 1)) + 5;
         if (productsArray?.length > 0) {
-            setProducts(productsArray.slice(randomNumber - 5, randomNumber));
+            setProducts(productsArray?.slice(randomNumber - 5, randomNumber));
         }
     }, [cartItemsArray, productsArray, sessionUser]);
 
@@ -60,7 +60,7 @@ const CartPage = () => {
         <div className="mainCartContainer">
             <div className="mainCart">
                 <div className="cartItemTilesContainer">
-                    {cartItemsArray.length > 0 && sessionUser ? (
+                    {cartItemsArray?.length > 0 && sessionUser ? (
                         <div>
                             <div>
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>

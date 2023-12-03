@@ -18,6 +18,8 @@ const FavoriteHeart = ({ product }) => {
     (fav) => fav.product_id === product.id
   );
 
+  
+
   const handleClick = async () => {
     if (!sessionUser) {
       setLocalIsClicked(false);
@@ -38,8 +40,9 @@ const FavoriteHeart = ({ product }) => {
       await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
       setIsLikeLoaded(true);
     }
-
-    dispatch(favoriteActions.loadCurrUserFavorites());
+    if (sessionUser) {
+      dispatch(favoriteActions.loadCurrUserFavorites());
+    }
   };
 
   return (

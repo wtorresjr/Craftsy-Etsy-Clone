@@ -5,6 +5,7 @@ import { deleteItem, editItem } from "../../store/cart";
 import { getProductInfo } from "../../store/products";
 
 import "./cartitemtile.css";
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 
 const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handleNonFunctioningLinks }) => {
@@ -56,9 +57,14 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
                 </div>
 
                 <div className="detailContainer">
+
                     <div className="cartItemImgContainer">
-                        <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
+                        <NavLink to={`/products/${item.product_id}`}>
+                            <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
+                        </NavLink>
                     </div>
+
+
 
                     <div className="cartItemDetailsContainer">
                         <div className="cartItemDetails">
@@ -102,8 +108,8 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
 
                 <div className="cardFooter">
                     <div className="personalizeItemContainer">
-                        <button onClick={handleNonFunctioningLinks}><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
-                        <button onClick={handleNonFunctioningLinks}><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
+                        <button onClick={handleNonFunctioningLinks}><i className="fa-solid fa-tag"></i>Apply shop coupon codes</button>
+                        <button onClick={handleNonFunctioningLinks}><i className="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
                         <label onClick={(e) => handleNonFunctioningLinks(e)} ><input type="checkbox"/>Mark order as a gift</label>
                     </div>
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -8,89 +8,117 @@ import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [showErrors, setShowErrors] = useState(false)
   const { closeModal } = useModal();
 
+  //setting state
+  const initialValues = { email: "", password: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [backendErrors, setBackendErrors] = useState({});
+  const [canSubmit, setCanSubmit] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
 
-  const errorObj = {};
-  errors.forEach(error => {
-    const [key, value] = error.split(':')
-    errorObj[key.trim()] = value.trim()
-  });
+  //sets dynamic input classname
+  const toggleInputCN = (formField) =>
+    showErrors && backendErrors[formField] ? "error-input" : "";
 
 
-  const emailInputCN = (errorObj && errorObj.email) || (errorObj?.password) ? "error-input" : ""
-  const passwordInputCN = errorObj && errorObj.password ? "error-input" : ""
+  //handles input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
 
-
+  //handles demo user log in
   const handleDemoUser = () => {
-    dispatch(login(email="demo@aa.io", password="password"));
+    dispatch(
+      login(
+        (formValues.email = "demo@aa.io"),
+        (formValues.password = "password")
+      )
+    );
     closeModal();
   };
 
-
+  //handles form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowErrors(true)
+    setCanSubmit(true);
+    setShowErrors(true);
+    const { email, password } = formValues;
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
-      setEmail("")
-      setPassword("")
+      const dataErrors = {};
+      data?.forEach((error) => {
+        const [key, value] = error.split(":");
+        dataErrors[key.trim()] = value.trim();
+      });
+      setBackendErrors(dataErrors);
     } else {
-        closeModal()
+      closeModal();
     }
   };
 
-
   return (
     <>
-    <div className="login-container">
-      <div className="login-header-div">
-        <h1>Sign In</h1>
-        <div className="register-button">
-          <OpenModalButton
-            buttonText="Register"
-            modalComponent={<SignupFormModal />}
-          />
+      <div className="login-container">
+        <div className="login-header-div">
+          <h1>Sign In</h1>
+          <div className="register-button">
+            <OpenModalButton
+              buttonText="Register"
+              modalComponent={<SignupFormModal />}
+            />
+          </div>
         </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="email-div">
+            <label>Email address</label>
+            <input
+              type="text"
+              name="email"
+              value={formValues.email}
+              onChange={handleInputChange}
+              className={toggleInputCN("email")}
+              onFocus={() => {
+                if (backendErrors.hasOwnProperty("email"))
+                  delete backendErrors["email"];
+              }}
+              required
+            />
+          </div>
+          {backendErrors?.email && showErrors && <p className="errors-text">{backendErrors.email}</p>}
+
+          <div className="password-div">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formValues.password}
+              onChange={handleInputChange}
+              onFocus={() => {
+                if (backendErrors.hasOwnProperty("password"))
+                  delete backendErrors["password"];
+              }}
+              className={toggleInputCN("password")}
+              required
+            />
+          </div>
+          {backendErrors?.password && showErrors && <p className="errors-text">{backendErrors.password}</p>}
+
+          <div className="login-buttons-div">
+            <button className="login-submit-button" type="submit">
+              Log In
+            </button>
+            <button
+              className="demo-user-button"
+              type="submit"
+              onClick={handleDemoUser}
+            >
+              Demo User
+            </button>
+          </div>
+        </form>
       </div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="email-div">
-        <label>Email address</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={emailInputCN}
-            required
-          />
-        </div>
-        <div className="errors-div">
-            {showErrors && errorObj?.email}
-        </div>
-        <div className="password-div">
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={passwordInputCN}
-            required
-          />
-        </div>
-        <div className="errors-div">
-          {showErrors && errorObj?.password}
-        </div>
-        <div className="login-buttons-div">
-          <button className="login-submit-button" type="submit">Log In</button>
-          <button className="demo-user-button" type="submit" onClick={handleDemoUser}>Demo User</button>
-        </div>
-      </form>
-    </div>
     </>
   );
 }

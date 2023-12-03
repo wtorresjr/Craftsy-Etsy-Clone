@@ -4,26 +4,22 @@ import { useDispatch } from "react-redux";
 import { purchaseCart } from "../../store/cart";
 
 
+
 const Transaction = ({ totalItems, shippingPrice, handleNonFunctioningLinks }) => {
     const dispatch = useDispatch();
     let totalPrice = 0;
 
     const handlePurchase = (e) => {
         const cartData = {"Cart": []};
-
-        totalItems.forEach((item) => {
-            const itemData = { item_id: item.id, purchased: true }
-            cartData.Cart.push(itemData);
-        })
-
         dispatch(purchaseCart(cartData))
         alert("Purchase complete!")
     }
+    dispatch(purchaseCart(cartData));
+  };
 
-
-    for (let i = 0; i < totalItems.length; i++) {
-        totalPrice += (totalItems[i].price * totalItems[i].quantity)
-    }
+  for (let i = 0; i < totalItems.length; i++) {
+    totalPrice += totalItems[i].price * totalItems[i].quantity;
+  }
 
     return (
         <>
@@ -72,8 +68,13 @@ const Transaction = ({ totalItems, shippingPrice, handleNonFunctioningLinks }) =
                     <h3 className="priceLoad">loading...</h3>
                 )}
             </div>
-        </>
-    )
-}
+          </div>
+        ) : (
+          <h3 className="priceLoad">loading...</h3>
+        )}
+      </div>
+    </>
+  );
+};
 
 export default Transaction;
