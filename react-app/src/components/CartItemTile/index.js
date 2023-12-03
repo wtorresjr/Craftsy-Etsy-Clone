@@ -52,7 +52,7 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
         <>
             <div className="cartItemCard" key={item.id}>
                 <div className="sellerHeader">
-                    <h3>{productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</h3>
+                    <h3 onClick={(e) => handleNonFunctioningLinks(e)}>{productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</h3>
                     <span onClick={handleNonFunctioningLinks}>Contact Shop</span>
                 </div>
 
@@ -68,7 +68,9 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
 
                     <div className="cartItemDetailsContainer">
                         <div className="cartItemDetails">
-                            <h3>{item.name}</h3>
+                            <NavLink to={`/products/${item.product_id}`} style={{ 'textDecoration': 'none'}}>
+                                <h3>{item.name}</h3>
+                            </NavLink>
                             <label htmlFor="quantity"></label>
                             <select
                                 className="quantityDropdown"

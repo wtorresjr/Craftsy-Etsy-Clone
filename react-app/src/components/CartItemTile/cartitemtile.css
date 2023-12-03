@@ -94,6 +94,7 @@
     flex-direction: column;
     background-color: white;
     justify-content: space-evenly;
+    height: 85%;
 }
 
 .cartItemDetails h3 {
