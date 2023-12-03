@@ -24,7 +24,7 @@
     gap: 10px;
     margin-bottom: 20px;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: row;
 }
 

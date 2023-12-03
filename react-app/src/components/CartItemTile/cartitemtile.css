@@ -221,12 +221,12 @@
 .cardFooter {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .shippingContainer {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: flex-start;
 }
 

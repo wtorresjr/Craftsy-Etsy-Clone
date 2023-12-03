@@ -11,7 +11,6 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom";
 const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handleNonFunctioningLinks }) => {
     const dispatch = useDispatch();
     const [productInfoObj, setProductInfoObj] = useState({});
-    const [isloading, setIsLoading] = useState(true);
 
     const handleDeleteItem = (cartItemId) => {
         dispatch(deleteItem(+cartItemId));
@@ -38,10 +37,7 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
                 } catch (error) {
                     console.error('Error fetching product info:', error);
                 }
-
-                setIsLoading(false);
             };
-
             fetchProductInfo();
         } else {
             return;
@@ -60,7 +56,7 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handl
 
                     <div className="cartItemImgContainer">
                         <NavLink to={`/products/${item.product_id}`}>
-                            <img className="cartItemImg" style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
+                            <img className="cartItemImg" alt={item.name} style={{ borderRadius: "10px" }} src={item.preview_image_url && item.preview_image_url[0]} />
                         </NavLink>
                     </div>
 

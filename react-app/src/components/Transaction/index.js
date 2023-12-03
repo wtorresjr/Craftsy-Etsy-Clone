@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./transaction.css";
 import { useDispatch } from "react-redux";
 import { purchaseCart } from "../../store/cart";
@@ -36,22 +35,22 @@ const Transaction = ({
         <div className="paymentOptions">
           <label>
             <input type="radio" name="paymentMethod" />
-            <i class="fa-brands fa-cc-visa fa-2xl"></i>
-            <i class="fa-brands fa-cc-discover fa-2xl"></i>
-            <i class="fa-brands fa-cc-amex fa-2xl"></i>
-            <i class="fa-brands fa-cc-mastercard fa-2xl"></i>
+            <i className="fa-brands fa-cc-visa fa-2xl"></i>
+            <i className="fa-brands fa-cc-discover fa-2xl"></i>
+            <i className="fa-brands fa-cc-amex fa-2xl"></i>
+            <i className="fa-brands fa-cc-mastercard fa-2xl"></i>
           </label>
           <label>
             <input type="radio" name="paymentMethod" />
-            <i class="fa-brands fa-cc-paypal fa-2xl"></i>
+            <i className="fa-brands fa-cc-paypal fa-2xl"></i>
           </label>
           <label>
             <input type="radio" name="paymentMethod" />
-            <i class="fa-brands fa-google-pay fa-2xl"></i>
+            <i className="fa-brands fa-google-pay fa-2xl"></i>
           </label>
           <label>
             <input type="radio" name="paymentMethod" />
-            <i class="fa-brands fa-cc-apple-pay fa-2xl"></i>
+            <i className="fa-brands fa-cc-apple-pay fa-2xl"></i>
           </label>
         </div>
         {totalPrice > 0 ? (
