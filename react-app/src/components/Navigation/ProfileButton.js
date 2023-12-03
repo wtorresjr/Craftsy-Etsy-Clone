@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef}>
             <>
               <li>
-                <Link
+                <div
                   className="profileDropdownUser"
                   onClick={handleNonFunctioningLinks}
                 >
@@ -69,20 +69,20 @@ function ProfileButton({ user }) {
                     </h4>
                     <p>View your profile</p>
                   </span>
-                </Link>
+                </div>
               </li>
               <li className="dDPartTwo">
-                <Link
+                <div
                   className="purchasesReviews"
                   onClick={handleNonFunctioningLinks}
                 >
                   <i className="fas fa-clipboard-list"> </i>
                   <p>Purchases and reviews</p>
-                </Link>
-                <Link className="messages" onClick={handleNonFunctioningLinks}>
+                </div>
+                <div className="messages" onClick={handleNonFunctioningLinks}>
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>
-                </Link>
+                </div>
                 <NavLink
                   to="/shop-manager"
                   className="sellerListings"
@@ -93,13 +93,13 @@ function ProfileButton({ user }) {
                 </NavLink>
               </li>
               <li>
-                <Link
+                <div
                   className="accountSettings"
                   onClick={handleNonFunctioningLinks}
                 >
                   <i className="fas fa-cog"></i>
                   <p>Account settings</p>
-                </Link>
+                </div>
                 <div className="logOutDiv">
                   <i className="fas fa-sign-out-alt fa-rotate-180"></i>
                   <button onClick={handleLogout} className="logOutButton">
