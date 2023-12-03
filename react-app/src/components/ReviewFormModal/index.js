@@ -42,23 +42,14 @@ function ReviewFormModal({ productId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let newReview = {
-      review,
-      star_rating,
-      image_url: image.trim() !== "" ? image.trim() : null,
-    };
-
     try {
-      // Dispatching to create a review
+      const newReview = {
+        review: review,
+        star_rating: star_rating,
+        image_url: image,
+      };
+
       const response = await dispatch(createReview(productId, newReview));
-      if (image.trim() !== "") {
-        const newImage = {
-          image_url: image,
-        };
-        await dispatch(createReviewImage(response.id, newImage));
-      } else {
-        setImage("");
-      }
 
       closeModal();
       window.location.reload();

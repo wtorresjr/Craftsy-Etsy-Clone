@@ -73,9 +73,6 @@ const PrintReview = ({ review }) => {
   useEffect(() => {
     dispatch(cleartRevImgState());
   }, [dispatch]);
-  // console.log(review.review, "<------- REview");
-  // console.log(review.ReviewImages[0].image, "<------- Rev Image");
-  // console.log(review.ReviewImages, "<------- Rev? Image");
 
   if (review.ReviewImages.length) {
     revImage = review.ReviewImages;
@@ -95,14 +92,18 @@ const PrintReview = ({ review }) => {
       <div>
         {revImage &&
           revImage.map((image) => {
-            return (
-              <img
-                className="reviewImage"
-                src={image.image}
-                key={image.id}
-                alt="Review Image"
-              />
-            );
+            {
+              return image.image !== " " ? (
+                <img
+                  className="reviewImage"
+                  src={image.image}
+                  key={image.id}
+                  alt="Review Image"
+                />
+              ) : (
+                <div></div>
+              );
+            }
           })}
       </div>
       <div>
