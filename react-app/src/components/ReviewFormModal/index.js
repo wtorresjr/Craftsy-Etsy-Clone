@@ -75,7 +75,7 @@ function ReviewFormModal({ productId }) {
         <label>
           Stars
           <input
-            type="text"
+            type="number"
             value={star_rating}
             onChange={(e) => setStar_rating(e.target.value)}
             required
