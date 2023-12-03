@@ -19,10 +19,10 @@ function UpdateProduct() {
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [previewImg, setPreviewImg] = useState("");
-  const [extImg1, setExtImg1] = useState("");
-  const [extImg2, setExtImg2] = useState("");
-  const [extImg3, setExtImg3] = useState("");
-  const [extImg4, setExtImg4] = useState("");
+  //   const [extImg1, setExtImg1] = useState("");
+  //   const [extImg2, setExtImg2] = useState("");
+  //   const [extImg3, setExtImg3] = useState("");
+  //   const [extImg4, setExtImg4] = useState("");
   const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
@@ -83,21 +83,23 @@ function UpdateProduct() {
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
     }
-    if (!validImgFormats.includes(previewImg.slice(-4))) {
+    if (
+      !validImgFormats.includes(previewImg.toString().toLowerCase().slice(-4))
+    ) {
       errorCollector.wrongFormat = formatError;
     }
-    if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
-      errorCollector.formatImg1 = formatError;
-    }
-    if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
-      errorCollector.formatImg2 = formatError;
-    }
-    if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
-      errorCollector.formatImg3 = formatError;
-    }
-    if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
-      errorCollector.formatImg4 = formatError;
-    }
+    // if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
+    //   errorCollector.formatImg1 = formatError;
+    // }
+    // if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
+    //   errorCollector.formatImg2 = formatError;
+    // }
+    // if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
+    //   errorCollector.formatImg3 = formatError;
+    // }
+    // if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
+    //   errorCollector.formatImg4 = formatError;
+    // }
 
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
@@ -111,10 +113,10 @@ function UpdateProduct() {
     price,
     quantity,
     previewImg,
-    extImg1,
-    extImg2,
-    extImg3,
-    extImg4,
+    // extImg1,
+    // extImg2,
+    // extImg3,
+    // extImg4,
   ]);
 
   const handleSubmit = async (e) => {
@@ -126,7 +128,7 @@ function UpdateProduct() {
       quantity: quantity,
       preview_image_url: previewImg,
     };
-    dispatch(editAproduct(newProduct))
+    dispatch(editAproduct(+product_id, newProduct))
       .then(async (createdProduct) => {
         history.push(`/products/${createdProduct.id}`);
       })
@@ -138,6 +140,13 @@ function UpdateProduct() {
           }
         }
       });
+    if (productToEdit?.preview_image_url !== previewImg) {
+      const newPrevImg = {
+        image_url: previewImg,
+        preview: true,
+      };
+      dispatch(addNewProductImage(+product_id, newPrevImg));
+    }
   };
 
   return (
