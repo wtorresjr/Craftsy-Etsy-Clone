@@ -64,7 +64,7 @@ function SignupFormModal() {
 	useEffect(() => {
 		const errors = {};
 		const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-		const name_pattern = /^[a-zA-Z][a-zA-Z ]*[a-zA-Z]$/;
+		const name_pattern = /^[a-zA-Z][a-zA-Z ]*$/;
 		if (!formValues.firstName) errors.firstName = "First name is required.";
 		if (!formValues.lastName) errors.lastName = "Last name is required.";
 		if (!formValues.email) errors.email = "Email is required.";
@@ -97,6 +97,8 @@ function SignupFormModal() {
 
 		setFormErrors(errors);
 	}, [formValues, backendErrors])
+
+	console.log('CURRENT BACKEND ERRORS:---', backendErrors)
 
 
 	return (
