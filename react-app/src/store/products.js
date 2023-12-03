@@ -277,7 +277,6 @@ export default function reducer(state = initialState, action) {
     ///////////////////////////////////
     ///////////////////////////////////
     case EDIT_PRODUCT:
-    case EDIT_PRODUCT:
       newState = { ...state };
 
       if (!newState.userCreatedById) {
