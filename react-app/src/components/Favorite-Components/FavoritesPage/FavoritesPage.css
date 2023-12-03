@@ -2,6 +2,17 @@
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 10px;
+}
+
+
+.favoritespage-header span {
+    font-size: 20px;
+    color: #6F6F6F;
+    font-weight:200;
+}
+
+
+.favoritetiles {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
