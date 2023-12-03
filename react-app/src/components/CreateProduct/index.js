@@ -66,18 +66,18 @@ const CreateProduct = () => {
     if (!validImgFormats.includes(previewImg.slice(-4).toLowerCase())) {
       errorCollector.wrongFormat = formatError;
     }
-    if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
-      errorCollector.formatImg1 = formatError;
-    }
-    if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
-      errorCollector.formatImg2 = formatError;
-    }
-    if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
-      errorCollector.formatImg3 = formatError;
-    }
-    if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
-      errorCollector.formatImg4 = formatError;
-    }
+    // if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
+    //   errorCollector.formatImg1 = formatError;
+    // }
+    // if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
+    //   errorCollector.formatImg2 = formatError;
+    // }
+    // if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
+    //   errorCollector.formatImg3 = formatError;
+    // }
+    // if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
+    //   errorCollector.formatImg4 = formatError;
+    // }
 
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
@@ -119,7 +119,6 @@ const CreateProduct = () => {
         }
       });
   };
-
 
   return (
     <div className="createProductContainer">
@@ -194,7 +193,7 @@ const CreateProduct = () => {
             <p className="errorDiv">{errors.wrongFormat}</p>
           )}
         </li>
-        <li>
+        {/* <li>
           <label>
             Additional Images: (Optional)
             <input
@@ -230,7 +229,7 @@ const CreateProduct = () => {
               <p className="errorDiv">{errors.formatImg4}</p>
             )}
           </label>
-        </li>
+        </li> */}
         <button className="submitBtn" type="submit" disabled={isDisabled}>
           Create Product
         </button>
