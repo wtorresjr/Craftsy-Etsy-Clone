@@ -24,7 +24,8 @@ function SignupFormModal() {
 	//handles input change
 	const handleInputChange = (e) => {
 		const {name, value} = e.target;
-		setFormValues({...formValues, [name]:value});
+		const trimmedValue = (name === "firstName" || name === "lastName") ? value.trimStart() : value.trim();
+		setFormValues({...formValues, [name]:trimmedValue});
 	};
 
 	//handles demo user log in
@@ -39,8 +40,13 @@ function SignupFormModal() {
 		setCanSubmit(true);
 		setShowErrors(true);
 		const {username, email, password, firstName, lastName} = formValues;
+		const trimmedFormValues = Object.fromEntries(
+			Object.entries(formValues).map(([key, value]) => [key, value.trim()])
+		  );
+		  setFormValues(trimmedFormValues);
 		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		dispatch(getCart())
+		dispatch(getCart());
+
 		if (data) {
 			const dataErrors = {};
 			data?.forEach(error => {
@@ -58,6 +64,7 @@ function SignupFormModal() {
 	useEffect(() => {
 		const errors = {};
 		const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+		const name_pattern = /^[a-zA-Z][a-zA-Z ]*[a-zA-Z]$/;
 		if (!formValues.firstName) errors.firstName = "First name is required.";
 		if (!formValues.lastName) errors.lastName = "Last name is required.";
 		if (!formValues.email) errors.email = "Email is required.";
@@ -80,6 +87,8 @@ function SignupFormModal() {
 		if (formValues.confirmPassword.length > 255) errors.confirmPassword = "Input must not exceed 255 characters.";
 		if (formValues.password.length < 6) errors.password = "Must be at least 6 characters.";
 
+		if (!name_pattern.test(formValues.firstName)) errors.firstName = "Input can only contain letters and spaces in between words.";
+		if (!name_pattern.test(formValues.lastName)) errors.lastName = "Input can only contain letters and spaces in between words.";
 		if (!email_pattern.test(formValues.email)) errors.email = "Not a valid email.";
 		if (formValues.password !== formValues.confirmPassword) errors.confirmPassword = "Confirm Password field must be the same as the Password field.";
 
@@ -95,6 +104,7 @@ function SignupFormModal() {
 		<div className="signup-container">
 			<h1>Create your account</h1>
 			<h2>Registration is easy.</h2>
+			<pre>{JSON.stringify(formValues, undefined, 2)}</pre>
 			<form className="signup-form" onSubmit={handleSubmit}>
 				<div className="firstname-div">
 					<label>First name<span style={{"color": "#B64B59"}}>*</span></label>
@@ -108,7 +118,7 @@ function SignupFormModal() {
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.firstName}</p>}
+				{formErrors?.firstName && showErrors && <p className="errors-text">{formErrors.firstName}</p>}
 
 
 				<div className="lastname-div">
@@ -123,7 +133,7 @@ function SignupFormModal() {
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.lastName}</p>}
+				{formErrors?.lastName && showErrors && <p className="errors-text">{formErrors.lastName}</p>}
 
 
 				<div className="email-div">
@@ -134,12 +144,12 @@ function SignupFormModal() {
 						title="Please fill out this field."
 						value={formValues.email}
 						onChange={handleInputChange}
-						onFocus={() => {if (backendErrors.hasOwnProperty("email")) delete backendErrors["email"]}}
+						onInput={() => {if (backendErrors.hasOwnProperty("email")) delete backendErrors["email"]}}
 						className={toggleInputCN("email")}
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.email}</p>}
+				{formErrors?.email && showErrors && <p className="errors-text">{formErrors.email}</p>}
 
 
 				<div className="username-div">
@@ -150,12 +160,12 @@ function SignupFormModal() {
 						title="Please fill out this field."
 						value={formValues.username}
 						onChange={handleInputChange}
-						onFocus={()=> {if (backendErrors.hasOwnProperty("username")) delete backendErrors["username"]}}
+						onInput={()=> {if (backendErrors.hasOwnProperty("username")) delete backendErrors["username"]}}
 						className={toggleInputCN("username")}
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.username}</p>}
+				{formErrors?.username && showErrors && <p className="errors-text">{formErrors.username}</p>}
 
 
 				<div className="password-div">
@@ -170,7 +180,7 @@ function SignupFormModal() {
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.password}</p>}
+				{formErrors?.password && showErrors && <p className="errors-text">{formErrors.password}</p>}
 
 
 				<div className="confirm-password-div">
@@ -185,7 +195,7 @@ function SignupFormModal() {
 						required
 					/>
 				</div>
-				{showErrors && <p className="errors-text">{formErrors.confirmPassword}</p>}
+				{formErrors?.confirmPassword && showErrors && <p className="errors-text">{formErrors.confirmPassword}</p>}
 
 
 				<div className="signup-button-divs">
