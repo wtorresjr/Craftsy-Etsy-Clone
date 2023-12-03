@@ -44,21 +44,25 @@ function SignupFormModal() {
 			Object.entries(formValues).map(([key, value]) => [key, value.trim()])
 		  );
 		  setFormValues(trimmedFormValues);
-		const data = await dispatch(signUp(username, email, password, firstName, lastName));
-		dispatch(getCart());
 
-		if (data) {
-			const dataErrors = {};
-			data?.forEach(error => {
-			const [key, value] = error.split(':')
-			dataErrors[key.trim()] = value.trim()
-			});
-			setBackendErrors(dataErrors);
-		}
-		else {
-			closeModal();
-		}
-	};
+		if (password === formValues.confirmPassword) {
+			const data = await dispatch(signUp(username, email, password, firstName, lastName));
+			dispatch(getCart());
+
+			if (data) {
+				const dataErrors = {};
+				data?.forEach(error => {
+				const [key, value] = error.split(':')
+				dataErrors[key.trim()] = value.trim()
+				});
+				setBackendErrors(dataErrors);
+			}
+			else {
+				closeModal();
+			}
+		};
+	}
+
 
 	// useEffect to track frontend validations
 	useEffect(() => {
