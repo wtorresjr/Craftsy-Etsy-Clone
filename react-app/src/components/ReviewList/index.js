@@ -66,7 +66,7 @@ const ReviewList = ({ productId }) => {
   const [hasReview, setHasReview] = useState(false);
 
   const allReviewsByProductId = useSelector((state) =>
-    Object.values(state.reviews.reviewByProductId)
+    Object.values(state?.reviews?.reviewByProductId)
   );
   const sessionUser = useSelector((state) => state.session.user);
   const currentProduct = useSelector((state) => state.products.productDetail)
@@ -74,7 +74,6 @@ const ReviewList = ({ productId }) => {
   const reviewExists = allReviewsByProductId.some(
     (review) => review?.user_id === sessionUser?.id
   );
-  // console.log('review exists', reviewExists)
 
   const reviewPoints = {
     stars: 0,
@@ -95,7 +94,7 @@ const ReviewList = ({ productId }) => {
 
   return (
     <>
-      {allReviewsByProductId.forEach((review) => {
+      {allReviewsByProductId.map((review) => {
         reviewPoints.stars += review.star_rating;
         reviewPoints.numbers += 1;
       })}
