@@ -7,12 +7,10 @@ import { getProductInfo } from "../../store/products";
 import "./cartitemtile.css";
 
 
-const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => {
+const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice, handleNonFunctioningLinks }) => {
     const dispatch = useDispatch();
-
     const [productInfoObj, setProductInfoObj] = useState({});
     const [isloading, setIsLoading] = useState(true);
-
 
     const handleDeleteItem = (cartItemId) => {
         dispatch(deleteItem(+cartItemId));
@@ -54,7 +52,7 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => 
             <div className="cartItemCard" key={item.id}>
                 <div className="sellerHeader">
                     <h3>{productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</h3>
-                    <span>Contact Shop</span>
+                    <span onClick={handleNonFunctioningLinks}>Contact Shop</span>
                 </div>
 
                 <div className="detailContainer">
@@ -88,7 +86,7 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => 
                                 })}
                             </select>
                             <div className="detailButtons">
-                                <button>Save for later</button>
+                                <button onClick={handleNonFunctioningLinks}>Save for later</button>
                                 <button onClick={() => handleDeleteItem(item.id)}>Remove</button>
                             </div>
                         </div>
@@ -104,9 +102,9 @@ const CartItemTiles = ({ item, cartItemsArray, productsArr, shippingPrice }) => 
 
                 <div className="cardFooter">
                     <div className="personalizeItemContainer">
-                        <button><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
-                        <button><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
-                        <label><input type="checkbox" />Mark order as a gift</label>
+                        <button onClick={handleNonFunctioningLinks}><i class="fa-solid fa-tag"></i>Apply shop coupon codes</button>
+                        <button onClick={handleNonFunctioningLinks}><i class="fa-solid fa-plus"></i>Add a note to {productInfoObj[item.id]?.Seller?.first_name} {productInfoObj[item.id]?.Seller?.last_name}</button>
+                        <label onClick={(e) => handleNonFunctioningLinks(e)} ><input type="checkbox"/>Mark order as a gift</label>
                     </div>
 
                     <div className="shippingContainer">

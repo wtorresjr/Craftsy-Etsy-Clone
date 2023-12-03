@@ -26,6 +26,14 @@ const CartPage = () => {
     const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
     const [products, setProducts] = useState([]);
 
+    const handleNonFunctioningLinks = (e) => {
+        e.preventDefault();
+        const checkbox = e.target;
+        checkbox.checked = !checkbox.checked;
+
+        alert('Feature Coming Soon...')
+    }
+
     useEffect(() => {
         dispatch(getCart());
         dispatch(getAllProducts());
@@ -58,7 +66,7 @@ const CartPage = () => {
                                 <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
                                 {cartItemsArray &&
                                     cartItemsArray.map((item) => {
-                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray} shippingPrice={shippingPrice} />;
+                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray} shippingPrice={shippingPrice} handleNonFunctioningLinks={handleNonFunctioningLinks}/>;
                                     })}
                             </div>
                         </div>
@@ -68,7 +76,7 @@ const CartPage = () => {
                 </div>
                 {itemCount > 0 && sessionUser && (
                     <div id="transactionCartDisplay">
-                        <Transaction totalItems={cartItemsArray} shippingPrice={shippingPrice}/>
+                        <Transaction totalItems={cartItemsArray} shippingPrice={shippingPrice} handleNonFunctioningLinks={handleNonFunctioningLinks}/>
                     </div>
                 )}
             </div>
