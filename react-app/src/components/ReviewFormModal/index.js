@@ -31,7 +31,8 @@ function ReviewFormModal({ productId }) {
     } else if (star_rating < 1 || star_rating > 5 || !parseInt(star_rating)) {
       errorCollector.stars = "Invalid input for stars (must be between 1 - 5)";
     }
-    if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
+    // if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
+    if (image && !validFormats.includes(image.toLowerCase([-4]))) {
       errorCollector.rev_image =
         "Images are optional. Accepted formats .jpg, .jpeg or .png formats";
     }
