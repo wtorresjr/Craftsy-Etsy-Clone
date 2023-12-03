@@ -41,15 +41,13 @@ export const getCart = () => async (dispatch) => {
             dispatch({ type: 'SET_CART_ID', payload: cartItems.cart_id || undefined});
             return cartItems;
         }
-    } catch (res) {
-        let errors = await res.json();
-        return errors;
+    } catch (error) {
+        throw error;
     }
-
-
 }
 
 export const addItem = (itemData, cartId) => async (dispatch) => {
+    console.log(itemData)
     try {
         const options = {
             method: 'POST',
@@ -65,9 +63,8 @@ export const addItem = (itemData, cartId) => async (dispatch) => {
             return newItem;
         }
 
-    } catch (res) {
-        let errors = await res.json();
-        return errors;
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -83,9 +80,8 @@ export const deleteItem = (cartItemId) => async (dispatch) => {
             dispatch(getCart());
             return item
         }
-    } catch (res) {
-        let errors = await res.json();
-        return errors;
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -103,9 +99,8 @@ export const editItem = (itemData, cartItemId) => async (dispatch) => {
             dispatch(getCart());
             return item
         }
-    } catch (res) {
-        let errors = res.json();
-        return errors;
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -123,9 +118,8 @@ export const purchaseCart = (cartData) => async (dispatch) => {
             dispatch(getCart());
             return purchase
         }
-    } catch (res) {
-        let errors = res.json();
-        return errors;
+    } catch (error) {
+        throw error;
     }
 }
 

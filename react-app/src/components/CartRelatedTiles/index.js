@@ -2,7 +2,7 @@
 import FavoriteHeart from "../Product-Components/HeartComponent";
 import LoginFormModal from "../LoginFormModal";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -16,7 +16,7 @@ const CartRelatedTiles = ({ productsArray, sessionUser, favoritedProducts }) => 
     const dispatch = useDispatch();
     const history = useHistory();
     const { setModalContent } = useModal();
-    const [localIsClicked, setLocalIsClicked] = useState(false);
+    const setLocalIsClicked = useState(false);
 
     const productDetailRedirect = (product) => {
         history.push(`/products/${product.id}`)
