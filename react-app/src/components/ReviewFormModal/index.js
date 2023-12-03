@@ -19,6 +19,7 @@ function ReviewFormModal({ productId }) {
   const errorCollector = {};
 
   useEffect(() => {
+    const validFormats = [".jpg", "jpeg", ".png", " "];
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -30,6 +31,10 @@ function ReviewFormModal({ productId }) {
     } else if (star_rating < 1 || star_rating > 5 || !parseInt(star_rating)) {
       errorCollector.stars = "Invalid input for stars (must be between 1 - 5)";
     }
+    if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
+      errorCollector.rev_image =
+        "Images are optional: Accepted formats .jpg, .jpeg or .png";
+    }
 
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
@@ -37,28 +42,19 @@ function ReviewFormModal({ productId }) {
     } else {
       setDisabled(false);
     }
-  }, [review, star_rating]);
+  }, [review, star_rating, image]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let newReview = {
-      review,
-      star_rating,
-      image_url: image.trim() !== "" ? image.trim() : null,
-    };
-
     try {
-      // Dispatching to create a review
+      const newReview = {
+        review: review,
+        star_rating: star_rating,
+        image_url: image,
+      };
+
       const response = await dispatch(createReview(productId, newReview));
-      if (image.trim() !== "") {
-        const newImage = {
-          image_url: image,
-        };
-        await dispatch(createReviewImage(response.id, newImage));
-      } else {
-        setImage("");
-      }
 
       closeModal();
       window.location.reload();
@@ -84,7 +80,7 @@ function ReviewFormModal({ productId }) {
         <label>
           Stars
           <input
-            type="text"
+            type="number"
             value={star_rating}
             onChange={(e) => setStar_rating(e.target.value)}
             required
@@ -97,8 +93,12 @@ function ReviewFormModal({ productId }) {
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
+            placeholder="Optional"
           />
         </label>
+        {errors && errors.rev_image && (
+          <p className="errorDiv">{errors.rev_image}</p>
+        )}
         <button type="submit" disabled={isDisabled}>
           Submit a Review
         </button>

@@ -222,6 +222,15 @@ def create_product_review(product_id):
     db.session.add(new_review)
     db.session.commit()
 
+
+    new_image = ReviewImage(
+        review_id=new_review.id,
+        image_url=requestData.get("image_url") or " "
+    )
+
+    db.session.add(new_image)
+    db.session.commit()
+
     return new_review.to_dict()
 
 
