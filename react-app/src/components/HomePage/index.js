@@ -61,6 +61,7 @@ const HomePage = () => {
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
                 priceStyle={"priceDivSmall"}
+                // heartStyle={}
               />
             );
           })}

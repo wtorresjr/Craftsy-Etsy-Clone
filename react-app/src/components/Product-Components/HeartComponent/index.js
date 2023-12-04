@@ -26,20 +26,28 @@ const FavoriteHeart = ({ product }) => {
 
     setLocalIsClicked(!isClicked);
 
-    if (isClicked) {
+    if (isClicked && isLikeLoaded) {
       setIsLikeLoaded(false);
-      await dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
-      setIsLikeLoaded(true);
-    } else {
+      const response = await dispatch(
+        favoriteActions.removeFromCurrUserFavorites(product.id)
+      );
+      if (response) {
+        console.log("response succesful REMOVE fav");
+        setIsLikeLoaded(true);
+      }
+    }
+    if (!isClicked && isLikeLoaded) {
       const newFav = {
         product_id: product.id,
       };
       setIsLikeLoaded(false);
-      await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-      setIsLikeLoaded(true);
-    }
-    if (sessionUser) {
-      dispatch(favoriteActions.loadCurrUserFavorites());
+      const addResponse = await dispatch(
+        favoriteActions.addToCurrUserFavorites(newFav)
+      );
+      if (addResponse) {
+        console.log("response succesful ADD fav");
+        setIsLikeLoaded(true);
+      }
     }
   };
 
