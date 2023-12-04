@@ -32,7 +32,6 @@ const FavoriteHeart = ({ product }) => {
         favoriteActions.removeFromCurrUserFavorites(product.id)
       );
       if (response) {
-        console.log("response succesful REMOVE fav");
         setIsLikeLoaded(true);
       }
     }
@@ -45,7 +44,6 @@ const FavoriteHeart = ({ product }) => {
         favoriteActions.addToCurrUserFavorites(newFav)
       );
       if (addResponse) {
-        console.log("response succesful ADD fav");
         setIsLikeLoaded(true);
       }
     }
