@@ -1,3 +1,14 @@
+# Welcome to Craftsy!!!
+_An Etsy Clone by The Only Group..._
+
+## The Team
+* [Tamara Mousa](https://github.com/T3mousa)
+* [Ian Kim](https://github.com/iankimm)
+* [Krystal Kimmel](https://github.com/kryskimmel)
+* [Daniel Calderon](https://github.com/Calderon1199)
+* [Will Torres](https://github.com/wtorresjr)
+
+
 ## Features
 ### New account creation Log in, log out, and guest/demo login:
 - Users can sign up, log in, and log out.
