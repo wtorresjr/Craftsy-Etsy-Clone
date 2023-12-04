@@ -1,7 +1,9 @@
 import { useState } from "react";
-import ProductTile from "../Product-Components/ProductTile";
+import ProductTile from "../ProductTile";
+import "../../Product-Components/PriceComponent/price_component.css";
+import "../ProductTile/product_img_tile.css";
 
-const SellerSpotLight = ({ product }) => {
+const SellerSpotLight = ({ product, priceSize }) => {
   return (
     <>
       <h3>Sellers you might like...</h3>
@@ -9,6 +11,7 @@ const SellerSpotLight = ({ product }) => {
         product={product}
         prodTileImgStyle={"recentFaves"}
         tileContainerStyle={"productTileContain"}
+        priceSize={priceSize}
       />
     </>
   );

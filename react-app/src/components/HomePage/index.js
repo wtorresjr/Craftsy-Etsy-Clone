@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
+import SellerSpotLight from "../Product-Components/SellerSpotLight_View";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
@@ -24,6 +25,10 @@ const HomePage = () => {
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
+        <SellerSpotLight
+          product={allProducts[0]}
+          priceSize={"priceDivNormal"}
+        />
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <>
             <h3>Recently Faved...</h3>
@@ -54,7 +59,7 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
-                // priceStyle={"hidden"}
+                priceSize={"priceDivSmall"}
               />
             );
           })}

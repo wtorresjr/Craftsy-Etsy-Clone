@@ -1,4 +1,4 @@
-.priceDiv {
+.priceDivNormal {
   position: absolute;
   left: 20px;
   bottom: 20px;
@@ -11,3 +11,19 @@
   font-weight: bold;
   z-index: 9999;
 }
+
+.priceDivSmall {
+  position: absolute;
+  left: 5px;
+  bottom: 10px;
+  display: flex;
+  background-color: white;
+  width: auto;
+  padding: 5px 5px;
+  border-radius: 15px;
+  border: solid 1px darkgray;
+  font-weight: bold;
+  font-size:11px;
+  z-index: 9999;
+}
+
