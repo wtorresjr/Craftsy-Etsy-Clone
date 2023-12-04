@@ -38,3 +38,7 @@
 - Should be able to view all of their favorite products.
 - Should be able to favorite products.
 - Should be able to delete products from their favorites.
+
+#### Acknowledgments
+- Inspired by Etsy
+- Icons by Font Awesome
