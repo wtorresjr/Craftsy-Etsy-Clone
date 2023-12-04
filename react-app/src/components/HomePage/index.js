@@ -1,5 +1,5 @@
 import "./homepage.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
@@ -14,19 +14,29 @@ const HomePage = () => {
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
+  const [randomIdx, setRandomIdx] = useState(0);
+
+  let randProductIdx;
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    const loadProducts = async () => {
+      const getProds = await dispatch(getAllProducts());
+      if (getProds) {
+        randProductIdx = Math.floor(Math.random() * getProds.Products.length);
+        setRandomIdx(randProductIdx);
+      }
+    };
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
+    loadProducts();
   }, [dispatch, sessionUser]);
 
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
         <SellerSpotLight
-          product={allProducts[0]}
+          product={allProducts[randomIdx]}
           priceStyle={"priceDivNormal"}
         />
         {favoritedProducts && favoritedProducts.length > 4 ? (
