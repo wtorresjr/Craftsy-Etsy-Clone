@@ -44,6 +44,7 @@ const HomePage = () => {
                     product={filteredProduct}
                     prodTileImgStyle={"recentFaves"}
                     tileContainerStyle={"productTileContain"}
+                    priceStyle={"priceDivNormal"}
                   />
                 ))}
           </>
@@ -60,7 +61,6 @@ const HomePage = () => {
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
                 priceStyle={"priceDivSmall"}
-              
               />
             );
           })}
