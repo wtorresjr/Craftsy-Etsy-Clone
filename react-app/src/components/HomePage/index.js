@@ -27,7 +27,7 @@ const HomePage = () => {
       <div className="smallTileContain">
         <SellerSpotLight
           product={allProducts[0]}
-          priceSize={"priceDivNormal"}
+          priceStyle={"priceDivNormal"}
         />
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <>
@@ -59,7 +59,8 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
-                priceSize={"priceDivSmall"}
+                priceStyle={"priceDivSmall"}
+              
               />
             );
           })}

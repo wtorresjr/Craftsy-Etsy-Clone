@@ -15,10 +15,8 @@ const FavoriteHeart = ({ product }) => {
   const [localIsClicked, setLocalIsClicked] = useState(false);
   const [isLikeLoaded, setIsLikeLoaded] = useState(true);
   let isClicked = favoritedProducts?.some(
-    (fav) => fav.product_id === product.id
+    (fav) => fav?.product_id === product?.id
   );
-
-  
 
   const handleClick = async () => {
     if (!sessionUser) {

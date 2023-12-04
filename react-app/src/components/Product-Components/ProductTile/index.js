@@ -10,7 +10,7 @@ const ProductTile = ({
   favoritedProducts,
   prodTileImgStyle,
   tileContainerStyle,
-  priceSize,
+  priceStyle,
   heartVal,
 }) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ProductTile = ({
 
   return (
     <div className={tileContainerStyle}>
-      <PriceComponent product={product} priceSize={priceSize} />
+      <PriceComponent product={product} priceStyle={priceStyle} />
       <FavoriteHeart
         product={product}
         isClicked={localIsClicked}
