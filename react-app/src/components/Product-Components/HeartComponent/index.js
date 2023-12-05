@@ -15,10 +15,8 @@ const FavoriteHeart = ({ product }) => {
   const [localIsClicked, setLocalIsClicked] = useState(false);
   const [isLikeLoaded, setIsLikeLoaded] = useState(true);
   let isClicked = favoritedProducts?.some(
-    (fav) => fav.product_id === product.id
+    (fav) => fav?.product_id === product?.id
   );
-
-  
 
   const handleClick = async () => {
     if (!sessionUser) {
@@ -28,20 +26,26 @@ const FavoriteHeart = ({ product }) => {
 
     setLocalIsClicked(!isClicked);
 
-    if (isClicked) {
+    if (isClicked && isLikeLoaded) {
       setIsLikeLoaded(false);
-      await dispatch(favoriteActions.removeFromCurrUserFavorites(product.id));
-      setIsLikeLoaded(true);
-    } else {
+      const response = await dispatch(
+        favoriteActions.removeFromCurrUserFavorites(product.id)
+      );
+      if (response) {
+        setIsLikeLoaded(true);
+      }
+    }
+    if (!isClicked && isLikeLoaded) {
       const newFav = {
         product_id: product.id,
       };
       setIsLikeLoaded(false);
-      await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-      setIsLikeLoaded(true);
-    }
-    if (sessionUser) {
-      dispatch(favoriteActions.loadCurrUserFavorites());
+      const addResponse = await dispatch(
+        favoriteActions.addToCurrUserFavorites(newFav)
+      );
+      if (addResponse) {
+        setIsLikeLoaded(true);
+      }
     }
   };
 
