@@ -35,10 +35,12 @@ const HomePage = () => {
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
-        <SellerSpotLight
-          product={allProducts[randomIdx]}
-          priceStyle={"priceDivNormal"}
-        />
+        {allProducts && (
+          <SellerSpotLight
+            product={allProducts[randomIdx]}
+            priceStyle={"priceDivNormal"}
+          />
+        )}
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <>
             <h3>Recently Faved...</h3>
