@@ -17,7 +17,6 @@ const ProductTile = ({
   const isClicked = favoritedProducts?.some((fav) => fav.id === product.id);
   const [localIsClicked, setLocalIsClicked] = useState(isClicked);
 
-  // const [onPage, setOnPage] = useState(currentPage);
 
   useEffect(() => {
     setLocalIsClicked(isClicked);

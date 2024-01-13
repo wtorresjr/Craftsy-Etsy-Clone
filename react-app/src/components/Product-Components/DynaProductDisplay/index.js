@@ -16,11 +16,9 @@ const DynaProductDisplay = ({
     for (let i = 0; i < numOfProducts; i++) {
       const randomId = Math.floor(Math.random() * allProducts.length);
       itemIdsArr.push(randomId);
-      // console.log(itemIdsArr, "<-----ITEM IDS ARR");
     }
 
     setRandomProducts(itemIdsArr);
-    // console.log(allProducts, "ALL PRODUCTS");
   }, []);
 
   return (
@@ -31,20 +29,20 @@ const DynaProductDisplay = ({
       </div>
 
       <div className="dynaImgContain">
-        {randomProducts &&
+        {randomProducts ?
           randomProducts.map((itemId) => {
             return (
-              <ProductTile
-                key={itemId}
-                product={allProducts[itemId]}
-                priceStyle={"hidden"}
-              />
-              // <img
+              // <ProductTile
               //   key={itemId}
-              //   src={allProducts[itemId]?.preview_image_url}
-              // ></img>
+              //   product={allProducts[itemId]}
+              //   priceStyle={"hidden"}
+              // />
+              <img
+                key={itemId}
+                src={allProducts[itemId]?.preview_image_url}
+              ></img>
             );
-          })}
+          }):"...loading"}
       </div>
     </div>
   );
