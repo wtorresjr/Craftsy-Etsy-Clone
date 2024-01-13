@@ -14,7 +14,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.profile-dropdown > li {
+.profile-dropdown>li {
   padding-bottom: 0px;
 }
 
@@ -69,6 +69,10 @@
 
 .catWord {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.categoriesDiv {
+  cursor: pointer;
 }
 
 .categoriesDiv:hover {
@@ -167,13 +171,14 @@ button.bell {
   /* text-decoration: none; */
   color: black;
   font-size: 30px;
+  cursor: pointer;
 }
 
 div.signInDiv {
   grid-column: span 2;
 }
 
-div.signInDiv > button {
+div.signInDiv>button {
   background-color: transparent;
   border: none;
 }
@@ -289,7 +294,7 @@ i.far.fa-heart:hover {
   padding-top: 5px;
 }
 
-.profileDropdownUser > i.fas.fa-user-circle {
+.profileDropdownUser>i.fas.fa-user-circle {
   font-size: 25px;
   grid-column: span 1;
   display: grid;
@@ -303,12 +308,12 @@ i.far.fa-heart:hover {
   grid-column: span 5;
 }
 
-.firstLastName > p {
+.firstLastName>p {
   margin: 0px 10px 15px 15px;
   font-size: 15px;
 }
 
-.firstLastName > h4 {
+.firstLastName>h4 {
   margin: 5px 10px 5px 15px;
   font-size: 18px;
 }
@@ -339,11 +344,11 @@ i.far.fa-heart:hover {
   background-color: rgb(228, 226, 226);
 }
 
-.purchasesReviews > i.fas.fa-clipboard-list,
-.messages > i.far.fa-comment-dots,
-.accountSettings > i.fas.fa-cog,
-.logOutDiv > i.fas.fa-sign-out-alt.fa-rotate-180,
-.sellerListings > i.fas.fa-store {
+.purchasesReviews>i.fas.fa-clipboard-list,
+.messages>i.far.fa-comment-dots,
+.accountSettings>i.fas.fa-cog,
+.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180,
+.sellerListings>i.fas.fa-store {
   font-size: 20px;
   grid-column: span 1;
   display: grid;
@@ -353,10 +358,10 @@ i.far.fa-heart:hover {
   margin-left: 10px;
 }
 
-.purchasesReviews > p,
-.messages > p,
-.accountSettings > p,
-.sellerListings > p {
+.purchasesReviews>p,
+.messages>p,
+.accountSettings>p,
+.sellerListings>p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;
