@@ -51,8 +51,8 @@ const HomePage = () => {
             <DynaProductDisplay
               allProducts={allProducts}
               numOfProducts={4}
-              mainText={""}
-              secondaryText={""}
+              mainText={"Because you viewed..."}
+              secondaryText={"Secondary text"}
               componentStyle={""}
             />
             <DynaProductDisplay
@@ -65,7 +65,7 @@ const HomePage = () => {
           </>
         )}
         {/* <h3>Because You Viewed...</h3> */}
-        {allProducts &&
+        {/* {allProducts &&
           allProducts.slice(0).map((product) => {
             return (
               <ProductTile
@@ -76,7 +76,7 @@ const HomePage = () => {
                 // priceStyle={"hidden"}
               />
             );
-          })}
+          })} */}
       </div>
     </div>
   );
