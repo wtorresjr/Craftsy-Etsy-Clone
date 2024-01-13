@@ -2,4 +2,15 @@
   width: 100px;
   height: 100px;
   padding: 0 10px 0 0;
+  border-radius: 10px;
+}
+
+.starRatingContain {
+  border-top: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-flow: row-reverse wrap; */
+  flex-direction: row-reverse;
+  /* width: 100%; */
 }

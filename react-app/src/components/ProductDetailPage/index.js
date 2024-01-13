@@ -77,43 +77,51 @@ const ProductDetailPage = () => {
         </div>
       ) : (
         <div className="prodDetailsContain">
-          <div>
+          {currentProduct?.preview_image_url ? (
+            <img
+              id="previewImg"
+              src={currentProduct?.preview_image_url[0]}
+              alt="Product Preview"
+            />
+          ) : (
+            "no image"
+          )}
+          <div className="productDetailDiv">
             <h1>{currentProduct?.name}</h1>
-            {currentProduct?.preview_image_url ? (
-              <img
-                src={currentProduct?.preview_image_url[0]}
-                alt="Product Preview"
-              />
-            ) : (
-              "no image"
-            )}
-            <div className="itemprice">
-              ${currentProduct?.price?.toFixed(2)}
-            </div>
+            <h2 className="itemprice">${currentProduct?.price?.toFixed(2)}</h2>
             <div className="itemdescription">{currentProduct?.description}</div>
             <div className="itemarriving">
               <i className="fa-solid fa-check"></i>
               Arrives soon! Get it by Tomorrow if you order today
             </div>
-            <label className="dropdown">Quantity</label>
-            <select
-              id="dropdown"
-              defaultValue={1}
-              onChange={handleSelectChange}
-            >
-              {index.map((idx) => (
-                <option key={idx} value={idx}>
-                  {idx}
-                </option>
-              ))}
-            </select>
-            <button onClick={handleAddToCart}>Add to Cart</button>
-            <hr />
-            Related Searches
-            <hr />
-            <ReviewList productId={productId} />
-            <hr />
+
+            <div className="quantityDiv">
+              <label className="dropdown">Quantity</label>
+              <select
+                id="dropdown"
+                defaultValue={1}
+                onChange={handleSelectChange}
+              >
+                {index.map((idx) => (
+                  <option key={idx} value={idx}>
+                    {idx}
+                  </option>
+                ))}
+              </select>
+              <button onClick={handleAddToCart} id="addToCartBtn">
+                Add to Cart
+              </button>
+            </div>
           </div>
+          <div className="lowerHalfDiv">
+            <div className="reviewListDiv">
+              {/* <hr /> */}
+              <ReviewList productId={productId} />
+              {/* <hr /> */}
+            </div>
+          </div>
+          {/* <hr /> */}
+          <h3 className="relatedSearchDiv">Related Searches</h3>
         </div>
       )}
     </>
