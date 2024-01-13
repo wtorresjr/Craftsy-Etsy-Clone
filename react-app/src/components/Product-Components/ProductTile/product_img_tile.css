@@ -10,17 +10,16 @@
 }
 
 .smallTileContain {
+  justify-content: center;
   position: relative;
-  width: 70%;
+  width: 70vw;
   display: flex;
   gap: 20px;
   border-radius: 8px;
   flex-flow: row wrap;
+  /* border: 1px solid black; */
 }
 
-.smallTileContain h3 {
-  width: 100%;
-}
 
 .largeTileContain h3 {
   width: 100%;

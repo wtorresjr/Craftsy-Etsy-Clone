@@ -9,7 +9,7 @@ import { fetchReviews, fetchReviewById } from "../../store/reviews";
 import ReviewList from "../ReviewList";
 import ProductTile from "../Product-Components/ProductTile";
 
-import { addItem } from "../../store/cart";
+import { addItem, editItem } from "../../store/cart";
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [productNotFound, setProductNotFound] = useState(false);
 
+  const cart = useSelector((state) => state?.cart?.allItems);
+  const cartItem = cart.find((item) => item.product_id === +productId);
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
 
@@ -27,9 +29,6 @@ const ProductDetailPage = () => {
       index.push(i);
     }
   }
-
-  //useSelector to get the current cart
-  const currentCart = useSelector((state) => state?.cart?.cartId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,12 +55,16 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = async () => {
-    const newCartItem = {
-      product_id: productId,
-      cart_id: currentCart,
-      quantity: selected,
-    };
-    dispatch(addItem(newCartItem, currentCart)).then(history.push("/cart"));
+    if (cartItem) {
+      dispatch(editItem({ quantity: +selected }, cartItem.id));
+    } else {
+      const newCartItem = {
+        product_id: +productId,
+        quantity: +selected,
+      };
+      dispatch(addItem(newCartItem));
+    }
+    history.push("/cart");
   };
 
   return (

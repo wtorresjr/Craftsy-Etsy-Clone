@@ -5,6 +5,7 @@ import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
+import DynaProductDisplay from "../Product-Components/DynaProductDisplay";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,25 @@ const HomePage = () => {
         ) : null}
       </div>
       <div className="smallTileContain">
-        <h3>Because You Viewed...</h3>
+        {allProducts && (
+          <>
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={4}
+              mainText={""}
+              secondaryText={""}
+              componentStyle={""}
+            />
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={4}
+              mainText={"Collections you might like"}
+              secondaryText={"Test Text Secondary"}
+              componentStyle={""}
+            />
+          </>
+        )}
+        {/* <h3>Because You Viewed...</h3> */}
         {allProducts &&
           allProducts.slice(0).map((product) => {
             return (

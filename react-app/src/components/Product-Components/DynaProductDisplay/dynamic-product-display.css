@@ -1,0 +1,34 @@
+.dynaDisplayMainContain h1,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.dynaDisplayMainContain {
+  border: 1px solid black;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.dynaTextContain {
+  width: 50%;
+}
+
+.dynaImgContain {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  width: 50%;
+}
+
+.dynaImgContain img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}

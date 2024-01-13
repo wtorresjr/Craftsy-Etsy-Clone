@@ -26,9 +26,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-flow: row wrap;
   /* display: grid;
   grid-template-columns: repeat(16, 1fr); */
-  /* gap: 10px; */
+  gap: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
