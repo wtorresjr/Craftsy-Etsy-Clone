@@ -1,6 +1,6 @@
 .reviews-modal-wrapper {
     width: 500px;
-    height: 530px;
+    /* height: 580px; */
     margin: 15px 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,15 +25,23 @@
     border-radius: 5px;
 }
 
-.reviews-modal-stars-div {
+.reviews-modal-stars-div-edit {
     display: flex;
     flex-direction: column;
     width: 280px;
     position: absolute;
     left: 232px;
-    bottom: 290px;
+    bottom: 245px;
 }
 
+.reviews-modal-stars-div-create {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    position: absolute;
+    left: 232px;
+    bottom: 320px;
+}
 
 input[type="radio"] {
     display: none;
@@ -86,7 +94,7 @@ input[type="radio"] {
 .reviews-modal-submit-button-div {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
     width: 525px;
 }
 

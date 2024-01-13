@@ -92,7 +92,7 @@ function ReviewFormModal({ productId }) {
       </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="reviews-modal-stars-div">
+          <div className="reviews-modal-stars-div-create">
             <label> My review rating <span style={{color:'#A61A2D'}}>*</span></label>
             <div className="stars-div">
               {[...Array(5)].map((star, i) => {
