@@ -1,22 +1,18 @@
 .reviews-modal-wrapper {
-    border: 1px solid red;
     width: 530px;
     height: 530px;
     margin: 15px 15px;
 }
 
 .reviews-modal-h1 {
-    border: 1px solid red;
     font-weight: 100;
 }
 
 .reviews-modal-top {
-    border: 2px solid blue;
     display: flex
 }
 
 .reviews-modal-product-img-div {
-    border: 1px solid red;
     width: 230px;
     display: flex;
     align-items: center;
@@ -29,7 +25,12 @@
 }
 
 .reviews-modal-stars-div {
-    border: 1px solid green
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    position: absolute;
+    left: 245px;
+    bottom: 290px;
 }
 
 
@@ -38,15 +39,60 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-
 .star svg {
     transition: color 200ms;
-    border: 1px solid red;
     cursor: pointer;
 }
 
 .reviews-modal-product-info-div {
-    border: 1px solid blue;
     width: 300px;
     height: 150px
+}
+
+.reviews-modal-review-div {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+    margin-top: 20px;
+}
+
+.reviews-modal-review-div textarea {
+    min-width: 525px;
+    max-width: 525px;
+    min-height: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.reviews-modal-images-div {
+    margin-top: 20px;
+}
+
+.reviews-modal-images-div input {
+    width: 525px;
+    border-radius: 5px;
+}
+
+.reviews-modal-submit-button-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 525px;
+}
+
+.disabled-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: not-allowed;
+}
+
+.enabled-button {
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
 }
