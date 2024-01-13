@@ -1,4 +1,82 @@
 .prodDetailsContain {
   display: flex;
   justify-content: center;
+  flex-flow: row wrap;
+  gap: 10px;
+  padding: 50px 30px;
+}
+
+.productDetailDiv {
+  gap: 20px;
+  /* border-top: 1px solid black; */
+  border-right: 1px solid black;
+  /* border-bottom: 1px solid black; */
+  /* border-radius: 0 10px 10px 0; */
+  padding: 0 20px;
+  /* width: 30%; */
+}
+
+.prodDetailsContain h1 {
+  width: 100%;
+}
+
+.crudBtnsDiv {
+  display: flex;
+  justify-content: right;
+  gap: 10px;
+  padding: 0 0 10px 0;
+}
+
+.crudBtnsDiv .ReviewEditButton button,
+.ReviewDeleteButton button {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  border-radius: 7px;
+  border: 1px solid rgb(165, 165, 165);
+}
+
+.quantityDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vh;
+  margin: 20px 0 0 0;
+  border-top: 1px solid black;
+  padding: 20px 0 0 0;
+}
+
+.quantityDiv select {
+  width: 15%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+#addToCartBtn {
+  height: 40px;
+  border-radius: 10px;
+}
+
+.reviewListDiv {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.relatedSearchDiv {
+  width: 100%;
+  border-top: 1px solid black;
+  padding: 10px 0 0 0;
+}
+
+#previewImg {
+  width: 25%;
+  height: 25%;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.lowerHalfDiv {
+  display: flex;
 }

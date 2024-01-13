@@ -78,17 +78,14 @@ const PrintReview = ({ review }) => {
     revImage = review.ReviewImages;
   }
 
-  if (review.User) {
-    name = review.User.firstName + " " + review.User.lastName;
-  }
-
   return (
     <>
-      <div>
+      <div className="starRatingContain">
         {/* gotta add stars to show as stars */}
-        {getStars(review.star_rating)}
+        <p>{getStars(review.star_rating)}</p>
+        <h4>Reviewed by: {review?.User?.firstName}</h4>
       </div>
-      <div>{review.review}</div>
+      <p>{review.review}</p>
       <div>
         {revImage &&
           revImage.map((image) => {
@@ -112,29 +109,31 @@ const PrintReview = ({ review }) => {
       </div>
 
       {/* EDIT REVIEW */}
-      {sessionUser && sessionUser.id === review.user_id ? (
-        <div className="ReviewEditButton">
-          <OpenModalButton
-            className="ReviewEditButtonModal"
-            buttonText="Edit"
-            modalComponent={<ReviewEditModal review={review} />}
-          />
-        </div>
-      ) : (
-        ""
-      )}
-      {/* DELETE REVIEW */}
-      {sessionUser && sessionUser.id === review.user_id ? (
-        <div className="ReviewDeleteButton">
-          <OpenModalButton
-            className="ReviewDeleteButtonModal"
-            buttonText="Delete"
-            modalComponent={<ReviewDeleteModal review={review} />}
-          />
-        </div>
-      ) : (
-        ""
-      )}
+      <div className="crudBtnsDiv">
+        {sessionUser && sessionUser.id === review.user_id ? (
+          <div className="ReviewEditButton">
+            <OpenModalButton
+              className="ReviewEditButtonModal"
+              buttonText="Edit"
+              modalComponent={<ReviewEditModal review={review} />}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        {/* DELETE REVIEW */}
+        {sessionUser && sessionUser.id === review.user_id ? (
+          <div className="ReviewDeleteButton">
+            <OpenModalButton
+              className="ReviewDeleteButtonModal"
+              buttonText="Delete"
+              modalComponent={<ReviewDeleteModal review={review} />}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };
