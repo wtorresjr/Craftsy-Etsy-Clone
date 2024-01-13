@@ -82,7 +82,7 @@ const PrintReview = ({ review }) => {
     <>
       <div className="starRatingContain">
         {/* gotta add stars to show as stars */}
-        <div>{getStars(review.star_rating)}</div>
+        <p>{getStars(review.star_rating)}</p>
         <h4>Reviewed by: {review?.User?.firstName}</h4>
       </div>
       <p>{review.review}</p>

@@ -12,5 +12,18 @@
   align-items: center;
   /* flex-flow: row-reverse wrap; */
   flex-direction: row-reverse;
+  padding: 0px;
+  margin: 0px;
   /* width: 100%; */
+}
+
+.starRatingContain h4 {
+  padding: 10px 0 10px 0;
+  margin: 0;
+}
+
+.starRatingContain p {
+  margin: 0px;
+  padding: 0px;
+  /* background-color: red; */
 }

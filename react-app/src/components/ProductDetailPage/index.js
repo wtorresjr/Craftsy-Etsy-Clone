@@ -112,6 +112,7 @@ const ProductDetailPage = () => {
                 Add to Cart
               </button>
             </div>
+            <h3 className="relatedSearchDiv">Related Searches</h3>
           </div>
           <div className="lowerHalfDiv">
             <div className="reviewListDiv">
@@ -121,7 +122,6 @@ const ProductDetailPage = () => {
             </div>
           </div>
           {/* <hr /> */}
-          <h3 className="relatedSearchDiv">Related Searches</h3>
         </div>
       )}
     </>
