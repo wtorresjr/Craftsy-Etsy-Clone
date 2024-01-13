@@ -8,9 +8,9 @@ function FavoritesTile({ favorite }) {
   const dispatch = useDispatch();
   const [isFavorited, setIsFavorited] = useState(true);
 
-  useEffect(() => {
-    dispatch(favoriteActions.loadCurrUserFavorites());
-  }, [dispatch, isFavorited]);
+  // useEffect(() => {
+  //   dispatch(favoriteActions.loadCurrUserFavorites());
+  // }, [dispatch, isFavorited]);
 
   const toggleFavStatus = () => {
     setIsFavorited(false);

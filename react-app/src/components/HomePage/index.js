@@ -1,8 +1,9 @@
 import "./homepage.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
+import SellerSpotLight from "../Product-Components/SellerSpotLight_View";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 
@@ -13,17 +14,31 @@ const HomePage = () => {
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
+  const [randomIdx, setRandomIdx] = useState(0);
+
+  let randProductIdx;
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    const loadProducts = async () => {
+      const getProds = await dispatch(getAllProducts());
+      if (getProds) {
+        randProductIdx = Math.floor(Math.random() * getProds.Products.length);
+        setRandomIdx(randProductIdx);
+      }
+    };
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
+    loadProducts();
   }, [dispatch, sessionUser]);
 
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
+        <SellerSpotLight
+          product={allProducts[randomIdx]}
+          priceStyle={"priceDivNormal"}
+        />
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <>
             <h3>Recently Faved...</h3>
@@ -39,6 +54,7 @@ const HomePage = () => {
                     product={filteredProduct}
                     prodTileImgStyle={"recentFaves"}
                     tileContainerStyle={"productTileContain"}
+                    priceStyle={"priceDivNormal"}
                   />
                 ))}
           </>
@@ -54,7 +70,8 @@ const HomePage = () => {
                 product={product}
                 prodTileImgStyle={"becauseViewed"}
                 tileContainerStyle={"productTileContain"}
-                // priceStyle={"hidden"}
+                priceStyle={"priceDivSmall"}
+                // heartStyle={}
               />
             );
           })}
