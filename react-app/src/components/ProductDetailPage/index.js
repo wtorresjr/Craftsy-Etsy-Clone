@@ -122,7 +122,7 @@ const ProductDetailPage = () => {
             <div className="reviewListDiv">
 
               <ReviewList productId={productId} />
-       
+
             </div>
 
           </div>
