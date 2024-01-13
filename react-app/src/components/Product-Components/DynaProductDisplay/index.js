@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./dynamic-product-display.css";
 import ProductTile from "../ProductTile";
+import ProductTileV2 from "../ProductTileV2";
 
 const DynaProductDisplay = ({
   allProducts,
@@ -29,20 +30,21 @@ const DynaProductDisplay = ({
       </div>
 
       <div className="dynaImgContain">
-        {randomProducts ?
-          randomProducts.map((itemId) => {
-            return (
-              // <ProductTile
-              //   key={itemId}
-              //   product={allProducts[itemId]}
-              //   priceStyle={"hidden"}
-              // />
-              <img
-                key={itemId}
-                src={allProducts[itemId]?.preview_image_url}
-              ></img>
-            );
-          }):"...loading"}
+        {randomProducts.length === numOfProducts
+          ? randomProducts.map((itemId) => {
+              return (
+                <>
+                  <ProductTileV2 product={allProducts[itemId]} key={itemId} />
+                  {/* <div className="dynaItem">
+                    <img
+                      key={itemId}
+                      src={allProducts[itemId]?.preview_image_url}
+                    ></img>
+                  </div> */}
+                </>
+              );
+            })
+          : "...loading"}
       </div>
     </div>
   );

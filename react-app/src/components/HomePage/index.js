@@ -27,26 +27,16 @@ const HomePage = () => {
       <div className="smallTileContain">
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <>
-            <h3>Recently Faved...</h3>
-            {allProducts &&
-              allProducts
-                .filter((product) =>
-                  favoritedProducts.some((fav) => product.id === fav.product_id)
-                )
-                .slice(0, 5)
-                .map((filteredProduct) => (
-                  <ProductTile
-                    key={filteredProduct.id}
-                    product={filteredProduct}
-                    prodTileImgStyle={"recentFaves"}
-                    tileContainerStyle={"productTileContain"}
-                  />
-                ))}
+            <DynaProductDisplay
+              allProducts={favoritedProducts}
+              numOfProducts={5}
+              secondaryText={"Recently Favorited"}
+            />
           </>
         ) : null}
       </div>
       <div className="smallTileContain">
-        {allProducts && (
+        {allProducts.length ? (
           <>
             <DynaProductDisplay
               allProducts={allProducts}
@@ -57,12 +47,14 @@ const HomePage = () => {
             />
             <DynaProductDisplay
               allProducts={allProducts}
-              numOfProducts={4}
+              numOfProducts={3}
               mainText={"Collections you might like"}
               secondaryText={"Test Text Secondary"}
               componentStyle={""}
             />
           </>
+        ) : (
+          "...Loading"
         )}
         {/* <h3>Because You Viewed...</h3> */}
         {/* {allProducts &&
