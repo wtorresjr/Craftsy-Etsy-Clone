@@ -1,5 +1,5 @@
 .reviews-modal-wrapper {
-    width: 530px;
+    width: 500px;
     height: 530px;
     margin: 15px 15px;
 }
@@ -13,7 +13,7 @@
 }
 
 .reviews-modal-product-img-div {
-    width: 230px;
+    width: 220px;
     display: flex;
     align-items: center;
 }
@@ -27,9 +27,9 @@
 .reviews-modal-stars-div {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 280px;
     position: absolute;
-    left: 245px;
+    left: 232px;
     bottom: 290px;
 }
 
@@ -45,7 +45,7 @@ input[type="radio"] {
 }
 
 .reviews-modal-product-info-div {
-    width: 300px;
+    width: 285px;
     height: 150px
 }
 
@@ -57,12 +57,20 @@ input[type="radio"] {
 }
 
 .reviews-modal-review-div textarea {
-    min-width: 525px;
-    max-width: 525px;
-    min-height: 100px;
-    max-height: 100px;
+    min-width: 495px;
+    max-width: 495px;
+    min-height: 120px;
+    max-height: 120px;
     border-radius: 5px;
     overflow: auto;
+    border: 1px solid #D9D9D9;
+    box-shadow: rgba(217, 217, 217, 0.6) 0px 2px 8px 0px;
+    margin-top: 10px;
+}
+
+.reviews-modal-review-div textarea:hover {
+    border: 1px solid #000000;
+    box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
 }
 
 .reviews-modal-images-div {
@@ -70,14 +78,14 @@ input[type="radio"] {
 }
 
 .reviews-modal-images-div input {
-    width: 525px;
+    width: 495px;
     border-radius: 5px;
 }
 
 .reviews-modal-submit-button-div {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 50px;
     width: 525px;
 }
 
@@ -95,4 +103,41 @@ input[type="radio"] {
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
+}
+
+
+.review-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.delete-review-modal-wrapper {
+    width: 500px;
+    height: 175px;
+    margin: 15px 15px;
+}
+
+.buttons-mgmt-div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.yes-button,
+.no-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.yes-button:hover,
+.no-button:hover {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #000000;
+    color: #FFFFFF;
 }
