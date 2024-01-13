@@ -1,0 +1,52 @@
+.reviews-modal-wrapper {
+    border: 1px solid red;
+    width: 530px;
+    height: 530px;
+    margin: 15px 15px;
+}
+
+.reviews-modal-h1 {
+    border: 1px solid red;
+    font-weight: 100;
+}
+
+.reviews-modal-top {
+    border: 2px solid blue;
+    display: flex
+}
+
+.reviews-modal-product-img-div {
+    border: 1px solid red;
+    width: 230px;
+    display: flex;
+    align-items: center;
+}
+
+.reviews-modal-product-img-div img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.reviews-modal-stars-div {
+    border: 1px solid green
+}
+
+
+input[type="radio"] {
+    display: none;
+    cursor: pointer;
+}
+
+
+.star svg {
+    transition: color 200ms;
+    border: 1px solid red;
+    cursor: pointer;
+}
+
+.reviews-modal-product-info-div {
+    border: 1px solid blue;
+    width: 300px;
+    height: 150px
+}
