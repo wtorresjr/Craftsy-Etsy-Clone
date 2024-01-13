@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createReview, createReviewImage } from "../../store/reviews";
-import { getAllProducts, getProductInfo } from "../../store/products";
 import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
@@ -19,13 +18,14 @@ function ReviewFormModal({ productId }) {
 
   console.log('the prod info', prodInfo)
   const [review, setReview] = useState("");
-  // const [star_rating, setStar_rating] = useState("");
   const [image, setImage] = useState("");
-  const [errors, setErrors] = useState({});
-  const [isDisabled, setDisabled] = useState(true);
-
   let [stars, setStars] = useState(null);
   const [hover, setHover] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [isDisabled, setDisabled] = useState(true);
+  const [showErrors, setShowErrors] = useState(false)
+
+  const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
 
   const errorCollector = {};
 
@@ -37,11 +37,10 @@ function ReviewFormModal({ productId }) {
       errorCollector.review = "Review has only spaces";
     }
 
-    if (stars === "") {
+    if (!stars) {
       errorCollector.stars = "Star Rating Required";
-    } else if (stars < 1 || stars > 5 || !parseInt(stars)) {
-      errorCollector.stars = "Invalid input for stars (must be between 1 - 5)";
     }
+
     if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
       errorCollector.rev_image =
         "Images are optional: Accepted formats .jpg, .jpeg or .png";
@@ -53,10 +52,12 @@ function ReviewFormModal({ productId }) {
     } else {
       setDisabled(false);
     }
-  }, [review, image]);
+  }, [review, image, stars]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowErrors(true)
 
     try {
       const newReview = {
@@ -74,6 +75,8 @@ function ReviewFormModal({ productId }) {
     }
   };
 
+
+
   return (
     <>
     <div className="reviews-modal-wrapper">
@@ -89,64 +92,57 @@ function ReviewFormModal({ productId }) {
       </div>
 
         <form onSubmit={handleSubmit}>
-        <label> My review rating <span style={{color:'#A61A2D'}}>*</span></label>
-
-            {/* <input
-              type="number"
-              value={star_rating}
-              onChange={(e) => setStar_rating(e.target.value)}
-              required
-            /> */}
-
           <div className="reviews-modal-stars-div">
+            <label> My review rating <span style={{color:'#A61A2D'}}>*</span></label>
+            <div className="stars-div">
               {[...Array(5)].map((star, i) => {
-              const ratingValue = i + 1;
-              console.log(stars, ':the current rating')
-              return (
-                  <label key={i}>
-                      <input
-                          type='radio'
-                          name='rating'
-                          value={ratingValue}
-                          onClick={() => setStars(ratingValue)}
-                          />
-                      <FaStar
-                          className='star'
-                          color={ratingValue <= (hover || stars) ? "#ffc107" : "#e4e5e9"}
-                          size={20}
-                          onMouseEnter={() => setHover(ratingValue)}
-                          onMouseLeave={() => setHover(null)}
-                          />
-                  </label>
-                  )
-              })}
+                  const ratingValue = i + 1;
+                  console.log(stars, ':the current rating')
+                  return (
+                    <label key={i}>
+                        <input
+                            type='radio'
+                            name='rating'
+                            value={ratingValue}
+                            onClick={() => setStars(ratingValue)}
+                            />
+                        <FaStar
+                            className='star'
+                            color={ratingValue <= (hover || stars) ? "#000000" : "#e4e5e9"}
+                            size={30}
+                            style={{cursor:'pointer'}}
+                            onMouseEnter={() => setHover(ratingValue)}
+                            onMouseLeave={() => setHover(null)}
+                            />
+                    </label>
+                    )
+                })}
+            </div>
+            {showErrors && errors?.stars && <p className="errorDiv">{errors.stars}</p>}
           </div>
-          {errors && errors.stars && <p className="errorDiv">{errors.stars}</p>}
-          <label>
-            Your review <span style={{color:'#A61A2D'}}>*</span>
-            <input
-              type="text"
+          <div className="reviews-modal-review-div">
+            <label>Your review <span style={{color:'#A61A2D'}}>*</span></label>
+            <textarea
               value={review}
               onChange={(e) => setReview(e.target.value)}
               required
-            />
-          </label>
-          {errors && errors.review && <p className="errorDiv">{errors.review}</p>}
-          <label>
-            Images
+            >
+            </textarea>
+            {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
+          </div>
+          <div className="reviews-modal-images-div">
+          <label>Images</label>
             <input
               type="text"
               value={image}
               onChange={(e) => setImage(e.target.value)}
               placeholder="Optional"
             />
-          </label>
-          {errors && errors.rev_image && (
-            <p className="errorDiv">{errors.rev_image}</p>
-          )}
-          <button type="submit" disabled={isDisabled}>
-            Submit a Review
-          </button>
+          {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
+          </div>
+          <div className="reviews-modal-submit-button-div">
+            <button type="submit" disabled={isDisabled} className={submitButtonCN}>Submit Review</button>
+          </div>
         </form>
     </div>
     </>
