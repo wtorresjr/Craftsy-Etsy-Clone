@@ -20,19 +20,19 @@ const HomePage = () => {
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
-  }, [dispatch, sessionUser]);
+  }, []);
 
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
         {favoritedProducts && favoritedProducts.length > 4 ? (
-          <>
-            <DynaProductDisplay
-              allProducts={favoritedProducts}
-              numOfProducts={5}
-              secondaryText={"Recently Favorited"}
-            />
-          </>
+          <DynaProductDisplay
+            favoritedProducts={favoritedProducts}
+            allProducts={favoritedProducts}
+            numOfProducts={5}
+            secondaryText={"Recently Favorited"}
+            isFavorite={"true"}
+          />
         ) : null}
       </div>
       <div className="smallTileContain">
@@ -40,10 +40,11 @@ const HomePage = () => {
           <>
             <DynaProductDisplay
               allProducts={allProducts}
-              numOfProducts={4}
+              numOfProducts={8}
               mainText={"Because you viewed..."}
               secondaryText={"Secondary text"}
               componentStyle={""}
+              isFavorite={"false"}
             />
             <DynaProductDisplay
               allProducts={allProducts}
@@ -51,24 +52,27 @@ const HomePage = () => {
               mainText={"Collections you might like"}
               secondaryText={"Test Text Secondary"}
               componentStyle={""}
+              isFavorite={"false"}
             />
           </>
         ) : (
           "...Loading"
         )}
         {/* <h3>Because You Viewed...</h3> */}
-        {/* {allProducts &&
-          allProducts.slice(0).map((product) => {
-            return (
-              <ProductTile
-                key={product.id}
-                product={product}
-                prodTileImgStyle={"becauseViewed"}
-                tileContainerStyle={"productTileContain"}
-                // priceStyle={"hidden"}
-              />
-            );
-          })} */}
+        <div className="smallTileContain">
+          {allProducts &&
+            allProducts?.map((product) => {
+              return (
+                <ProductTile
+                  key={product.id}
+                  product={product}
+                  prodTileImgStyle={"becauseViewed"}
+                  tileContainerStyle={"productTileContain"}
+                  // priceStyle={"hidden"}
+                />
+              );
+            })}
+        </div>
       </div>
     </div>
   );

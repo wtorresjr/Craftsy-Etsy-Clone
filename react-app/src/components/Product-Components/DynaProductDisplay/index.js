@@ -1,26 +1,47 @@
 import { useEffect, useState } from "react";
 import "./dynamic-product-display.css";
-import ProductTile from "../ProductTile";
 import ProductTileV2 from "../ProductTileV2";
 
 const DynaProductDisplay = ({
+  favoritedProducts,
   allProducts,
   numOfProducts,
   mainText,
   secondaryText,
+  isFavorite,
 }) => {
   const [randomProducts, setRandomProducts] = useState([]);
 
   useEffect(() => {
     const itemIdsArr = [];
 
-    for (let i = 0; i < numOfProducts; i++) {
-      const randomId = Math.floor(Math.random() * allProducts.length);
-      itemIdsArr.push(randomId);
+    if (isFavorite === "true") {
+      for (
+        let i = 0;
+        i < Math.min(numOfProducts, favoritedProducts.length);
+        i++
+      ) {
+        itemIdsArr.push(favoritedProducts[i]?.product_id);
+      }
+    } else {
+      const uniqueIndices = [];
+      while (
+        uniqueIndices.length < numOfProducts &&
+        uniqueIndices.length < allProducts.length
+      ) {
+        const randomId = Math.floor(Math.random() * allProducts.length);
+        if (!uniqueIndices.includes(randomId)) {
+          uniqueIndices.push(randomId);
+        }
+      }
+
+      for (const randomId of uniqueIndices) {
+        itemIdsArr.push(allProducts[randomId]?.id);
+      }
     }
 
     setRandomProducts(itemIdsArr);
-  }, []);
+  }, [isFavorite, numOfProducts, favoritedProducts, allProducts]);
 
   return (
     <div className="dynaDisplayMainContain">
@@ -31,19 +52,19 @@ const DynaProductDisplay = ({
 
       <div className="dynaImgContain">
         {randomProducts.length === numOfProducts
-          ? randomProducts.map((itemId) => {
-              return (
-                <>
-                  <ProductTileV2 product={allProducts[itemId]} key={itemId} />
-                  {/* <div className="dynaItem">
-                    <img
-                      key={itemId}
-                      src={allProducts[itemId]?.preview_image_url}
-                    ></img>
-                  </div> */}
-                </>
-              );
-            })
+          ? randomProducts.map((itemId, idx) => (
+              <ProductTileV2
+                key={idx}
+                product={
+                  isFavorite === "true"
+                    ? favoritedProducts.find(
+                        (product) => product?.product_id === itemId
+                      )
+                    : allProducts.find((product) => product?.id === itemId)
+                }
+                isFavorite={isFavorite}
+              />
+            ))
           : "...loading"}
       </div>
     </div>
