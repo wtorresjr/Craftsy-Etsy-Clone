@@ -58,7 +58,7 @@ const HomePage = () => {
         ) : (
           "...Loading"
         )}
-        <div className="smallTileContain">
+        {/* <div className="smallTileContain">
           {allProducts &&
             allProducts?.map((product) => {
               return (
@@ -71,7 +71,7 @@ const HomePage = () => {
                 />
               );
             })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

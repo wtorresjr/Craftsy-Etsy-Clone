@@ -12,7 +12,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.500);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 }
 
 .dynaTextContain {
@@ -22,17 +22,66 @@
 .dynaImgContain {
   display: flex;
   flex-wrap: wrap;
-  width: 100%; /* Use 100% width to take up the full width of the container */
+  width: 100%;
 }
 
 .dynaItem {
-  flex: 1; /* Use flex: 1 to make each item take up all available space */
+  flex: 1;
   margin: 10px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .dynaImgContain img {
   width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+.productHeart {
+  position: absolute;
+  right: -10px;
+  top: 25px;
+}
+
+.heartContainer {
+  display: flex;
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  background-color: white;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  right: 0%;
+  top: 20%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease, top 0.4s ease;
+}
+
+.heartContainer.clicked {
+  opacity: 1;
+  top: 14%;
+  color: #a61a2e;
+}
+
+.heartContainer:hover {
+  border: 4px solid lightgray;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.158);
+}
+
+.dynaItem:hover .heartContainer {
+  opacity: 1;
+  top: 14%;
+}
+
+.fa-heart {
+  transition: transform 0.1s ease;
+}
+
+.heartContainer:active .far.fa-heart {
+  transform: scale(1.5);
 }

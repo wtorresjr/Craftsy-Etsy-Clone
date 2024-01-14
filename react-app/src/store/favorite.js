@@ -46,12 +46,12 @@ export const loadCurrUserFavorites = () => async (dispatch) => {
   try {
     const response = await fetch("/api/current-user/favorites", {
       method: "GET",
-      // if (!response.ok) {
-      //   throw new Error(
-      //     `There was an error in loading your favorites list: ${response.status}`
-      //   );
-      // }
     });
+    // if (!response.ok) {
+    //   throw new Error(
+    //     `There was an error in loading your favorites list: ${response.status}`
+    //   );
+    // }
     if (response.ok) {
       const favorites = await response.json();
       await dispatch(viewFavorites(favorites));
