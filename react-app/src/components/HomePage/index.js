@@ -58,7 +58,6 @@ const HomePage = () => {
         ) : (
           "...Loading"
         )}
-        {/* <h3>Because You Viewed...</h3> */}
         <div className="smallTileContain">
           {allProducts &&
             allProducts?.map((product) => {

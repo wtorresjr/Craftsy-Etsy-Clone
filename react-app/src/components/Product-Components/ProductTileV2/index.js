@@ -18,7 +18,6 @@ const ProductTileV2 = ({ product, isFavorite }) => {
     <div className="dynaItem">
       {productId && (
         <NavLink to={`/products/${productId}`}>
-          {console.log(product, isFavorite, "PRODUCT INSIDE NAVLINK")}
           <img src={product.preview_image_url} alt={`Product ${productId}`} />
         </NavLink>
       )}
