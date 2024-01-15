@@ -1,7 +1,6 @@
 import "./homepage.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
@@ -63,20 +62,6 @@ const HomePage = () => {
         ) : (
           "...Loading"
         )}
-        {/* <div className="smallTileContain">
-          {allProducts &&
-            allProducts?.map((product) => {
-              return (
-                <ProductTile
-                  key={product.id}
-                  product={product}
-                  prodTileImgStyle={"becauseViewed"}
-                  tileContainerStyle={"productTileContain"}
-                  // priceStyle={"hidden"}
-                />
-              );
-            })}
-        </div> */}
       </div>
     </div>
   );
