@@ -61,6 +61,7 @@ function Navigation({ isLoaded }) {
     setProductId(searchTerm.id);
     history.push(`/products/${searchTerm.id}`);
     setSearchInput("");
+    setProductId(null);
   }
 
 // useEffect to keep track of search input changes and set the product's id
@@ -71,8 +72,12 @@ function Navigation({ isLoaded }) {
 
 // takes user to the searched product's detail page
   const goToProductDetails = (productId) => {
+    if (productId !== null) {
       history.push(`/products/${productId}`);
       setSearchInput("")
+    } else {
+      setSearchInput("")
+    }
   }
 
 
