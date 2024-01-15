@@ -14,6 +14,7 @@ function Navigation({ isLoaded }) {
   const history = useHistory();
   const { setModalContent, closeModal } = useModal();
   const [searchInput, setSearchInput] = useState("")
+  const [productId, setProductId] = useState(null)
 
   useEffect(() => {
     if (sessionUser) {
@@ -37,30 +38,48 @@ function Navigation({ isLoaded }) {
     }
   };
 
+
 // SEARCH BAR LOGIC:
 
-//handles input change for search bar
+
+// handles input change for search bar
   const handleInputChange = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value)
 };
 
+// creates new array of product objects with only id and name k-v pairs
   const productList = [];
   for (let product in allProducts){
       productList.push({'id':allProducts[product].id, 'name':allProducts[product].name},
   )}
-console.log('SEARCH INPUT', searchInput)
 
-
+// replaces search bar input with the product name that the user clicked from dropdown menu
   const logSearchTerm = (searchTerm) => {
     setSearchInput(searchTerm)
   }
 
-    // resets the input in search bar
+// useEffect to keep track of search input changes and set the product's id
+  useEffect(() => {
+    productList.filter(product => product.name.toLowerCase() === searchInput.toLowerCase() && setProductId(product.id))
+  }, [searchInput])
+
+
+// takes user to the searched product's detail page
+  const goToProductDetails = (productId) => {
+      history.push(`/products/${productId}`);
+      setSearchInput("")
+  }
+
+// resets the search bar input
   const resetSearchTerm = (searchTerm, productName) => {
-    if (searchTerm && !productName.startsWith(searchTerm)) setSearchInput("")
+    if (searchTerm && !productName.startsWith(searchTerm)) {
+      setSearchInput("")
+    }
   };
 
+  console.log('PRODUCT ID--', productId)
+  console.log('SEARCH INPUT--', searchInput)
 
 
   return (
@@ -92,7 +111,7 @@ console.log('SEARCH INPUT', searchInput)
               <div className="searchIcon">
                 <div
                   className="magnifyingGlass"
-                  onClick={handleNonFunctioningLinks}
+                  onClick={() => {goToProductDetails(productId)}}
                 >
                   <i className="fas fa-search" />
                 </div>
@@ -112,7 +131,7 @@ console.log('SEARCH INPUT', searchInput)
               <div className="searchIcon">
                 <div
                   className="magnifyingGlass"
-                  onClick={handleNonFunctioningLinks}
+                  onClick={() => {goToProductDetails(productId)}}
                 >
                   <i className="fas fa-search" />
                 </div>
