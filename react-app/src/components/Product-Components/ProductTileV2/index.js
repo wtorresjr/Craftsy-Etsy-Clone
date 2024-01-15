@@ -12,7 +12,7 @@ const ProductTileV2 = ({ product, isFavorite }) => {
 
   useEffect(() => {
     if (isFavorite === "true" && product) {
-      setProductId(product.product_id);
+      setProductId(product.id);
       setLocalIsClicked(true);
     } else if (product) {
       setProductId(product.id);

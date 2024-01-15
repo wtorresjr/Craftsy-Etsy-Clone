@@ -55,7 +55,7 @@ const FavoriteHeart = ({ product, isFavorite }) => {
   return (
     <div
       className={`heartContainer ${
-        localIsClicked || isClicked || isFavorite === "true" ? "clicked" : ""
+        localIsClicked || isClicked ? "clicked" : ""
       }`}
       onClick={handleClick}
     >
