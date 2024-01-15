@@ -35,18 +35,17 @@ const FavoriteHeart = ({ product, isFavorite }) => {
     if (isClicked) {
       setIsLikeLoaded(false);
       await dispatch(
-        favoriteActions.removeFromCurrUserFavorites(product?.id || null)
+        favoriteActions.removeFromCurrUserFavorites(product?.id)
       ).then(setIsLikeLoaded(true));
     } else {
       const newFav = {
-        product_id: product?.id || null,
+        product_id: product?.id,
       };
       setIsLikeLoaded(false);
       await dispatch(favoriteActions.addToCurrUserFavorites(newFav)).then(
         setIsLikeLoaded(true)
       );
     }
-
     if (sessionUser) {
       dispatch(favoriteActions.loadCurrUserFavorites());
     }
@@ -57,7 +56,7 @@ const FavoriteHeart = ({ product, isFavorite }) => {
       className={`heartContainer ${
         localIsClicked || isClicked ? "clicked" : ""
       }`}
-      onClick={handleClick}
+      onClick={isLikeLoaded ? handleClick : ""}
     >
       <i
         className={`fa-heart ${

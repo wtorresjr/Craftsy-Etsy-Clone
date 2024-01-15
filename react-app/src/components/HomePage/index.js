@@ -32,7 +32,8 @@ const HomePage = () => {
             numOfProducts={5}
             mainText={""}
             secondaryText={"Recently Favorited"}
-            componentStyle={""}
+            // componentStyle={""}
+            priceStyle={"mediumContainer"}
             isFavorite={"true"}
           />
         ) : null}
@@ -45,7 +46,8 @@ const HomePage = () => {
               numOfProducts={8}
               mainText={""}
               secondaryText={"Because you viewed"}
-              componentStyle={""}
+              priceStyle={"smallContainer"}
+              // componentStyle={""}
               isFavorite={"false"}
             />
             <DynaProductDisplay
@@ -53,7 +55,8 @@ const HomePage = () => {
               numOfProducts={3}
               mainText={""}
               secondaryText={"Shop our selections"}
-              componentStyle={""}
+              priceStyle={"largeContainer"}
+              // componentStyle={""}
               isFavorite={"false"}
             />
           </>

@@ -30,6 +30,7 @@
   margin: 10px;
   box-sizing: border-box;
   position: relative;
+  /* overflow:hidden; */
 }
 
 .dynaImgContain img {

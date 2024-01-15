@@ -9,6 +9,7 @@ const DynaProductDisplay = ({
   mainText,
   secondaryText,
   isFavorite,
+  priceStyle,
 }) => {
   const [randomProducts, setRandomProducts] = useState([]);
 
@@ -52,6 +53,7 @@ const DynaProductDisplay = ({
                 key={idx}
                 product={allProducts.find((product) => product.id == itemId)}
                 isFavorite={isFavorite}
+                priceStyle={priceStyle}
               />
             ))
           : "...loading"}
