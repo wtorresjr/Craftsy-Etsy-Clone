@@ -133,6 +133,7 @@
 
 .fas.fa-search {
   font-size: 25px;
+  cursor: pointer;
 }
 
 .searchIcon:hover {
@@ -386,4 +387,33 @@ i.far.fa-heart:hover {
   text-align: left;
   padding-left: 15px;
   font-weight: lighter;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 85px;
+  left: 375px;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  margin-bottom: 1rem;
+  width: 650px;
+  overflow: auto;
+}
+
+.search-dropdown:empty {
+  border: none;
+}
+
+.search-dropdown-row {
+  font-family: sans-serif;
+  cursor: pointer;
+  margin: 4px 4px;
+  font-size: 18px;
+}
+
+.search-dropdown-row:hover {
+  background-color: rgba(0, 0, 0, .2);
 }
