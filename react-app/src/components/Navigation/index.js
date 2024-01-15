@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../../store/products";
 import ProfileButton from "./ProfileButton";
 import { getCart } from "../../store/cart";
 import { useModal } from "../../context/Modal";
@@ -41,9 +42,9 @@ function Navigation({ isLoaded }) {
 
 // SEARCH BAR LOGIC:
 
-
 // handles input change for search bar
   const handleInputChange = (e) => {
+    dispatch(getAllProducts())
     e.preventDefault();
     setSearchInput(e.target.value)
 };
@@ -56,7 +57,10 @@ function Navigation({ isLoaded }) {
 
 // replaces search bar input with the product name that the user clicked from dropdown menu
   const logSearchTerm = (searchTerm) => {
-    setSearchInput(searchTerm)
+    setSearchInput(searchTerm.name);
+    setProductId(searchTerm.id);
+    history.push(`/products/${searchTerm.id}`);
+    setSearchInput("");
   }
 
 // useEffect to keep track of search input changes and set the product's id
@@ -70,16 +74,6 @@ function Navigation({ isLoaded }) {
       history.push(`/products/${productId}`);
       setSearchInput("")
   }
-
-// resets the search bar input
-  const resetSearchTerm = (searchTerm, productName) => {
-    if (searchTerm && !productName.startsWith(searchTerm)) {
-      setSearchInput("")
-    }
-  };
-
-  console.log('PRODUCT ID--', productId)
-  console.log('SEARCH INPUT--', searchInput)
 
 
   return (
@@ -149,9 +143,12 @@ function Navigation({ isLoaded }) {
             <div
             className="search-dropdown-row"
             key={`${product.id}-${product.name}`}
-            onClick={() => {logSearchTerm(product.name); resetSearchTerm(searchInput.toLowerCase(), product.name.toLowerCase())}}
-          >
-            {product.name}
+            onClick={() => {
+              logSearchTerm(product);
+              setSearchInput("")
+            }}
+            >
+            <p style={{margin:'2px 2px'}}>{product.name}</p>
           </div>
           ))}
         </div>
