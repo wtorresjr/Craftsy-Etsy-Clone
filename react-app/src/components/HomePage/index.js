@@ -43,16 +43,16 @@ const HomePage = () => {
             <DynaProductDisplay
               allProducts={allProducts}
               numOfProducts={8}
-              mainText={"Because you viewed..."}
-              secondaryText={"Secondary text"}
+              mainText={""}
+              secondaryText={"Because you viewed"}
               componentStyle={""}
               isFavorite={"false"}
             />
             <DynaProductDisplay
               allProducts={allProducts}
               numOfProducts={3}
-              mainText={"Collections you might like"}
-              secondaryText={"Test Text Secondary"}
+              mainText={""}
+              secondaryText={"Shop our selections"}
               componentStyle={""}
               isFavorite={"false"}
             />

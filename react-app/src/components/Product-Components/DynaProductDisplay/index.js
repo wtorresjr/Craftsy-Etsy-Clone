@@ -14,19 +14,11 @@ const DynaProductDisplay = ({
 
   useEffect(() => {
     const itemIdsArr = [];
-
     if (isFavorite === "true") {
-      const recentFavIds = allProducts
-        ?.filter((product) => {
-          return favoritedProducts?.some(
-            (favorite) => favorite.product_id === product.id
-          );
-        })
-        .map((product) => product.id);
-
-      console.log(recentFavIds); // Array of favorited product ids
-
-      setRandomProducts(recentFavIds.splice(0, 5));
+      for (let i = 0; i < numOfProducts; i++) {
+        itemIdsArr.push(favoritedProducts[i].product_id);
+      }
+      setRandomProducts(itemIdsArr);
     } else {
       const uniqueIndices = [];
       while (
@@ -59,12 +51,6 @@ const DynaProductDisplay = ({
               <ProductTileV2
                 key={idx}
                 product={allProducts.find((product) => product.id == itemId)}
-                // isFavorite === "true"
-                //   ? favoritedProducts.find(
-                //       (product) => product?.product_id === itemId
-                //     )
-                //   : allProducts.find((product) => product?.id === itemId)
-                // }
                 isFavorite={isFavorite}
               />
             ))
