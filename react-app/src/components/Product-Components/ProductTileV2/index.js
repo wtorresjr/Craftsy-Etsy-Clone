@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import FavoriteHeart from "../HeartComponent";
 import PriceComponent from "../PriceComponent";
 
-const ProductTileV2 = ({ product, isFavorite, tileContainerStyle }) => {
+const ProductTileV2 = ({ product, isFavorite }) => {
   const [productId, setProductId] = useState();
   const [localIsClicked, setLocalIsClicked] = useState(false);
 

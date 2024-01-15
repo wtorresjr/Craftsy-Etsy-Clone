@@ -28,9 +28,11 @@ const HomePage = () => {
         {favoritedProducts && favoritedProducts.length > 4 ? (
           <DynaProductDisplay
             favoritedProducts={favoritedProducts}
-            allProducts={favoritedProducts}
+            allProducts={allProducts}
             numOfProducts={5}
+            mainText={""}
             secondaryText={"Recently Favorited"}
+            componentStyle={""}
             isFavorite={"true"}
           />
         ) : null}

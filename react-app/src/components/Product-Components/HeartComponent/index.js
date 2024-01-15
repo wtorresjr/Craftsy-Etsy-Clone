@@ -15,14 +15,14 @@ const FavoriteHeart = ({ product, isFavorite }) => {
   const [localIsClicked, setLocalIsClicked] = useState(false);
   const [isLikeLoaded, setIsLikeLoaded] = useState(true);
 
-  // Check if product is not null or undefined before accessing its id property
+  // Check if product is not null or undefined
   let isClicked = favoritedProducts?.some(
     (fav) => fav.product_id === (product?.id || null)
   );
 
   useEffect(() => {
     setLocalIsClicked(isFavorite);
-  }, [isFavorite]);
+  }, [isFavorite, isLikeLoaded, product]);
 
   const handleClick = async () => {
     if (!sessionUser) {
@@ -36,15 +36,15 @@ const FavoriteHeart = ({ product, isFavorite }) => {
       setIsLikeLoaded(false);
       await dispatch(
         favoriteActions.removeFromCurrUserFavorites(product?.id || null)
-      );
-      setIsLikeLoaded(true);
+      ).then(setIsLikeLoaded(true));
     } else {
       const newFav = {
         product_id: product?.id || null,
       };
       setIsLikeLoaded(false);
-      await dispatch(favoriteActions.addToCurrUserFavorites(newFav));
-      setIsLikeLoaded(true);
+      await dispatch(favoriteActions.addToCurrUserFavorites(newFav)).then(
+        setIsLikeLoaded(true)
+      );
     }
 
     if (sessionUser) {
@@ -55,7 +55,7 @@ const FavoriteHeart = ({ product, isFavorite }) => {
   return (
     <div
       className={`heartContainer ${
-        localIsClicked || isClicked ? "clicked" : ""
+        localIsClicked || isClicked || isFavorite === "true" ? "clicked" : ""
       }`}
       onClick={handleClick}
     >
