@@ -94,6 +94,7 @@
     flex-direction: column;
     background-color: white;
     justify-content: space-evenly;
+    height: 85%;
 }
 
 .cartItemDetails h3 {
@@ -220,12 +221,12 @@
 .cardFooter {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .shippingContainer {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: flex-start;
 }
 

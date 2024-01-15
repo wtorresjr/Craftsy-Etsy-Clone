@@ -102,7 +102,7 @@ const ReviewList = ({ productId }) => {
       {/* if user has a review conditions */}
       {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
         <OpenModalButton
-          className="ReviewFormButton"
+          className="reviewFormButton"
           buttonText="Leave a Review"
           modalComponent={<ReviewFormModal productId={productId} />}
         />

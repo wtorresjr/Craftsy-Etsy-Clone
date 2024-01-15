@@ -9,7 +9,6 @@ function ShopManagerPage() {
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const allUserProducts = useSelector(state => state?.products?.allUserCreated)
-    // const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         dispatch(getUserProducts())

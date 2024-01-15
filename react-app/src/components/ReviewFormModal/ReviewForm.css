@@ -1,0 +1,152 @@
+.reviews-modal-wrapper {
+    width: 500px;
+    /* height: 580px; */
+    margin: 15px 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.reviews-modal-h1 {
+    font-weight: 100;
+}
+
+.reviews-modal-top {
+    display: flex
+}
+
+.reviews-modal-product-img-div {
+    width: 220px;
+    display: flex;
+    align-items: center;
+}
+
+.reviews-modal-product-img-div img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.reviews-modal-stars-div-edit {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    position: absolute;
+    left: 232px;
+    bottom: 245px;
+}
+
+.reviews-modal-stars-div-create {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    position: absolute;
+    left: 232px;
+    bottom: 320px;
+}
+
+input[type="radio"] {
+    display: none;
+    cursor: pointer;
+}
+
+.star svg {
+    transition: color 200ms;
+    cursor: pointer;
+}
+
+.reviews-modal-product-info-div {
+    width: 250px;
+    height: 140px;
+}
+
+.reviews-modal-review-div {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+    margin-top: 20px;
+}
+
+.reviews-modal-review-div textarea {
+    min-width: 495px;
+    max-width: 495px;
+    min-height: 120px;
+    max-height: 120px;
+    border-radius: 5px;
+    overflow: auto;
+    border: 1px solid #D9D9D9;
+    box-shadow: rgba(217, 217, 217, 0.6) 0px 2px 8px 0px;
+    margin-top: 10px;
+}
+
+.reviews-modal-review-div textarea:hover {
+    border: 1px solid #000000;
+    box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
+}
+
+.reviews-modal-images-div {
+    margin-top: 20px;
+}
+
+.reviews-modal-images-div input {
+    width: 495px;
+    border-radius: 5px;
+}
+
+.reviews-modal-submit-button-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 525px;
+}
+
+.disabled-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: not-allowed;
+}
+
+.enabled-button {
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+.review-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.delete-review-modal-wrapper {
+    width: 500px;
+    height: 175px;
+    margin: 15px 15px;
+}
+
+.buttons-mgmt-div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.yes-button,
+.no-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.yes-button:hover,
+.no-button:hover {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #000000;
+    color: #FFFFFF;
+}

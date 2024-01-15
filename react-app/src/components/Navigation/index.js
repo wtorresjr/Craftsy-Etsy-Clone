@@ -14,12 +14,13 @@ function Navigation({ isLoaded }) {
   const { setModalContent, closeModal } = useModal();
 
   useEffect(() => {
-    dispatch(getCart());
+    if (sessionUser) {
+      dispatch(getCart());
+    }
   }, [dispatch, sessionUser]);
 
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
-  // console.log(totalCartItems)
 
   const handleNonFunctioningLinks = () => {
     alert("Feature Coming Soon...");

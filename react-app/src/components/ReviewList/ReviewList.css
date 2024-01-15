@@ -27,3 +27,7 @@
   padding: 0px;
   /* background-color: red; */
 }
+
+.reviewFormButton {
+  cursor: pointer;
+}
