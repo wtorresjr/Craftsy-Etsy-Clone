@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
@@ -10,14 +10,16 @@ import "./Navigation.css";
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const allProducts = useSelector(state => state.products.allProducts);
   const history = useHistory();
   const { setModalContent, closeModal } = useModal();
+  const [searchInput, setSearchInput] = useState("")
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(getCart());
     }
-  }, [dispatch, sessionUser]);
+  }, [dispatch, sessionUser, searchInput]);
 
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
@@ -34,6 +36,32 @@ function Navigation({ isLoaded }) {
       history.push("/cart");
     }
   };
+
+// SEARCH BAR LOGIC:
+
+//handles input change for search bar
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value)
+};
+
+  const productList = [];
+  for (let product in allProducts){
+      productList.push({'id':allProducts[product].id, 'name':allProducts[product].name},
+  )}
+console.log('SEARCH INPUT', searchInput)
+
+
+  const logSearchTerm = (searchTerm) => {
+    setSearchInput(searchTerm)
+  }
+
+    // resets the input in search bar
+  const resetSearchTerm = (searchTerm, productName) => {
+    if (searchTerm && !productName.startsWith(searchTerm)) setSearchInput("")
+  };
+
+
 
   return (
     <>
@@ -57,6 +85,9 @@ function Navigation({ isLoaded }) {
               <input
                 className="searchBarInput"
                 placeholder="Search for anything"
+                type="text"
+                onChange={handleInputChange}
+                value={searchInput}
               />
               <div className="searchIcon">
                 <div
@@ -75,6 +106,8 @@ function Navigation({ isLoaded }) {
               <input
                 className="searchBarInput"
                 placeholder="Search for anything"
+                onChange={handleInputChange}
+                value={searchInput}
               />
               <div className="searchIcon">
                 <div
@@ -87,6 +120,23 @@ function Navigation({ isLoaded }) {
             </div>
           </div>
         )}
+        <div className="search-dropdown" style={{ display: productList.some(product => product.name === searchInput) ? "none" : "" }}>
+          {productList.filter(product => {
+            const searchTerm = searchInput.toLowerCase()
+            const productName = product.name.toLowerCase()
+            return searchTerm && productName.startsWith(searchTerm)
+          })
+          .map((product) => (
+            <div
+            className="search-dropdown-row"
+            key={`${product.id}-${product.name}`}
+            onClick={() => {logSearchTerm(product.name); resetSearchTerm(searchInput.toLowerCase(), product.name.toLowerCase())}}
+          >
+            {product.name}
+          </div>
+          ))}
+        </div>
+
         {sessionUser && (
           <div className="favoritesDiv">
             <NavLink to="/favorites" className="favorites">
