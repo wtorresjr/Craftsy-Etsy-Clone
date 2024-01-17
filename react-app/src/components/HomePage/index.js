@@ -1,11 +1,10 @@
 import "./homepage.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductTile from "../Product-Components/ProductTile";
 import { getAllProducts } from "../../store/products";
-import SellerSpotLight from "../Product-Components/SellerSpotLight_View";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
+import DynaProductDisplay from "../Product-Components/DynaProductDisplay";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,67 +13,55 @@ const HomePage = () => {
   const favoritedProducts = useSelector(
     (state) => state?.favorite?.allFavorites
   );
-  const [randomIdx, setRandomIdx] = useState(0);
-
-  let randProductIdx;
 
   useEffect(() => {
-    const loadProducts = async () => {
-      const getProds = await dispatch(getAllProducts());
-      if (getProds) {
-        randProductIdx = Math.floor(Math.random() * getProds.Products.length);
-        setRandomIdx(randProductIdx);
-      }
-    };
+    dispatch(getAllProducts());
     if (sessionUser !== null) {
       dispatch(loadCurrUserFavorites());
     }
-    loadProducts();
-  }, [dispatch, sessionUser]);
+  }, []);
 
   return (
     <div className="mainProductDisplay">
       <div className="smallTileContain">
-        <SellerSpotLight
-          product={allProducts[randomIdx]}
-          priceStyle={"priceDivNormal"}
-        />
         {favoritedProducts && favoritedProducts.length > 4 ? (
-          <>
-            <h3>Recently Faved...</h3>
-            {allProducts &&
-              allProducts
-                .filter((product) =>
-                  favoritedProducts.some((fav) => product.id === fav.product_id)
-                )
-                .slice(0, 5)
-                .map((filteredProduct) => (
-                  <ProductTile
-                    key={filteredProduct.id}
-                    product={filteredProduct}
-                    prodTileImgStyle={"recentFaves"}
-                    tileContainerStyle={"productTileContain"}
-                    priceStyle={"priceDivNormal"}
-                  />
-                ))}
-          </>
+          <DynaProductDisplay
+            favoritedProducts={favoritedProducts}
+            allProducts={allProducts}
+            numOfProducts={5}
+            mainText={""}
+            secondaryText={"Recently Favorited"}
+            // componentStyle={""}
+            priceStyle={"mediumContainer"}
+            isFavorite={"true"}
+          />
         ) : null}
       </div>
       <div className="smallTileContain">
-        <h3>Because You Viewed...</h3>
-        {allProducts &&
-          allProducts.slice(0).map((product) => {
-            return (
-              <ProductTile
-                key={product.id}
-                product={product}
-                prodTileImgStyle={"becauseViewed"}
-                tileContainerStyle={"productTileContain"}
-                priceStyle={"priceDivSmall"}
-                // heartStyle={}
-              />
-            );
-          })}
+        {allProducts.length ? (
+          <>
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={8}
+              mainText={""}
+              secondaryText={"Because you viewed"}
+              priceStyle={"smallContainer"}
+              // componentStyle={""}
+              isFavorite={"false"}
+            />
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={3}
+              mainText={""}
+              secondaryText={"Shop our selections"}
+              priceStyle={"largeContainer"}
+              // componentStyle={""}
+              isFavorite={"false"}
+            />
+          </>
+        ) : (
+          "...Loading"
+        )}
       </div>
     </div>
   );

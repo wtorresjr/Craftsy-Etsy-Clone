@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [productNotFound, setProductNotFound] = useState(false);
 
-  const cart = useSelector(state => state?.cart?.allItems);
+  const cart = useSelector((state) => state?.cart?.allItems);
   const cartItem = cart.find((item) => item.product_id === +productId);
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
@@ -29,7 +29,6 @@ const ProductDetailPage = () => {
       index.push(i);
     }
   }
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +64,7 @@ const ProductDetailPage = () => {
       };
       dispatch(addItem(newCartItem));
     }
-    history.push("/cart")
+    history.push("/cart");
   };
 
   return (
@@ -120,13 +119,12 @@ const ProductDetailPage = () => {
           </div>
           <div className="lowerHalfDiv">
             <div className="reviewListDiv">
-
+              {/* <hr /> */}
               <ReviewList productId={productId} />
-
+              {/* <hr /> */}
             </div>
-
           </div>
-
+          {/* <hr /> */}
         </div>
       )}
     </>

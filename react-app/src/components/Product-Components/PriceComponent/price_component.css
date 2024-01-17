@@ -1,29 +1,42 @@
-.priceDivNormal {
+.mediumContainer {
   position: absolute;
-  left: 10px;
-  bottom: 15px;
-  display: flex;
-  background-color: white;
-  width: auto;
-  padding: 5px 10px;
-  border-radius: 15px;
-  border: solid 1px darkgray;
-  font-weight: bold;
-  z-index: 9999;
-}
-
-.priceDivSmall {
-  position: absolute;
-  left: 5px;
+  left: 6px;
   bottom: 10px;
   display: flex;
   background-color: white;
   width: auto;
-  padding: 5px 5px;
-  border-radius: 15px;
+  padding: 3px;
+  border-radius: 8px;
   border: solid 1px darkgray;
   font-weight: bold;
-  font-size:11px;
   z-index: 9999;
 }
 
+.largeContainer {
+  position: absolute;
+  left: 6px;
+  bottom: 10px;
+  display: flex;
+  background-color: white;
+  width: auto;
+  padding: 3px;
+  border-radius: 8px;
+  border: solid 1px darkgray;
+  font-weight: bold;
+  z-index: 9999;
+}
+
+.smallContainer {
+  position: absolute;
+  left: 6px;
+  bottom: 10px;
+  display: flex;
+  background-color: white;
+  width: auto;
+  padding: 3px;
+  border-radius: 8px;
+  border: solid 1px darkgray;
+  font-weight: bold;
+  z-index: 9999;
+  visibility: hidden;
+}

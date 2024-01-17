@@ -5,7 +5,7 @@ import * as favoriteActions from "../../../store/favorite";
 import { useModal } from "../../../context/Modal";
 import LoginFormModal from "../../LoginFormModal";
 
-const FavoriteHeart = ({ product }) => {
+const FavoriteHeart = ({ product, isFavorite }) => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const favoritedProducts = useSelector(
@@ -14,9 +14,15 @@ const FavoriteHeart = ({ product }) => {
   const { setModalContent } = useModal();
   const [localIsClicked, setLocalIsClicked] = useState(false);
   const [isLikeLoaded, setIsLikeLoaded] = useState(true);
+
+  // Check if product is not null or undefined
   let isClicked = favoritedProducts?.some(
-    (fav) => fav?.product_id === product?.id
+    (fav) => fav.product_id === (product?.id || null)
   );
+
+  useEffect(() => {
+    setLocalIsClicked(isFavorite);
+  }, [isFavorite, isLikeLoaded, product]);
 
   const handleClick = async () => {
     if (!sessionUser) {
@@ -26,26 +32,22 @@ const FavoriteHeart = ({ product }) => {
 
     setLocalIsClicked(!isClicked);
 
-    if (isClicked && isLikeLoaded) {
+    if (isClicked) {
       setIsLikeLoaded(false);
-      const response = await dispatch(
-        favoriteActions.removeFromCurrUserFavorites(product.id)
-      );
-      if (response) {
-        setIsLikeLoaded(true);
-      }
-    }
-    if (!isClicked && isLikeLoaded) {
+      await dispatch(
+        favoriteActions.removeFromCurrUserFavorites(product?.id)
+      ).then(setIsLikeLoaded(true));
+    } else {
       const newFav = {
-        product_id: product.id,
+        product_id: product?.id,
       };
       setIsLikeLoaded(false);
-      const addResponse = await dispatch(
-        favoriteActions.addToCurrUserFavorites(newFav)
+      await dispatch(favoriteActions.addToCurrUserFavorites(newFav)).then(
+        setIsLikeLoaded(true)
       );
-      if (addResponse) {
-        setIsLikeLoaded(true);
-      }
+    }
+    if (sessionUser) {
+      dispatch(favoriteActions.loadCurrUserFavorites());
     }
   };
 
@@ -54,7 +56,7 @@ const FavoriteHeart = ({ product }) => {
       className={`heartContainer ${
         localIsClicked || isClicked ? "clicked" : ""
       }`}
-      onClick={handleClick}
+      onClick={isLikeLoaded ? handleClick : ""}
     >
       <i
         className={`fa-heart ${

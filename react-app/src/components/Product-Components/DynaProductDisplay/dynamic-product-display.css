@@ -1,55 +1,48 @@
-.imageContainer {
-  border-radius: 15px;
-  cursor: pointer;
-  width: 250px;
-  height: 250px;
+.dynaDisplayMainContain h1,
+.dynaDisplayMainContain p {
+  padding: 0;
+  margin: 0;
 }
 
-.productTileContain {
-  position: relative;
-}
-
-.smallTileContain {
-  justify-content: center;
-  position: relative;
-  width: 70vw;
+.dynaDisplayMainContain {
+  border: 1px solid black;
+  width: 80%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
   display: flex;
-  gap: 20px;
-  border-radius: 8px;
-  flex-flow: row wrap;
-  /* border: 1px solid black; */
+  flex-direction: column;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 }
 
-.largeTileContain h3 {
+.dynaTextContain {
   width: 100%;
 }
 
-.largeTileContain {
-  width: 70%;
+.dynaImgContain {
   display: flex;
-  gap: 20px;
-  border-radius: 8px;
-  flex-flow: row wrap;
-}
-
-.largeTileContain h3 {
+  flex-wrap: wrap;
   width: 100%;
 }
 
-.becauseViewed {
-  width: auto;
+.dynaItem {
+  flex: 1;
+  margin: 10px;
+  box-sizing: border-box;
+  position: relative;
+  /* overflow:hidden; */
+}
+
+.dynaImgContain img {
+  width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-/* .notVisible {
-  visibility: hidden;
-} */
-
-.recentFaves {
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
+.productHeart {
+  position: absolute;
+  right: -10px;
+  top: 25px;
 }
 
 .heartContainer {
@@ -81,7 +74,7 @@
   box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.158);
 }
 
-.productTileContain:hover .heartContainer {
+.dynaItem:hover .heartContainer {
   opacity: 1;
   top: 14%;
 }
