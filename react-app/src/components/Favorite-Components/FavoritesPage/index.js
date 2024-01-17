@@ -4,6 +4,7 @@ import * as favoriteActions from "../../../store/favorite";
 import FavoritesTile from "../FavoritesTile";
 import NoFavorites from "./NoFavorites";
 import "./FavoritesPage.css";
+import { getAllProducts } from "../../../store/products";
 
 function FavoritesPage() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function FavoritesPage() {
   const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
+    dispatch(getAllProducts());
     dispatch(favoriteActions.loadCurrUserFavorites());
   }, [dispatch]);
 
@@ -18,7 +20,11 @@ function FavoritesPage() {
   return (
     <>
       <div className="favoritespage-container">
-        {allFavorites?.length ? <h1 className="favoritespage-header">Favorite items <span>{allFavorites.length} items</span></h1> : null}
+        {allFavorites?.length ? (
+          <h1 className="favoritespage-header">
+            Favorite items <span>{allFavorites.length} items</span>
+          </h1>
+        ) : null}
         <div className="favoritetiles">
           {allFavorites ? (
             allFavorites.map((favorite) => {

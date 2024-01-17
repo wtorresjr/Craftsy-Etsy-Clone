@@ -31,6 +31,7 @@ const ProductDetailPage = () => {
   }
 
   useEffect(() => {
+    dispatch(getAllProducts());
     const fetchData = async () => {
       try {
         setLoading(true);
