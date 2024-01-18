@@ -15,6 +15,7 @@ function Navigation({ isLoaded }) {
   const { setModalContent } = useModal();
   const [searchInput, setSearchInput] = useState("");
   const [productId, setProductId] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (sessionUser) {
@@ -45,6 +46,7 @@ function Navigation({ isLoaded }) {
     // dispatch(getAllProducts())
     e.preventDefault();
     setSearchInput(e.target.value);
+    setIsDropdownVisible(true);
   };
 
   // creates new array of product objects with only id and name k-v pairs
@@ -54,6 +56,7 @@ function Navigation({ isLoaded }) {
       id: allProducts[product].id,
       name: allProducts[product].name,
       img: allProducts[product].preview_image_url,
+      price: allProducts[product].price,
     });
   }
 
@@ -73,6 +76,7 @@ function Navigation({ isLoaded }) {
         product.name.toLowerCase() === searchInput.toLowerCase() &&
         setProductId(product.id)
     );
+    setIsDropdownVisible(true);
   }, []);
 
   // takes user to the searched product's detail page
@@ -83,6 +87,11 @@ function Navigation({ isLoaded }) {
     } else {
       setSearchInput("");
     }
+  };
+
+  const handleBlur = () => {
+    // Hide the dropdown when it loses focus
+    setIsDropdownVisible(false);
   };
 
   return (
@@ -132,6 +141,7 @@ function Navigation({ isLoaded }) {
                 placeholder="Search for anything"
                 onChange={handleInputChange}
                 value={searchInput}
+                onBlur={handleBlur}
               />
               <div className="searchIcon">
                 <div
@@ -149,9 +159,7 @@ function Navigation({ isLoaded }) {
         <div
           className="search-dropdown"
           style={{
-            display: productList.some((product) => product.name === searchInput)
-              ? "none"
-              : "",
+            display: isDropdownVisible ? "" : "none",
           }}
         >
           {productList
@@ -169,9 +177,11 @@ function Navigation({ isLoaded }) {
                   setSearchInput("");
                 }}
               >
-                {/* {console.log(product, "PRODUCT INFO")} */}
                 <img className="search-result-img" src={product.img} />
-                <p style={{ margin: "2px 2px" }}>{product.name}</p>
+                <div className="search-name-price-contain">
+                  <div>{product.name}</div>
+                  <div>${product.price}</div>
+                </div>
               </div>
             ))}
         </div>
