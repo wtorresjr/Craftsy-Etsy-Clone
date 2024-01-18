@@ -399,7 +399,6 @@ i.far.fa-heart:hover {
   flex-flow: column wrap;
   margin-bottom: 1rem;
   width: 100%;
-  /* max-height: 300px; */
   overflow: auto;
   justify-content: center;
   align-items: center;
@@ -416,8 +415,6 @@ i.far.fa-heart:hover {
 }
 
 .search-dropdown-row {
-  /* position: absolute; */
-  /* margin: 50px 0 0 0; */
   font-family: sans-serif;
   cursor: pointer;
   padding: 10px 15px;
@@ -431,6 +428,7 @@ i.far.fa-heart:hover {
   width: 40%;
   align-items: center;
   border-bottom: 1px solid grey;
+  border-radius: 0 0 10px 10px;
 }
 
 .search-name-price-contain {
@@ -441,7 +439,7 @@ i.far.fa-heart:hover {
   gap: 10px;
 }
 
-/* .search-dropdown-row:hover {
-  background-color: rgba(255, 255, 255, 0.9);
+.search-dropdown-row:hover {
+  /* background-color: rgba(255, 255, 255, 0.9); */
   font-weight: 600;
-} */
+}
