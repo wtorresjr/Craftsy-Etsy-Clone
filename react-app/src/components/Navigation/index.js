@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../store/products";
 import ProfileButton from "./ProfileButton";
 import { getCart } from "../../store/cart";
 import { useModal } from "../../context/Modal";
@@ -11,19 +10,17 @@ import "./Navigation.css";
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const allProducts = useSelector(state => state.products.allProducts);
+  const allProducts = useSelector((state) => state.products.allProducts);
   const history = useHistory();
-  const { setModalContent, closeModal } = useModal();
+  const { setModalContent } = useModal();
   const [searchInput, setSearchInput] = useState("");
   const [productId, setProductId] = useState(null);
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(getCart());
-      console.log(allProducts, "All Products Prop From App.js");
     }
-    // }, [dispatch, sessionUser, searchInput]);
-  }, [dispatch, sessionUser]); //Removed searchInput from dependency for tests.
+  }, [dispatch, sessionUser]);
 
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
@@ -56,6 +53,7 @@ function Navigation({ isLoaded }) {
     productList.push({
       id: allProducts[product].id,
       name: allProducts[product].name,
+      img: allProducts[product].preview_image_url,
     });
   }
 
@@ -171,6 +169,8 @@ function Navigation({ isLoaded }) {
                   setSearchInput("");
                 }}
               >
+                {/* {console.log(product, "PRODUCT INFO")} */}
+                <img className="search-result-img" src={product.img} />
                 <p style={{ margin: "2px 2px" }}>{product.name}</p>
               </div>
             ))}
