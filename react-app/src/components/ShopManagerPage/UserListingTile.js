@@ -39,7 +39,7 @@ function UserListingTile({ product }) {
                             key={product.id}
                             className="updateListingButton"
                         >
-                            Update
+                            UPDATE
                         </Link>
                     </button>
                     <p></p>
