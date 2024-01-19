@@ -1,9 +1,10 @@
 .createProductContainer {
   display: flex;
   justify-content: center;
+  width: 100%;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  /* flex-flow: column nowrap; */
+  position: absolute;
 }
 
 .createProductContainer h1 {
@@ -14,7 +15,8 @@ form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  width: 480px;
+  width: 100%;
+  max-width: 480px;
 }
 
 li {
@@ -48,4 +50,21 @@ input {
   font-size: 14px;
   width: 100%;
   text-align: center;
+}
+
+.preview-img-label {
+  background-color: #222222;
+  color: #FFFFFF;
+  width: 50px;
+  height: 15px;
+  border-radius: 20px;
+  font-size: 10px;
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* top: 100.5%; */
+  left: 12.5%;
+  transform: translate(-50%, -50%)
 }
