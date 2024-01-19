@@ -12,6 +12,8 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [showPreviewImg, setShowPreviewImg] = useState(true);
+  const [previewImgDisplay, setPreviewImgDisplay] = useState("");
   const [previewImg, setPreviewImg] = useState("");
   const [extImg1, setExtImg1] = useState("");
   const [extImg2, setExtImg2] = useState("");
@@ -20,6 +22,18 @@ const CreateProduct = () => {
   const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
+
+    // Function to add AWS image
+    const updatePreviewImage = async (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setPreviewImgDisplay(reader.result);
+      }
+      setPreviewImg(file);
+      setShowPreviewImg(false);
+    }
 
   const errorCollector = {};
   useEffect(() => {
@@ -63,9 +77,9 @@ const CreateProduct = () => {
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
     }
-    if (!validImgFormats.includes(previewImg.slice(-4).toLowerCase())) {
-      errorCollector.wrongFormat = formatError;
-    }
+    // if (!validImgFormats.includes(previewImg.slice(-4).toLowerCase())) {
+    //   errorCollector.wrongFormat = formatError;
+    // }
     // if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
     //   errorCollector.formatImg1 = formatError;
     // }
@@ -99,14 +113,21 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      name: name,
-      description: description,
-      price: price,
-      quantity: quantity,
-      preview_image_url: previewImg,
-    };
-    dispatch(addNewProduct(newProduct))
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("preview_image_url", previewImg);
+    // const newProduct = {
+    //   name: name,
+    //   description: description,
+    //   price: price,
+    //   quantity: quantity,
+    //   preview_image_url: previewImg,
+    // };
+    dispatch(addNewProduct(formData))
       .then(async (createdProduct) => {
         history.push(`/products/${createdProduct.id}`);
       })
@@ -177,12 +198,15 @@ const CreateProduct = () => {
           )}
         </li>
         <li>
-          <label>
+          <label htmlFor="file-upload">
             Preview Image:
             <input
-              type="text"
-              value={previewImg}
-              onChange={(e) => setPreviewImg(e.target.value)}
+              type="file"
+              id="file-upload"
+              name="preview_img"
+              accept=".jpeg, .jpg, .png, .gif, .webp"
+              // value={previewImg}
+              onChange={updatePreviewImage}
               required
             />
           </label>
@@ -193,6 +217,24 @@ const CreateProduct = () => {
             <p className="errorDiv">{errors.wrongFormat}</p>
           )}
         </li>
+        {!showPreviewImg && (
+          <div className="preview-img-div">
+            <img
+              src={previewImgDisplay}
+              alt="preview image"
+              style={{
+                width: "100px",
+                height: "100px",
+                border: "1px solid #d4d3d1",
+                padding: "3px",
+                position: "relative"
+              }}
+            />
+            <div style={{position:"relative", bottom:"93%", right:"5.5%"}}>
+              <p className="preview-img-label">Primary</p>
+            </div>
+          </div>
+        )}
         {/* <li>
           <label>
             Additional Images: (Optional)
