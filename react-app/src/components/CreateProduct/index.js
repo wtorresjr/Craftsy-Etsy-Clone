@@ -114,36 +114,43 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("preview_image_url", previewImg);
-    // const newProduct = {
-    //   name: name,
-    //   description: description,
-    //   price: price,
-    //   quantity: quantity,
-    //   preview_image_url: previewImg,
-    // };
-    dispatch(addNewProduct(formData))
-      .then(async (createdProduct) => {
-        history.push(`/products/${createdProduct.id}`);
-      })
-      .catch(async (res) => {
-        if (res instanceof Response) {
-          const data = await res.json();
-          if (data.errors) {
-            return setErrors(errorCollector);
-          }
-        }
-      });
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("description", description);
+    // formData.append("price", price);
+    // formData.append("quantity", quantity);
+    // formData.append("image_url", previewImg);
+    const newProduct = {
+      name,
+      description,
+      price,
+      quantity
+    }
+
+    const data = await dispatch(addNewProduct(newProduct));
+    if (data) {
+      setErrors(data)
+    }
+
+    console.log('errors?', errors)
+
+    // dispatch(addNewProduct(newProduct))
+    //   .then(async (createdProduct) => {
+    //     history.push(`/products/${createdProduct.id}`);
+    //   })
+    //   .catch(async (res) => {
+    //     if (res instanceof Response) {
+    //       const data = await res.json();
+    //       if (data.errors) {
+    //         return setErrors(errorCollector);
+    //       }
+    //     }
+    //   });
   };
 
   return (
     <div className="createProductContainer">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <h1>Create A Product</h1>
         <ul></ul>
         <li>
