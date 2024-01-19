@@ -140,98 +140,51 @@ def get_reviews_by_product_id(product_id):
 def create_new_product():
     form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('FORRRRRRM DATA-------->', form.data)
 
     try:
         if form.validate_on_submit():
-            # if "image_url" in request.files:
-            #     # Grabs the image
-            #     image_url = request.files["image_url"]
-            #     if not allowed_file(image_url.filename):
-            #         return {"errors": ["Image file type not permitted"]}, 400
 
-            #     # Preparing and sending the image to AWS
-            #     image_url.filename = get_unique_filename(image_url.filename)
-            #     upload = upload_file_to_s3(image_url)
+            if "image_url" in request.files:
+            # Grabs the image
+                image_url = request.files["image_url"]
+            if not allowed_file(image_url.filename):
+                return {"errors": ["Image file type not permitted"]}, 400
+            # Preparing and sending the image to AWS
+            image_url.filename = get_unique_filename(image_url.filename)
+            upload = upload_file_to_s3(image_url)
 
-            #     if "url" not in upload:
-            #         return upload, 400
-            #     url = upload["url"]
+            if "url" not in upload:
+                return upload, 400
+            url = upload["url"]
 
-                new_product = Product(
-                    name=form.data['name'],
-                    description=form.data['description'],
-                    price=form.data['price'],
-                    quantity=form.data['quantity'],
-                    user_id=current_user.id
-                )
+            new_product = Product(
+                name=form.data['name'],
+                description=form.data['description'],
+                price=form.data['price'],
+                quantity=form.data['quantity'],
+                user_id=current_user.id
+            )
 
-                db.session.add(new_product)
-                db.session.commit()
-                return new_product.to_dict()
+            db.session.add(new_product)
+            db.session.commit()
 
-                # new_preview_image = ProductImage(
-                #     product_id=new_product.id,
-                #     image_url=url,
-                #     preview=True
-                # )
+            new_preview_image = ProductImage(
+                product_id=new_product.id,
+                image_url=url,
+                preview=True
+            )
 
-                # db.session.add(new_preview_image)
-                # db.session.commit()
+            db.session.add(new_preview_image)
+            db.session.commit()
 
-                # product_with_img = new_product.to_dict()
-                # product_with_img["preview_image_url"] = url
-                # return jsonify(product_with_img)
+            product_with_img = new_product.to_dict()
+            product_with_img["preview_image_url"] = url
+
+            return jsonify(product_with_img)
+
     except Exception as e:
         return {'error': str(e)}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
-
-
-    # data = request.get_json()
-    # print ('In API --DATA---->', data)
-
-    # if data:
-    #     # Checks to see if there is an image to update from Redux
-    #     if "image_url" in request.files:
-    #         # Grabs the image
-    #         image_url = request.files["image_url"]
-    #         if not allowed_file(image_url.filename):
-    #             return {"errors" : ["Image file type not permitted"]}, 400
-
-    #     # preparing and sending image to AWS
-    #     image_url.filename = get_unique_filename(image_url.filename)
-    #     upload = upload_file_to_s3(image_url)
-    #     print('In API---upload---->', upload)
-
-    #     if "url" not in upload:
-    #         return upload, 400
-    #     url = upload["url"]
-
-
-    # new_product = Product(
-    #     name=data.get('name'),
-    #     description=data.get('description'),
-    #     price=float(data.get('price')),
-    #     quantity=int(data.get('quantity')),
-    #     user_id=current_user.id
-    # )
-
-    # db.session.add(new_product)
-    # db.session.commit()
-
-    # newPreviewImage = ProductImage(
-    #     product_id=new_product.id,
-    #     image_url=image_url,
-    #     preview=True
-    # )
-
-    # db.session.add(newPreviewImage)
-    # db.session.commit()
-
-    # product_with_img = new_product.to_dict()
-    # product_with_img["preview_image_url"] = data.get('image_url')
-
-    # return jsonify(product_with_img)
 
 
 # Edit a Product by Id
