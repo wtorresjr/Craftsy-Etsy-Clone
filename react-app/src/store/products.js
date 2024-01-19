@@ -126,7 +126,8 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 
 //Create A New Product
 export const addNewProduct = (productData) => async (dispatch) => {
-  try {
+    console.log('INSIDE THUNK productData---', productData)
+
     const response = await fetch("/api/products/", {
       method: "POST",
       headers: {
@@ -137,12 +138,15 @@ export const addNewProduct = (productData) => async (dispatch) => {
 
     if (response.ok) {
       const newProduct = await response.json();
+      console.log('the new product', newProduct)
       dispatch(addProduct(newProduct));
-      return newProduct;
+      // return newProduct;
+    } else if (response.status < 500) {
+      const errorMessages = await response.json();
+      return errorMessages
+    } else {
+      return { server: "Something went wrong. Please try again" }
     }
-  } catch (error) {
-    throw error;
-  }
 };
 
 //Edit a Product
