@@ -53,7 +53,7 @@ const removeProduct = (removedProduct) => {
 
 const addProduct = (productData) => ({
   type: CREATE_PRODUCT,
-  productData,
+  productData
 });
 
 const getProductsByUser = (userProducts) => {
@@ -126,27 +126,20 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 
 //Create A New Product
 export const addNewProduct = (productData) => async (dispatch) => {
-    console.log('INSIDE THUNK productData---', productData)
-
-    const response = await fetch("/api/products/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    });
-
-    if (response.ok) {
-      const newProduct = await response.json();
-      console.log('the new product', newProduct)
-      dispatch(addProduct(newProduct));
-      // return newProduct;
-    } else if (response.status < 500) {
-      const errorMessages = await response.json();
-      return errorMessages
-    } else {
-      return { server: "Something went wrong. Please try again" }
-    }
+  const response = await fetch("/api/products/", {
+    method: "POST",
+    body: productData
+  });
+  if (response.ok) {
+    const newProduct = await response.json();
+    dispatch(addProduct(newProduct))
+    return newProduct;
+  } else if (response.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
 };
 
 //Edit a Product
