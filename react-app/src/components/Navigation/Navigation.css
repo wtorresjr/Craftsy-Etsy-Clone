@@ -402,6 +402,7 @@ i.far.fa-heart:hover {
   overflow: auto;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid red; */
 }
 
 .search-dropdown:empty {

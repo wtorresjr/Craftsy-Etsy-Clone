@@ -89,10 +89,30 @@ function Navigation({ isLoaded }) {
     }
   };
 
-  const handleBlur = () => {
-    // Hide the dropdown when it loses focus
-    setIsDropdownVisible(false);
+
+  const handleClickOutside = (e) => {
+    // Check if the click is outside the search bar or dropdown
+    const searchBar = document.querySelector(".searchBarSmall");
+    const dropdown = document.querySelector(".search-dropdown-row");
+
+    if (
+      searchBar &&
+      !searchBar.contains(e.target) &&
+      dropdown &&
+      !dropdown.contains(e.target)
+    ) {
+      setIsDropdownVisible(false);
+    }
   };
+
+  // Attach the handleClickOutside function to the document click event
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -141,7 +161,6 @@ function Navigation({ isLoaded }) {
                 placeholder="Search for anything"
                 onChange={handleInputChange}
                 value={searchInput}
-                onBlur={handleBlur}
               />
               <div className="searchIcon">
                 <div
@@ -173,6 +192,7 @@ function Navigation({ isLoaded }) {
                 className="search-dropdown-row"
                 key={`${product.id}-${product.name}`}
                 onClick={() => {
+                  goToProductDetails(product?.id);
                   logSearchTerm(product);
                   setSearchInput("");
                 }}
