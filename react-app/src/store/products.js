@@ -145,22 +145,24 @@ export const addNewProduct = (productData) => async (dispatch) => {
 //Edit a Product
 
 export const editAproduct = (product_id, editData) => async (dispatch) => {
-  try {
+  for (const entry of editData.entries()) {
+    const [key, value] = entry;
+    console.log(`Key: ${key}, Value: ${value}`);
+  }
     const response = await fetch(`/api/products/${product_id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editData),
+      body: editData
     });
     if (response.ok) {
       const edited = await response.json();
       dispatch(editProduct(edited));
       return edited;
+    } else if (response.status < 500) {
+      const errorMessages = await response.json();
+      return errorMessages
+    } else {
+      return { server: "Something went wrong. Please try again" }
     }
-  } catch (error) {
-    throw error;
-  }
 };
 
 //Get All Products Created By Current User
