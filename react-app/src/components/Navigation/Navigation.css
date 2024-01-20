@@ -29,7 +29,7 @@
   /* flex-flow: row wrap; */
   /* display: grid;
   grid-template-columns: repeat(16, 1fr); */
-  gap: px;
+  /* gap: px; */
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
