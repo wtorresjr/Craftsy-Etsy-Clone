@@ -229,7 +229,6 @@ def edit_product_by_id(product_id):
                         find_product_preview_img.image_url = url
 
                 db.session.commit()
-                print("!!!!!!!!!", product_to_edit)
                 return product_to_edit.to_dict()
             else:
                 return jsonify({"message": "Forbidden"}), 403
@@ -311,6 +310,7 @@ def create_product_review(product_id):
 
                 image_url = request.files["image_url"]
                 if not allowed_file(image_url.filename):
+                    print("NOT ALLOWED NOT ALLOWED NOT ALLOWED!!!!")
                     return {"errors": ["Image file type not permitted"]}, 400
 
                 image_url.filename = get_unique_filename(image_url.filename)
@@ -332,7 +332,7 @@ def create_product_review(product_id):
                 review_with_img = new_review.to_dict()
                 review_with_img["preview_image_url"] = url
 
-                return new_review.to_dict()
+            return new_review.to_dict()
 
     except Exception as e:
         return {'error': str(e)}, 400
