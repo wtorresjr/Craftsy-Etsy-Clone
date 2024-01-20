@@ -53,7 +53,7 @@ const removeProduct = (removedProduct) => {
 
 const addProduct = (productData) => ({
   type: CREATE_PRODUCT,
-  productData,
+  productData
 });
 
 const getProductsByUser = (userProducts) => {
@@ -126,44 +126,39 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 
 //Create A New Product
 export const addNewProduct = (productData) => async (dispatch) => {
-  try {
-    const response = await fetch("/api/products/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    });
-
-    if (response.ok) {
-      const newProduct = await response.json();
-      dispatch(addProduct(newProduct));
-      return newProduct;
-    }
-  } catch (error) {
-    throw error;
+  const response = await fetch("/api/products/", {
+    method: "POST",
+    body: productData
+  });
+  if (response.ok) {
+    const newProduct = await response.json();
+    dispatch(addProduct(newProduct))
+    return newProduct;
+  } else if (response.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
   }
 };
 
 //Edit a Product
 
 export const editAproduct = (product_id, editData) => async (dispatch) => {
-  try {
     const response = await fetch(`/api/products/${product_id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editData),
+      body: editData
     });
     if (response.ok) {
       const edited = await response.json();
       dispatch(editProduct(edited));
       return edited;
+    } else if (response.status < 500) {
+      const errorMessages = await response.json();
+      return errorMessages
+    } else {
+      return { server: "Something went wrong. Please try again" }
     }
-  } catch (error) {
-    throw error;
-  }
 };
 
 //Get All Products Created By Current User
