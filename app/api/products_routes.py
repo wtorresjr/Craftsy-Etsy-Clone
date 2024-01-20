@@ -192,26 +192,83 @@ def create_new_product():
 @products_routes.route('/<int:product_id>', methods=['PUT'])
 @login_required
 def edit_product_by_id(product_id):
-    product_to_edit = Product.query.get(product_id)
+    form = CreateProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    try:
+        if form.validate_on_submit():
+            product_to_edit = Product.query.get(product_id)
+            if not product_to_edit:
+                return jsonify({"message": "Product not found."}), 404
 
-    if not product_to_edit:
-        return jsonify({"message": "Product not found."}), 404
+            # Check if logged in user is allowed to edit this product
+            if product_to_edit.user_id == current_user.id:
 
-# Check if logged in user is allowed to edit this product
+                product_to_edit.name = form.data['name']
+                product_to_edit.description = form.data['description']
+                product_to_edit.price = form.data['price']
+                product_to_edit.quantity = form.data['quantity']
 
-    if product_to_edit.user_id == current_user.id:
+                if "image_url" in request.files:
+                    # Grabs the image
+                    image_url = request.files["image_url"]
 
-        user_changes = request.get_json()
+                    if not allowed_file(image_url.filename):
+                        return {"errors": ["Image file type not permitted"]}, 400
 
-        for [key, item] in user_changes.items():
-            setattr(product_to_edit, key, item)
+                    # Preparing and sending the image to AWS
+                    image_url.filename = get_unique_filename(image_url.filename)
+                    upload = upload_file_to_s3(image_url)
 
-        db.session.commit()
+                    if "url" not in upload:
+                        return upload, 400
 
-        return product_to_edit.to_dict()
+                    url = upload["url"]
 
-    else:
-        return jsonify({"message": "Forbidden"}), 403
+                    find_product_preview_img = ProductImage.query.filter_by(product_id=product_id).first()
+                    if find_product_preview_img:
+                        find_product_preview_img.image_url = url
+
+                db.session.commit()
+                print("!!!!!!!!!", product_to_edit)
+                return product_to_edit.to_dict()
+            else:
+                return jsonify({"message": "Forbidden"}), 403
+    except Exception as e:
+        return {'error': str(e)}, 400
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+
+
+
+
+
+
+
+
+#     product_to_edit = Product.query.get(product_id)
+
+#     if not product_to_edit:
+#         return jsonify({"message": "Product not found."}), 404
+
+# # Check if logged in user is allowed to edit this product
+
+#     if product_to_edit.user_id == current_user.id:
+
+#         user_changes = request.get_json()
+
+#         for [key, item] in user_changes.items():
+#             setattr(product_to_edit, key, item)
+
+#         db.session.commit()
+
+#         return product_to_edit.to_dict()
+
+#     else:
+#         return jsonify({"message": "Forbidden"}), 403
+
+
 
 
 # Create a Product Review by Product Id
