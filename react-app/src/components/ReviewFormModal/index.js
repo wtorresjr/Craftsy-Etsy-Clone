@@ -7,6 +7,7 @@ import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
 
+
 function ReviewFormModal({ productId }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ function ReviewFormModal({ productId }) {
   const [hover, setHover] = useState(null);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
-  const [showErrors, setShowErrors] = useState(false)
+  const [showErrors, setShowErrors] = useState(false);
+  const [backendErrors, setBackendErrors] = useState([]);
 
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
 
@@ -44,7 +46,7 @@ function ReviewFormModal({ productId }) {
   const errorCollector = {};
 
   useEffect(() => {
-    // const validFormats = [".jpg", "jpeg", ".png", " "];
+    // const validFormats = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -55,7 +57,11 @@ function ReviewFormModal({ productId }) {
       errorCollector.stars = "Star Rating Required";
     }
 
-    // if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
+    if (!image) {
+      errorCollector.image = "At least one review image is required";
+    }
+
+    // if (image && !validFormats.includes(image.toLowerCase().slice(-5))) {
     //   errorCollector.rev_image =
     //     "Images are optional: Accepted formats .jpg, .jpeg or .png";
     // }
@@ -78,13 +84,19 @@ function ReviewFormModal({ productId }) {
     formData.append('star_rating', stars);
     formData.append('image_url', image)
 
-    const data = await dispatch(createReview(productId, formData))
-    if (data) {
-      closeModal();
+    const data = await dispatch(createReview(productId, formData));
+    if (Object.values(errors).length === 0) {
+      closeModal()
       window.location.reload();
     }
+    // if (data.errors) {
+    //   setBackendErrors(data.errors)
+    // }
+    // else {
+    //   closeModal();
+    //   window.location.reload();
+    // }
   }
-
 
   //   try {
   //     const newReview = {
@@ -157,7 +169,7 @@ function ReviewFormModal({ productId }) {
             {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
           </div>
           <div className="reviews-modal-images-div">
-          <label htmlFor="review-file-upload">Images</label>
+          <label htmlFor="review-file-upload">Images <span style={{color:'#A61A2D'}}>*</span></label>
             <input
               type="file"
               id="review-file-upload"
@@ -182,6 +194,7 @@ function ReviewFormModal({ productId }) {
           </div>
         )}
           </div>
+          {showErrors && backendErrors && backendErrors.map((err) => (<p className="errorDiv">{err}</p>))}
           <div className="reviews-modal-submit-button-div">
             <button type="submit" disabled={isDisabled} className={submitButtonCN}>Submit Review</button>
           </div>
