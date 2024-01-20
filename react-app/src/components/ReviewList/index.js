@@ -99,6 +99,8 @@ const ReviewList = ({ productId }) => {
         reviewPoints.numbers += 1;
       })}
 
+      {console.log('review:', reviewPoints)}
+
       {/* if user has a review conditions */}
       {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
         <OpenModalButton
@@ -114,7 +116,7 @@ const ReviewList = ({ productId }) => {
         <div className="allReviewsAdded">
           <h3>
             {reviewPoints.numbers} reviews{" "}
-            {getStars(reviewPoints.numbers / allReviewsByProductId)}
+            {getStars(reviewPoints.stars / reviewPoints.numbers)}
           </h3>
         </div>
         {allReviewsByProductId.map((review) => (
