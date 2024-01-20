@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired, Email, ValidationError
-from flask_wtf.file import FileField, FileAllowed, FileRequired
-from app.awsS3 import ALLOWED_EXTENSIONS
+# from flask_wtf.file import FileField, FileAllowed, FileRequired
+# from app.awsS3 import ALLOWED_EXTENSIONS
 
 def name_length (form, field):
     name = field.data
