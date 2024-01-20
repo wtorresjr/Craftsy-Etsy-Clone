@@ -40,7 +40,13 @@
     width: 280px;
     position: absolute;
     left: 232px;
-    bottom: 320px;
+    bottom: 330px;
+
+}
+
+.review-img-div {
+    width: 200px;
+    display: absolute;
 }
 
 input[type="radio"] {
@@ -84,6 +90,7 @@ input[type="radio"] {
 
 .reviews-modal-images-div {
     margin-top: 20px;
+    height: 60px;
 }
 
 .reviews-modal-images-div input {
