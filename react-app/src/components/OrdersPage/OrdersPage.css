@@ -1,0 +1,16 @@
+.Order-Page-Container {
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    margin: 0 auto;
+    padding: 0px 20%;
+}
+
+.Purchased-Header {
+    /* width: 100%; */
+    padding: 0px 20%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}

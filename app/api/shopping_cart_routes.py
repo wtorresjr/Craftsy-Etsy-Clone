@@ -58,6 +58,7 @@ def get_shopping_cart():
     else:
         return jsonify({"Message": "No items in the cart."})
 
+# Get Previous Orders for Current User
 
 @shopping_cart_routes.route('/orders', methods=['GET'])
 @login_required
@@ -79,34 +80,30 @@ def get_orders():
 
     # Iterate through each order
     for order in orders:
+        # Retrieve cart items for the current order
         cart_items = CartItem.query.filter_by(cart_id=order.id).all()
 
-        cart_items_data = []
-        # Proceed with going through the list of items found in the order
-        for item in cart_items:
-            product = Product.query.get(item.product_id)
-            # Create our response data format
-            if product:
-                cart_item_data = {
+        if cart_items:
+            # Find the product IDs from the list of items
+            cart_items_data = [
+                {
                     "id": item.id,
+                    "product_id": item.product_id,
                     "name": product.name,
                     "price": product.price,
                     "quantity": item.quantity,
-                    "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview == True]
+                    "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview]
                 }
+                for item in cart_items
+                if (product := Product.query.get(item.product_id)) is not None
+            ]
+            orders_data.extend(cart_items_data)
 
-                cart_items_data.append(cart_item_data)
+    return jsonify({"orderedItems": orders_data})
 
-        orders_data.append({
-            "cart_id": order.id,
-            "items": cart_items_data
-        })
-
-    return jsonify({"Orders": orders_data})
 
 
 # Add to Shopping Cart for Current User
-
 
 @shopping_cart_routes.route('', methods=['POST'])
 @login_required
