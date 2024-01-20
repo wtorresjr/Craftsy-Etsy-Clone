@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../store/products";
 import ProfileButton from "./ProfileButton";
 import { getCart } from "../../store/cart";
 import { useModal } from "../../context/Modal";
@@ -11,19 +10,18 @@ import "./Navigation.css";
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const allProducts = useSelector(state => state.products.allProducts);
+  const allProducts = useSelector((state) => state.products.allProducts);
   const history = useHistory();
-  const { setModalContent, closeModal } = useModal();
+  const { setModalContent } = useModal();
   const [searchInput, setSearchInput] = useState("");
   const [productId, setProductId] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(getCart());
-      console.log(allProducts, "All Products Prop From App.js");
     }
-    // }, [dispatch, sessionUser, searchInput]);
-  }, [dispatch, sessionUser]); //Removed searchInput from dependency for tests.
+  }, [dispatch, sessionUser]);
 
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
@@ -48,6 +46,7 @@ function Navigation({ isLoaded }) {
     // dispatch(getAllProducts())
     e.preventDefault();
     setSearchInput(e.target.value);
+    setIsDropdownVisible(true);
   };
 
   // creates new array of product objects with only id and name k-v pairs
@@ -56,6 +55,8 @@ function Navigation({ isLoaded }) {
     productList.push({
       id: allProducts[product].id,
       name: allProducts[product].name,
+      img: allProducts[product].preview_image_url,
+      price: allProducts[product].price,
     });
   }
 
@@ -75,6 +76,7 @@ function Navigation({ isLoaded }) {
         product.name.toLowerCase() === searchInput.toLowerCase() &&
         setProductId(product.id)
     );
+    setIsDropdownVisible(true);
   }, []);
 
   // takes user to the searched product's detail page
@@ -86,6 +88,31 @@ function Navigation({ isLoaded }) {
       setSearchInput("");
     }
   };
+
+
+  const handleClickOutside = (e) => {
+    // Check if the click is outside the search bar or dropdown
+    const searchBar = document.querySelector(".searchBarSmall");
+    const dropdown = document.querySelector(".search-dropdown-row");
+
+    if (
+      searchBar &&
+      !searchBar.contains(e.target) &&
+      dropdown &&
+      !dropdown.contains(e.target)
+    ) {
+      setIsDropdownVisible(false);
+    }
+  };
+
+  // Attach the handleClickOutside function to the document click event
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -151,9 +178,7 @@ function Navigation({ isLoaded }) {
         <div
           className="search-dropdown"
           style={{
-            display: productList.some((product) => product.name === searchInput)
-              ? "none"
-              : "",
+            display: isDropdownVisible ? "" : "none",
           }}
         >
           {productList
@@ -167,11 +192,16 @@ function Navigation({ isLoaded }) {
                 className="search-dropdown-row"
                 key={`${product.id}-${product.name}`}
                 onClick={() => {
+                  goToProductDetails(product?.id);
                   logSearchTerm(product);
                   setSearchInput("");
                 }}
               >
-                <p style={{ margin: "2px 2px" }}>{product.name}</p>
+                <img className="search-result-img" src={product.img} />
+                <div className="search-name-price-contain">
+                  <div>{product.name}</div>
+                  <div>${product.price}</div>
+                </div>
               </div>
             ))}
         </div>
