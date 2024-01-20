@@ -25,7 +25,7 @@ const CreateProduct = () => {
   const [isDisabled, setDisabled] = useState(true);
 
     // Function to add AWS image
-    const updatePreviewImage = async (e) => {
+    const addPreviewImage = async (e) => {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -202,7 +202,7 @@ const CreateProduct = () => {
               name="preview_img"
               accept=".jpeg, .jpg, .png, .gif, .webp"
               // value={previewImg}
-              onChange={updatePreviewImage}
+              onChange={addPreviewImage}
               required
             />
           </label>
