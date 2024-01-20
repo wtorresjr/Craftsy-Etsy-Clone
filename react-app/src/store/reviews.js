@@ -89,22 +89,21 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 
 // Create a Review
 export const createReview = (productId, reviewData) => async (dispatch) => {
-  try {
+
     const response = await fetch(`/api/products/${productId}/reviews`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reviewData),
+      body: reviewData
     });
     if (response.ok) {
       const newReview = await response.json();
       dispatch(setReview(newReview));
       return newReview;
+    } else if (response.status < 500) {
+      const errorMessages = await response.json();
+      return errorMessages
+    } else {
+      return { server: "Something went wrong. Please try again" }
     }
-  } catch (error) {
-    throw error;
-  }
 };
 
 // Update a Review
@@ -189,6 +188,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
+
   switch (action.type) {
     case CLEAR_REV_IMAGES:
       return {
