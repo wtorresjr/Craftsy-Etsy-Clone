@@ -145,10 +145,6 @@ export const addNewProduct = (productData) => async (dispatch) => {
 //Edit a Product
 
 export const editAproduct = (product_id, editData) => async (dispatch) => {
-  for (const entry of editData.entries()) {
-    const [key, value] = entry;
-    console.log(`Key: ${key}, Value: ${value}`);
-  }
     const response = await fetch(`/api/products/${product_id}`, {
       method: "PUT",
       body: editData
