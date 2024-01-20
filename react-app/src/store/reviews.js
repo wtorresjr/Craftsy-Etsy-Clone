@@ -89,7 +89,6 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 
 // Create a Review
 export const createReview = (productId, reviewData) => async (dispatch) => {
-
     const response = await fetch(`/api/products/${productId}/reviews`, {
       method: "POST",
       body: reviewData
@@ -108,21 +107,19 @@ export const createReview = (productId, reviewData) => async (dispatch) => {
 
 // Update a Review
 export const EditReview = (reviewId, newReviewData) => async (dispatch) => {
-  try {
     const response = await fetch(`/api/reviews/${reviewId}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newReviewData),
+      body: newReviewData
     });
     if (response.ok) {
       const updatedReview = await response.json();
       dispatch(updateReview(updatedReview));
       return updatedReview;
-    }
-  } catch (error) {
-    throw error;
+    } else if (response.status < 500) {
+      const errorMessages = await response.json();
+      return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
   }
 };
 
