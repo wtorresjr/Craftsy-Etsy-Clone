@@ -13,10 +13,13 @@ function ReviewEditModal ({review}) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
+  const previousReviewImg = review?.ReviewImages[0] ? review.ReviewImages[0]["image"] : ""
   const prodInfo = useSelector(state => state.products.productDetail)
   const currDateObj = new Date()
   const dateOnly = currDateObj.toISOString().split('T')[0];
-
+  const [image, setImage] = useState(previousReviewImg);
+  const [showReviewImage, setShowReviewImage] = useState(true);
+  const [reviewImageDisplay, setReviewImageDisplay] = useState("");
   const [reviewData, setReviewData] = useState(review.review);
   let [stars, setStars] = useState(review.star_rating);
   const [hover, setHover] = useState(null);
@@ -24,6 +27,18 @@ function ReviewEditModal ({review}) {
   const [isDisabled, setDisabled] = useState(true);
   const [showErrors, setShowErrors] = useState(false)
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
+
+  // Function to add AWS image
+  const updateReviewImage = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      setReviewImageDisplay(reader.result);
+    }
+    setImage(file);
+    setShowReviewImage(false);
+  }
 
   const errorCollector = {}
 
@@ -70,12 +85,12 @@ function ReviewEditModal ({review}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let newReview = {
-      review: reviewData,
-      stars : stars
-    }
+    const formData = new FormData();
+    formData.append("review", reviewData);
+    formData.append("star_rating", stars);
+    formData.append("image_url", image);
     //dispatching to create a review
-    await dispatch(EditReview(review.id, newReview))
+    await dispatch(EditReview(review.id, formData))
       // .then(async (response) => {
       //   if(image) await dispatch(createReviewImage(response.id, image))
       // })
@@ -88,6 +103,11 @@ function ReviewEditModal ({review}) {
       closeModal()
       window.location.reload()
   }
+
+      // let newReview = {
+    //   review: reviewData,
+    //   stars : stars
+    // }
 
   return (
     <>
@@ -103,7 +123,7 @@ function ReviewEditModal ({review}) {
         </div>
       </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="reviews-modal-stars-div-edit">
             <label> My review rating <span style={{color:'#A61A2D'}}>*</span></label>
             <div className="stars-div">
@@ -142,6 +162,33 @@ function ReviewEditModal ({review}) {
             </textarea>
             {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
           </div>
+          <div className="reviews-modal-images-div">
+          <label htmlFor="update-review-file-upload">Images</label>
+            <input
+              type="file"
+              id="update-review-file-upload"
+              name="image"
+              onChange={updateReviewImage}
+              placeholder="Optional"
+            />
+          {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
+          {!showReviewImage && (
+          <div className="review-img-div">
+            <img
+              src={reviewImageDisplay}
+              alt="review image"
+              style={{
+                width: "50px",
+                height: "50px",
+                border: "1px solid #d4d3d1",
+                padding: "3px",
+                position: "relative"
+              }}
+            />
+          </div>
+        )}
+          </div>
+
           <div className="reviews-modal-submit-button-div">
             <button type="submit" disabled={isDisabled} className={submitButtonCN}>Update Review</button>
           </div>
