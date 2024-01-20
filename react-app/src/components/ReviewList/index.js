@@ -88,6 +88,7 @@ const ReviewList = ({ productId }) => {
   //   }
   // }
 
+
   useEffect(() => {
     dispatch(fetchReviewById(productId));
   }, [dispatch, sessionUser]);
@@ -112,12 +113,17 @@ const ReviewList = ({ productId }) => {
         ""
       )}
 
+
+
       <div className="reviewListing">
         <div className="allReviewsAdded">
-          <h3>
-            {reviewPoints.numbers} reviews{" "}
-            {getStars(reviewPoints.stars / reviewPoints.numbers)}
-          </h3>
+          {reviewPoints.numbers > 0 ?
+            <h3>
+              {reviewPoints.numbers} reviews{" "}
+              {getStars(reviewPoints.stars / reviewPoints.numbers)}
+            </h3> :
+             null
+          }
         </div>
         {allReviewsByProductId.map((review) => (
           <PrintReview key={review.id} review={review} />
