@@ -240,6 +240,15 @@ def create_product_review(product_id):
             if product_to_review.user_id == current_user.id:
                 return jsonify({"message": "Forbidden"}), 403
 
+            new_review = Review(
+                user_id=current_user.id,
+                product_id=product_id,
+                review=form.data['review'],
+                star_rating=form.data['star_rating'],
+            )
+
+            db.session.add(new_review)
+            db.session.commit()
 
             if "image_url" in request.files:
 
@@ -254,15 +263,6 @@ def create_product_review(product_id):
                     return upload, 400
                 url = upload["url"]
 
-                new_review = Review(
-                    user_id=current_user.id,
-                    product_id=product_id,
-                    review=form.data['review'],
-                    star_rating=form.data['star_rating'],
-                )
-
-                db.session.add(new_review)
-                db.session.commit()
 
                 new_review_image = ReviewImage(
                     review_id=new_review.id,
