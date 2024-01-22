@@ -17,13 +17,13 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 const CartPage = () => {
     const dispatch = useDispatch();
 
-    const cartItemsArray = useSelector(state => state.cart?.allItems);
-    const productsArray = useSelector(state => state.products?.allProducts);
-    const sessionUser = useSelector(state => state.session?.user);
     const favoritedProductsArr = useSelector(state => state?.favorite?.allFavorites);
-    const [itemCount, setItemCount] = useState(-Infinity);
-    const [shippingPrice, setShippingPrice] = useState(0);
+    const productsArray = useSelector(state => state.products?.allProducts);
+    const cartItemsArray = useSelector(state => state.cart?.allItems);
+    const sessionUser = useSelector(state => state.session?.user);
     const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
+    const [shippingPrice, setShippingPrice] = useState(0);
+    const [itemCount, setItemCount] = useState(-Infinity);
     const [products, setProducts] = useState([]);
 
     const handleNonFunctioningLinks = (e) => {

@@ -51,7 +51,7 @@ const DynaProductDisplay = ({
           ? randomProducts.map((itemId, idx) => (
               <ProductTileV2
                 key={idx}
-                product={allProducts.find((product) => product.id == itemId)}
+                product={allProducts?.find((product) => product.id == itemId)}
                 isFavorite={isFavorite}
                 priceStyle={priceStyle}
               />

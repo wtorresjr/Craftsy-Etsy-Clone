@@ -88,6 +88,7 @@ const ReviewList = ({ productId }) => {
   //   }
   // }
 
+
   useEffect(() => {
     dispatch(fetchReviewById(productId));
   }, [dispatch, sessionUser]);
@@ -98,6 +99,8 @@ const ReviewList = ({ productId }) => {
         reviewPoints.stars += review.star_rating;
         reviewPoints.numbers += 1;
       })}
+
+      {console.log('review:', reviewPoints)}
 
       {/* if user has a review conditions */}
       {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
@@ -110,12 +113,17 @@ const ReviewList = ({ productId }) => {
         ""
       )}
 
+
+
       <div className="reviewListing">
         <div className="allReviewsAdded">
-          <h3>
-            {reviewPoints.numbers} reviews{" "}
-            {getStars(reviewPoints.numbers / allReviewsByProductId)}
-          </h3>
+          {reviewPoints.numbers > 0 ?
+            <h3>
+              {reviewPoints.numbers} reviews{" "}
+              {getStars(reviewPoints.stars / reviewPoints.numbers)}
+            </h3> :
+             null
+          }
         </div>
         {allReviewsByProductId.map((review) => (
           <PrintReview key={review.id} review={review} />

@@ -38,7 +38,7 @@ const HomePage = () => {
         ) : null}
       </div>
       <div className="smallTileContain">
-        {allProducts.length ? (
+        {allProducts?.length ? (
           <>
             <DynaProductDisplay
               allProducts={allProducts}

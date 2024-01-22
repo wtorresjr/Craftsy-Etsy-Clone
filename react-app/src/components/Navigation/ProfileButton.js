@@ -72,13 +72,15 @@ function ProfileButton({ user }) {
                 </div>
               </li>
               <li className="dDPartTwo">
-                <div
-                  className="purchasesReviews"
-                  onClick={handleNonFunctioningLinks}
+                <NavLink
+                  to="previous-orders"
+                  onClick={() => setShowMenu(false)}
                 >
-                  <i className="fas fa-clipboard-list"> </i>
-                  <p>Purchases and reviews</p>
-                </div>
+                  <div className="purchasesReviews">
+                    <i className="fas fa-clipboard-list"> </i>
+                      <p>Purchases and reviews</p>
+                  </div>
+                </NavLink>
                 <div className="messages" onClick={handleNonFunctioningLinks}>
                   <i className="far fa-comment-dots"> </i>
                   <p>Messages</p>

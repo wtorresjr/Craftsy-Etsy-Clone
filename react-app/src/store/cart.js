@@ -46,6 +46,8 @@ export const getCart = () => async (dispatch) => {
     }
 }
 
+
+
 export const addItem = (itemData, cartId) => async (dispatch) => {
     console.log(itemData)
     try {
@@ -140,6 +142,7 @@ const cartReducer = (state = initialState, action) => {
             } else {
                 return state;
             }
+        
         case ADD_CART_ITEM:
         case EDIT_CART_ITEM:
             newState = { ...state };

@@ -18,6 +18,8 @@ function UpdateProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [showPreviewImg, setShowPreviewImg] = useState(true);
+  const [previewImgDisplay, setPreviewImgDisplay] = useState("");
   const [previewImg, setPreviewImg] = useState("");
   //   const [extImg1, setExtImg1] = useState("");
   //   const [extImg2, setExtImg2] = useState("");
@@ -41,17 +43,29 @@ function UpdateProduct() {
     }
   }, [productToEdit]);
 
+      // Function to add AWS image
+      const updatePreviewImage = async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          setPreviewImgDisplay(reader.result);
+        }
+        setPreviewImg(file);
+        setShowPreviewImg(false);
+      }
+
   const errorCollector = {};
   useEffect(() => {
-    const validImgFormats = [
-      ".jpg",
-      ".png",
-      "jpeg",
-      "http:",
-      "https",
-      "ftp:/",
-      "ftps:",
-    ];
+    // const validImgFormats = [
+    //   ".jpg",
+    //   ".png",
+    //   "jpeg",
+    //   "http:",
+    //   "https",
+    //   "ftp:/",
+    //   "ftps:",
+    // ];
 
     const formatError = "Image must be .jpg, .jpeg or .png format.";
     const imageRequired = "Preview image is required.";
@@ -89,14 +103,14 @@ function UpdateProduct() {
     }
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
-    }
-    if (previewImg.length && previewImg[0].startsWith(" ")) {
-      errorCollector.previewImg = whiteSpaceError;
-    }
-    if (
-      !validImgFormats.includes(previewImg.toString().toLowerCase().slice(-4))
-    ) {
-      errorCollector.wrongFormat = formatError;
+    // }
+    // if (previewImg.length && previewImg[0].startsWith(" ")) {
+    //   errorCollector.previewImg = whiteSpaceError;
+    // }
+    // if (
+    //   !validImgFormats.includes(previewImg.toString().toLowerCase().slice(-4))
+    // ) {
+    //   errorCollector.wrongFormat = formatError;
     }
     // if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
     //   errorCollector.formatImg1 = formatError;
@@ -131,14 +145,15 @@ function UpdateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      name: name.trimEnd(),
-      description: description.trimEnd(),
-      price: price,
-      quantity: quantity,
-      preview_image_url: previewImg,
-    };
-    dispatch(editAproduct(+product_id, newProduct))
+
+    const formData = new FormData();
+    formData.append("name", name.trimEnd());
+    formData.append("description", description.trimEnd());
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("image_url", previewImg);
+
+    dispatch(editAproduct(+product_id, formData))
       .then(async (createdProduct) => {
         history.push(`/products/${createdProduct.id}`);
       })
@@ -150,18 +165,19 @@ function UpdateProduct() {
           }
         }
       });
-    if (productToEdit?.preview_image_url !== previewImg) {
-      const newPrevImg = {
-        image_url: previewImg,
-        preview: true,
-      };
-      dispatch(addNewProductImage(product_id, newPrevImg));
-    }
+
+    // if (productToEdit?.preview_image_url !== previewImg) {
+    //   const newPrevImg = {
+    //     image_url: previewImg,
+    //     preview: true,
+    //   };
+    //   dispatch(addNewProductImage(product_id, newPrevImg));
+    // }
   };
 
   return (
     <div className="createProductContainer">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <h1>Update A Product</h1>
         <ul></ul>
         <li>
@@ -170,7 +186,7 @@ function UpdateProduct() {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName((e.target.value).trimStart())}
               required
             />
           </label>
@@ -182,7 +198,7 @@ function UpdateProduct() {
             <input
               type="text"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setDescription((e.target.value).trimStart())}
               required
             />
           </label>
@@ -216,13 +232,15 @@ function UpdateProduct() {
           )}
         </li>
         <li>
-          <label>
+          <label htmlFor="update-preview-file-upload">
             Preview Image:
             <input
-              type="text"
-              value={previewImg}
-              onChange={(e) => setPreviewImg(e.target.value)}
-              required
+             type="file"
+             id="update-preview-file-upload"
+             name="preview_img"
+             accept=".jpeg, .jpg, .png, .gif, .webp"
+             onChange={updatePreviewImage}
+             required
             />
           </label>
           {errors && errors.previewImg && (
@@ -232,6 +250,24 @@ function UpdateProduct() {
             <p className="errorDiv">{errors.wrongFormat}</p>
           )}
         </li>
+        {!showPreviewImg && (
+          <div className="preview-img-div">
+            <img
+              src={previewImgDisplay}
+              alt="preview image"
+              style={{
+                width: "100px",
+                height: "100px",
+                border: "1px solid #d4d3d1",
+                padding: "3px",
+                position: "relative"
+              }}
+            />
+            <div style={{position:"relative", bottom:"93%", right:"5.5%"}}>
+              <p className="preview-img-label">Primary</p>
+            </div>
+          </div>
+        )}
         {/* <li>
           <label>
             Additional Images: (Optional)
