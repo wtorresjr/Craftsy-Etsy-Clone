@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired
+# from flask_wtf.file import FileField, FileAllowed, FileRequired
+# from app.awsS3 import ALLOWED_EXTENSIONS
 
 class CreateReviewForm(FlaskForm):
   review = StringField('review')

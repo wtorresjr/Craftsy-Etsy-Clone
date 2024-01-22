@@ -89,6 +89,11 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 
 // Create a Review
 export const createReview = (productId, reviewData) => async (dispatch) => {
+
+  for (const [key, value] of reviewData.entries()) {
+    console.log('key:', key,'value:', value);
+  }
+
     const response = await fetch(`/api/products/${productId}/reviews`, {
       method: "POST",
       body: reviewData

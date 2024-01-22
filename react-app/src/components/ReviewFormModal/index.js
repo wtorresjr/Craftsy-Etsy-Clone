@@ -46,7 +46,7 @@ function ReviewFormModal({ productId }) {
   const errorCollector = {};
 
   useEffect(() => {
-    // const validFormats = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+    const validFormats = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -57,14 +57,11 @@ function ReviewFormModal({ productId }) {
       errorCollector.stars = "Star Rating Required";
     }
 
-    if (!image) {
-      errorCollector.image = "At least one review image is required";
-    }
 
-    // if (image && !validFormats.includes(image.toLowerCase().slice(-5))) {
-    //   errorCollector.rev_image =
-    //     "Images are optional: Accepted formats .jpg, .jpeg or .png";
-    // }
+    if (image && !validFormats.includes((image.name).toLowerCase().slice(-5))) {
+      errorCollector.rev_image =
+        "Images are optional: Accepted formats .jpg, .jpeg, .png, .gif, or .webp";
+    }
 
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
@@ -74,21 +71,43 @@ function ReviewFormModal({ productId }) {
     }
   }, [review, image, stars]);
 
+  console.log('image--', image.name)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowErrors(true);
 
+
     const formData = new FormData();
     formData.append('review', review);
     formData.append('star_rating', stars);
-    formData.append('image_url', image)
+    formData.append('image_url', image);
 
-    const data = await dispatch(createReview(productId, formData));
-    if (Object.values(errors).length === 0) {
-      closeModal()
-      window.location.reload();
-    }
+
+      const data = await dispatch(createReview(productId, formData));
+
+      if (Object.values(errors).length > 0) {
+        setShowErrors(true)
+      }
+      if (data && data.error) {
+        setBackendErrors(data.errors)
+        console.log('backend errors-->', backendErrors)
+        return;
+      } else {
+        closeModal();
+        window.location.reload();
+      }
+
+
+
+
+
+
+
+    // if (Object.values(errors).length === 0) {
+    //   closeModal()
+    //   window.location.reload();
+
     // if (data.errors) {
     //   setBackendErrors(data.errors)
     // }
@@ -169,7 +188,7 @@ function ReviewFormModal({ productId }) {
             {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
           </div>
           <div className="reviews-modal-images-div">
-          <label htmlFor="review-file-upload">Images <span style={{color:'#A61A2D'}}>*</span></label>
+          <label htmlFor="review-file-upload">Images</label>
             <input
               type="file"
               id="review-file-upload"
