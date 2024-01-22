@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import products from "./products";
+import orders from "./orders";
 import cart from "./cart";
 import favorite from "./favorite";
 import reviews from "./reviews"
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   products,
   cart,
   favorite,
-  reviews
+  reviews,
+  orders
 });
 
 let enhancer;

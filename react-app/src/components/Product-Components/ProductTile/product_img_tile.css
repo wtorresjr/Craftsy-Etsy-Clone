@@ -10,16 +10,14 @@
 }
 
 .smallTileContain {
+  justify-content: center;
   position: relative;
-  width: 70%;
+  width: 70vw;
   display: flex;
   gap: 20px;
   border-radius: 8px;
   flex-flow: row wrap;
-}
-
-.smallTileContain h3 {
-  width: 100%;
+  /* border: 1px solid black; */
 }
 
 .largeTileContain h3 {
@@ -39,14 +37,14 @@
 }
 
 .becauseViewed {
-  width: 100px;
-  height: 100px;
+  width: auto;
+  height: auto;
   border-radius: 8px;
 }
 
-.notVisible {
+/* .notVisible {
   visibility: hidden;
-}
+} */
 
 .recentFaves {
   width: 200px;

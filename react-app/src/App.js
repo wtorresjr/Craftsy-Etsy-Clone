@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -8,6 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import FavoritesPage from "./components/Favorite-Components/FavoritesPage";
 
+import OrderPage from "./components/OrdersPage";
 import CartPage from "./components/CartPage";
 
 import ShopManagerPage from "./components/ShopManagerPage";
@@ -19,6 +20,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const allProducts = useSelector((state) => state?.products?.allProducts);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -51,6 +53,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/cart">
             <CartPage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/previous-orders">
+            <OrderPage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/create-a-product">
             <CreateProduct />

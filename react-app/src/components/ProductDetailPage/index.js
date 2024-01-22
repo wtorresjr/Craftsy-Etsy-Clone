@@ -9,7 +9,7 @@ import { fetchReviews, fetchReviewById } from "../../store/reviews";
 import ReviewList from "../ReviewList";
 import ProductTile from "../Product-Components/ProductTile";
 
-import { addItem } from "../../store/cart";
+import { addItem, editItem } from "../../store/cart";
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [productNotFound, setProductNotFound] = useState(false);
 
+  const cart = useSelector((state) => state?.cart?.allItems);
+  const cartItem = cart.find((item) => item.product_id === +productId);
   const currentProduct = useSelector((state) => state?.products?.productDetail);
   let index = [];
 
@@ -28,10 +30,8 @@ const ProductDetailPage = () => {
     }
   }
 
-  //useSelector to get the current cart
-  const currentCart = useSelector((state) => state?.cart?.cartId);
-
   useEffect(() => {
+    dispatch(getAllProducts());
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -56,12 +56,16 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = async () => {
-    const newCartItem = {
-      product_id: productId,
-      cart_id: currentCart,
-      quantity: selected,
-    };
-    dispatch(addItem(newCartItem, currentCart)).then(history.push("/cart"));
+    if (cartItem) {
+      dispatch(editItem({ quantity: +selected }, cartItem.id));
+    } else {
+      const newCartItem = {
+        product_id: +productId,
+        quantity: +selected,
+      };
+      dispatch(addItem(newCartItem));
+    }
+    history.push("/cart");
   };
 
   return (
@@ -77,43 +81,51 @@ const ProductDetailPage = () => {
         </div>
       ) : (
         <div className="prodDetailsContain">
-          <div>
+          {currentProduct?.preview_image_url ? (
+            <img
+              id="previewImg"
+              src={currentProduct?.preview_image_url[0]}
+              alt="Product Preview"
+            />
+          ) : (
+            "no image"
+          )}
+          <div className="productDetailDiv">
             <h1>{currentProduct?.name}</h1>
-            {currentProduct?.preview_image_url ? (
-              <img
-                src={currentProduct?.preview_image_url[0]}
-                alt="Product Preview"
-              />
-            ) : (
-              "no image"
-            )}
-            <div className="itemprice">
-              ${currentProduct?.price?.toFixed(2)}
-            </div>
+            <h2 className="itemprice">${currentProduct?.price?.toFixed(2)}</h2>
             <div className="itemdescription">{currentProduct?.description}</div>
             <div className="itemarriving">
               <i className="fa-solid fa-check"></i>
               Arrives soon! Get it by Tomorrow if you order today
             </div>
-            <label className="dropdown">Quantity</label>
-            <select
-              id="dropdown"
-              defaultValue={1}
-              onChange={handleSelectChange}
-            >
-              {index.map((idx) => (
-                <option key={idx} value={idx}>
-                  {idx}
-                </option>
-              ))}
-            </select>
-            <button onClick={handleAddToCart}>Add to Cart</button>
-            <hr />
-            Related Searches
-            <hr />
-            <ReviewList productId={productId} />
-            <hr />
+
+            <div className="quantityDiv">
+              <label className="dropdown">Quantity</label>
+              <select
+                id="dropdown"
+                defaultValue={1}
+                onChange={handleSelectChange}
+              >
+                {index.map((idx) => (
+                  <option key={idx} value={idx}>
+                    {idx}
+                  </option>
+                ))}
+              </select>
+              <button onClick={handleAddToCart} id="addToCartBtn">
+                Add to Cart
+              </button>
+            </div>
+            <h3 className="relatedSearchDiv">Related Searches</h3>
           </div>
+          <div className="lowerHalfDiv">
+            <div className="reviewListDiv">
+              {/* <hr /> */}
+              <ReviewList productId={productId} />
+              {/* <hr /> */}
+            </div>
+          </div>
+          {/* <hr /> */}
         </div>
       )}
     </>

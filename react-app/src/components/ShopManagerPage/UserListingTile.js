@@ -33,7 +33,7 @@ function UserListingTile({ product }) {
             <h4>Quantity In Stock: </h4> {product.quantity}
           </div>
           <div className="listingPrice">
-            <h4>Price: </h4> {product.price}
+            <h4>Price: </h4> ${product.price.toFixed(2)}
           </div>
         </NavLink>
         <div className="editOrDeleteListing">

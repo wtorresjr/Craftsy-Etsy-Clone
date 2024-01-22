@@ -2,4 +2,32 @@
   width: 100px;
   height: 100px;
   padding: 0 10px 0 0;
+  border-radius: 10px;
+}
+
+.starRatingContain {
+  border-top: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-flow: row-reverse wrap; */
+  flex-direction: row-reverse;
+  padding: 0px;
+  margin: 0px;
+  /* width: 100%; */
+}
+
+.starRatingContain h4 {
+  padding: 10px 0 10px 0;
+  margin: 0;
+}
+
+.starRatingContain p {
+  margin: 0px;
+  padding: 0px;
+  /* background-color: red; */
+}
+
+.reviewFormButton {
+  cursor: pointer;
 }

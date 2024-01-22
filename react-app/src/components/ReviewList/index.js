@@ -88,6 +88,7 @@ const ReviewList = ({ productId }) => {
   //   }
   // }
 
+
   useEffect(() => {
     dispatch(fetchReviewById(productId));
   }, [dispatch, sessionUser]);
@@ -99,10 +100,12 @@ const ReviewList = ({ productId }) => {
         reviewPoints.numbers += 1;
       })}
 
+      {console.log('review:', reviewPoints)}
+
       {/* if user has a review conditions */}
       {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
         <OpenModalButton
-          className="ReviewFormButton"
+          className="reviewFormButton"
           buttonText="Leave a Review"
           modalComponent={<ReviewFormModal productId={productId} />}
         />
@@ -110,12 +113,17 @@ const ReviewList = ({ productId }) => {
         ""
       )}
 
+
+
       <div className="reviewListing">
         <div className="allReviewsAdded">
-          <h3>
-            {reviewPoints.numbers} reviews{" "}
-            {getStars(reviewPoints.numbers / allReviewsByProductId)}
-          </h3>
+          {reviewPoints.numbers > 0 ?
+            <h3>
+              {reviewPoints.numbers} reviews{" "}
+              {getStars(reviewPoints.stars / reviewPoints.numbers)}
+            </h3> :
+             null
+          }
         </div>
         {allReviewsByProductId.map((review) => (
           <PrintReview key={review.id} review={review} />

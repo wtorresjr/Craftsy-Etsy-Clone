@@ -24,11 +24,12 @@
 
 .navBar {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-around; */
   align-items: center;
+  /* flex-flow: row wrap; */
   /* display: grid;
   grid-template-columns: repeat(16, 1fr); */
-  /* gap: 10px; */
+  /* gap: px; */
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
@@ -69,6 +70,10 @@
 
 .catWord {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.categoriesDiv {
+  cursor: pointer;
 }
 
 .categoriesDiv:hover {
@@ -129,6 +134,7 @@
 
 .fas.fa-search {
   font-size: 25px;
+  cursor: pointer;
 }
 
 .searchIcon:hover {
@@ -167,6 +173,7 @@ button.bell {
   /* text-decoration: none; */
   color: black;
   font-size: 30px;
+  cursor: pointer;
 }
 
 div.signInDiv {
@@ -381,4 +388,59 @@ i.far.fa-heart:hover {
   text-align: left;
   padding-left: 15px;
   font-weight: lighter;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 83px;
+  left: 0;
+  z-index: 99009;
+  display: flex;
+  flex-flow: column wrap;
+  margin-bottom: 1rem;
+  width: 100%;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.search-dropdown:empty {
+  border: none;
+}
+
+.search-result-img {
+  width: 75px;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.search-dropdown-row {
+  font-family: sans-serif;
+  cursor: pointer;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  min-width: 40%;
+  max-width: 45%;
+  width: 40%;
+  align-items: center;
+  border-bottom: 1px solid grey;
+  border-radius: 0 0 10px 10px;
+}
+
+.search-name-price-contain {
+  display: flex;
+  justify-content: right;
+  text-align: right;
+  flex-flow: column wrap;
+  gap: 10px;
+}
+
+.search-dropdown-row:hover {
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  font-weight: 600;
 }
