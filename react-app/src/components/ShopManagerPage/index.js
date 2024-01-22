@@ -20,7 +20,6 @@ function ShopManagerPage() {
   return (
     <>
       <div className="manageListingssHeader">
-        <h1>Listings Manager</h1>
         <button>
           <Link to="/create-a-product" className="createListingButton">
             {" "}
@@ -29,18 +28,22 @@ function ShopManagerPage() {
         </button>
       </div>
       <div className="userListings">
-        <div className="productTileContainer">
-          <DynaProductDisplay
-            allProducts={allUserProducts}
-            numOfProducts={8}
-            mainText={""}
-            secondaryText={"Because you viewed"}
-            priceStyle={"smallContainer"}
-            // componentStyle={""}
-            isFavorite={"false"}
-          />
-
-          {/* {allUserProducts && allUserProducts.map(product => {
+        {/* <div className="productTileContainer"> */}
+        <DynaProductDisplay
+          allProducts={allUserProducts}
+          numOfProducts={5}
+        //   numOfProducts={allUserProducts.length}
+          mainText={"Listing Manager"}
+          secondaryText={""}
+          priceStyle={"smallContainer"}
+          // componentStyle={""}
+          showPrice={true}
+          showProductName={true}
+                  isFavorite={"false"}
+                  
+        />
+        {/* 
+          {allUserProducts && allUserProducts.map(product => {
                         return <UserListingTile
                             product={product}
                             className="productTile"
@@ -48,7 +51,7 @@ function ShopManagerPage() {
                         />
                     })
                     } */}
-        </div>
+        {/* </div> */}
       </div>
     </>
   );

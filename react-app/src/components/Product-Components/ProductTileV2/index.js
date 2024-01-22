@@ -6,7 +6,13 @@ import { useState, useEffect } from "react";
 import FavoriteHeart from "../HeartComponent";
 import PriceComponent from "../PriceComponent";
 
-const ProductTileV2 = ({ product, isFavorite, priceStyle }) => {
+const ProductTileV2 = ({
+  product,
+  isFavorite,
+  priceStyle,
+  showPrice,
+  showProductName,
+}) => {
   const [productId, setProductId] = useState();
   const [localIsClicked, setLocalIsClicked] = useState(false);
 
@@ -33,6 +39,8 @@ const ProductTileV2 = ({ product, isFavorite, priceStyle }) => {
             />
           </NavLink>
         )}
+        {showProductName && <div>{product.name}</div>}
+        {showPrice && <div>${product.price}</div>}
         <PriceComponent product={product} priceStyle={priceStyle} />
       </div>
     </>
