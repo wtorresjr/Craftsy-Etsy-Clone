@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./UserListingTile.css";
 import DeleteProductModal from "./DeleteProductModal";
+// import DynaProductDisplay from "../Product-Components/DynaProductDisplay";
 
 function UserListingTile({ product }) {
   const { setModalContent } = useModal();
@@ -13,6 +14,7 @@ function UserListingTile({ product }) {
 
   return (
     <>
+
       <div className="listingTileContainer">
         <NavLink
           className="productListingTile"
