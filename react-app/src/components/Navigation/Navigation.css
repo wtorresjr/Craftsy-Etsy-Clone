@@ -14,7 +14,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.profile-dropdown > li {
+.profile-dropdown>li {
   padding-bottom: 0px;
 }
 
@@ -23,27 +23,27 @@
 }
 
 .navBar {
-  display: flex;
-  /* justify-content: space-around; */
-  align-items: center;
-  /* flex-flow: row wrap; */
   /* display: grid;
-  grid-template-columns: repeat(16, 1fr); */
-  /* gap: px; */
+  grid-template-columns: 10% 16% 50% 6% 6% 6% 6%; */
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  /* align-items: center; */
+  /* flex-flow: row wrap; */
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 2px solid lightgray;
 }
 
 .homeButtonDiv {
-  /* grid-column: span 2; */
-  margin-left: 50px;
-  padding-top: 5px;
+  margin-left: 15px;
+  margin-right: 5px;
+  /* padding-top: 5px; */
+  display: flex;
+  place-items: center;
 }
 
 .homeButton {
-  display: flex;
-  align-self: flex-start;
   text-decoration: none;
   color: #f1641f;
   font-weight: light;
@@ -51,29 +51,29 @@
   font-family: "Cambria", serif;
 }
 
-/* .categoriesDiv {
-  grid-column: span 2;
-} */
-
-.categories {
-  display: grid;
-  height: 100%;
-  width: 100%;
-  place-items: center;
-  text-decoration: none;
-  color: black;
+.catWord {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
-  color: rgb(34, 34, 34);
-}
-
-.catWord {
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .categoriesDiv {
   cursor: pointer;
+  /* padding: 5px; */
+  width: 100%;
+  margin-right: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-flow: row;
+  place-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  color: rgb(34, 34, 34);
+  padding: 10px
 }
 
 .categoriesDiv:hover {
@@ -82,30 +82,30 @@
 }
 
 .searchBarBig {
-  /* grid-column: span 9; */
   padding: 5px;
-  width: 65%;
+  width: 100%;
 }
 
 .searchBarSmall {
-  /* grid-column: span 8; */
   padding: 5px;
-  width: 50%;
+  width: 100%
 }
 
 .searchBar {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  /* flex-direction: row; */
+  flex-flow: row;
+  align-items: center;
   position: relative;
+  /* margin: auto; */
 }
 
 .searchBarInput {
-  width: 100%;
+  /* width: 100%; */
   font-size: large;
-  border-radius: 25px;
+  border-radius: 50px;
   padding: 10px;
   border: 3px solid black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -114,11 +114,11 @@
 
 .searchIcon {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  top: 7.5%;
+  /* top: 7.5%; */
   right: 1%;
   background-color: #f1641f;
   border-radius: 100%;
@@ -142,29 +142,28 @@
   transform: scale(1.12);
 }
 
-/* .favoritesDiv {
-  grid-column: span 1;
-} */
-
 .favorites {
-  display: grid;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
   height: 100%;
+  width: 100%;
   place-items: center;
   text-decoration: none;
   color: black;
   font-size: 30px;
+  margin-left: 5px
 }
 
 .far.fa-heart {
-  padding: 15px;
+  padding: 15px
+    /* padding-left: 15px;
+  padding-right: 5px; */
 }
 
-/* .bellDiv {
-  grid-column: span 1;
-} */
-
 button.bell {
-  display: grid;
+  display: flex;
+  justify-content: center;
   height: 100%;
   width: 100%;
   place-items: center;
@@ -174,23 +173,26 @@ button.bell {
   color: black;
   font-size: 30px;
   cursor: pointer;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-div.signInDiv {
-  grid-column: span 2;
+.signInDiv {
+  /* grid-column: span 2; */
+  display: flex;
+  flex-flow: row;
+  margin: 5px;
+  padding: 2px 20px;
+  /* height: 100%; */
+  width: 100%;
+  place-items: center;
+  justify-content: center;
 }
-
-div.signInDiv > button {
-  background-color: transparent;
-  border: none;
-}
-
-/* .profileButtonDiv {
-  grid-column: span 1;
-} */
 
 button.profileButton {
-  display: grid;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
   height: 100%;
   width: 100%;
   place-items: center;
@@ -202,13 +204,12 @@ button.profileButton {
   font-size: 30px;
   color: rgb(34, 34, 34);
   cursor: pointer;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-.signInButton {
-  display: grid;
-  height: 100%;
+.signInDiv button {
   width: 100%;
-  place-items: center;
   text-decoration: none;
   background-color: transparent;
   border: none;
@@ -217,6 +218,7 @@ button.profileButton {
   font-weight: bold;
   font-size: 20px;
   color: rgb(34, 34, 34);
+  padding: 0 20px
 }
 
 .signInDiv:hover {
@@ -225,14 +227,17 @@ button.profileButton {
 }
 
 .shoppingCartDiv {
-  margin-right: 50px;
-  padding: 5px;
+  margin-right: 15px;
+  margin-left: 10px;
+  /* padding: 5px; */
   cursor: pointer;
 }
 
 .shoppingCart {
-  display: grid;
-  height: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  /* height: 100%; */
   width: 100%;
   place-items: center;
   text-decoration: none;
@@ -242,13 +247,15 @@ button.profileButton {
   font-weight: light;
   color: rgb(34, 34, 34);
   position: relative;
+  margin-top: 8px;
+  margin-bottom: 5px;
 }
 
 .cartItemCount {
   position: absolute;
-  font-size: 18px;
-  top: -20%;
-  right: -20%;
+  font-size: 16px;
+  top: -10%;
+  right: -5%;
   background-color: #cf4018;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
@@ -258,11 +265,11 @@ button.profileButton {
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 100%;
-  border: 3px solid white;
+  border: 2px solid white;
 }
 
 .fas.fa-shopping-cart {
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 .shoppingCartDiv:hover {
@@ -296,7 +303,7 @@ i.far.fa-heart:hover {
   padding-top: 5px;
 }
 
-.profileDropdownUser > i.fas.fa-user-circle {
+.profileDropdownUser>i.fas.fa-user-circle {
   font-size: 25px;
   grid-column: span 1;
   display: grid;
@@ -310,12 +317,12 @@ i.far.fa-heart:hover {
   grid-column: span 5;
 }
 
-.firstLastName > p {
+.firstLastName>p {
   margin: 0px 10px 15px 15px;
   font-size: 15px;
 }
 
-.firstLastName > h4 {
+.firstLastName>h4 {
   margin: 5px 10px 5px 15px;
   font-size: 18px;
 }
@@ -346,11 +353,11 @@ i.far.fa-heart:hover {
   background-color: rgb(228, 226, 226);
 }
 
-.purchasesReviews > i.fas.fa-clipboard-list,
-.messages > i.far.fa-comment-dots,
-.accountSettings > i.fas.fa-cog,
-.logOutDiv > i.fas.fa-sign-out-alt.fa-rotate-180,
-.sellerListings > i.fas.fa-store {
+.purchasesReviews>i.fas.fa-clipboard-list,
+.messages>i.far.fa-comment-dots,
+.accountSettings>i.fas.fa-cog,
+.logOutDiv>i.fas.fa-sign-out-alt.fa-rotate-180,
+.sellerListings>i.fas.fa-store {
   font-size: 20px;
   grid-column: span 1;
   display: grid;
@@ -360,10 +367,10 @@ i.far.fa-heart:hover {
   margin-left: 10px;
 }
 
-.purchasesReviews > p,
-.messages > p,
-.accountSettings > p,
-.sellerListings > p {
+.purchasesReviews>p,
+.messages>p,
+.accountSettings>p,
+.sellerListings>p {
   grid-column: span 5;
   margin: 15px 15px 15px 15px;
   font-size: 18px;
@@ -443,4 +450,30 @@ i.far.fa-heart:hover {
 .search-dropdown-row:hover {
   /* background-color: rgba(255, 255, 255, 0.9); */
   font-weight: 600;
+}
+
+
+.leftSideNav,
+.rightSideNav,
+.searchBarSmall,
+.searchBarBig {
+  display: flex;
+  flex-flow: row;
+  gap: 15px;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 800px) {
+  .navBar {
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .searchBarSmall {
+    margin: 10px 2px;
+  }
+
+  .searchBarBig {
+    margin: 10px 2px;
+  }
 }
