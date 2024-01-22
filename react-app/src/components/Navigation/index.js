@@ -97,17 +97,18 @@ function Navigation({ isLoaded }) {
   return (
     <>
       <div className="navBar">
-        <div className="homeButtonDiv">
-          <NavLink exact to="/" className="homeButton">
-            Craftsy
-          </NavLink>
-        </div>
-        <div className="categoriesDiv">
-          <div className="categories" onClick={handleNonFunctioningLinks}>
+        <div className="leftSideNav">
+          <div className="homeButtonDiv">
+            <NavLink exact to="/" className="homeButton">
+              Craftsy
+            </NavLink>
+          </div>
+          <div className="categoriesDiv" onClick={handleNonFunctioningLinks}>
+            {/* <div className="categories" onClick={handleNonFunctioningLinks}> */}
             <i className="fas fa-bars">
-              {" "}
-              <span className="catWord"> Categories</span>{" "}
             </i>
+            <span className="catWord"> Categories</span>
+            {/* </div> */}
           </div>
         </div>
         {!sessionUser && (
@@ -185,35 +186,36 @@ function Navigation({ isLoaded }) {
               </div>
             ))}
         </div>
-
-        {sessionUser && (
-          <div className="favoritesDiv">
-            <NavLink to="/favorites" className="favorites">
-              <i className="far fa-heart"></i>
-            </NavLink>
-          </div>
-        )}
-        {sessionUser && (
-          <div className="bellDiv">
-            <button className="bell" onClick={handleNonFunctioningLinks}>
-              <i className="far fa-bell">
-                {" "}
-                <i className="fas fa-caret-down"> </i>
-              </i>
-            </button>
-          </div>
-        )}
-        {isLoaded && (
-          // <div className=''>
-          <ProfileButton user={sessionUser} />
-          // </div>
-        )}
-        <div className="shoppingCartDiv" onClick={checkLoggedIn}>
-          <div className="shoppingCart">
-            <i className="fas fa-shopping-cart"></i>
-            {totalCartItems > 0 && sessionUser && (
-              <span className="cartItemCount">{totalCartItems}</span>
-            )}
+        <div className="rightSideNav">
+          {sessionUser && (
+            <div className="favoritesDiv">
+              <NavLink to="/favorites" className="favorites">
+                <i className="far fa-heart"></i>
+              </NavLink>
+            </div>
+          )}
+          {sessionUser && (
+            <div className="bellDiv">
+              <button className="bell" onClick={handleNonFunctioningLinks}>
+                <i className="far fa-bell">
+                  {" "}
+                  <i className="fas fa-caret-down"> </i>
+                </i>
+              </button>
+            </div>
+          )}
+          {isLoaded && (
+            // <div className=''>
+            <ProfileButton user={sessionUser} />
+            // </div>
+          )}
+          <div className="shoppingCartDiv" onClick={checkLoggedIn}>
+            <div className="shoppingCart">
+              <i className="fas fa-shopping-cart"></i>
+              {totalCartItems > 0 && sessionUser && (
+                <span className="cartItemCount">{totalCartItems}</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
