@@ -122,3 +122,4 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.requirements-dev.txt
