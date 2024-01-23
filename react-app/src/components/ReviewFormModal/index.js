@@ -87,7 +87,6 @@ function ReviewFormModal({ productId }) {
           closeModal();
           window.location.reload();
         }
-
       }
 
     } catch (error) {
@@ -162,7 +161,7 @@ function ReviewFormModal({ productId }) {
               type="file"
               id="review-file-upload"
               name="image"
-              onChange={(e) =>{addReviewImage(e)}}
+              onChange={addReviewImage}
               placeholder="Optional"
               style={{marginTop: "10px"}}
             />
