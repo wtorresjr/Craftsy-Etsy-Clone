@@ -89,13 +89,12 @@ def get_orders():
                 {
                     "id": item.id,
                     "product_id": item.product_id,
-                    "name": product.name,
-                    "price": product.price,
+                    "name": Product.query.get(item.product_id).name if Product.query.get(item.product_id) else None,
+                    "price": Product.query.get(item.product_id).price if Product.query.get(item.product_id) else None,
                     "quantity": item.quantity,
-                    "preview_image_url": [product_img.image_url for product_img in product.product_images if product_img.preview]
+                    "preview_image_url": [product_img.image_url for product_img in Product.query.get(item.product_id).product_images if product_img.preview] if Product.query.get(item.product_id) else None
                 }
                 for item in cart_items
-                if (product := Product.query.get(item.product_id)) is not None
             ]
             orders_data.extend(cart_items_data)
 
