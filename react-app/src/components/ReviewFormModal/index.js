@@ -1,15 +1,12 @@
 import "./ReviewForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { createReview, createReviewImage } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
 
-
 function ReviewFormModal({ productId }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -17,7 +14,6 @@ function ReviewFormModal({ productId }) {
   const currDateObj = new Date()
   const dateOnly = currDateObj.toISOString().split('T')[0];
 
-  console.log('the prod info', prodInfo)
   const [review, setReview] = useState("");
   const [image, setImage] = useState("");
   const [showReviewImage, setShowReviewImage] = useState(true);
@@ -28,6 +24,7 @@ function ReviewFormModal({ productId }) {
   const [isDisabled, setDisabled] = useState(true);
   const [showErrors, setShowErrors] = useState(false);
   const [backendErrors, setBackendErrors] = useState([]);
+  const [onHoverHelp, setOnHoverHelp] = useState(false);
 
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
 
@@ -43,10 +40,10 @@ function ReviewFormModal({ productId }) {
     setShowReviewImage(false);
   }
 
-  const errorCollector = {};
-
   useEffect(() => {
-    const validFormats = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+    const errorCollector = {};
+    const validFormats = [".jpg", ".jpeg", ".png", ".webp"];
+
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -57,80 +54,46 @@ function ReviewFormModal({ productId }) {
       errorCollector.stars = "Star Rating Required";
     }
 
-
-    if (image && !validFormats.includes((image.name).toLowerCase().slice(-5))) {
-      errorCollector.rev_image =
-        "Images are optional: Accepted formats .jpg, .jpeg, .png, .gif, or .webp";
+    if (image && !validFormats.includes(image.name.slice(-5))) {
+      errorCollector.rev_image = "Image must be .jpg, .jpeg, .png, or .webp format";
     }
 
     setErrors(errorCollector);
-    if (Object.keys(errorCollector).length > 0) {
+
+    if (Object.values(errorCollector).length > 0) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [review, image, stars]);
+  }, [review, image, stars, backendErrors]);
 
-  console.log('image--', image.name)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowErrors(true);
-
-
-    const formData = new FormData();
-    formData.append('review', review);
-    formData.append('star_rating', stars);
-    formData.append('image_url', image);
-
+    setShowErrors(Object.values(errors).length > 0);
+    try {
+      const formData = new FormData();
+      formData.append('review', review);
+      formData.append('star_rating', stars);
+      formData.append('image_url', image);
 
       const data = await dispatch(createReview(productId, formData));
 
-      if (Object.values(errors).length > 0) {
-        setShowErrors(true)
-      }
-      if (data && data.error) {
-        setBackendErrors(data.errors)
-        console.log('backend errors-->', backendErrors)
-        return;
+      if (data.errors) {
+        setBackendErrors(data.errors);
       } else {
-        closeModal();
-        window.location.reload();
+        setBackendErrors(null);
+        if (Object.keys(errors).length === 0) {
+          closeModal();
+          window.location.reload();
+        }
+
       }
 
-
-
-
-
-
-
-    // if (Object.values(errors).length === 0) {
-    //   closeModal()
-    //   window.location.reload();
-
-    // if (data.errors) {
-    //   setBackendErrors(data.errors)
-    // }
-    // else {
-    //   closeModal();
-    //   window.location.reload();
-    // }
-  }
-
-  //   try {
-  //     const newReview = {
-  //       review: review,
-  //       star_rating: stars,
-  //       image_url: image,
-  //     };
-
-  //     const response = await dispatch(createReview(productId, newReview));
-
-
-  //   } catch (error) {
-  //     console.error("Error submitting review:", error);
-  //   }
-  // };
+    } catch (error) {
+      throw error
+    }
+  };
 
 
 
@@ -154,7 +117,6 @@ function ReviewFormModal({ productId }) {
             <div className="stars-div">
               {[...Array(5)].map((star, i) => {
                   const ratingValue = i + 1;
-                  console.log(stars, ':the current rating')
                   return (
                     <label key={i}>
                         <input
@@ -188,13 +150,21 @@ function ReviewFormModal({ productId }) {
             {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
           </div>
           <div className="reviews-modal-images-div">
-          <label htmlFor="review-file-upload">Images</label>
+          <label htmlFor="review-file-upload">Images  </label>
+          <span>
+            <i className="fa-solid fa-circle-info"
+              onMouseOver={() => setOnHoverHelp(true)}
+              onMouseOut={() => setOnHoverHelp(false)}
+            ></i>
+            {onHoverHelp? <div className="image-help"><p>Image files accepted: <br />JPG, JPEG, PNG, WEBP</p></div> : null}
+          </span>
             <input
               type="file"
               id="review-file-upload"
               name="image"
-              onChange={addReviewImage}
+              onChange={(e) =>{addReviewImage(e)}}
               placeholder="Optional"
+              style={{marginTop: "10px"}}
             />
           {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
           {!showReviewImage && (
@@ -207,13 +177,13 @@ function ReviewFormModal({ productId }) {
                 height: "50px",
                 border: "1px solid #d4d3d1",
                 padding: "3px",
-                position: "relative"
+                position: "relative",
               }}
             />
           </div>
         )}
           </div>
-          {showErrors && backendErrors && backendErrors.map((err) => (<p className="errorDiv">{err}</p>))}
+          {Array.isArray(backendErrors) && backendErrors.map((err, i) => (<p key={`${err}-${i}`} className="errorDiv">{err}</p>))}
           <div className="reviews-modal-submit-button-div">
             <button type="submit" disabled={isDisabled} className={submitButtonCN}>Submit Review</button>
           </div>
