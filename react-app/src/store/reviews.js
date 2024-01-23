@@ -89,11 +89,6 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 
 // Create a Review
 export const createReview = (productId, reviewData) => async (dispatch) => {
-
-  for (const [key, value] of reviewData.entries()) {
-    console.log('key:', key,'value:', value);
-  }
-
     const response = await fetch(`/api/products/${productId}/reviews`, {
       method: "POST",
       body: reviewData
@@ -102,7 +97,7 @@ export const createReview = (productId, reviewData) => async (dispatch) => {
       const newReview = await response.json();
       dispatch(setReview(newReview));
       return newReview;
-    } else if (response.status < 500) {
+    } else if (response.status === 400) {
       const errorMessages = await response.json();
       return errorMessages
     } else {
