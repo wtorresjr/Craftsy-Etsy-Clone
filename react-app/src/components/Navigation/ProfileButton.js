@@ -57,7 +57,7 @@ function ProfileButton({ user }) {
           </button>
           <ul className={ulClassName} ref={ulRef}>
             <>
-              <li>
+              <div className="profileDropdown">
                 <div
                   className="profileDropdownUser"
                   onClick={handleNonFunctioningLinks}
@@ -70,45 +70,46 @@ function ProfileButton({ user }) {
                     <p>View your profile</p>
                   </span>
                 </div>
-              </li>
-              <li className="dDPartTwo">
-                <NavLink
-                  to="previous-orders"
-                  onClick={() => setShowMenu(false)}
-                >
-                  <div className="purchasesReviews">
-                    <i className="fas fa-clipboard-list"> </i>
+                <div className="dDPartTwo">
+                  <NavLink
+                    className="purchasesReviews"
+                    to="previous-orders"
+                    onClick={() => setShowMenu(false)}
+                  >
+                    <div className="purchasesReviews">
+                      <i className="fas fa-clipboard-list"> </i>
                       <p>Purchases and reviews</p>
+                    </div>
+                  </NavLink>
+                  <div className="messages" onClick={handleNonFunctioningLinks}>
+                    <i className="far fa-comment-dots"> </i>
+                    <p>Messages</p>
                   </div>
-                </NavLink>
-                <div className="messages" onClick={handleNonFunctioningLinks}>
-                  <i className="far fa-comment-dots"> </i>
-                  <p>Messages</p>
+                  <NavLink
+                    to="/shop-manager"
+                    className="sellerListings"
+                    onClick={() => setShowMenu(false)}
+                  >
+                    <i className="fas fa-store"></i>
+                    <p>Sell on Craftsy</p>
+                  </NavLink>
                 </div>
-                <NavLink
-                  to="/shop-manager"
-                  className="sellerListings"
-                  onClick={() => setShowMenu(false)}
-                >
-                  <i className="fas fa-store"></i>
-                  <p>Sell on Craftsy</p>
-                </NavLink>
-              </li>
-              <li>
-                <div
-                  className="accountSettings"
-                  onClick={handleNonFunctioningLinks}
-                >
-                  <i className="fas fa-cog"></i>
-                  <p>Account settings</p>
+                <div className="dDPartThree">
+                  <div
+                    className="accountSettings"
+                    onClick={handleNonFunctioningLinks}
+                  >
+                    <i className="fas fa-cog"></i>
+                    <p>Account settings</p>
+                  </div>
+                  <div className="logOutDiv">
+                    <i className="fas fa-sign-out-alt fa-rotate-180"></i>
+                    <button onClick={handleLogout} className="logOutButton">
+                      Sign out
+                    </button>
+                  </div>
                 </div>
-                <div className="logOutDiv">
-                  <i className="fas fa-sign-out-alt fa-rotate-180"></i>
-                  <button onClick={handleLogout} className="logOutButton">
-                    Sign out
-                  </button>
-                </div>
-              </li>
+              </div>
             </>
           </ul>
         </div>
