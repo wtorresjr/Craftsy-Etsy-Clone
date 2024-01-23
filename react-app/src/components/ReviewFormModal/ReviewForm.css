@@ -1,6 +1,6 @@
 .reviews-modal-wrapper {
     width: 500px;
-    /* height: 580px; */
+    height: 625px;
     margin: 15px 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -40,7 +40,7 @@
     width: 280px;
     position: absolute;
     left: 232px;
-    bottom: 330px;
+    bottom: 376px;
 
 }
 
@@ -48,6 +48,7 @@
     width: 200px;
     display: absolute;
 }
+
 
 input[type="radio"] {
     display: none;
@@ -101,7 +102,7 @@ input[type="radio"] {
 .reviews-modal-submit-button-div {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 60.5px;
     width: 525px;
 }
 
@@ -155,5 +156,21 @@ input[type="radio"] {
     height: 40px;
     border-radius: 20px;
     background-color: #000000;
+    color: #FFFFFF;
+}
+
+.image-help {
+    position: absolute;
+    bottom: 170px;
+    left: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    font-size: 14px;
+    padding: 5px;
+    background-color: #000000;
+    border-radius: 15px;
     color: #FFFFFF;
 }
