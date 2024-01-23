@@ -2,6 +2,7 @@ import "./homepage.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/products";
+import "../Product-Components/DynaProductDisplay/dynamic-product-display.css";
 
 import { loadCurrUserFavorites } from "../../store/favorite";
 import DynaProductDisplay from "../Product-Components/DynaProductDisplay";
@@ -31,7 +32,7 @@ const HomePage = () => {
             numOfProducts={5}
             mainText={""}
             secondaryText={"Recently Favorited"}
-            // componentStyle={""}
+            componentStyle={""}
             priceStyle={"mediumContainer"}
             isFavorite={"true"}
           />
@@ -46,16 +47,34 @@ const HomePage = () => {
               mainText={""}
               secondaryText={"Because you viewed"}
               priceStyle={"smallContainer"}
-              // componentStyle={""}
+              componentStyle={"dynaDisplayMainContain"}
+              isFavorite={"false"}
+            />
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={8}
+              mainText={"Collections"}
+              secondaryText={""}
+              priceStyle={"smallContainer"}
+              componentStyle={"collectionsStyle"}
               isFavorite={"false"}
             />
             <DynaProductDisplay
               allProducts={allProducts}
               numOfProducts={3}
+              mainText={"Valentine's Day"}
+              secondaryText={"Selections..."}
+              priceStyle={"largeContainer"}
+              componentStyle={""}
+              isFavorite={"false"}
+            />
+            <DynaProductDisplay
+              allProducts={allProducts}
+              numOfProducts={5}
               mainText={""}
               secondaryText={"Shop our selections"}
               priceStyle={"largeContainer"}
-              // componentStyle={""}
+              componentStyle={""}
               isFavorite={"false"}
             />
           </>

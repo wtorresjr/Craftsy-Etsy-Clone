@@ -4,28 +4,23 @@ import { useModal } from "../../../context/Modal";
 import "./DeleteProductModal.css";
 
 function DeleteProductModal({ product }) {
-    const dispatch = useDispatch();
-    const { closeModal } = useModal();
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
 
+  const handleDelete = () => {
+    dispatch(deleteProduct(product.id));
+    closeModal();
+  };
 
-
-
-
-    const handleDelete = () => {
-        dispatch(deleteProduct(product.id));
-        closeModal();
-    }
-
-
-
-    return (
-        <>
-            <div className="delete-product-container">
-                <button onClick={handleDelete}>Delete</button>
-                <button onClick={closeModal}>Cancel</button>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="delete-product-container">
+        {product.name}
+        <button onClick={handleDelete}>Delete</button>
+        <button onClick={closeModal}>Cancel</button>
+      </div>
+    </>
+  );
 }
 
 export default DeleteProductModal;

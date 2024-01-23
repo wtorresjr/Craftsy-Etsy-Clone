@@ -1,0 +1,38 @@
+.shop-manager-page h1,
+.shop-manager-page p {
+  padding: 0;
+  margin: 0;
+}
+.shop-manager-page {
+  border: 1px solid black;
+  /* width: 80%; */
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+}
+
+.shop-manager-page .dynaItem {
+  flex: 1;
+  margin: 10px;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+
+.mainDiv {
+  /* color: red; */
+  /* width: 70%; */
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+.manageListingsHeader {
+  width: 100%;
+}
+

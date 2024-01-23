@@ -12,6 +12,7 @@ const DynaProductDisplay = ({
   priceStyle,
   showPrice,
   showProductName,
+  componentStyle,
 }) => {
   const [randomProducts, setRandomProducts] = useState([]);
 
@@ -42,7 +43,7 @@ const DynaProductDisplay = ({
   }, [isFavorite, numOfProducts, favoritedProducts, allProducts]);
 
   return (
-    <div className="dynaDisplayMainContain">
+    <div className={componentStyle}>
       <div className="dynaTextContain">
         <h1>{mainText}</h1>
         <p>{secondaryText}</p>
