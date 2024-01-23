@@ -174,7 +174,7 @@ function ReviewEditModal ({review}) {
               name="image"
               onChange={updateReviewImage}
               placeholder="Optional"
-              style={{marginTop: "10px"}}
+              className='image-uploader'
             />
           {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
           {!showReviewImage ? (
@@ -182,13 +182,7 @@ function ReviewEditModal ({review}) {
             <img
               src={reviewImageDisplay}
               alt="review image"
-              style={{
-                width: "50px",
-                height: "50px",
-                border: "1px solid #d4d3d1",
-                padding: "3px",
-                position: "relative"
-              }}
+              className='review-image-1'
             />
           </div>)
           : (
@@ -196,13 +190,7 @@ function ReviewEditModal ({review}) {
             <img
               src={image}
               alt="review image"
-              style={{
-                width: "50px",
-                height: "50px",
-                border: "1px solid #d4d3d1",
-                padding: "3px",
-                position: "relative"
-              }}
+              className='review-image-1'
             />
           </div>)}
           </div>

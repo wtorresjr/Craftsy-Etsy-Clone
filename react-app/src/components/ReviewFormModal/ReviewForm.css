@@ -49,6 +49,19 @@
     display: absolute;
 }
 
+.review-image-1 {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #d4d3d1;
+    padding: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+.review-image-1:hover {
+    opacity: 0.5;
+}
+
 
 input[type="radio"] {
     display: none;
@@ -87,6 +100,10 @@ input[type="radio"] {
 .reviews-modal-review-div textarea:hover {
     border: 1px solid #000000;
     box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
+}
+
+.image-uploader {
+    margin-top: 10px;
 }
 
 .reviews-modal-images-div {
