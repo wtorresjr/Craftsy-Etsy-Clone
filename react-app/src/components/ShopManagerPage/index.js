@@ -13,19 +13,20 @@ function ShopManagerPage() {
   const { setModalContent } = useModal();
   const [theProduct, setTheProduct] = useState();
 
-//   const handleDelete = (product) => {
-//     setTheProduct(product);
-//     console.log(theProduct);
-//     setModal();
-//   };
-  const setModal = () => {
-    return setModalContent(<DeleteProductModal product={theProduct} />);
-  };
+  //   const handleDelete = (product) => {
+  //     setTheProduct(product);
+  //     console.log(theProduct);
+  //     setModal();
+  //   };
   const dispatch = useDispatch();
   const allUserProducts = useSelector(
     (state) => state?.products?.allUserCreated
   );
 
+  const setModal = (product) => {
+    // console.log(theProduct, "PRODUCT INFO");
+    return setModalContent(<DeleteProductModal product={product} />);
+  };
   useEffect(() => {
     dispatch(getUserProducts());
   }, [dispatch]);
@@ -36,7 +37,8 @@ function ShopManagerPage() {
       {allUserProducts ? (
         allUserProducts?.map((product) => (
           <div key={product.id}>
-            {console.log(product)}
+            {/* {console.log(product)} */}
+            {/* {setTheProduct(product)} */}
             <button>
               <Link to="/create-a-product" className="createListingButton">
                 {" "}
@@ -67,8 +69,7 @@ function ShopManagerPage() {
               <p></p>
               <button
                 onClick={() => {
-                  setTheProduct(product);
-                  setModal();
+                  setModal(product);
                 }}
               >
                 DELETE

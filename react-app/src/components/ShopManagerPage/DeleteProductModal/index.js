@@ -15,7 +15,7 @@ function DeleteProductModal({ product }) {
   return (
     <>
       <div className="delete-product-container">
-        {product.name}
+        {product?.name}
         <button onClick={handleDelete}>Delete</button>
         <button onClick={closeModal}>Cancel</button>
       </div>
