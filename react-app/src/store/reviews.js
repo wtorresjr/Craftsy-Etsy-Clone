@@ -97,7 +97,7 @@ export const createReview = (productId, reviewData) => async (dispatch) => {
       const newReview = await response.json();
       dispatch(setReview(newReview));
       return newReview;
-    } else if (response.status < 500) {
+    } else if (response.status === 400) {
       const errorMessages = await response.json();
       return errorMessages
     } else {

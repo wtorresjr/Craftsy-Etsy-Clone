@@ -35,6 +35,7 @@ def edit_review_by_id(review_id):
                 review_to_edit.review = form.data['review']
                 review_to_edit.star_rating = form.data['star_rating']
 
+
                 if "image_url" in request.files:
                     # Grabs the image
                     image_url = request.files["image_url"]

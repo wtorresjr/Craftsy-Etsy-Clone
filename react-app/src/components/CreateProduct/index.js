@@ -200,7 +200,7 @@ const CreateProduct = () => {
               type="file"
               id="file-upload"
               name="preview_img"
-              accept=".jpeg, .jpg, .png, .gif, .webp"
+              accept=".jpeg, .jpg, .png, .webp"
               // value={previewImg}
               onChange={addPreviewImage}
               required
