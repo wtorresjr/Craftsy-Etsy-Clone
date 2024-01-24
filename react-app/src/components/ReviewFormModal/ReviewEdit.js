@@ -44,11 +44,6 @@ function ReviewEditModal ({review}) {
     setShowReviewImage(false);
   }
 
-  console.log('THE REVIEW', reviewData, 'THE STAR RATING', stars, 'THE IMAGE', image)
-  console.log('any frontenderrors?--', Object.values(errors))
-  console.log('reviewImg to display?', reviewImageDisplay)
-  console.log('image name?', image)
-
 
   useEffect(() => {
 
