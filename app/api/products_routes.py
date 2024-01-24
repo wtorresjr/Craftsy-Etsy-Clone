@@ -306,11 +306,10 @@ def create_product_review(product_id):
             db.session.add(new_review)
             db.session.commit()
 
-            if "image_url" in request.files:
 
+            if "image_url" in request.files:
                 image_url = request.files["image_url"]
                 if not allowed_file(image_url.filename):
-                    print("NOT ALLOWED NOT ALLOWED NOT ALLOWED!!!!")
                     return {"errors": ["Image file type not permitted"]}, 400
 
                 image_url.filename = get_unique_filename(image_url.filename)
@@ -323,7 +322,7 @@ def create_product_review(product_id):
 
                 new_review_image = ReviewImage(
                     review_id=new_review.id,
-                    image_url=url
+                    image_url=url or ""
                 )
 
                 db.session.add(new_review_image)
@@ -331,8 +330,9 @@ def create_product_review(product_id):
 
                 review_with_img = new_review.to_dict()
                 review_with_img["preview_image_url"] = url
-
-            return new_review.to_dict()
+        else:
+            review_with_img = new_review.to_dict()
+        return new_review.to_dict()
 
     except Exception as e:
         return {'error': str(e)}, 400
