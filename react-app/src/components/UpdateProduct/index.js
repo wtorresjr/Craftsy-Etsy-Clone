@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  addNewProductImage,
-  editAproduct,
-  getProductInfo,
-} from "../../store/products";
+import { editAproduct, getProductInfo } from "../../store/products";
 import "./UpdateProduct.css";
 
 function UpdateProduct() {
@@ -238,7 +234,7 @@ function UpdateProduct() {
              type="file"
              id="update-preview-file-upload"
              name="preview_img"
-             accept=".jpeg, .jpg, .png, .gif, .webp"
+             accept=".jpeg, .jpg, .png, .webp"
              onChange={updatePreviewImage}
              required
             />

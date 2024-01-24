@@ -161,6 +161,7 @@ function ReviewFormModal({ productId }) {
               type="file"
               id="review-file-upload"
               name="image"
+              accept=".jpeg, .jpg, .png, .webp"
               onChange={addReviewImage}
               placeholder="Optional"
               style={{marginTop: "10px"}}

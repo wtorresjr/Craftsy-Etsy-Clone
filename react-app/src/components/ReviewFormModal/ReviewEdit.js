@@ -173,6 +173,7 @@ function ReviewEditModal ({review}) {
               id="update-review-file-upload"
               name="image"
               onChange={updateReviewImage}
+              accept=".jpeg, .jpg, .png, .webp"
               placeholder="Optional"
               className='image-uploader'
             />
