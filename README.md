@@ -14,17 +14,17 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 
 ## Screenshots
 ### Sign up
-![Sign up page](signup.png)
+![Sign up page](readme-images/signup.png)
 ### Homepage
-![Homepage](homepage-1.png)
+![Homepage](readme-images/homepage-1.png)
 ### Search
-![Search](search.png)
+![Search](readme-images/search.png)
 ### Product detail
-![Product detail page](product-detail.png)
+![Product detail page](readme-images/product-detail.png)
 ### Favorites
-![Favorites page](favorites.png)
+![Favorites page](readme-images/favorites.png)
 ### Cart
-![Cart page](cart.png)
+![Cart page](readme-images/cart.png)
 
 
 ## Features
