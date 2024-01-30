@@ -3,6 +3,7 @@
 ## About The Project
 _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connect consumers with sellers of handcrafted and vintage goods. 
 
+
 ## The Team
 * [Tamara Mousa](https://github.com/T3mousa)
 * [Ian Kim](https://github.com/iankimm)
@@ -10,17 +11,21 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 * [Daniel Calderon](https://github.com/Calderon1199)
 * [Will Torres](https://github.com/wtorresjr)
 
+
 ## Screenshots
 ### Sign up
-![Alt text](signup.png)
+![Sign up page](signup.png)
 ### Homepage
-![Alt text](homepage-1.png)
+![Homepage](homepage-1.png)
+### Search
+![Search](search.png)
 ### Product detail
-![Alt text](product-detail.png)
+![Product detail page](product-detail.png)
 ### Favorites
-![Alt text](favorites.png)
+![Favorites page](favorites.png)
 ### Cart
-![Alt text](cart.png)
+![Cart page](cart.png)
+
 
 ## Features
 ### New account creation Log in, log out, and guest/demo login:
@@ -63,6 +68,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 - Should be able to favorite products.
 - Should be able to delete products from their favorites.
 
+
 ## Technologies Used
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -72,6 +78,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
 
 #### Acknowledgments
 - Inspired by Etsy
