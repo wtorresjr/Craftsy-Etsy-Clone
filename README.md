@@ -1,10 +1,22 @@
 # Welcome to Craftsy!!!
 
-## About The Project
+## Navigation
+- [About the project](#about-section)
+- [The Team](#team-section)
+- [Technologies Used](#technologies-used-section)
+- [Screenshots](#screenshots-section)
+- [Getting Started](#getting-started-section)
+- [Helpful Commands](#helpful-commands-section)
+- [Setting Up AWS](#aws-section)
+- [Features](#features-section)
+- [Acknowledgments](#acknowledgments-section)
+
+<h2 id="about-section">About The Project</h2>
+
 _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connect consumers with sellers of handcrafted and vintage goods. 
 
+<h2 id="team-section">The Team</h2>
 
-## The Team
 * [Tamara Mousa](https://github.com/T3mousa)
 * [Ian Kim](https://github.com/iankimm)
 * [Krystal Kimmel](https://github.com/kryskimmel)
@@ -12,7 +24,8 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 * [Will Torres](https://github.com/wtorresjr)
 
 
-## Technologies Used
+<h2 id="technologies-used-section">Technologies Used</h2>
+
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -23,7 +36,8 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 
-## Screenshots
+<h2 id="screenshots-section">Screenshots</h2>
+
 ### Sign up
 ![Sign up page](readme-images/signup.png)
 ### Homepage
@@ -38,7 +52,8 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 ![Cart page](readme-images/cart.png)
 
 
-## Getting Started
+<h2 id="getting-started-section">Getting Started</h2>
+
 ### I. Clone the repository:
 `git clone https://github.com/wtorresjr/Craftsy-Etsy-Clone.git`
 ### II. Install the dependencies (in root directory):
@@ -49,13 +64,19 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 3.  Replace placeholder values with actual values for S3-related keys (See [Setting Up AWS](#aws-section) section)
 
 ### IV. Run the following commands:
-1. To enter your virtual environment: `pipenv shell`
-2. To migrate your database: `flask db upgrade`
-3. To seed your database: `flask seed all`
-4. To run your application: `flask run`
+#### To run the backend server of application:
+1. Enter your virtual environment: `pipenv shell`
+2. Migrate your database: `flask db upgrade`
+3. Seed your database: `flask seed all`
+4. Run your server: `flask run`
+
+#### To run the frontend of application:
+5. In a separate terminal, change directory into _react-app_: `cd react-app`
+6. Install node modules: `npm install`
+7. Run your application: `npm start`
 
 
-## Helpful Commands
+<h2 id="helpful-commands-section">Helpful Commands</h2>
 <table>
   <thead>
     <tr>
@@ -66,38 +87,49 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
     <tbody>
     <tr>
       <th scope="row">pipenv shell</th>
-      <td>[insert description here]</td>
+      <td>Automatically activates a virtual environment specifically for your project, keeping any dependencies installed isolated.
+      <br>
+      <br>
+      Run <b>deactivate</b> to exit the virtual environment and return to your shell environment.
+      </td>
     </tr>
     <tr>
       <th scope="row">pipenv run</th>
-      <td>[insert description here]</td>
+      <td>Can activate a virtual environment and run commands like the <b>pipenv shell</b> command; however flask commands must be prepended with this command (e.g., <i>pipenv run flask db upgrade</i> and <i>pipenv run flask run</i>).
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">flask run</th>
+      <td>When prepended with <b>pipenv run</b>, it activates a virtual environment for your project.
+      <br>
+      <br>
+      Press <b>CTRL + C</b> to exit the virtual envrionment and return to your shell environment.
+      </td>
     </tr>
     <tr>
       <th scope="row">flask db upgrade</th>
-      <td>[insert description here]</td>
+      <td>Syncs the database schema.</td>
     </tr>
     <tr>
       <th scope="row">flask db downgrade</th>
-      <td>[insert description here]</td>
+      <td>Reverts the database schema to the previous state. This is run, followed by <b>flask db upgrade</b> to update the application with any schema changes.</td>
     </tr>
     <tr>
       <th scope="row">flask seed all</th>
-      <td>[insert description here]</td>
-    </tr>
-    <tr>
-      <th scope="row">flask db upgrade</th>
-      <td>[insert description here]</td>
+      <td>Populates the database with seed file data.</td>
     </tr>
   </tbody>
 </table>
 
 
 <h2 id="aws-section">Setting Up AWS</h2>
+
 [... add information here]
 
 
 
-## Features
+<h2 id="features-section">Features</h2>
+
 ### New account creation Log in, log out, and guest/demo login:
 - Users can sign up, log in, and log out.
 - Users can use a demo log in to try the site.
@@ -139,9 +171,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 - Should be able to delete products from their favorites.
 
 
+<h4 id="acknowledgments-section">Acknowledgments</h4>
 
-
-
-#### Acknowledgments
-- Inspired by Etsy
-- Icons by Font Awesome
+- Inspired by [_Etsy_](https://www.etsy.com/)
+- Icons by [_Font Awesome_](https://fontawesome.com/icons)
