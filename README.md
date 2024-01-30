@@ -11,9 +11,11 @@
 - [Features](#features-section)
 - [Acknowledgments](#acknowledgments-section)
 
+
 <h2 id="about-section">About The Project</h2>
 
 _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connect consumers with sellers of handcrafted and vintage goods. 
+
 
 <h2 id="team-section">The Team</h2>
 
