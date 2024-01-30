@@ -1,5 +1,7 @@
 # Welcome to Craftsy!!!
-_An Etsy Clone by The Only Group..._
+
+## About The Project
+_Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connect consumers with sellers of handcrafted and vintage goods. 
 
 ## The Team
 * [Tamara Mousa](https://github.com/T3mousa)
@@ -7,6 +9,8 @@ _An Etsy Clone by The Only Group..._
 * [Krystal Kimmel](https://github.com/kryskimmel)
 * [Daniel Calderon](https://github.com/Calderon1199)
 * [Will Torres](https://github.com/wtorresjr)
+
+## Screenshots
 
 
 ## Features
@@ -49,6 +53,16 @@ _An Etsy Clone by The Only Group..._
 - Should be able to view all of their favorite products.
 - Should be able to favorite products.
 - Should be able to delete products from their favorites.
+
+## Technologies Used
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 #### Acknowledgments
 - Inspired by Etsy
