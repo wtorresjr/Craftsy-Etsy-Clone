@@ -11,7 +11,16 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 * [Will Torres](https://github.com/wtorresjr)
 
 ## Screenshots
-
+### Sign up
+![Alt text](signup.png)
+### Homepage
+![Alt text](homepage-1.png)
+### Product detail
+![Alt text](product-detail.png)
+### Favorites
+![Alt text](favorites.png)
+### Cart
+![Alt text](cart.png)
 
 ## Features
 ### New account creation Log in, log out, and guest/demo login:
