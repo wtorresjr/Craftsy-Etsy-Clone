@@ -12,6 +12,17 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 * [Will Torres](https://github.com/wtorresjr)
 
 
+## Technologies Used
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
+
 ## Screenshots
 ### Sign up
 ![Sign up page](readme-images/signup.png)
@@ -25,6 +36,65 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 ![Favorites page](readme-images/favorites.png)
 ### Cart
 ![Cart page](readme-images/cart.png)
+
+
+## Getting Started
+### I. Clone the repository:
+`git clone https://github.com/wtorresjr/Craftsy-Etsy-Clone.git`
+### II. Install the dependencies (in root directory):
+`pipenv install -r requirements.txt`
+### III. Set up your environmental variables:
+1. Run: `echo > ".env"`
+2. Open the _.env.example_ file and copy its contents into your newly created _.env_ file
+3.  Replace placeholder values with actual values for S3-related keys (See [Setting Up AWS](#aws-section) section)
+
+### IV. Run the following commands:
+1. To enter your virtual environment: `pipenv shell`
+2. To migrate your database: `flask db upgrade`
+3. To seed your database: `flask seed all`
+4. To run your application: `flask run`
+
+
+## Helpful Commands
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Command</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+    <tbody>
+    <tr>
+      <th scope="row">pipenv shell</th>
+      <td>[insert description here]</td>
+    </tr>
+    <tr>
+      <th scope="row">pipenv run</th>
+      <td>[insert description here]</td>
+    </tr>
+    <tr>
+      <th scope="row">flask db upgrade</th>
+      <td>[insert description here]</td>
+    </tr>
+    <tr>
+      <th scope="row">flask db downgrade</th>
+      <td>[insert description here]</td>
+    </tr>
+    <tr>
+      <th scope="row">flask seed all</th>
+      <td>[insert description here]</td>
+    </tr>
+    <tr>
+      <th scope="row">flask db upgrade</th>
+      <td>[insert description here]</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2 id="aws-section">Setting Up AWS</h2>
+[... add information here]
+
 
 
 ## Features
@@ -69,15 +139,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 - Should be able to delete products from their favorites.
 
 
-## Technologies Used
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
 
 
 #### Acknowledgments
