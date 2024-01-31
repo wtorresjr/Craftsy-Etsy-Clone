@@ -4,10 +4,12 @@
 - [About the project](#about-section)
 - [The Team](#team-section)
 - [Technologies Used](#technologies-used-section)
+- [Database Schema](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/Database-Schema)
 - [Screenshots](#screenshots-section)
 - [Getting Started](#getting-started-section)
 - [Helpful Commands](#helpful-commands-section)
 - [AWS S3 Setup Instructions](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/AWS-S3-Setup-Instructions)
+- [User Stories](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/User-Stories)
 - [Features](#features-section)
 - [Acknowledgments](#acknowledgments-section)
 
