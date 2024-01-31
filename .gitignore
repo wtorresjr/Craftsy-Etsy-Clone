@@ -124,5 +124,5 @@ celerybeat.pid
 .venv
 .requirements-dev.txt
 
-*.png
+
 *.readme-images
