@@ -7,7 +7,7 @@
 - [Screenshots](#screenshots-section)
 - [Getting Started](#getting-started-section)
 - [Helpful Commands](#helpful-commands-section)
-- [Setting Up AWS](#aws-section)
+- [AWS S3 Setup Instructions](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/AWS-S3-Setup-Instructions)
 - [Features](#features-section)
 - [Acknowledgments](#acknowledgments-section)
 
@@ -63,7 +63,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 ### III. Set up your environmental variables:
 1. Run: `echo > ".env"`
 2. Open the _.env.example_ file and copy its contents into your newly created _.env_ file
-3.  Replace placeholder values with actual values for S3-related keys (See [Setting Up AWS](#aws-section) section)
+3.  Replace placeholder values with actual values for S3-related keys (See the [AWS S3 Setup Instructions](#https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/AWS-S3-Setup-Instructions) page)
 
 ### IV. Run the following commands:
 #### To run the backend server of application:
@@ -73,7 +73,7 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 4. Run your server: `flask run`
 
 #### To run the frontend of application:
-5. In a separate terminal, change directory into _react-app_: `cd react-app`
+5. In another terminal, change directory into _react-app_: `cd react-app`
 6. Install node modules: `npm install`
 7. Run your application: `npm start`
 
@@ -122,12 +122,6 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
     </tr>
   </tbody>
 </table>
-
-
-<h2 id="aws-section">Setting Up AWS</h2>
-
-[... add information here]
-
 
 
 <h2 id="features-section">Features</h2>
