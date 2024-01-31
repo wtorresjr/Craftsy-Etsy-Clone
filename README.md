@@ -5,6 +5,7 @@
 - [The Team](#team-section)
 - [Technologies Used](#technologies-used-section)
 - [Database Schema](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/Database-Schema)
+- [Routes](https://github.com/wtorresjr/Craftsy-Etsy-Clone/wiki/Frontend-Routes)
 - [Screenshots](#screenshots-section)
 - [Getting Started](#getting-started-section)
 - [Helpful Commands](#helpful-commands-section)
