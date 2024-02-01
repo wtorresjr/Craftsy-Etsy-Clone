@@ -123,6 +123,3 @@ celerybeat.pid
 .env
 .venv
 .requirements-dev.txt
-
-*.png
-*.readme-images
