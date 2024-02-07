@@ -1,6 +1,6 @@
 .reviews-modal-wrapper {
     width: 500px;
-    /* height: 580px; */
+    height: 625px;
     margin: 15px 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -31,7 +31,7 @@
     width: 280px;
     position: absolute;
     left: 232px;
-    bottom: 330px;
+    bottom: 376px;
 }
 
 .reviews-modal-stars-div-create {
@@ -40,7 +40,7 @@
     width: 280px;
     position: absolute;
     left: 232px;
-    bottom: 330px;
+    bottom: 376px;
 
 }
 
@@ -48,6 +48,20 @@
     width: 200px;
     display: absolute;
 }
+
+.review-image-1 {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #d4d3d1;
+    padding: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+.review-image-1:hover {
+    opacity: 0.5;
+}
+
 
 input[type="radio"] {
     display: none;
@@ -88,6 +102,10 @@ input[type="radio"] {
     box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
 }
 
+.image-uploader {
+    margin-top: 10px;
+}
+
 .reviews-modal-images-div {
     margin-top: 20px;
     height: 60px;
@@ -101,7 +119,7 @@ input[type="radio"] {
 .reviews-modal-submit-button-div {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 60.5px;
     width: 525px;
 }
 
@@ -126,6 +144,7 @@ input[type="radio"] {
     width: 200px;
     height: 200px;
     border-radius: 5px;
+    position: relative;
 }
 
 .delete-review-modal-wrapper {
@@ -155,5 +174,21 @@ input[type="radio"] {
     height: 40px;
     border-radius: 20px;
     background-color: #000000;
+    color: #FFFFFF;
+}
+
+.image-help {
+    position: absolute;
+    bottom: 170px;
+    left: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    font-size: 14px;
+    padding: 5px;
+    background-color: #000000;
+    border-radius: 15px;
     color: #FFFFFF;
 }

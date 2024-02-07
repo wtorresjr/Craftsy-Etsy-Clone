@@ -89,20 +89,20 @@ export const fetchReviewById = (productId) => async (dispatch) => {
 
 // Create a Review
 export const createReview = (productId, reviewData) => async (dispatch) => {
-    const response = await fetch(`/api/products/${productId}/reviews`, {
-      method: "POST",
-      body: reviewData
-    });
-    if (response.ok) {
-      const newReview = await response.json();
-      dispatch(setReview(newReview));
-      return newReview;
-    } else if (response.status < 500) {
-      const errorMessages = await response.json();
-      return errorMessages
-    } else {
-      return { server: "Something went wrong. Please try again" }
-    }
+  const response = await fetch(`/api/products/${productId}/reviews`, {
+    method: "POST",
+    body: reviewData
+  });
+  if (response.ok) {
+    const newReview = await response.json();
+    dispatch(setReview(newReview));
+    return newReview;
+  } else if (response.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
 };
 
 // Update a Review
