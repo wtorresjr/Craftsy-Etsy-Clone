@@ -94,11 +94,11 @@ const PrintReview = ({ review }) => {
                 <img
                   className="reviewImage"
                   src={image.image}
-                  key={image.id}
+                  key={`review-image-${image.id}`}
                   alt="Review Image"
                 />
               ) : (
-                <div></div>
+                <div key={`no-image-${Date.now()}`}></div>
               );
             }
           })}
