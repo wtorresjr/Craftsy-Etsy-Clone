@@ -1,25 +1,21 @@
 import "./ReviewForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { createReview, createReviewImage } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
 
 function ReviewFormModal({ productId }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-
-  const prodInfo = useSelector(state => state.products.productDetail)
-  const currDateObj = new Date()
+  const prodInfo = useSelector(state => state.products.productDetail);
+  const currDateObj = new Date();
   const dateOnly = currDateObj.toISOString().split('T')[0];
 
-  console.log('the prod info', prodInfo)
   const [review, setReview] = useState("");
   const [image, setImage] = useState("");
-  const [showReviewImage, setShowReviewImage] = useState(true)
+  const [showReviewImage, setShowReviewImage] = useState(true);
   const [reviewImageDisplay, setReviewImageDisplay] = useState("");
   let [stars, setStars] = useState(null);
   const [hover, setHover] = useState(null);
@@ -27,7 +23,7 @@ function ReviewFormModal({ productId }) {
   const [isDisabled, setDisabled] = useState(true);
   const [showErrors, setShowErrors] = useState(false);
  
-
+  // To toggle submit button stylings
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
 
   // Function to add AWS image
@@ -49,13 +45,9 @@ function ReviewFormModal({ productId }) {
     }
   };
 
-  console.log('SHOW REV IMAGE', showReviewImage)
-  console.log('REV IMAGE??', reviewImageDisplay)
-
+ // Front-end error handling logic
   const errorCollector = {};
-
   useEffect(() => {
-    const validFormats = [".jpg", "jpeg", ".png", " "];
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -66,11 +58,6 @@ function ReviewFormModal({ productId }) {
       errorCollector.stars = "Star Rating Required";
     }
 
-    // if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
-    //   errorCollector.rev_image =
-    //     "Images are optional: Accepted formats .jpg, .jpeg or .png";
-    // }
-
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
@@ -80,7 +67,7 @@ function ReviewFormModal({ productId }) {
   }, [review, image, stars]);
 
 
-
+// To handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowErrors(true)
@@ -90,8 +77,7 @@ function ReviewFormModal({ productId }) {
       reviewForm.append('review', review);
       reviewForm.append('star_rating', stars);
       reviewForm.append('image_url', image);
-      // reviewForm.append('image_url_s3', image);
-
+    
       const data =  await dispatch(createReview(productId,reviewForm));
       if (data.errors) {
         console.log('the data', data.errors)
@@ -102,7 +88,6 @@ function ReviewFormModal({ productId }) {
       console.error("Error submitting review:", error);
     }
   };
-
 
 
   return (
