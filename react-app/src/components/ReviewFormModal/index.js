@@ -34,13 +34,23 @@ function ReviewFormModal({ productId }) {
   const addReviewImage = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      setReviewImageDisplay(reader.result);
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setReviewImageDisplay(reader.result);
+      }
+      setImage(file);
+      setShowReviewImage(false);
     }
-    setImage(file);
-    setShowReviewImage(false);
-  }
+    else {
+      setImage(null);
+      setShowReviewImage(true);
+      setReviewImageDisplay(null);
+    }
+  };
+
+  console.log('SHOW REV IMAGE', showReviewImage)
+  console.log('REV IMAGE??', reviewImageDisplay)
 
   const errorCollector = {};
 
@@ -158,7 +168,7 @@ function ReviewFormModal({ productId }) {
               onChange={addReviewImage}
             />
           {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
-          {!showReviewImage && (
+          {!showReviewImage ? (
             <div className="review-img-div">
               <img
                 src={reviewImageDisplay}
@@ -172,7 +182,8 @@ function ReviewFormModal({ productId }) {
                 }}
               />
             </div>
-            )}
+            ) : null
+          }
           </div>
           <div className="reviews-modal-submit-button-div">
             <button type="submit" disabled={isDisabled} className={submitButtonCN}>Submit Review</button>
