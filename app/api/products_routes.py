@@ -316,11 +316,11 @@ def create_product_review(product_id):
                 if "url" not in upload:
                     return upload, 400
 
-                image_url_s3 = upload["url"]
+                url = upload["url"]
 
                 new_image = ReviewImage(
                     review_id=new_review.id,
-                    image_url=image_url_s3
+                    image_url=url
                 )
                 db.session.add(new_image)
                 db.session.commit()
