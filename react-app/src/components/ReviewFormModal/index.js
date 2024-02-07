@@ -20,6 +20,7 @@ function ReviewFormModal({ productId }) {
   let [stars, setStars] = useState(null);
   const [hover, setHover] = useState(null);
   const [errors, setErrors] = useState({});
+  const [backendErrors, setBackendErrors] = useState(null);
   const [isDisabled, setDisabled] = useState(true);
   const [showErrors, setShowErrors] = useState(false);
  
@@ -80,12 +81,12 @@ function ReviewFormModal({ productId }) {
     
       const data =  await dispatch(createReview(productId,reviewForm));
       if (data.errors) {
-        console.log('the data', data.errors)
+        setBackendErrors(data.errors);
       }
       await closeModal()
       window.location.reload();
     } catch (error) {
-      console.error("Error submitting review:", error);
+      throw error
     }
   };
 
@@ -110,7 +111,6 @@ function ReviewFormModal({ productId }) {
             <div className="stars-div">
               {[...Array(5)].map((star, i) => {
                   const ratingValue = i + 1;
-                  console.log(stars, ':the current rating')
                   return (
                     <label key={i}>
                         <input
