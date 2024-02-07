@@ -82,11 +82,11 @@ function ReviewFormModal({ productId }) {
       reviewForm.append('image_url', image);
       // reviewForm.append('image_url_s3', image);
 
-      const data = dispatch(createReview(productId,reviewForm));
+      const data =  await dispatch(createReview(productId,reviewForm));
       if (data.errors) {
         console.log('the data', data.errors)
       }
-      closeModal()
+      await closeModal()
       window.location.reload();
     } catch (error) {
       console.error("Error submitting review:", error);
