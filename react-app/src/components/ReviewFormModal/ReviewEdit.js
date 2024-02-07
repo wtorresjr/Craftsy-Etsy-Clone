@@ -27,7 +27,7 @@ function ReviewEditModal ({review}) {
   const [backendErrors, setBackendErrors] = useState([]);
   const [onHoverHelp, setOnHoverHelp] = useState(false);
   const errorCollector = {};
-  const validFormats = [".jpg", ".jpeg", ".png", ".webp"];
+
 
 
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
@@ -36,43 +36,43 @@ function ReviewEditModal ({review}) {
   const updateReviewImage = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      setReviewImageDisplay(reader.result);
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setReviewImageDisplay(reader.result);
+      }
+      setImage(file);
+      setShowReviewImage(false);
     }
-    setImage(file);
-    setShowReviewImage(false);
-  }
+    else {
+      setImage(null);
+      setShowReviewImage(true);
+      setReviewImageDisplay(null);
+    }
+  };
+
 
 
   useEffect(() => {
-
-
     if(reviewData.length < 1) {
       errorCollector.review = "review is empty"
     } else if (!reviewData.trim()) {
       errorCollector.review = "review has only spaces"
-    }
+    };
 
     if(!stars){
       errorCollector.stars = "Star Rating Required"
-    }
+    };
 
-    // if (image && !validFormats.includes(image?.name?.slice(-5))) {
-    //   errorCollector.rev_image = "Image must be .jpg, .jpeg, .png, or .webp format";
-    // }
-    if (image && image.name && !validFormats.includes(image.name.slice(-5))) {
-      errorCollector.rev_image = "Image must be .jpg, .jpeg, .png, or .webp format";
-    }
-
-    setErrors(errorCollector)
+    setErrors(errorCollector);
 
     if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [reviewData, image, stars, backendErrors])
+  }, [reviewData, image, stars, backendErrors]);
+
 
 
   const handleSubmit = async (e) => {
@@ -94,7 +94,6 @@ function ReviewEditModal ({review}) {
           window.location.reload();
         }
       }
-
     } catch (error) {
       throw error
     }
@@ -166,9 +165,9 @@ function ReviewEditModal ({review}) {
             <input
               type="file"
               id="update-review-file-upload"
-              name="image"
               onChange={updateReviewImage}
-              accept=".jpeg, .jpg, .png, .webp"
+              accept=".png, .jpg, .jpeg, .webp"
+              name="image"
               placeholder="Optional"
               className='image-uploader'
             />
