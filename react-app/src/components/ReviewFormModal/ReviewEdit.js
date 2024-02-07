@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux'
 import { EditReview } from '../../store/reviews'
 import { useModal } from '../../context/Modal'
 import { useSelector } from 'react-redux';
-import {FaStar} from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+
 
 
 function ReviewEditModal ({review}) {
