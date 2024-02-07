@@ -337,7 +337,6 @@ def create_product_review(product_id):
         else:
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400
     except Exception as e:
-        print('Error occurred:', str(e))
         return {"message": "Error occurred: " + str(e)}, 500
 
   
