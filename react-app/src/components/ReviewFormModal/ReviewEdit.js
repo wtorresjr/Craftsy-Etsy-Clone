@@ -51,7 +51,9 @@ function ReviewEditModal ({review}) {
     }
   };
 
-
+console.log('image to send to backend?', image)
+console.log('image to display on front end?', reviewImageDisplay)
+console.log(console.log('display image?', showReviewImage))
 
   useEffect(() => {
     if(reviewData.length < 1) {
@@ -120,7 +122,6 @@ function ReviewEditModal ({review}) {
             <div className="stars-div">
               {[...Array(5)].map((star, i) => {
                   const ratingValue = i + 1;
-                  console.log(stars, ':the current rating')
                   return (
                     <label key={i}>
                         <input
@@ -172,22 +173,24 @@ function ReviewEditModal ({review}) {
               className='image-uploader'
             />
           {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
-          {!showReviewImage ? (
-          <div className="review-img-div">
+          {showReviewImage && image && !reviewImageDisplay && (
+            <div className="review-img-div">
+              <img
+                src={image}
+                alt="review image"
+                className='review-image-1'
+              />
+            </div>
+          )}
+          {!showReviewImage && image && reviewImageDisplay && (
+            <div className="review-img-div">
             <img
               src={reviewImageDisplay}
               alt="review image"
               className='review-image-1'
             />
-          </div>)
-          : (
-          <div className="review-img-div">
-            <img
-              src={image}
-              alt="review image"
-              className='review-image-1'
-            />
-          </div>)}
+          </div>
+          )}
           </div>
           {Array.isArray(backendErrors) && backendErrors.map((err, i) => (<p key={`${err}-${i}`} className="errorDiv">{err}</p>))}
           <div className="reviews-modal-submit-button-div">
