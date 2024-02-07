@@ -1,12 +1,14 @@
 import "./ReviewForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createReview, createReviewImage } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
 
 function ReviewFormModal({ productId }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -14,17 +16,17 @@ function ReviewFormModal({ productId }) {
   const currDateObj = new Date()
   const dateOnly = currDateObj.toISOString().split('T')[0];
 
+  console.log('the prod info', prodInfo)
   const [review, setReview] = useState("");
   const [image, setImage] = useState("");
-  const [showReviewImage, setShowReviewImage] = useState(true);
+  const [showReviewImage, setShowReviewImage] = useState(true)
   const [reviewImageDisplay, setReviewImageDisplay] = useState("");
   let [stars, setStars] = useState(null);
   const [hover, setHover] = useState(null);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
   const [showErrors, setShowErrors] = useState(false);
-  const [backendErrors, setBackendErrors] = useState([]);
-  const [onHoverHelp, setOnHoverHelp] = useState(false);
+ 
 
   const submitButtonCN = isDisabled ? 'disabled-button': 'enabled-button'
 
@@ -40,10 +42,10 @@ function ReviewFormModal({ productId }) {
     setShowReviewImage(false);
   }
 
-  useEffect(() => {
-    const errorCollector = {};
-    const validFormats = [".jpg", ".jpeg", ".png", ".webp"];
+  const errorCollector = {};
 
+  useEffect(() => {
+    const validFormats = [".jpg", "jpeg", ".png", " "];
     if (review.length < 1) {
       errorCollector.review = "Review is empty";
     } else if (!review.trim()) {
@@ -54,43 +56,40 @@ function ReviewFormModal({ productId }) {
       errorCollector.stars = "Star Rating Required";
     }
 
-    if (image && !validFormats.includes(image.name.slice(-5))) {
-      errorCollector.rev_image = "Image must be .jpg, .jpeg, .png, or .webp format";
-    }
+    // if (image && !validFormats.includes(image.toLowerCase().slice(-4))) {
+    //   errorCollector.rev_image =
+    //     "Images are optional: Accepted formats .jpg, .jpeg or .png";
+    // }
 
     setErrors(errorCollector);
-
-    if (Object.values(errorCollector).length > 0) {
+    if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [review, image, stars, backendErrors]);
+  }, [review, image, stars]);
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowErrors(Object.values(errors).length > 0);
+    setShowErrors(true)
+
     try {
-      const formData = new FormData();
-      formData.append('review', review);
-      formData.append('star_rating', stars);
-      formData.append('image_url', image);
+      const reviewForm = new FormData()
+      reviewForm.append('review', review);
+      reviewForm.append('star_rating', stars);
+      reviewForm.append('image_url', image);
+      // reviewForm.append('image_url_s3', image);
 
-      const data = await dispatch(createReview(productId, formData));
-
+      const data = dispatch(createReview(productId,reviewForm));
       if (data.errors) {
-        setBackendErrors(data.errors);
-      } else {
-        setBackendErrors(null);
-        if (Object.keys(errors).length === 0) {
-          closeModal();
-          window.location.reload();
-        }
+        console.log('the data', data.errors)
       }
-
+      closeModal()
+      window.location.reload();
     } catch (error) {
-      throw error
+      console.error("Error submitting review:", error);
     }
   };
 
@@ -110,12 +109,13 @@ function ReviewFormModal({ productId }) {
         </div>
       </div>
 
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit}>
           <div className="reviews-modal-stars-div-create">
             <label> My review rating <span style={{color:'#A61A2D'}}>*</span></label>
             <div className="stars-div">
               {[...Array(5)].map((star, i) => {
                   const ratingValue = i + 1;
+                  console.log(stars, ':the current rating')
                   return (
                     <label key={i}>
                         <input
@@ -149,41 +149,31 @@ function ReviewFormModal({ productId }) {
             {showErrors && errors?.review && <p className="errorDiv">{errors.review}</p>}
           </div>
           <div className="reviews-modal-images-div">
-          <label htmlFor="review-file-upload">Images  </label>
-          <span>
-            <i className="fa-solid fa-circle-info"
-              onMouseOver={() => setOnHoverHelp(true)}
-              onMouseOut={() => setOnHoverHelp(false)}
-            ></i>
-            {onHoverHelp? <div className="image-help"><p>Image files accepted: <br />JPG, JPEG, PNG, WEBP</p></div> : null}
-          </span>
+          <label htmlFor="review-file-upload">Images <span style={{color:'#A61A2D'}}>*</span></label>
             <input
               type="file"
               id="review-file-upload"
+              accept=".png, .jpg, .jpeg, .webp"
               name="image"
-              accept=".jpeg, .jpg, .png, .webp"
               onChange={addReviewImage}
-              placeholder="Optional"
-              style={{marginTop: "10px"}}
             />
           {showErrors && errors?.rev_image && (<p className="errorDiv">{errors.rev_image}</p>)}
           {!showReviewImage && (
-          <div className="review-img-div">
-            <img
-              src={reviewImageDisplay}
-              alt="review image"
-              style={{
-                width: "50px",
-                height: "50px",
-                border: "1px solid #d4d3d1",
-                padding: "3px",
-                position: "relative",
-              }}
-            />
+            <div className="review-img-div">
+              <img
+                src={reviewImageDisplay}
+                alt="review image"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  border: "1px solid #d4d3d1",
+                  padding: "3px",
+                  position: "relative"
+                }}
+              />
+            </div>
+            )}
           </div>
-        )}
-          </div>
-          {Array.isArray(backendErrors) && backendErrors.map((err, i) => (<p key={`${err}-${i}`} className="errorDiv">{err}</p>))}
           <div className="reviews-modal-submit-button-div">
             <button type="submit" disabled={isDisabled} className={submitButtonCN}>Submit Review</button>
           </div>
