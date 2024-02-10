@@ -1,21 +1,34 @@
-from app.models import db, Product, environment, SCHEMA
+from app.models import db, Product, ProductImage, environment, SCHEMA
 from sqlalchemy.sql import text
 from .seed_files.products_seed_data import products_data
+
 
 # Adds a demo user, you can add other users here if you want
 def seed_products():
 
     for product in products_data:
         seed_product = Product(
-            name=product['name'],
-            description=product['description'],
-            quantity=product['quantity'],
-            price=product['price'],
-            user_id=product['user_id'],
+            name=product["name"],
+            description=product["description"],
+            quantity=product["quantity"],
+            price=product["price"],
+            user_id=product["user_id"],
         )
         db.session.add(seed_product)
-        
-    db.session.commit()
+        db.session.commit()
+
+        new_product = seed_product.to_dict()
+
+        # print(new_product["id"], "<----------------------------------")
+        # print(product["image_url"], "<----------------------------------")
+
+        prevImg = ProductImage(
+            product_id=new_product["id"],
+            image_url=product["image_url"],
+            preview=True,
+        )
+        db.session.add(prevImg)
+        db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -27,7 +40,8 @@ def seed_products():
 def undo_products():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.products RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.products RESTART IDENTITY CASCADE;"
+        )
     else:
         db.session.execute(text("DELETE FROM products"))
 
