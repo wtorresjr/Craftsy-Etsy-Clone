@@ -14,6 +14,7 @@ def seed_reviewimages():
         if reviewImg.status_code == 200:
             newRevImg = reviewImg.url
         for _ in range(random.randint(1, 3)):
+            # newRevImg = "https://picsum.photos/300/300.jpg"
             new_review_image = ReviewImage(
                 review_id=review_id,
                 image_url=newRevImg,
@@ -31,7 +32,8 @@ def seed_reviewimages():
 def undo_reviewimages():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.review_images RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.review_images RESTART IDENTITY CASCADE;"
+        )
     else:
         db.session.execute(text("DELETE FROM review_images"))
 
