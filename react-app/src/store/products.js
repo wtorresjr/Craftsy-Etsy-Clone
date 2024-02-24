@@ -16,12 +16,12 @@ const removeProductImage = (product) => {
   };
 };
 
-const resetProducts = (products) => {
-  return {
-    type: RESET_PRODUCTS,
-    payload: products,
-  };
-};
+// const resetProducts = (products) => {
+//   return {
+//     type: RESET_PRODUCTS,
+//     payload: products,
+//   };
+// };
 
 const loadProducts = (allFoundProducts) => {
   return {

@@ -52,9 +52,9 @@ function ReviewEditModal ({review}) {
     }
   };
 
-console.log('image to send to backend?', image)
-console.log('image to display on front end?', reviewImageDisplay)
-console.log(console.log('display image?', showReviewImage))
+// console.log('image to send to backend?', image)
+// console.log('image to display on front end?', reviewImageDisplay)
+// console.log(console.log('display image?', showReviewImage))
 
   useEffect(() => {
     if(reviewData.length < 1) {
@@ -178,7 +178,7 @@ console.log(console.log('display image?', showReviewImage))
             <div className="review-img-div">
               <img
                 src={image}
-                alt="review image"
+                alt="review product thumbnail"
                 className='review-image-1'
               />
             </div>
@@ -187,7 +187,7 @@ console.log(console.log('display image?', showReviewImage))
             <div className="review-img-div">
             <img
               src={reviewImageDisplay}
-              alt="review image"
+              alt="review product thumbnail"
               className='review-image-1'
             />
           </div>

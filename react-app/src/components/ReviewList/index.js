@@ -1,7 +1,7 @@
 import "./ReviewList.css";
 import { fetchReviewById } from "../../store/reviews";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PrintReview from "./PrintReview";
 import ReviewFormModal from "../ReviewFormModal";
 import OpenModalButton from "../OpenModalButton";
@@ -63,13 +63,13 @@ function getStars(star) {
 const ReviewList = ({ productId }) => {
   const dispatch = useDispatch();
 
-  const [hasReview, setHasReview] = useState(false);
+  // const [hasReview, setHasReview] = useState(false);
 
   const allReviewsByProductId = useSelector((state) =>
     Object.values(state?.reviews?.reviewByProductId)
   );
   const sessionUser = useSelector((state) => state.session.user);
-  const currentProduct = useSelector((state) => state.products.productDetail)
+  const currentProduct = useSelector((state) => state.products.productDetail);
 
   const reviewExists = allReviewsByProductId.some(
     (review) => review?.user_id === sessionUser?.id
@@ -88,7 +88,6 @@ const ReviewList = ({ productId }) => {
   //   }
   // }
 
-
   useEffect(() => {
     dispatch(fetchReviewById(productId));
   }, [dispatch, sessionUser]);
@@ -100,10 +99,13 @@ const ReviewList = ({ productId }) => {
         reviewPoints.numbers += 1;
       })}
 
-      {console.log('review:', reviewPoints)}
+    
+      {/* {console.log('review:', reviewPoints)} */}
 
       {/* if user has a review conditions */}
-      {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
+      {sessionUser &&
+      sessionUser.id !== currentProduct.user_id &&
+      reviewExists === false ? (
         <OpenModalButton
           className="reviewFormButton"
           buttonText="Leave a Review"
@@ -113,17 +115,14 @@ const ReviewList = ({ productId }) => {
         ""
       )}
 
-
-
       <div className="reviewListing">
         <div className="allReviewsAdded">
-          {reviewPoints.numbers > 0 ?
+          {reviewPoints.numbers > 0 ? (
             <h3>
               {reviewPoints.numbers} reviews{" "}
               {getStars(reviewPoints.stars / reviewPoints.numbers)}
-            </h3> :
-             null
-          }
+            </h3>
+          ) : null}
         </div>
         {allReviewsByProductId.map((review) => (
           <PrintReview key={review.id} review={review} />

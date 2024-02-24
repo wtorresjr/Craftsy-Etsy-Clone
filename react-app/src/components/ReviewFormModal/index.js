@@ -1,7 +1,7 @@
 import "./ReviewForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createReview, createReviewImage } from "../../store/reviews";
+import { createReview } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import {FaStar} from "react-icons/fa";
 
@@ -157,7 +157,7 @@ function ReviewFormModal({ productId }) {
             <div className="review-img-div">
               <img
                 src={reviewImageDisplay}
-                alt="review image"
+                alt="reviewed product thumbnail"
                 style={{
                   width: "50px",
                   height: "50px",
