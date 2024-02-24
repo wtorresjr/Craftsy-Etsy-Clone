@@ -122,12 +122,12 @@ function Navigation({ isLoaded }) {
               Craftsy
             </NavLink>
           </div>
-          <div className="categoriesDiv" onClick={handleNonFunctioningLinks}>
+          {/* <div className="categoriesDiv" onClick={handleNonFunctioningLinks}> */}
             {/* <div className="categories" onClick={handleNonFunctioningLinks}> */}
-            <i className="fas fa-bars"></i>
-            <span className="catWord"> Categories</span>
+            {/* <i className="fas fa-bars"></i> */}
+            {/* <span className="catWord"> Categories</span> */}
             {/* </div> */}
-          </div>
+          {/* </div> */}
         </div>
         {!sessionUser && (
           <div className="searchBarBig">
