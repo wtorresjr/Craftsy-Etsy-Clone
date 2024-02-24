@@ -4,22 +4,21 @@ import { useHistory, useParams } from "react-router-dom";
 import { editAproduct, getProductInfo } from "../../store/products";
 import "./UpdateProduct.css";
 
-function UpdateProduct() {
+function UpdateProduct({product}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { product_id } = useParams();
   const productToEdit = useSelector((state) => state?.products?.productDetail);
-  const previousPreviewImg = productToEdit.preview_image_url
+  const previousPreviewImg = productToEdit?.preview_image_url?.[0];
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [showPreviewImg, setShowPreviewImg] = useState(true);
-  const [previewImgDisplay, setPreviewImgDisplay] = useState("");
-  const [previewImg, setPreviewImg] = useState(previousPreviewImg);
+  const [previewImgDisplay, setPreviewImgDisplay] = useState(previousPreviewImg);
+  const [previewImg, setPreviewImg] = useState(null);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
-  console.log('previous preview image', previousPreviewImg)
 
   useEffect(() => {
     dispatch(getProductInfo(product_id));
@@ -35,24 +34,25 @@ function UpdateProduct() {
     }
   }, [productToEdit]);
 
-      // Function to add AWS image
-      const updatePreviewImage = async (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        if (file) {
-          reader.readAsDataURL(file);
-          reader.onload = (e) => {
-            setPreviewImgDisplay(reader.result);
-          }
-          setPreviewImg(file);
-          setShowPreviewImg(false);
-        }
-        else {
-          setPreviewImg(null);
-          setShowPreviewImg(true);
-          setPreviewImgDisplay(null);
-        }
+
+  // Function to add AWS image
+  const updatePreviewImage = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setPreviewImgDisplay(reader.result);
       }
+      setPreviewImg(file);
+      setShowPreviewImg(false);
+    }
+    else {
+      setPreviewImg(null);
+      setShowPreviewImg(true);
+      setPreviewImgDisplay(null);
+    }
+  }
 
   const errorCollector = {};
   useEffect(() => {
@@ -114,8 +114,9 @@ function UpdateProduct() {
     formData.append("description", description.trimEnd());
     formData.append("price", price);
     formData.append("quantity", quantity);
-    formData.append("image_url", previewImg);
-
+    if (previewImg !== null) {
+      formData.append("image_url", previewImg);
+    }
     dispatch(editAproduct(+product_id, formData))
       .then(async (createdProduct) => {
         history.push(`/products/${createdProduct.id}`);
