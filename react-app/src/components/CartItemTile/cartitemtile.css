@@ -24,7 +24,7 @@
 }
 
 .sellerHeader span:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   color: #595959;
   /* cursor: pointer; */
 }
@@ -39,7 +39,7 @@
 }
 
 .sellerHeader h3:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   /* cursor: pointer; */
 }
 
