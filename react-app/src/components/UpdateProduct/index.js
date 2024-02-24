@@ -9,14 +9,13 @@ function UpdateProduct({product}) {
   const history = useHistory();
   const { product_id } = useParams();
   const productToEdit = useSelector((state) => state?.products?.productDetail);
-  const previousPreviewImg = productToEdit?.preview_image_url?.[0];
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [showPreviewImg, setShowPreviewImg] = useState(true);
-  const [previewImgDisplay, setPreviewImgDisplay] = useState("");
-  const [previewImg, setPreviewImg] = useState("");
+  const [previewImgDisplay, setPreviewImgDisplay] = useState(null);
+  const [previewImg, setPreviewImg] = useState(null);
   //   const [extImg1, setExtImg1] = useState("");
   //   const [extImg2, setExtImg2] = useState("");
   //   const [extImg3, setExtImg3] = useState("");
@@ -225,7 +224,7 @@ function UpdateProduct({product}) {
         {showPreviewImg && previewImg && !previewImgDisplay && (
           <div className="preview-img-div">
             <img
-              src={previewImgDisplay}
+              src={previewImg}
               alt="product preview thumbnail"
               style={{
                 width: "100px",
