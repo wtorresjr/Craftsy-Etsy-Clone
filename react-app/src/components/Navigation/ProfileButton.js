@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef}>
             <>
               <div className="profileDropdown">
-                <div
+                {/* <div
                   className="profileDropdownUser"
                   onClick={handleNonFunctioningLinks}
                 >
@@ -69,7 +69,7 @@ function ProfileButton({ user }) {
                     </h4>
                     <p>View your profile</p>
                   </span>
-                </div>
+                </div> */}
                 <div className="dDPartTwo">
                   <NavLink
                     className="purchasesReviews"
