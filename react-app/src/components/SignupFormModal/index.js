@@ -102,7 +102,7 @@ function SignupFormModal() {
 		setFormErrors(errors);
 	}, [formValues, backendErrors])
 
-	console.log('CURRENT BACKEND ERRORS:---', backendErrors)
+	// console.log('CURRENT BACKEND ERRORS:---', backendErrors)
 
 
 	return (

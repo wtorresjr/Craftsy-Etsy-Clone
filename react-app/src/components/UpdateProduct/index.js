@@ -15,8 +15,13 @@ function UpdateProduct({product}) {
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [showPreviewImg, setShowPreviewImg] = useState(true);
-  const [previewImgDisplay, setPreviewImgDisplay] = useState(previousPreviewImg);
-  const [previewImg, setPreviewImg] = useState(null);
+  const [previewImgDisplay, setPreviewImgDisplay] = useState("");
+  const [previewImg, setPreviewImg] = useState("");
+  //   const [extImg1, setExtImg1] = useState("");
+  //   const [extImg2, setExtImg2] = useState("");
+  //   const [extImg3, setExtImg3] = useState("");
+  //   const [extImg4, setExtImg4] = useState("");
+  // const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
 
@@ -56,6 +61,17 @@ function UpdateProduct({product}) {
 
   const errorCollector = {};
   useEffect(() => {
+    // const validImgFormats = [
+    //   ".jpg",
+    //   ".png",
+    //   "jpeg",
+    //   "http:",
+    //   "https",
+    //   "ftp:/",
+    //   "ftps:",
+    // ];
+
+    // const formatError = "Image must be .jpg, .jpeg or .png format.";
     const imageRequired = "Preview image is required.";
     const nameError1 = "Product name must be between 3 and 30 characters long.";
     const nameError2 = "Name must include alphabetic characters";
@@ -209,8 +225,8 @@ function UpdateProduct({product}) {
         {showPreviewImg && previewImg && !previewImgDisplay && (
           <div className="preview-img-div">
             <img
-              src={previewImg}
-              alt="preview"
+              src={previewImgDisplay}
+              alt="product preview thumbnail"
               style={{
                 width: "100px",
                 height: "100px",

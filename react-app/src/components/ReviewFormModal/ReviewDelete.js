@@ -1,12 +1,12 @@
 import './ReviewForm.css';
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { EditReview, deleteReview } from '../../store/reviews'
+// import { useHistory } from 'react-router-dom'
+import { deleteReview } from '../../store/reviews'
 import { useModal } from '../../context/Modal'
 
 function ReviewDeleteModal ({review}) {
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const prodInfo = useSelector(state => state.products.productDetail)
