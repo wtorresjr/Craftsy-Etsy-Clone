@@ -81,10 +81,10 @@ function ProfileButton({ user }) {
                       <p>Purchases and reviews</p>
                     </div>
                   </NavLink>
-                  <div className="messages" onClick={handleNonFunctioningLinks}>
+                  {/* <div className="messages" onClick={handleNonFunctioningLinks}>
                     <i className="far fa-comment-dots"> </i>
                     <p>Messages</p>
-                  </div>
+                  </div> */}
                   <NavLink
                     to="/shop-manager"
                     className="sellerListings"
