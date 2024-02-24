@@ -16,28 +16,28 @@ function ShopManagerPage() {
 
     return (
         <>
-            <div className="manageListingssHeader">
-                <h1>Listings Manager</h1>
-                <button>
-                    <Link to='/create-a-product' className="createListingButton"> <i className="fas fa-plus"></i> Add a listing</Link>
-                </button>
-            </div>
-            <div className="userListings">
-                <div className="productTileContainer">
-                    {allUserProducts && allUserProducts.map(product => {
-                        return <UserListingTile
-                            product={product}
-                            className="productTile"
-                            key={product.id}
-                        />
-                    })
-                    }
+            <div className="manageListingsContainer">
+                <div className="manageListingssHeader">
+                    <h1>Listings Manager</h1>
+                    <button className="createListingButton">
+                        <Link to='/create-a-product' className="createListingButtonLink"> <i className="fas fa-plus"></i> Add a listing</Link>
+                    </button>
                 </div>
-
+                <div className="userListings">
+                    <div className="productTileContainer">
+                        {allUserProducts && allUserProducts.map(product => {
+                            return <UserListingTile
+                                product={product}
+                                className="productTile"
+                                key={product.id}
+                            />
+                        })
+                        }
+                    </div>
+                </div>
             </div>
         </>
     )
-
 }
 
 export default ShopManagerPage;

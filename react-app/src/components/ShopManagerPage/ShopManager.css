@@ -1,0 +1,45 @@
+.manageListingsContainer {
+    margin: 0px 10px;
+}
+
+.manageListingssHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createListingButton {
+    background-color: #54a7c3;
+    border: 1px solid #5093a2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    height: 30px;
+    padding: 5px;
+}
+
+.createListingButtonLink {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.userListings {
+    margin: 20px 0px;
+}
+
+.productTileContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e3e3e5;
+}
+
+@media only screen and (max-width: 600px){
+    .manageListingsContainer {
+        margin: 0px 20px;
+    }
+    .productTileContainer {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #e3e3e5;
+        width: 500px;
+    }
+}

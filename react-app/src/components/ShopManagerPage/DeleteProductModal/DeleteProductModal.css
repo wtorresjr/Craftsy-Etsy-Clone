@@ -1,0 +1,33 @@
+.delete-product-modal-wrapper {
+    width: 500px;
+    height: 175px;
+    margin: 15px 15px;
+}
+
+.delete-product-modal-h1 {
+    font-weight: 100;
+}
+
+.buttons-mgmt-div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.yes-button,
+.no-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.yes-button:hover,
+.no-button:hover {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #000000;
+    color: #FFFFFF;
+}
