@@ -101,9 +101,9 @@ const CartItemTiles = ({
                 })}
               </select>
               <div className="detailButtons">
-                <button onClick={handleNonFunctioningLinks}>
+                {/* <button onClick={handleNonFunctioningLinks}>
                   Save for later
-                </button>
+                </button> */}
                 <button onClick={() => handleDeleteItem(item.id)}>
                   Remove
                 </button>
