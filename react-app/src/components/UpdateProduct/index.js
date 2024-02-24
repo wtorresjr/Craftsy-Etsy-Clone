@@ -21,7 +21,7 @@ function UpdateProduct() {
   //   const [extImg2, setExtImg2] = useState("");
   //   const [extImg3, setExtImg3] = useState("");
   //   const [extImg4, setExtImg4] = useState("");
-  const [extraImgs, setExtraImgs] = useState([]);
+  // const [extraImgs, setExtraImgs] = useState([]);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
 
@@ -63,7 +63,7 @@ function UpdateProduct() {
     //   "ftps:",
     // ];
 
-    const formatError = "Image must be .jpg, .jpeg or .png format.";
+    // const formatError = "Image must be .jpg, .jpeg or .png format.";
     const imageRequired = "Preview image is required.";
     const nameError1 = "Product name must be between 3 and 30 characters long.";
     const nameError2 = "Name must include alphabetic characters";
@@ -250,7 +250,7 @@ function UpdateProduct() {
           <div className="preview-img-div">
             <img
               src={previewImgDisplay}
-              alt="preview image"
+              alt="product preview thumbnail"
               style={{
                 width: "100px",
                 height: "100px",

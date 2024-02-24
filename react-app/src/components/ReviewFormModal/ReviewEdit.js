@@ -178,7 +178,7 @@ function ReviewEditModal ({review}) {
             <div className="review-img-div">
               <img
                 src={image}
-                alt="review image"
+                alt="review product thumbnail"
                 className='review-image-1'
               />
             </div>
@@ -187,7 +187,7 @@ function ReviewEditModal ({review}) {
             <div className="review-img-div">
             <img
               src={reviewImageDisplay}
-              alt="review image"
+              alt="review product thumbnail"
               className='review-image-1'
             />
           </div>

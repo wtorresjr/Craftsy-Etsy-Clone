@@ -89,7 +89,6 @@ function Navigation({ isLoaded }) {
     }
   };
 
-
   const handleClickOutside = (e) => {
     // Check if the click is outside the search bar or dropdown
     const searchBar = document.querySelector(".searchBarSmall");
@@ -125,8 +124,7 @@ function Navigation({ isLoaded }) {
           </div>
           <div className="categoriesDiv" onClick={handleNonFunctioningLinks}>
             {/* <div className="categories" onClick={handleNonFunctioningLinks}> */}
-            <i className="fas fa-bars">
-            </i>
+            <i className="fas fa-bars"></i>
             <span className="catWord"> Categories</span>
             {/* </div> */}
           </div>
@@ -198,7 +196,11 @@ function Navigation({ isLoaded }) {
                   setSearchInput("");
                 }}
               >
-                <img className="search-result-img" src={product.img} />
+                <img
+                  className="search-result-img"
+                  alt={product.name + "preview"}
+                  src={product.img}
+                />
                 <div className="search-name-price-contain">
                   <div>{product.name}</div>
                   <div>${product.price}</div>

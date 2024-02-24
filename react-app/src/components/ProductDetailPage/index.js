@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { getAllProducts, getProductInfo } from "../../store/products";
-import { fetchReviews, fetchReviewById } from "../../store/reviews";
+import { fetchReviewById } from "../../store/reviews";
 import ReviewList from "../ReviewList";
-import ProductTile from "../Product-Components/ProductTile";
+// import ProductTile from "../Product-Components/ProductTile";
 
 import { addItem, editItem } from "../../store/cart";
 
