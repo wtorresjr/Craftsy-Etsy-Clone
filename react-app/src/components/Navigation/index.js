@@ -216,7 +216,7 @@ function Navigation({ isLoaded }) {
               </NavLink>
             </div>
           )}
-          {sessionUser && (
+          {/* {sessionUser && (
             <div className="bellDiv">
               <button className="bell" onClick={handleNonFunctioningLinks}>
                 <i className="far fa-bell">
@@ -225,7 +225,7 @@ function Navigation({ isLoaded }) {
                 </i>
               </button>
             </div>
-          )}
+          )} */}
           {isLoaded && (
             // <div className=''>
             <ProfileButton user={sessionUser} />
