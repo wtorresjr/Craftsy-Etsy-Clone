@@ -9,25 +9,21 @@ function UpdateProduct() {
   const history = useHistory();
   const { product_id } = useParams();
   const productToEdit = useSelector((state) => state?.products?.productDetail);
-
+  const previousPreviewImg = productToEdit.preview_image_url
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [showPreviewImg, setShowPreviewImg] = useState(true);
   const [previewImgDisplay, setPreviewImgDisplay] = useState("");
-  const [previewImg, setPreviewImg] = useState("");
-  //   const [extImg1, setExtImg1] = useState("");
-  //   const [extImg2, setExtImg2] = useState("");
-  //   const [extImg3, setExtImg3] = useState("");
-  //   const [extImg4, setExtImg4] = useState("");
-  const [extraImgs, setExtraImgs] = useState([]);
+  const [previewImg, setPreviewImg] = useState(previousPreviewImg);
   const [errors, setErrors] = useState({});
   const [isDisabled, setDisabled] = useState(true);
+  console.log('previous preview image', previousPreviewImg)
 
   useEffect(() => {
     dispatch(getProductInfo(product_id));
-  }, [product_id]);
+  }, [dispatch, product_id]);
 
   useEffect(() => {
     if (productToEdit) {
@@ -43,27 +39,23 @@ function UpdateProduct() {
       const updatePreviewImage = async (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-          setPreviewImgDisplay(reader.result);
+        if (file) {
+          reader.readAsDataURL(file);
+          reader.onload = (e) => {
+            setPreviewImgDisplay(reader.result);
+          }
+          setPreviewImg(file);
+          setShowPreviewImg(false);
         }
-        setPreviewImg(file);
-        setShowPreviewImg(false);
+        else {
+          setPreviewImg(null);
+          setShowPreviewImg(true);
+          setPreviewImgDisplay(null);
+        }
       }
 
   const errorCollector = {};
   useEffect(() => {
-    // const validImgFormats = [
-    //   ".jpg",
-    //   ".png",
-    //   "jpeg",
-    //   "http:",
-    //   "https",
-    //   "ftp:/",
-    //   "ftps:",
-    // ];
-
-    const formatError = "Image must be .jpg, .jpeg or .png format.";
     const imageRequired = "Preview image is required.";
     const nameError1 = "Product name must be between 3 and 30 characters long.";
     const nameError2 = "Name must include alphabetic characters";
@@ -99,28 +91,7 @@ function UpdateProduct() {
     }
     if (!previewImg) {
       errorCollector.previewImg = imageRequired;
-    // }
-    // if (previewImg.length && previewImg[0].startsWith(" ")) {
-    //   errorCollector.previewImg = whiteSpaceError;
-    // }
-    // if (
-    //   !validImgFormats.includes(previewImg.toString().toLowerCase().slice(-4))
-    // ) {
-    //   errorCollector.wrongFormat = formatError;
     }
-    // if (extImg1 && !validImgFormats.includes(extImg1.slice(-4))) {
-    //   errorCollector.formatImg1 = formatError;
-    // }
-    // if (extImg2 && !validImgFormats.includes(extImg2.slice(-4))) {
-    //   errorCollector.formatImg2 = formatError;
-    // }
-    // if (extImg3 && !validImgFormats.includes(extImg3.slice(-4))) {
-    //   errorCollector.formatImg3 = formatError;
-    // }
-    // if (extImg4 && !validImgFormats.includes(extImg4.slice(-4))) {
-    //   errorCollector.formatImg4 = formatError;
-    // }
-
     setErrors(errorCollector);
     if (Object.keys(errorCollector).length > 0) {
       setDisabled(true);
@@ -133,10 +104,6 @@ function UpdateProduct() {
     price,
     quantity,
     previewImg,
-    // extImg1,
-    // extImg2,
-    // extImg3,
-    // extImg4,
   ]);
 
   const handleSubmit = async (e) => {
@@ -161,15 +128,8 @@ function UpdateProduct() {
           }
         }
       });
-
-    // if (productToEdit?.preview_image_url !== previewImg) {
-    //   const newPrevImg = {
-    //     image_url: previewImg,
-    //     preview: true,
-    //   };
-    //   dispatch(addNewProductImage(product_id, newPrevImg));
-    // }
   };
+
 
   return (
     <div className="createProductContainer">
@@ -236,7 +196,6 @@ function UpdateProduct() {
              name="preview_img"
              accept=".jpeg, .jpg, .png, .webp"
              onChange={updatePreviewImage}
-             required
             />
           </label>
           {errors && errors.previewImg && (
@@ -246,11 +205,11 @@ function UpdateProduct() {
             <p className="errorDiv">{errors.wrongFormat}</p>
           )}
         </li>
-        {!showPreviewImg && (
+        {showPreviewImg && previewImg && !previewImgDisplay && (
           <div className="preview-img-div">
             <img
-              src={previewImgDisplay}
-              alt="preview image"
+              src={previewImg}
+              alt="preview"
               style={{
                 width: "100px",
                 height: "100px",
@@ -264,43 +223,24 @@ function UpdateProduct() {
             </div>
           </div>
         )}
-        {/* <li>
-          <label>
-            Additional Images: (Optional)
-            <input
-              value={extImg1}
-              onChange={(e) => setExtImg1(e.target.value)}
-              type="text"
-            />
-            {errors && errors.formatImg1 && (
-              <p className="errorDiv">{errors.formatImg1}</p>
-            )}
-            <input
-              value={extImg2}
-              onChange={(e) => setExtImg2(e.target.value)}
-              type="text"
-            />
-            {errors && errors.formatImg2 && (
-              <p className="errorDiv">{errors.formatImg2}</p>
-            )}
-            <input
-              value={extImg3}
-              onChange={(e) => setExtImg3(e.target.value)}
-              type="text"
-            />
-            {errors && errors.formatImg3 && (
-              <p className="errorDiv">{errors.formatImg3}</p>
-            )}
-            <input
-              value={extImg4}
-              onChange={(e) => setExtImg4(e.target.value)}
-              type="text"
-            />
-            {errors && errors.formatImg4 && (
-              <p className="errorDiv">{errors.formatImg4}</p>
-            )}
-          </label>
-        </li> */}
+        {!showPreviewImg && previewImg && previewImgDisplay && (
+          <div className="preview-img-div">
+          <img
+            src={previewImgDisplay}
+            alt="preview"
+            style={{
+              width: "100px",
+              height: "100px",
+              border: "1px solid #d4d3d1",
+              padding: "3px",
+              position: "relative"
+            }}
+          />
+          <div style={{position:"relative", bottom:"93%", right:"5.5%"}}>
+            <p className="preview-img-label">Primary</p>
+          </div>
+        </div>
+        )}
         <button className="submitBtn" type="submit" disabled={isDisabled}>
           Update Product
         </button>
