@@ -99,11 +99,11 @@ const Transaction = ({
                 Proceed to checkout
               </button>
             </div>
-            <div className="promoButton">
+            {/* <div className="promoButton">
               <button onClick={handleNonFunctioningLinks}>
                 Apply Craftsy coupon code
               </button>
-            </div>
+            </div> */}
           </div>
         ) : (
           <h3 className="priceLoad">loading...</h3>
