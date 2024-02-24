@@ -52,9 +52,9 @@ function ReviewEditModal ({review}) {
     }
   };
 
-console.log('image to send to backend?', image)
-console.log('image to display on front end?', reviewImageDisplay)
-console.log(console.log('display image?', showReviewImage))
+// console.log('image to send to backend?', image)
+// console.log('image to display on front end?', reviewImageDisplay)
+// console.log(console.log('display image?', showReviewImage))
 
   useEffect(() => {
     if(reviewData.length < 1) {

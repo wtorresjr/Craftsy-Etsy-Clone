@@ -100,7 +100,7 @@ const ReviewList = ({ productId }) => {
         reviewPoints.numbers += 1;
       })}
 
-      {console.log('review:', reviewPoints)}
+      {/* {console.log('review:', reviewPoints)} */}
 
       {/* if user has a review conditions */}
       {sessionUser && sessionUser.id !== currentProduct.user_id && reviewExists === false ? (
