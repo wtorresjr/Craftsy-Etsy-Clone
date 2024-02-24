@@ -95,13 +95,13 @@ function ProfileButton({ user }) {
                   </NavLink>
                 </div>
                 <div className="dDPartThree">
-                  <div
+                  {/* <div
                     className="accountSettings"
                     onClick={handleNonFunctioningLinks}
                   >
                     <i className="fas fa-cog"></i>
                     <p>Account settings</p>
-                  </div>
+                  </div> */}
                   <div className="logOutDiv">
                     <i className="fas fa-sign-out-alt fa-rotate-180"></i>
                     <button onClick={handleLogout} className="logOutButton">
