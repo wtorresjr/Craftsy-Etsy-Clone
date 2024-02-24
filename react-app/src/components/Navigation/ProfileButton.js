@@ -33,9 +33,9 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const handleNonFunctioningLinks = () => {
-    alert("Feature Coming Soon...");
-  };
+  // const handleNonFunctioningLinks = () => {
+  //   alert("Feature Coming Soon...");
+  // };
 
   const handleLogout = async (e) => {
     e.preventDefault();

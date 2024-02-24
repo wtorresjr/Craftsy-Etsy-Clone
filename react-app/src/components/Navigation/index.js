@@ -26,9 +26,9 @@ function Navigation({ isLoaded }) {
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
 
-  const handleNonFunctioningLinks = () => {
-    alert("Feature Coming Soon...");
-  };
+  // const handleNonFunctioningLinks = () => {
+  //   alert("Feature Coming Soon...");
+  // };
 
   const checkLoggedIn = () => {
     if (!sessionUser) {
