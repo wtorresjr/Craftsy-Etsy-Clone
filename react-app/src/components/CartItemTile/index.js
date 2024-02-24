@@ -53,11 +53,12 @@ const CartItemTiles = ({
     <>
       <div className="cartItemCard" key={item.id}>
         <div className="sellerHeader">
-          <h3 onClick={(e) => handleNonFunctioningLinks(e)}>
+          {/* <h3 onClick={(e) => handleNonFunctioningLinks(e)}> */}
+          <h3>
             {productInfoObj[item.id]?.Seller?.first_name}{" "}
             {productInfoObj[item.id]?.Seller?.last_name}
           </h3>
-          <span onClick={handleNonFunctioningLinks}>Contact Shop</span>
+          {/* <span onClick={handleNonFunctioningLinks}>Contact Shop</span> */}
         </div>
 
         <div className="detailContainer">
