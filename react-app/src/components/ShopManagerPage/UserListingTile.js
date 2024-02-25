@@ -11,6 +11,7 @@ function UserListingTile({ product }) {
   const { setModalContent } = useModal();
   const [gearClicked, setGearClicked] = useState(false);
   const listMgmtButtonsRef = useRef();
+  const listMgmtIconRef = useRef();
   const history = useHistory();
 
   const setModal = () => {
@@ -19,14 +20,17 @@ function UserListingTile({ product }) {
 
   const handleGearClicked = () => {
     setGearClicked(!gearClicked)
-  }
+  };
 
   useEffect(() => {
     const handleOutsideRefClick = (e) => {
-      if (listMgmtButtonsRef.current && !listMgmtButtonsRef.current.contains(e.target)) {
-        setGearClicked(false)
-      }
-    }
+      if (
+        listMgmtButtonsRef.current && !listMgmtButtonsRef.current.contains(e.target) && 
+        listMgmtIconRef.current && !listMgmtIconRef.current.contains(e.target)) 
+        {
+        setGearClicked(false);
+        }
+    };
     document.addEventListener('mousedown', handleOutsideRefClick);
   }, []);
 
@@ -49,7 +53,9 @@ function UserListingTile({ product }) {
                 <FontAwesomeIcon 
                   icon={faGear} 
                   style={{cursor:'pointer'}} 
-                  onClick={handleGearClicked}/>
+                  onClick={handleGearClicked}
+                  ref={listMgmtIconRef}
+                  />
                   {gearClicked && (
                   <div className="listingMgmtButtons" ref={listMgmtButtonsRef}>
                       <button className="listingButton" onClick={() => history.push(`/products/${product.id}/edit`)}>Update</button>
