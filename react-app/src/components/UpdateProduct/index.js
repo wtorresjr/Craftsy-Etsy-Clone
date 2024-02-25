@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { editAproduct, getProductInfo } from "../../store/products";
 import "./UpdateProduct.css";
 
-function UpdateProduct({product}) {
+function UpdateProduct({ product }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { product_id } = useParams();
@@ -38,7 +38,6 @@ function UpdateProduct({product}) {
     }
   }, [productToEdit]);
 
-
   // Function to add AWS image
   const updatePreviewImage = async (e) => {
     const file = e.target.files[0];
@@ -47,16 +46,15 @@ function UpdateProduct({product}) {
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         setPreviewImgDisplay(reader.result);
-      }
+      };
       setPreviewImg(file);
       setShowPreviewImg(false);
-    }
-    else {
+    } else {
       setPreviewImg(null);
       setShowPreviewImg(true);
       setPreviewImgDisplay(null);
     }
-  }
+  };
 
   const errorCollector = {};
   useEffect(() => {
@@ -113,13 +111,7 @@ function UpdateProduct({product}) {
     } else {
       setDisabled(false);
     }
-  }, [
-    name,
-    description,
-    price,
-    quantity,
-    previewImg,
-  ]);
+  }, [name, description, price, quantity, previewImg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,7 +119,7 @@ function UpdateProduct({product}) {
     const formData = new FormData();
     formData.append("name", name.trimEnd());
     formData.append("description", description.trimEnd());
-    formData.append("price", price);
+    formData.append("price", price.toString());
     formData.append("quantity", quantity);
     if (previewImg !== null) {
       formData.append("image_url", previewImg);
@@ -146,7 +138,6 @@ function UpdateProduct({product}) {
       });
   };
 
-
   return (
     <div className="createProductContainer">
       <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -158,7 +149,7 @@ function UpdateProduct({product}) {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName((e.target.value).trimStart())}
+              onChange={(e) => setName(e.target.value.trimStart())}
               required
             />
           </label>
@@ -170,7 +161,7 @@ function UpdateProduct({product}) {
             <input
               type="text"
               value={description}
-              onChange={(e) => setDescription((e.target.value).trimStart())}
+              onChange={(e) => setDescription(e.target.value.trimStart())}
               required
             />
           </label>
@@ -181,7 +172,7 @@ function UpdateProduct({product}) {
             Price:
             <input
               type="number"
-              value={price}
+              value={parseFloat(price)}
               onChange={(e) => setPrice(e.target.value)}
               required
               placeholder="example: 19.99"
@@ -207,11 +198,11 @@ function UpdateProduct({product}) {
           <label htmlFor="update-preview-file-upload">
             Preview Image:
             <input
-             type="file"
-             id="update-preview-file-upload"
-             name="preview_img"
-             accept=".jpeg, .jpg, .png, .webp"
-             onChange={updatePreviewImage}
+              type="file"
+              id="update-preview-file-upload"
+              name="preview_img"
+              accept=".jpeg, .jpg, .png, .webp"
+              onChange={updatePreviewImage}
             />
           </label>
           {errors && errors.previewImg && (
@@ -231,31 +222,31 @@ function UpdateProduct({product}) {
                 height: "100px",
                 border: "1px solid #d4d3d1",
                 padding: "3px",
-                position: "relative"
+                position: "relative",
               }}
             />
-            <div style={{position:"relative", bottom:"93%", right:"5.5%"}}>
+            <div style={{ position: "relative", bottom: "93%", right: "5.5%" }}>
               <p className="preview-img-label">Primary</p>
             </div>
           </div>
         )}
         {!showPreviewImg && previewImg && previewImgDisplay && (
           <div className="preview-img-div">
-          <img
-            src={previewImgDisplay}
-            alt="preview"
-            style={{
-              width: "100px",
-              height: "100px",
-              border: "1px solid #d4d3d1",
-              padding: "3px",
-              position: "relative"
-            }}
-          />
-          <div style={{position:"relative", bottom:"93%", right:"5.5%"}}>
-            <p className="preview-img-label">Primary</p>
+            <img
+              src={previewImgDisplay}
+              alt="preview"
+              style={{
+                width: "100px",
+                height: "100px",
+                border: "1px solid #d4d3d1",
+                padding: "3px",
+                position: "relative",
+              }}
+            />
+            <div style={{ position: "relative", bottom: "93%", right: "5.5%" }}>
+              <p className="preview-img-label">Primary</p>
+            </div>
           </div>
-        </div>
         )}
         <button className="submitBtn" type="submit" disabled={isDisabled}>
           Update Product

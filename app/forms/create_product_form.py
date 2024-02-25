@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, FloatField
 from wtforms.validators import DataRequired, Email, ValidationError
 # from flask_wtf.file import FileField, FileAllowed, FileRequired
 # from app.awsS3 import ALLOWED_EXTENSIONS
@@ -32,6 +32,6 @@ def starting_with_spaces(form, field):
 class CreateProductForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), name_length, starting_with_spaces])
     description = StringField('description', validators=[DataRequired(), description_length, starting_with_spaces])
-    price = IntegerField('price', validators=[DataRequired(), price_amount])
+    price = FloatField('price', validators=[DataRequired(), price_amount])
     quantity = IntegerField('quantity', validators=[DataRequired(), quantity_amount])
     # preview_image_url = FileField('preview image url', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
