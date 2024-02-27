@@ -1,6 +1,6 @@
 .Footer-Container {
     width: 100%;
-    border-top: 1px solid grey;
+    border-top: 2px solid #D3D3D3;
     display: flex;
     align-items: center;
     margin: 0 auto;
