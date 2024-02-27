@@ -16,6 +16,7 @@ import CreateProduct from "./components/CreateProduct";
 import ProductDetailPage from "./components/ProductDetailPage";
 import UpdateProduct from "./components/UpdateProduct";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function App() {
           </Route> */}
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
