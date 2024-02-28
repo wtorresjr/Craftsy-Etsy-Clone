@@ -32,7 +32,7 @@ const Transaction = ({
         <div>
           <h2 className="transactionHeader">How you'll pay</h2>
         </div>
-        <div className="paymentOptions">
+        {/* <div className="paymentOptions">
           <label>
             <input type="radio" name="paymentMethod" />
             <i className="fa-brands fa-cc-visa fa-2xl"></i>
@@ -52,7 +52,7 @@ const Transaction = ({
             <input type="radio" name="paymentMethod" />
             <i className="fa-brands fa-cc-apple-pay fa-2xl"></i>
           </label>
-        </div>
+        </div> */}
         {totalPrice > 0 ? (
           <div className="priceCalculationContainer">
             <div className="pricingFirst">
