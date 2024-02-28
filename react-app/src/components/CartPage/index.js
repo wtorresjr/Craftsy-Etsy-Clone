@@ -1,4 +1,3 @@
-
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
@@ -15,77 +14,104 @@ import "./cartpage.css";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const CartPage = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const favoritedProductsArr = useSelector(state => state?.favorite?.allFavorites);
-    const productsArray = useSelector(state => state.products?.allProducts);
-    const cartItemsArray = useSelector(state => state.cart?.allItems);
-    const sessionUser = useSelector(state => state.session?.user);
-    const [favoritedProducts, setFavoritedProducts] = useState(favoritedProductsArr);
-    const [shippingPrice, setShippingPrice] = useState(0);
-    const [itemCount, setItemCount] = useState(-Infinity);
-    const [products, setProducts] = useState([]);
+  const favoritedProductsArr = useSelector(
+    (state) => state?.favorite?.allFavorites
+  );
+  const productsArray = useSelector((state) => state.products?.allProducts);
+  const cartItemsArray = useSelector((state) => state.cart?.allItems);
+  const sessionUser = useSelector((state) => state.session?.user);
+  const [favoritedProducts, setFavoritedProducts] =
+    useState(favoritedProductsArr);
+  const [shippingPrice, setShippingPrice] = useState(0);
+  const [itemCount, setItemCount] = useState(-Infinity);
+  const [products, setProducts] = useState([]);
 
-    const handleNonFunctioningLinks = (e) => {
-        e.preventDefault();
-        const checkbox = e.target;
-        checkbox.checked = !checkbox.checked;
+  const handleNonFunctioningLinks = (e) => {
+    e.preventDefault();
+    const checkbox = e.target;
+    checkbox.checked = !checkbox.checked;
 
-        alert('Feature Coming Soon...')
+    alert("Feature Coming Soon...");
+  };
+
+  useEffect(() => {
+    dispatch(getCart());
+    dispatch(getAllProducts());
+    if (sessionUser) {
+      dispatch(loadCurrUserFavorites());
+    } else {
+      // Set favoritedProducts to an empty array when there is no session user
+      setFavoritedProducts([]);
     }
+    setShippingPrice(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)));
+  }, [dispatch, sessionUser]);
 
-    useEffect(() => {
-        dispatch(getCart());
-        dispatch(getAllProducts());
-        if (sessionUser) {
-            dispatch(loadCurrUserFavorites());
-        } else {
-            // Set favoritedProducts to an empty array when there is no session user
-            setFavoritedProducts([]);
-        }
-        setShippingPrice(parseFloat((Math.random() * (20 - 5) + 5).toFixed(2)))
-    }, [dispatch, sessionUser]);
+  useEffect(() => {
+    setItemCount(cartItemsArray.length);
+    const randomNumber =
+      Math.floor(Math.random() * (productsArray?.length - 5 + 1)) + 5;
+    if (productsArray?.length > 0) {
+      setProducts(productsArray?.slice(randomNumber - 5, randomNumber));
+    }
+  }, [cartItemsArray, productsArray, sessionUser]);
 
-    useEffect(() => {
-        setItemCount(cartItemsArray.length);
-        const randomNumber = Math.floor(Math.random() * (productsArray?.length - 5 + 1)) + 5;
-        if (productsArray?.length > 0) {
-            setProducts(productsArray?.slice(randomNumber - 5, randomNumber));
-        }
-    }, [cartItemsArray, productsArray, sessionUser]);
+  if (!sessionUser) return <Redirect to="/" />;
 
-    if (!sessionUser) return <Redirect to="/" />;
-
-    return (
-        <div className="mainCartContainer">
-            <div className="mainCart">
-                <div className="cartItemTilesContainer">
-                    {cartItemsArray?.length > 0 && sessionUser ? (
-                        <div>
-                            <div>
-                                <h2>{cartItemsArray.length > 0 ? `${cartItemsArray.length} ${cartItemsArray.length === 1 ? 'item' : 'items'} in your cart` : 'Loading...'}</h2>
-                                {cartItemsArray &&
-                                    cartItemsArray.map((item) => {
-                                        return <CartItemTiles key={item.id} item={item} cartItemsArray={cartItemsArray} productsArr={productsArray} shippingPrice={shippingPrice} handleNonFunctioningLinks={handleNonFunctioningLinks}/>;
-                                    })}
-                            </div>
-                        </div>
-                    ) : (
-                        <EmptyCartPage />
-                    )}
-                </div>
-                {itemCount > 0 && sessionUser && (
-                    <div id="transactionCartDisplay">
-                        <Transaction totalItems={cartItemsArray} shippingPrice={shippingPrice} handleNonFunctioningLinks={handleNonFunctioningLinks}/>
-                    </div>
-                )}
+  return (
+    <div className="mainCartContainer">
+      <div className="mainCart">
+        <div className="cartItemTilesContainer">
+          {cartItemsArray?.length > 0 && sessionUser ? (
+            <div>
+              <div>
+                <h2>
+                  {cartItemsArray.length > 0
+                    ? `${cartItemsArray.length} ${
+                        cartItemsArray.length === 1 ? "item" : "items"
+                      } in your cart`
+                    : "Loading..."}
+                </h2>
+                {cartItemsArray &&
+                  cartItemsArray.map((item) => {
+                    return (
+                      <CartItemTiles
+                        key={item.id}
+                        item={item}
+                        cartItemsArray={cartItemsArray}
+                        productsArr={productsArray}
+                        shippingPrice={shippingPrice}
+                        handleNonFunctioningLinks={handleNonFunctioningLinks}
+                      />
+                    );
+                  })}
+              </div>
             </div>
-            <div className="cartRelatedTiles">
-                <h3 className="newProductHeader">Discover new products</h3>
-                <CartRelatedTiles productsArray={products} sessionUser={sessionUser} favoritedProducts={favoritedProducts}/>
-            </div>
+          ) : (
+            <EmptyCartPage />
+          )}
         </div>
-    );
+        {itemCount > 0 && sessionUser && (
+          <div id="transactionCartDisplay">
+            <Transaction
+              totalItems={cartItemsArray}
+              shippingPrice={shippingPrice}
+              handleNonFunctioningLinks={handleNonFunctioningLinks}
+            />
+          </div>
+        )}
+      </div>
+      <div className="cartRelatedTiles">
+        <h3 className="newProductHeader">Discover new products</h3>
+        <CartRelatedTiles
+          productsArray={products}
+          sessionUser={sessionUser}
+          favoritedProducts={favoritedProducts}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default CartPage;

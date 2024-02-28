@@ -26,9 +26,9 @@ function Navigation({ isLoaded }) {
   const cartItemsArray = useSelector((state) => state.cart?.allItems);
   const totalCartItems = cartItemsArray.length;
 
-  const handleNonFunctioningLinks = () => {
-    alert("Feature Coming Soon...");
-  };
+  // const handleNonFunctioningLinks = () => {
+  //   alert("Feature Coming Soon...");
+  // };
 
   const checkLoggedIn = () => {
     if (!sessionUser) {
@@ -89,7 +89,6 @@ function Navigation({ isLoaded }) {
     }
   };
 
-
   const handleClickOutside = (e) => {
     // Check if the click is outside the search bar or dropdown
     const searchBar = document.querySelector(".searchBarSmall");
@@ -123,13 +122,12 @@ function Navigation({ isLoaded }) {
               Craftsy
             </NavLink>
           </div>
-          <div className="categoriesDiv" onClick={handleNonFunctioningLinks}>
+          {/* <div className="categoriesDiv" onClick={handleNonFunctioningLinks}> */}
             {/* <div className="categories" onClick={handleNonFunctioningLinks}> */}
-            <i className="fas fa-bars">
-            </i>
-            <span className="catWord"> Categories</span>
+            {/* <i className="fas fa-bars"></i> */}
+            {/* <span className="catWord"> Categories</span> */}
             {/* </div> */}
-          </div>
+          {/* </div> */}
         </div>
         {!sessionUser && (
           <div className="searchBarBig">
@@ -198,7 +196,11 @@ function Navigation({ isLoaded }) {
                   setSearchInput("");
                 }}
               >
-                <img className="search-result-img" src={product.img} />
+                <img
+                  className="search-result-img"
+                  alt={product.name + "preview"}
+                  src={product.img}
+                />
                 <div className="search-name-price-contain">
                   <div>{product.name}</div>
                   <div>${product.price}</div>
@@ -214,7 +216,7 @@ function Navigation({ isLoaded }) {
               </NavLink>
             </div>
           )}
-          {sessionUser && (
+          {/* {sessionUser && (
             <div className="bellDiv">
               <button className="bell" onClick={handleNonFunctioningLinks}>
                 <i className="far fa-bell">
@@ -223,7 +225,7 @@ function Navigation({ isLoaded }) {
                 </i>
               </button>
             </div>
-          )}
+          )} */}
           {isLoaded && (
             // <div className=''>
             <ProfileButton user={sessionUser} />

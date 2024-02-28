@@ -16,12 +16,12 @@ const removeProductImage = (product) => {
   };
 };
 
-const resetProducts = (products) => {
-  return {
-    type: RESET_PRODUCTS,
-    payload: products,
-  };
-};
+// const resetProducts = (products) => {
+//   return {
+//     type: RESET_PRODUCTS,
+//     payload: products,
+//   };
+// };
 
 const loadProducts = (allFoundProducts) => {
   return {
@@ -53,7 +53,7 @@ const removeProduct = (removedProduct) => {
 
 const addProduct = (productData) => ({
   type: CREATE_PRODUCT,
-  productData
+  productData,
 });
 
 const getProductsByUser = (userProducts) => {
@@ -128,38 +128,46 @@ export const deleteProduct = (product_id) => async (dispatch) => {
 export const addNewProduct = (productData) => async (dispatch) => {
   const response = await fetch("/api/products/", {
     method: "POST",
-    body: productData
+    body: productData,
   });
   if (response.ok) {
     const newProduct = await response.json();
-    dispatch(addProduct(newProduct))
+    dispatch(addProduct(newProduct));
     return newProduct;
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    return errorMessages
+    return errorMessages;
   } else {
-    return { server: "Something went wrong. Please try again" }
+    return { server: "Something went wrong. Please try again" };
   }
 };
 
 //Edit a Product
 
 export const editAproduct = (product_id, editData) => async (dispatch) => {
-    const response = await fetch(`/api/products/${product_id}`, {
-      method: "PUT",
-      body: editData
-    });
-    if (response.ok) {
-      const edited = await response.json();
-      dispatch(editProduct(edited));
-      return edited;
-    } else if (response.status < 500) {
-      const errorMessages = await response.json();
-      return errorMessages
-    } else {
-      return { server: "Something went wrong. Please try again" }
-    }
+  const formData = new FormData();
+
+  for (let [key, value] of editData) {
+    formData.append(key, value);
+  }
+
+  const response = await fetch(`/api/products/${product_id}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if (response.ok) {
+    const edited = await response.json();
+    dispatch(editProduct(edited));
+    return edited;
+  } else if (response.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages;
+  } else {
+    return { server: "Something went wrong. Please try again" };
+  }
 };
+
 
 //Get All Products Created By Current User
 

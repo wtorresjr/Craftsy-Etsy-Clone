@@ -66,7 +66,7 @@ function OrdersCard({orders}) {
                     </div>
                     <div className="Order-Details">
                         <div className="Purchased-Item-Img">
-                            <img src={order.preview_image_url}/>
+                            <img alt={"product preview thumbnail"}src={order.preview_image_url}/>
                         </div>
                         <div className="Add-To-Cart-Card">
                             <div className="Item-Name">

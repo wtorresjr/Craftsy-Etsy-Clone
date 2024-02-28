@@ -65,7 +65,7 @@ const PrintReview = ({ review }) => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
-  let image = "";
+  // let image = "";
   let name = "";
 
   let revImage = "";
@@ -89,18 +89,16 @@ const PrintReview = ({ review }) => {
       <div>
         {revImage &&
           revImage.map((image) => {
-            {
-              return image.image !== " " ? (
-                <img
-                  className="reviewImage"
-                  src={image.image}
-                  key={`review-image-${image.id}`}
-                  alt="Review Image"
-                />
-              ) : (
-                <div key={`no-image-${Date.now()}`}></div>
-              );
-            }
+            return image.image !== " " ? (
+              <img
+                className="reviewImage"
+                src={image.image}
+                key={`review-image-${image.id}`}
+                alt="Product review thumbnail"
+              />
+            ) : (
+              <div key={`no-image-${Date.now()}`}></div>
+            );
           })}
       </div>
       <div>

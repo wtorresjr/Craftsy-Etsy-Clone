@@ -49,7 +49,7 @@ export const getCart = () => async (dispatch) => {
 
 
 export const addItem = (itemData, cartId) => async (dispatch) => {
-    console.log(itemData)
+    // console.log(itemData)
     try {
         const options = {
             method: 'POST',
