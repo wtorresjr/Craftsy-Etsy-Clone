@@ -45,27 +45,30 @@ _Craftsy_ is an [_Etsy_](https://www.etsy.com/) clone, an app designed to connec
 
 ### Sign up
 
-<img width="1728" alt="signup" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/25c4c736-3e76-4f09-adf5-edffcebf0cef">
+<img width="1715" alt="sign-up" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/92bbdec6-267c-4f91-bc8f-182424464696">
 
 ### Homepage
 
-<img width="1728" alt="homepage" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/ae330cbc-f704-43c7-9a7f-3e43eb45dff2">
+<img width="1715" alt="homepage" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/bc99b60f-6939-4bf7-b4ee-033af1ab1321">
+
 
 ### Search
 
-<img width="1728" alt="search" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/1ebce6eb-b8f7-47e0-8bb2-ddf73312aec1">
+<img width="1715" alt="search" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/d98e6843-4ef1-4e01-a8d5-1c950238747f">
+
 
 ### Product detail
 
-<img width="1728" alt="product-detail" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/0f99ccbc-5214-4d85-8fbc-d140c22836fb">
+<img width="1715" alt="product-detail" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/531e973d-7acc-42af-9032-30fc820b30d9">
+
 
 ### Favorites
 
-<img width="1728" alt="favorites" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/4f50776e-dce5-4952-9e65-ecfcce545ea4">
+<img width="1715" alt="favorites" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/e4813561-e9a0-4af9-b2a1-657bd948369b">
 
 ### Cart
 
-<img width="1728" alt="cart" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/40e48af6-9dc0-4d59-bb54-83b8b22a4e67">
+<img width="1715" alt="cart" src="https://github.com/wtorresjr/Craftsy-Etsy-Clone/assets/121524927/e88dacb1-c1a7-4dfc-8aa7-d572fe3985aa">
 
 
 <h2 id="getting-started-section">Getting Started</h2>
