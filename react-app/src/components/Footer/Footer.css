@@ -3,9 +3,10 @@
     border-top: 2px solid #D3D3D3;
     display: flex;
     align-items: center;
-    margin: 0 auto;
     justify-content: center;
-    margin-top: 75px;
+    height: 70px;
+    background-color: white;
+    margin-top: 85px; 
 }
 
 .Footer-Left {
