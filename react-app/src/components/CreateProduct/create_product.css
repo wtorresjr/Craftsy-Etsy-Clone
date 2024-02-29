@@ -4,7 +4,7 @@
   width: 100%;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  position: absolute;
+  position: relative;
 }
 
 .createProductContainer h1 {
@@ -17,6 +17,7 @@ form {
   justify-content: center;
   width: 100%;
   max-width: 480px;
+  margin-top: 50px;
 }
 
 li {
