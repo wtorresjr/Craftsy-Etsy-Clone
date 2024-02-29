@@ -1,1 +1,15 @@
 /* TODO Add site wide styles */
+html,
+body {
+  height: 100%;
+}
+#root {
+  padding-bottom: 200px;
+  padding-top: 100px;
+}
+
+@media only screen and (max-width: 800px) {
+  #root {
+    padding-top: 250px;
+  }
+}
